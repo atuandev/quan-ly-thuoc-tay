@@ -24,7 +24,7 @@ public class HoaDonPage extends javax.swing.JPanel {
     }
 
     private void headerLayout() {
-        headerPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 99");
+        headerPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 80");
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -76,6 +76,7 @@ public class HoaDonPage extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        jTable1.setFocusable(false);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);

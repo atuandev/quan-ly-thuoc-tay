@@ -4,22 +4,23 @@
  */
 package gui;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import gui.panel.HoaDonPage;
 import gui.panel.SanPhamPage;
+import gui.panel.ThuocTinhPage;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ButtonModel;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import utils.MessageDialog;
 
 /**
@@ -30,20 +31,16 @@ public class MainLayout extends javax.swing.JFrame {
 
     private SanPhamPage sanPham;
     private HoaDonPage hoaDon;
+    private ThuocTinhPage thuocTinh;
 
-    private List<JPanel> listItem;
+    private List<JButton> listItem;
 
-    Color ACTIVE_BACKGROUND_COLOR = new Color(134, 222, 222);
+    Color ACTIVE_BACKGROUND_COLOR = new Color(195, 240, 235);
 
     public MainLayout() {
         initComponents();
         initFlatLaf();
         sideBarLayout();
-        this.setTitle("Hệ thống quản lý hiệu thuốc tây ");
-
-        // Default content
-        sanPham = new SanPhamPage();
-        mainContent.add(sanPham).setVisible(true);
     }
 
     public void setPanel(JPanel pn) {
@@ -60,17 +57,13 @@ public class MainLayout extends javax.swing.JFrame {
         FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
-        UIManager.put("Table.showVerticalLines", false);
-        UIManager.put("Table.showHorizontalLines", true);
         UIManager.put("TextComponent.arc", 5);
         UIManager.put("ScrollBar.thumbArc", 999);
         UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
-        UIManager.put("Button.iconTextGap", 10);
-        UIManager.put("PasswordField.showRevealButton", true);
-        UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
-        UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
         UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
         UIManager.put("Table.rowHeight", 40);
+        UIManager.put("Table.showVerticalLines", false);
+        UIManager.put("Table.showHorizontalLines", true);
         UIManager.put("TabbedPane.selectedBackground", Color.white);
         UIManager.put("TableHeader.height", 40);
         UIManager.put("TableHeader.font", UIManager.getFont("h4.font"));
@@ -80,56 +73,39 @@ public class MainLayout extends javax.swing.JFrame {
     }
 
     private void sideBarLayout() {
-        // Border radius
-        sanPhamItem.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        thuocTinhItem.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        hoaDonItem.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-
         // Add list item Sidebar
         listItem = new ArrayList<>();
         listItem.add(sanPhamItem);
         listItem.add(thuocTinhItem);
         listItem.add(hoaDonItem);
+        listItem.add(nhanVienItem);
 
+        // Default content
+        sanPham = new SanPhamPage();
+        mainContent.add(sanPham).setVisible(true);
+
+        // Default selected
+        listItem.get(0).setSelected(true);
         listItem.get(0).setBackground(ACTIVE_BACKGROUND_COLOR);
 
         // Set active item
-        for (JPanel item : listItem) {
-            item.addMouseListener(new MouseAdapter() {
+        for (JButton item : listItem) {
+            item.getModel().addChangeListener(new ChangeListener() {
                 @Override
-                public void mousePressed(MouseEvent evt) {
-                    resetActive();
-                    item.setBackground(ACTIVE_BACKGROUND_COLOR);
-                }
-            });
-        }
+                public void stateChanged(ChangeEvent e) {
+                    ButtonModel model = (ButtonModel) e.getSource();
 
-        for (JPanel item : listItem) {
-            item.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    if (!(item.getBackground() == ACTIVE_BACKGROUND_COLOR)) {
-                        item.setBackground(new Color(235, 237, 240));
+                    if (model.isSelected()) {
+                        item.setBackground(ACTIVE_BACKGROUND_COLOR); // Change color when selected
                     }
                 }
             });
         }
-
-        for (JPanel item : listItem) {
-            item.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    if (!(item.getBackground() == ACTIVE_BACKGROUND_COLOR)) {
-                        item.setBackground(new Color(255, 255, 255));
-                    }
-                }
-            });
-        }
-
     }
 
     private void resetActive() {
-        for (JPanel item : listItem) {
+        for (JButton item : listItem) {
+            item.setSelected(false);
             item.setBackground(Color.WHITE);
         }
     }
@@ -141,16 +117,12 @@ public class MainLayout extends javax.swing.JFrame {
         leftContent = new javax.swing.JPanel();
         sidebarPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        sanPhamItem = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        thuocTinhItem = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        hoaDonItem = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        sanPhamItem = new javax.swing.JButton();
+        thuocTinhItem = new javax.swing.JButton();
+        hoaDonItem = new javax.swing.JButton();
+        nhanVienItem = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
         logoutItem = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -163,6 +135,7 @@ public class MainLayout extends javax.swing.JFrame {
         mainContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hệ thống quản lý hiệu thuốc tây");
         setPreferredSize(new java.awt.Dimension(1400, 800));
 
         leftContent.setBackground(new java.awt.Color(230, 245, 245));
@@ -176,77 +149,77 @@ public class MainLayout extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 10, true));
 
-        sanPhamItem.setBackground(new java.awt.Color(255, 255, 255));
+        sanPhamItem.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        sanPhamItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/pills.png"))); // NOI18N
+        sanPhamItem.setText("Thuốc");
+        sanPhamItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
         sanPhamItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sanPhamItem.setFocusable(false);
+        sanPhamItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        sanPhamItem.setIconTextGap(16);
         sanPhamItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        sanPhamItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sanPhamItemMouseClicked(evt);
+        sanPhamItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sanPhamItemActionPerformed(evt);
             }
         });
-        sanPhamItem.setLayout(new java.awt.BorderLayout());
-
-        jLabel2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Thuốc");
-        jLabel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        jLabel2.setFocusable(false);
-        sanPhamItem.add(jLabel2, java.awt.BorderLayout.CENTER);
-
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/pills.png"))); // NOI18N
-        jLabel8.setFocusable(false);
-        jLabel8.setPreferredSize(new java.awt.Dimension(60, 32));
-        sanPhamItem.add(jLabel8, java.awt.BorderLayout.LINE_START);
-
         jPanel3.add(sanPhamItem);
 
-        thuocTinhItem.setBackground(new java.awt.Color(255, 255, 255));
+        thuocTinhItem.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        thuocTinhItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/product.png"))); // NOI18N
+        thuocTinhItem.setText("Thuộc tính");
+        thuocTinhItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
         thuocTinhItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        thuocTinhItem.setFocusable(false);
+        thuocTinhItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        thuocTinhItem.setIconTextGap(16);
         thuocTinhItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        thuocTinhItem.setLayout(new java.awt.BorderLayout());
-
-        jLabel5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Thuộc tính");
-        jLabel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        thuocTinhItem.add(jLabel5, java.awt.BorderLayout.CENTER);
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/product.png"))); // NOI18N
-        jLabel3.setPreferredSize(new java.awt.Dimension(60, 32));
-        thuocTinhItem.add(jLabel3, java.awt.BorderLayout.LINE_START);
-
-        jPanel3.add(thuocTinhItem);
-
-        hoaDonItem.setBackground(new java.awt.Color(255, 255, 255));
-        hoaDonItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hoaDonItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        hoaDonItem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                hoaDonItemMouseClicked(evt);
+        thuocTinhItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thuocTinhItemActionPerformed(evt);
             }
         });
-        hoaDonItem.setLayout(new java.awt.BorderLayout());
+        jPanel3.add(thuocTinhItem);
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/bill.png"))); // NOI18N
-        jLabel4.setPreferredSize(new java.awt.Dimension(60, 32));
-        hoaDonItem.add(jLabel4, java.awt.BorderLayout.LINE_START);
-
-        jLabel7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Hóa đơn");
-        jLabel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
-        hoaDonItem.add(jLabel7, java.awt.BorderLayout.CENTER);
-
+        hoaDonItem.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        hoaDonItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/bill.png"))); // NOI18N
+        hoaDonItem.setText("Hóa đơn");
+        hoaDonItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        hoaDonItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        hoaDonItem.setFocusable(false);
+        hoaDonItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        hoaDonItem.setIconTextGap(16);
+        hoaDonItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        hoaDonItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hoaDonItemActionPerformed(evt);
+            }
+        });
         jPanel3.add(hoaDonItem);
+
+        nhanVienItem.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        nhanVienItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/employee.png"))); // NOI18N
+        nhanVienItem.setText("Nhân viên");
+        nhanVienItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        nhanVienItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        nhanVienItem.setFocusable(false);
+        nhanVienItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        nhanVienItem.setIconTextGap(16);
+        nhanVienItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        nhanVienItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nhanVienItemActionPerformed(evt);
+            }
+        });
+        jPanel3.add(nhanVienItem);
 
         sidebarPanel.add(jPanel3, java.awt.BorderLayout.CENTER);
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 10, true));
-        jPanel5.setPreferredSize(new java.awt.Dimension(246, 60));
-        jPanel5.setLayout(new java.awt.BorderLayout());
+        jPanel5.setPreferredSize(new java.awt.Dimension(246, 80));
+        jPanel5.setLayout(new java.awt.BorderLayout(0, 10));
+        jPanel5.add(jSeparator1, java.awt.BorderLayout.PAGE_START);
 
         logoutItem.setBackground(new java.awt.Color(255, 255, 255));
         logoutItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -349,47 +322,57 @@ public class MainLayout extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sanPhamItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sanPhamItemMouseClicked
-        sanPham = new SanPhamPage();
-        this.setPanel(sanPham);
-    }//GEN-LAST:event_sanPhamItemMouseClicked
-
-    private void hoaDonItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hoaDonItemMouseClicked
-        hoaDon = new HoaDonPage();
-        this.setPanel(hoaDon);
-    }//GEN-LAST:event_hoaDonItemMouseClicked
-
     private void logoutItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutItemMouseClicked
         if (MessageDialog.confirm(this, "Bạn có chắc chắn muốn đăng xuất không?", "Đăng xuẩt")) {
             this.dispose();
-            LoginGUI login = new LoginGUI();
-            login.setVisible(true);
+            new Login().setVisible(true);
         }
     }//GEN-LAST:event_logoutItemMouseClicked
 
+    private void sanPhamItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sanPhamItemActionPerformed
+        sanPham = new SanPhamPage();
+        this.setPanel(sanPham);
+        resetActive();
+        sanPhamItem.setSelected(true);
+    }//GEN-LAST:event_sanPhamItemActionPerformed
+
+    private void thuocTinhItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thuocTinhItemActionPerformed
+        thuocTinh = new ThuocTinhPage();
+        this.setPanel(thuocTinh);
+        resetActive();
+        thuocTinhItem.setSelected(true);
+    }//GEN-LAST:event_thuocTinhItemActionPerformed
+
+    private void hoaDonItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hoaDonItemActionPerformed
+        hoaDon = new HoaDonPage();
+        this.setPanel(hoaDon);
+        resetActive();
+        hoaDonItem.setSelected(true);
+    }//GEN-LAST:event_hoaDonItemActionPerformed
+
+    private void nhanVienItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhanVienItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nhanVienItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel hoaDonItem;
+    private javax.swing.JButton hoaDonItem;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel leftContent;
     private javax.swing.JPanel logoutItem;
     private javax.swing.JPanel mainContent;
-    private javax.swing.JPanel sanPhamItem;
+    private javax.swing.JButton nhanVienItem;
+    private javax.swing.JButton sanPhamItem;
     private javax.swing.JPanel sidebarPanel;
-    private javax.swing.JPanel thuocTinhItem;
+    private javax.swing.JButton thuocTinhItem;
     private javax.swing.JLabel txtFullName;
     private javax.swing.JLabel txtRole;
     // End of variables declaration//GEN-END:variables

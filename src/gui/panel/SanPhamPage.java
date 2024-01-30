@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui.panel;
 
 import com.formdev.flatlaf.FlatClientProperties;
@@ -9,7 +5,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 
 /**
  *
- * @author HP
+ * @author atuandev
  */
 public class SanPhamPage extends javax.swing.JPanel {
 
@@ -21,7 +17,7 @@ public class SanPhamPage extends javax.swing.JPanel {
     }
 
     private void headerLayout() {
-        headerPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 99");
+        headerPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 80");
     }
 
     @SuppressWarnings("unchecked")
@@ -31,7 +27,7 @@ public class SanPhamPage extends javax.swing.JPanel {
         headerPanel = new javax.swing.JPanel();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(230, 245, 245));
         setMinimumSize(new java.awt.Dimension(1130, 800));
@@ -58,7 +54,7 @@ public class SanPhamPage extends javax.swing.JPanel {
         tablePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 245, 245), 10));
         tablePanel.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"ád", "ấdasd", "ád", "ádasd"},
                 {"ádasd", "zxcxzc", "qưeqwe", "qưeqw"},
@@ -84,8 +80,15 @@ public class SanPhamPage extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setFocusable(false);
-        jScrollPane1.setViewportView(jTable1);
+        table.setFocusable(false);
+        table.setRowHeight(40);
+        jScrollPane1.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(0).setHeaderValue("Title 1");
+            table.getColumnModel().getColumn(1).setHeaderValue("Title 2");
+            table.getColumnModel().getColumn(2).setHeaderValue("Title 3");
+            table.getColumnModel().getColumn(3).setHeaderValue("Title 4");
+        }
 
         tablePanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -96,7 +99,7 @@ public class SanPhamPage extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel headerPanel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable table;
     private javax.swing.JPanel tablePanel;
     // End of variables declaration//GEN-END:variables
 }
