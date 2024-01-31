@@ -1,6 +1,6 @@
 # IUH - Đại học Công nghiệp Thành phố Hồ Chí Minh
 ## Môn: Phát triển ứng dụng
-Đề tài: **Quản lý Hiệu Thuốc tây**
+## Đề tài: **Quản lý Hiệu Thuốc tây**
 >Ý tưởng thiết kế UI: [Quản lý kho điện thoại](https://github.com/hgbaodev/QuanLyKhoDienThoai)
 ## Tech
 - Java
