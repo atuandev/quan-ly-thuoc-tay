@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -25,7 +21,7 @@ import utils.MessageDialog;
 
 /**
  *
- * @author HP
+ * @author atuandev
  */
 public class MainLayout extends javax.swing.JFrame {
 
@@ -149,7 +145,7 @@ public class MainLayout extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 10, true));
 
-        sanPhamItem.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        sanPhamItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         sanPhamItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/pills.png"))); // NOI18N
         sanPhamItem.setText("Thuốc");
         sanPhamItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -165,7 +161,7 @@ public class MainLayout extends javax.swing.JFrame {
         });
         jPanel3.add(sanPhamItem);
 
-        thuocTinhItem.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        thuocTinhItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         thuocTinhItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/product.png"))); // NOI18N
         thuocTinhItem.setText("Thuộc tính");
         thuocTinhItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -181,7 +177,7 @@ public class MainLayout extends javax.swing.JFrame {
         });
         jPanel3.add(thuocTinhItem);
 
-        hoaDonItem.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        hoaDonItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         hoaDonItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/bill.png"))); // NOI18N
         hoaDonItem.setText("Hóa đơn");
         hoaDonItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
@@ -197,7 +193,7 @@ public class MainLayout extends javax.swing.JFrame {
         });
         jPanel3.add(hoaDonItem);
 
-        nhanVienItem.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        nhanVienItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         nhanVienItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/employee.png"))); // NOI18N
         nhanVienItem.setText("Nhân viên");
         nhanVienItem.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));

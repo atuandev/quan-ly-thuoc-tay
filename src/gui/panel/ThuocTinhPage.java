@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui.panel;
 
 import com.formdev.flatlaf.FlatClientProperties;
@@ -12,7 +8,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author HP
+ * @author atuandev
  */
 public class ThuocTinhPage extends javax.swing.JPanel {
     
