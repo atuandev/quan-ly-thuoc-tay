@@ -2,12 +2,18 @@ package gui.panel;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
 
 /**
  *
  * @author atuandev
  */
 public class SanPhamPage extends javax.swing.JPanel {
+
+    private List<JButton> listButton;
 
     public SanPhamPage() {
         initComponents();
@@ -17,7 +23,22 @@ public class SanPhamPage extends javax.swing.JPanel {
     }
 
     private void headerLayout() {
-        headerPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 80");
+        listButton = new ArrayList<>();
+        listButton.add(btnAdd);
+        listButton.add(btnUpdate);
+        listButton.add(btnDelete);
+        listButton.add(btnInfo);
+        listButton.add(btnImport);
+        listButton.add(btnExport);
+        
+        // Border radius
+        for (JButton item : listButton) {
+            item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
+        }
+        headerPanel.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
+        
+        txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
+        txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,15 +76,14 @@ public class SanPhamPage extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(584, 40));
-        jPanel3.setLayout(new java.awt.BorderLayout(10, 0));
+        jPanel3.setLayout(new java.awt.BorderLayout(6, 0));
 
         txtSearch.setToolTipText("Tìm kiếm");
-        txtSearch.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto", 0, 12), new java.awt.Color(153, 153, 153))); // NOI18N
         txtSearch.setPreferredSize(new java.awt.Dimension(80, 40));
         txtSearch.setSelectionColor(new java.awt.Color(230, 245, 245));
         jPanel3.add(txtSearch, java.awt.BorderLayout.CENTER);
 
-        btnReload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/reload.png"))); // NOI18N
+        btnReload.setIcon(new FlatSVGIcon("./icon/reload.svg"));
         btnReload.setToolTipText("Làm mới");
         btnReload.setBorder(null);
         btnReload.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -71,7 +91,7 @@ public class SanPhamPage extends javax.swing.JPanel {
         btnReload.setPreferredSize(new java.awt.Dimension(40, 40));
         jPanel3.add(btnReload, java.awt.BorderLayout.EAST);
 
-        cboxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm theo", "Mã", "Tên", "Giá" }));
         cboxSearch.setToolTipText("");
         cboxSearch.setPreferredSize(new java.awt.Dimension(120, 26));
         jPanel3.add(cboxSearch, java.awt.BorderLayout.LINE_START);
@@ -81,7 +101,7 @@ public class SanPhamPage extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
+                .addContainerGap(136, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -96,65 +116,78 @@ public class SanPhamPage extends javax.swing.JPanel {
         headerPanel.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         actionPanel.setBackground(new java.awt.Color(255, 255, 255));
-        actionPanel.setPreferredSize(new java.awt.Dimension(520, 100));
+        actionPanel.setPreferredSize(new java.awt.Dimension(560, 100));
+        actionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 5));
 
         btnAdd.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add.png"))); // NOI18N
+        btnAdd.setIcon(new FlatSVGIcon("./icon/add.svg"));
         btnAdd.setText("THÊM");
         btnAdd.setBorder(null);
+        btnAdd.setBorderPainted(false);
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdd.setFocusPainted(false);
         btnAdd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAdd.setPreferredSize(new java.awt.Dimension(80, 90));
+        btnAdd.setPreferredSize(new java.awt.Dimension(90, 90));
         btnAdd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         actionPanel.add(btnAdd);
 
         btnUpdate.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
+        btnUpdate.setIcon(new FlatSVGIcon("./icon/update.svg"));
         btnUpdate.setText("SỬA");
         btnUpdate.setBorder(null);
+        btnUpdate.setBorderPainted(false);
         btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUpdate.setFocusPainted(false);
         btnUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUpdate.setPreferredSize(new java.awt.Dimension(80, 90));
+        btnUpdate.setPreferredSize(new java.awt.Dimension(90, 90));
         btnUpdate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         actionPanel.add(btnUpdate);
 
         btnDelete.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/delete.png"))); // NOI18N
+        btnDelete.setIcon(new FlatSVGIcon("./icon/delete.svg"));
         btnDelete.setText("XÓA");
         btnDelete.setBorder(null);
+        btnDelete.setBorderPainted(false);
         btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelete.setFocusPainted(false);
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDelete.setPreferredSize(new java.awt.Dimension(80, 90));
+        btnDelete.setPreferredSize(new java.awt.Dimension(90, 90));
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         actionPanel.add(btnDelete);
 
         btnInfo.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/info-detail.png"))); // NOI18N
-        btnInfo.setText("CHI TIẾT");
+        btnInfo.setIcon(new FlatSVGIcon("./icon/info.svg"));
+        btnInfo.setText("INFO");
         btnInfo.setBorder(null);
+        btnInfo.setBorderPainted(false);
         btnInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInfo.setFocusPainted(false);
         btnInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnInfo.setPreferredSize(new java.awt.Dimension(80, 90));
+        btnInfo.setPreferredSize(new java.awt.Dimension(90, 90));
         btnInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         actionPanel.add(btnInfo);
 
         btnImport.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/import.png"))); // NOI18N
+        btnImport.setIcon(new FlatSVGIcon("./icon/import.svg"));
         btnImport.setText("IMPORT");
         btnImport.setBorder(null);
+        btnImport.setBorderPainted(false);
         btnImport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImport.setFocusPainted(false);
         btnImport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnImport.setPreferredSize(new java.awt.Dimension(80, 90));
+        btnImport.setPreferredSize(new java.awt.Dimension(90, 90));
         btnImport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         actionPanel.add(btnImport);
 
         btnExport.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/export.png"))); // NOI18N
+        btnExport.setIcon(new FlatSVGIcon("./icon/export.svg"));
         btnExport.setText("EXPORT");
         btnExport.setBorder(null);
+        btnExport.setBorderPainted(false);
         btnExport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExport.setFocusPainted(false);
         btnExport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExport.setPreferredSize(new java.awt.Dimension(80, 90));
+        btnExport.setPreferredSize(new java.awt.Dimension(90, 90));
         btnExport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         actionPanel.add(btnExport);
 
@@ -168,25 +201,18 @@ public class SanPhamPage extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"00022268", "Thuốc Paralmax Extra 500mg/65mg",  new Integer(12),  new Double(55000.0), " Thuốc giảm đau (không opioid) & hạ sốt", "Viên", "Việt Nam "}
             },
             new String [] {
-                "Mã thuốc", "Tên thuốc", "Title 3", "Title 4"
+                "Mã thuốc", "Tên thuốc", "Số lượng tồn", "Đơn giá", "Danh mục", "Đơn vị tính", "Xuất xứ"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         table.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

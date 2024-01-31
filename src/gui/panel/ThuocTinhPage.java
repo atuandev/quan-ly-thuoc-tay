@@ -2,9 +2,10 @@ package gui.panel;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JPanel;
+import javax.swing.JButton;
 
 /**
  *
@@ -12,7 +13,7 @@ import javax.swing.JPanel;
  */
 public class ThuocTinhPage extends javax.swing.JPanel {
     
-    List<JPanel> listItem;
+    List<JButton> listItem;
 
     public ThuocTinhPage() {
         initComponents();
@@ -24,13 +25,14 @@ public class ThuocTinhPage extends javax.swing.JPanel {
     private void initLayout() {
         listItem = new ArrayList<>();
         listItem.add(danhMucItem);
-        listItem.add(donViDoItem);
-        listItem.add(xuatXuItem);
+        listItem.add(donViTinhItem);
+        listItem.add(dangBaoCheItem);
         listItem.add(nhaSanXuatItem);
-        listItem.add(jPanel5);
-        listItem.add(jPanel6);
+        listItem.add(xuatXuItem);
+        listItem.add(jButton6);
         
-        for (JPanel item : listItem) {
+        // Border radius
+        for (JButton item : listItem) {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
     }
@@ -40,12 +42,12 @@ public class ThuocTinhPage extends javax.swing.JPanel {
     private void initComponents() {
 
         tablePanel = new javax.swing.JPanel();
-        danhMucItem = new javax.swing.JPanel();
-        donViDoItem = new javax.swing.JPanel();
-        xuatXuItem = new javax.swing.JPanel();
-        nhaSanXuatItem = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        danhMucItem = new javax.swing.JButton();
+        donViTinhItem = new javax.swing.JButton();
+        dangBaoCheItem = new javax.swing.JButton();
+        nhaSanXuatItem = new javax.swing.JButton();
+        xuatXuItem = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(230, 245, 245));
         setMinimumSize(new java.awt.Dimension(1130, 800));
@@ -54,115 +56,89 @@ public class ThuocTinhPage extends javax.swing.JPanel {
 
         tablePanel.setBackground(new java.awt.Color(230, 245, 245));
         tablePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 245, 245), 40));
+        tablePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tablePanel.setLayout(new java.awt.GridLayout(3, 4, 20, 20));
 
-        danhMucItem.setBackground(new java.awt.Color(255, 255, 255));
-        danhMucItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout danhMucItemLayout = new javax.swing.GroupLayout(danhMucItem);
-        danhMucItem.setLayout(danhMucItemLayout);
-        danhMucItemLayout.setHorizontalGroup(
-            danhMucItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
-        );
-        danhMucItemLayout.setVerticalGroup(
-            danhMucItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 226, Short.MAX_VALUE)
-        );
-
+        danhMucItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
+        danhMucItem.setForeground(new java.awt.Color(51, 51, 51));
+        danhMucItem.setIcon(new FlatSVGIcon("./icon/category.svg"));
+        danhMucItem.setText("DANH MỤC THUỐC");
+        danhMucItem.setBorder(null);
+        danhMucItem.setBorderPainted(false);
+        danhMucItem.setFocusPainted(false);
+        danhMucItem.setIconTextGap(16);
+        danhMucItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                danhMucItemActionPerformed(evt);
+            }
+        });
         tablePanel.add(danhMucItem);
 
-        donViDoItem.setBackground(new java.awt.Color(255, 255, 255));
-        donViDoItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        donViTinhItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
+        donViTinhItem.setForeground(new java.awt.Color(51, 51, 51));
+        donViTinhItem.setIcon(new FlatSVGIcon("./icon/unit.svg"));
+        donViTinhItem.setText("ĐƠN VỊ TÍNH");
+        donViTinhItem.setBorder(null);
+        donViTinhItem.setBorderPainted(false);
+        donViTinhItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        donViTinhItem.setFocusPainted(false);
+        donViTinhItem.setIconTextGap(16);
+        tablePanel.add(donViTinhItem);
 
-        javax.swing.GroupLayout donViDoItemLayout = new javax.swing.GroupLayout(donViDoItem);
-        donViDoItem.setLayout(donViDoItemLayout);
-        donViDoItemLayout.setHorizontalGroup(
-            donViDoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
-        );
-        donViDoItemLayout.setVerticalGroup(
-            donViDoItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 226, Short.MAX_VALUE)
-        );
+        dangBaoCheItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
+        dangBaoCheItem.setForeground(new java.awt.Color(51, 51, 51));
+        dangBaoCheItem.setIcon(new FlatSVGIcon("./icon/pills.svg"));
+        dangBaoCheItem.setText("DẠNG BÀO CHẾ");
+        dangBaoCheItem.setBorder(null);
+        dangBaoCheItem.setBorderPainted(false);
+        dangBaoCheItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dangBaoCheItem.setFocusPainted(false);
+        dangBaoCheItem.setIconTextGap(16);
+        tablePanel.add(dangBaoCheItem);
 
-        tablePanel.add(donViDoItem);
-
-        xuatXuItem.setBackground(new java.awt.Color(255, 255, 255));
-        xuatXuItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout xuatXuItemLayout = new javax.swing.GroupLayout(xuatXuItem);
-        xuatXuItem.setLayout(xuatXuItemLayout);
-        xuatXuItemLayout.setHorizontalGroup(
-            xuatXuItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
-        );
-        xuatXuItemLayout.setVerticalGroup(
-            xuatXuItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 226, Short.MAX_VALUE)
-        );
-
-        tablePanel.add(xuatXuItem);
-
-        nhaSanXuatItem.setBackground(new java.awt.Color(255, 255, 255));
-        nhaSanXuatItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout nhaSanXuatItemLayout = new javax.swing.GroupLayout(nhaSanXuatItem);
-        nhaSanXuatItem.setLayout(nhaSanXuatItemLayout);
-        nhaSanXuatItemLayout.setHorizontalGroup(
-            nhaSanXuatItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
-        );
-        nhaSanXuatItemLayout.setVerticalGroup(
-            nhaSanXuatItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 226, Short.MAX_VALUE)
-        );
-
+        nhaSanXuatItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
+        nhaSanXuatItem.setForeground(new java.awt.Color(51, 51, 51));
+        nhaSanXuatItem.setIcon(new FlatSVGIcon("./icon/factory.svg"));
+        nhaSanXuatItem.setText("NHÀ SẢN XUẤT");
+        nhaSanXuatItem.setBorder(null);
+        nhaSanXuatItem.setBorderPainted(false);
+        nhaSanXuatItem.setFocusPainted(false);
+        nhaSanXuatItem.setIconTextGap(16);
         tablePanel.add(nhaSanXuatItem);
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        xuatXuItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
+        xuatXuItem.setForeground(new java.awt.Color(51, 51, 51));
+        xuatXuItem.setIcon(new FlatSVGIcon("./icon/map.svg"));
+        xuatXuItem.setText("XUẤT XỨ");
+        xuatXuItem.setBorder(null);
+        xuatXuItem.setBorderPainted(false);
+        xuatXuItem.setFocusPainted(false);
+        xuatXuItem.setIconTextGap(16);
+        tablePanel.add(xuatXuItem);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 226, Short.MAX_VALUE)
-        );
-
-        tablePanel.add(jPanel5);
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 226, Short.MAX_VALUE)
-        );
-
-        tablePanel.add(jPanel6);
+        jButton6.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(51, 51, 51));
+        jButton6.setBorder(null);
+        jButton6.setBorderPainted(false);
+        jButton6.setFocusPainted(false);
+        jButton6.setIconTextGap(16);
+        tablePanel.add(jButton6);
 
         add(tablePanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void danhMucItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_danhMucItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_danhMucItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel danhMucItem;
-    private javax.swing.JPanel donViDoItem;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel nhaSanXuatItem;
+    private javax.swing.JButton dangBaoCheItem;
+    private javax.swing.JButton danhMucItem;
+    private javax.swing.JButton donViTinhItem;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton nhaSanXuatItem;
     private javax.swing.JPanel tablePanel;
-    private javax.swing.JPanel xuatXuItem;
+    private javax.swing.JButton xuatXuItem;
     // End of variables declaration//GEN-END:variables
 }
