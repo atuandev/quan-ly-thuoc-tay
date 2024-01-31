@@ -13,10 +13,14 @@ git clone git@github.com:atuandev/quan-ly-thuoc-tay.git
 ```
 2. Import file **QLThuoc.sql** trong thư mục **database** vào **SQL Server**.
 >Lưu ý: Phải đăng nhập SQL Server đúng tài khoản mật khẩu
-username: `sa`
-password: `sapassword`
+>username: `sa`
+>password: `sapassword`
 
 3. Sử dụng **NetBeans** để chạy source code.
 
-## Giao diện đăng nhập:
+## Giao diện 
+Đăng nhập
 <img src="./image/login.png" />
+
+Quản lý thuốc
+<img src="./image/Quản ký thuốc.png" />
