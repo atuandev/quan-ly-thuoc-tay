@@ -1,10 +1,12 @@
 package gui;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.UIManager;
 import utils.MessageDialog;
 
@@ -12,10 +14,11 @@ import utils.MessageDialog;
  *
  * @author atuandev
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame implements KeyListener {
 
     public Login() {
         initComponents();
+        loginLayout();
     }
 
     private static void initFlatlaf() {
@@ -26,8 +29,15 @@ public class Login extends javax.swing.JFrame {
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
         UIManager.put("PasswordField.showRevealButton", true);
+        UIManager.put("TextComponent.arc", 10);
     }
 
+    private void loginLayout() {
+        txtUsername.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/username.svg"));
+        txtPassword.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/password.svg"));
+        btnLogin.putClientProperty(FlatClientProperties.STYLE, "arc: 10");
+    }
+    
     private void checkLogin() {
         String txtUser = txtUsername.getText();
         String txtPass = txtPassword.getText();
@@ -52,6 +62,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
+        logo = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         lblUsername = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
@@ -60,7 +71,6 @@ public class Login extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         lblLogin = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
-        logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng Nhập");
@@ -82,6 +92,12 @@ public class Login extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setPreferredSize(new java.awt.Dimension(400, 400));
+
+        logo.setFont(new java.awt.Font("Segoe Print", 1, 32)); // NOI18N
+        logo.setForeground(new java.awt.Color(0, 183, 183));
+        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logo-64.png"))); // NOI18N
+        logo.setText("PharmaStore");
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setPreferredSize(new java.awt.Dimension(350, 68));
@@ -152,23 +168,14 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Đăng nhập");
+        btnLogin.setBorder(null);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.setFocusable(false);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
-        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnLoginKeyPressed(evt);
-            }
-        });
-
-        logo.setFont(new java.awt.Font("Segoe Print", 1, 32)); // NOI18N
-        logo.setForeground(new java.awt.Color(0, 183, 183));
-        logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logo-64.png"))); // NOI18N
-        logo.setText("PharmaStore");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -221,18 +228,6 @@ public class Login extends javax.swing.JFrame {
         checkLogin();
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            checkLogin();
-        }
-    }//GEN-LAST:event_btnLoginKeyPressed
-
-    public static void main(String args[]) {
-        initFlatlaf();
-        Login login = new Login();
-        login.setVisible(true);
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
@@ -249,4 +244,26 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
+    public static void main(String args[]) {
+        initFlatlaf();
+        Login login = new Login();
+        login.setVisible(true);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            checkLogin();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

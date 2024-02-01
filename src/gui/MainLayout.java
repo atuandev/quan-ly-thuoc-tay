@@ -55,7 +55,8 @@ public class MainLayout extends javax.swing.JFrame {
         FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
-        UIManager.put("TextComponent.arc", 5);
+        UIManager.put("TextComponent.arc", 10);
+        UIManager.put("Component.arc", 10);
         UIManager.put("ScrollBar.thumbArc", 999);
         UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
         UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
