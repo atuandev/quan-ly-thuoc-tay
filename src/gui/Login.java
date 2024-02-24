@@ -6,7 +6,6 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.UIManager;
 import utils.MessageDialog;
 
@@ -14,7 +13,7 @@ import utils.MessageDialog;
  *
  * @author atuandev
  */
-public class Login extends javax.swing.JFrame implements KeyListener {
+public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
@@ -110,6 +109,11 @@ public class Login extends javax.swing.JFrame implements KeyListener {
         txtUsername.setText("admin");
         txtUsername.setPreferredSize(new java.awt.Dimension(350, 27));
         txtUsername.setSelectionColor(new java.awt.Color(0, 153, 153));
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -136,6 +140,11 @@ public class Login extends javax.swing.JFrame implements KeyListener {
 
         txtPassword.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
         txtPassword.setText("123456");
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -228,6 +237,20 @@ public class Login extends javax.swing.JFrame implements KeyListener {
         checkLogin();
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("Enter");
+            checkLogin();
+        }
+    }//GEN-LAST:event_txtUsernameKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.out.println("Enter");
+            checkLogin();
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
@@ -248,22 +271,5 @@ public class Login extends javax.swing.JFrame implements KeyListener {
         initFlatlaf();
         Login login = new Login();
         login.setVisible(true);
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            checkLogin();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

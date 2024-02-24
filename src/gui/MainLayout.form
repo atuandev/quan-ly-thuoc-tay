@@ -214,7 +214,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="nhaCungCapItem">
+                <Component class="javax.swing.JButton" name="nhaSanXuatItem">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Roboto Medium" size="14" style="0"/>
@@ -222,7 +222,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new FlatSVGIcon(&quot;./icon/trucks.svg&quot;)" type="code"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Nh&#xe0; cung c&#x1ea5;p"/>
+                    <Property name="text" type="java.lang.String" value="Nh&#xe0; s&#x1ea3;n xu&#x1ea5;t"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
                     </Property>
@@ -238,6 +238,9 @@
                       <Dimension value="[226, 46]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nhaSanXuatItemActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="khachHangItem">
                   <Properties>
@@ -263,6 +266,9 @@
                       <Dimension value="[226, 46]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="khachHangItemActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="nhanVienItem">
                   <Properties>
@@ -288,6 +294,9 @@
                       <Dimension value="[226, 46]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nhanVienItemActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="taiKhoanItem">
                   <Properties>
@@ -313,6 +322,9 @@
                       <Dimension value="[226, 46]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="taiKhoanItemActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="thongKeItem">
                   <Properties>

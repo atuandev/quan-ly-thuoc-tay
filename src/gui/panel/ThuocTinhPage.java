@@ -26,10 +26,7 @@ public class ThuocTinhPage extends javax.swing.JPanel {
         listItem = new ArrayList<>();
         listItem.add(danhMucItem);
         listItem.add(donViTinhItem);
-        listItem.add(dangBaoCheItem);
-        listItem.add(nhaSanXuatItem);
         listItem.add(xuatXuItem);
-        listItem.add(jButton6);
         
         // Border radius
         for (JButton item : listItem) {
@@ -44,10 +41,7 @@ public class ThuocTinhPage extends javax.swing.JPanel {
         tablePanel = new javax.swing.JPanel();
         danhMucItem = new javax.swing.JButton();
         donViTinhItem = new javax.swing.JButton();
-        dangBaoCheItem = new javax.swing.JButton();
-        nhaSanXuatItem = new javax.swing.JButton();
         xuatXuItem = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(230, 245, 245));
         setMinimumSize(new java.awt.Dimension(1130, 800));
@@ -85,27 +79,6 @@ public class ThuocTinhPage extends javax.swing.JPanel {
         donViTinhItem.setIconTextGap(16);
         tablePanel.add(donViTinhItem);
 
-        dangBaoCheItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
-        dangBaoCheItem.setForeground(new java.awt.Color(51, 51, 51));
-        dangBaoCheItem.setIcon(new FlatSVGIcon("./icon/pills.svg"));
-        dangBaoCheItem.setText("DẠNG BÀO CHẾ");
-        dangBaoCheItem.setBorder(null);
-        dangBaoCheItem.setBorderPainted(false);
-        dangBaoCheItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        dangBaoCheItem.setFocusPainted(false);
-        dangBaoCheItem.setIconTextGap(16);
-        tablePanel.add(dangBaoCheItem);
-
-        nhaSanXuatItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
-        nhaSanXuatItem.setForeground(new java.awt.Color(51, 51, 51));
-        nhaSanXuatItem.setIcon(new FlatSVGIcon("./icon/factory.svg"));
-        nhaSanXuatItem.setText("NHÀ SẢN XUẤT");
-        nhaSanXuatItem.setBorder(null);
-        nhaSanXuatItem.setBorderPainted(false);
-        nhaSanXuatItem.setFocusPainted(false);
-        nhaSanXuatItem.setIconTextGap(16);
-        tablePanel.add(nhaSanXuatItem);
-
         xuatXuItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
         xuatXuItem.setForeground(new java.awt.Color(51, 51, 51));
         xuatXuItem.setIcon(new FlatSVGIcon("./icon/map.svg"));
@@ -116,14 +89,6 @@ public class ThuocTinhPage extends javax.swing.JPanel {
         xuatXuItem.setIconTextGap(16);
         tablePanel.add(xuatXuItem);
 
-        jButton6.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(51, 51, 51));
-        jButton6.setBorder(null);
-        jButton6.setBorderPainted(false);
-        jButton6.setFocusPainted(false);
-        jButton6.setIconTextGap(16);
-        tablePanel.add(jButton6);
-
         add(tablePanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -133,11 +98,8 @@ public class ThuocTinhPage extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton dangBaoCheItem;
     private javax.swing.JButton danhMucItem;
     private javax.swing.JButton donViTinhItem;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton nhaSanXuatItem;
     private javax.swing.JPanel tablePanel;
     private javax.swing.JButton xuatXuItem;
     // End of variables declaration//GEN-END:variables

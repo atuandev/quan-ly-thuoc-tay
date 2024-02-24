@@ -367,25 +367,44 @@
                       <Data value="14123"/>
                       <Data value="124123"/>
                     </Column>
-                    <Column editable="true" title="T&#xea;n thu&#x1ed1;c" type="java.lang.String">
+                    <Column editable="true" title="H&#x1ecd; t&#xea;n" type="java.lang.String">
                       <Data value="Anh Tu&#x1ea5;n"/>
                       <Data value="czczxc"/>
                       <Data value="zxczc"/>
                       <Data value="zxczx"/>
                     </Column>
-                    <Column editable="true" title="Xu&#x1ea5;t x&#x1ee9;" type="java.lang.String">
+                    <Column editable="true" title="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i" type="java.lang.String">
                       <Data value="123123"/>
                       <Data value="zxc"/>
                       <Data value="zxc"/>
                       <Data value="zxc"/>
                     </Column>
-                    <Column editable="true" title="&#x110;&#x1a1;n gi&#xe1;" type="java.lang.Double">
-                      <Data value="123123.0"/>
-                      <Data value="4.1234123E7"/>
-                      <Data value="123.0"/>
-                      <Data value="1231.0"/>
-                    </Column>
+                    <Column editable="true" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.String"/>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
                 </Property>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="selectionMode" type="int" value="0"/>
@@ -425,7 +444,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="TH&#xd4;NG TIN THU&#x1ed0;C"/>
+                <Property name="text" type="java.lang.String" value="TH&#xd4;NG TIN KH&#xc1;CH H&#xc0;NG"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

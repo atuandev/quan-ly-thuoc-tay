@@ -6,17 +6,17 @@ import java.text.SimpleDateFormat;
 
 /**
  *
- * @author Tran Nhat Sinh
+ * @author atuandev
  */
-public class Formater {
+public class Formatter {
 
-    public static String FormatVND(double vnd) {
+    public static String FormatVND(double number) {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        return formatter.format(vnd) + "đ";
+        return formatter.format(number);
     }
     
-    public static String FormatTime(Timestamp thoigian) {
+    public static String FormatDate(Timestamp date) {
         SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
-        return formatDate.format(thoigian);
+        return formatDate.format(date);
     }
 }

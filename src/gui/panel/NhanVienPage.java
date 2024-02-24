@@ -12,11 +12,11 @@ import utils.TableSorter;
  *
  * @author atuandev
  */
-public class SanPhamPage extends javax.swing.JPanel {
+public class NhanVienPage extends javax.swing.JPanel {
 
     private List<JButton> listButton;
 
-    public SanPhamPage() {
+    public NhanVienPage() {
         initComponents();
         headerLayout();
         tableLayout();
@@ -218,17 +218,17 @@ public class SanPhamPage extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"123", "Anh Tuấn", "123123",  new Double(123123.0)},
-                {"13124", "czczxc", "zxc",  new Double(4.1234123E7)},
-                {"14123", "zxczc", "zxc",  new Double(123.0)},
-                {"124123", "zxczx", "zxc",  new Double(1231.0)}
+                {"123", "Anh Tuấn", "123123", null, null, null},
+                {"13124", "czczxc", "zxc", null, null, null},
+                {"14123", "zxczc", "zxc", null, null, null},
+                {"124123", "zxczx", "zxc", null, null, null}
             },
             new String [] {
-                "Mã", "Tên thuốc", "Xuất xứ", "Đơn giá"
+                "Mã", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -249,7 +249,7 @@ public class SanPhamPage extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("THÔNG TIN THUỐC");
+        jLabel2.setText("THÔNG TIN NHÂN VIÊN");
         jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         tablePanel.add(jPanel5, java.awt.BorderLayout.NORTH);
