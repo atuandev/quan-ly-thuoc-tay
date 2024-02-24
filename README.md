@@ -2,7 +2,7 @@
 ## Môn: Phát triển ứng dụng
 ## Đề tài: **Quản lý Hiệu Thuốc tây**
 >Ý tưởng thiết kế UI: [Quản lý kho điện thoại](https://github.com/hgbaodev/QuanLyKhoDienThoai)
-## Tech
+## Technology
 - Java
 - SQL Server
 - NetBeans 19
@@ -19,8 +19,11 @@ git clone git@github.com:atuandev/quan-ly-thuoc-tay.git
 3. Sử dụng **NetBeans** để chạy source code.
 
 ## Giao diện 
-Đăng nhập
+### Đăng nhập
 <img src="./image/login.png" />
 
-Quản lý thuốc
+### Quản lý thuốc
 <img src="./image/Quản ký thuốc.png" />
+
+### Hóa đơn
+<img src="./image/hoa-don.png" />
