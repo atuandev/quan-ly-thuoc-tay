@@ -1,4 +1,4 @@
-package gui.panel;
+package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -12,11 +12,11 @@ import utils.TableSorter;
  *
  * @author atuandev
  */
-public class TaiKhoanPage extends javax.swing.JPanel {
+public class NhaSanXuatPage extends javax.swing.JPanel {
 
     private List<JButton> listButton;
 
-    public TaiKhoanPage() {
+    public NhaSanXuatPage() {
         initComponents();
         headerLayout();
         tableLayout();
@@ -224,7 +224,7 @@ public class TaiKhoanPage extends javax.swing.JPanel {
                 {"124123", null, null, null}
             },
             new String [] {
-                "Mã", "Usernane", "Password", "Role"
+                "Mã", "Tên nhà sản xuất", "Số điện thoại", "Địa chỉ"
             }
         ) {
             Class[] types = new Class [] {
@@ -249,7 +249,7 @@ public class TaiKhoanPage extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("THÔNG TIN TÀI KHOẢN");
+        jLabel2.setText("THÔNG TIN NHÀ SẢN XUẤT");
         jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         tablePanel.add(jPanel5, java.awt.BorderLayout.NORTH);

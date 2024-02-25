@@ -1,4 +1,4 @@
-package gui.panel;
+package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -12,11 +12,11 @@ import utils.TableSorter;
  *
  * @author atuandev
  */
-public class NhanVienPage extends javax.swing.JPanel {
+public class KhachHangPage extends javax.swing.JPanel {
 
     private List<JButton> listButton;
 
-    public NhanVienPage() {
+    public KhachHangPage() {
         initComponents();
         headerLayout();
         tableLayout();
@@ -218,17 +218,17 @@ public class NhanVienPage extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"123", "Anh Tuấn", "123123", null, null, null},
-                {"13124", "czczxc", "zxc", null, null, null},
-                {"14123", "zxczc", "zxc", null, null, null},
-                {"124123", "zxczx", "zxc", null, null, null}
+                {"123", "Anh Tuấn", "123123", null},
+                {"13124", "czczxc", "zxc", null},
+                {"14123", "zxczc", "zxc", null},
+                {"124123", "zxczx", "zxc", null}
             },
             new String [] {
-                "Mã", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"
+                "Mã", "Họ tên", "Số điện thoại", "Giới tính"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -249,7 +249,7 @@ public class NhanVienPage extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("THÔNG TIN NHÂN VIÊN");
+        jLabel2.setText("THÔNG TIN KHÁCH HÀNG");
         jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         tablePanel.add(jPanel5, java.awt.BorderLayout.NORTH);

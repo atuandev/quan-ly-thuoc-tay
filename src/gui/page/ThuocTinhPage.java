@@ -1,4 +1,4 @@
-package gui.panel;
+package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;

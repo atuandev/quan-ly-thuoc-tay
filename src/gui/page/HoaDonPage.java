@@ -2,12 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package gui.panel;
+package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import utils.Formatter;
+import utils.MessageDialog;
+import utils.Validation;
 
 /**
  *
@@ -15,9 +17,6 @@ import utils.Formatter;
  */
 public class HoaDonPage extends javax.swing.JPanel {
 
-    /**
-     * Creates new form HoaDonPanel
-     */
     public HoaDonPage() {
         initComponents();
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
@@ -25,25 +24,38 @@ public class HoaDonPage extends javax.swing.JPanel {
         pruductLayout();
         billLayout();
     }
-    
-    private void billLayout() {
-        btnAddCustomer.putClientProperty(FlatClientProperties.STYLE, "arc: 10");
-        String txtTongFormat = Formatter.FormatVND(Double.parseDouble(txtTong.getText()));
-        String txtTienThuaFormat = Formatter.FormatVND(Double.parseDouble(txtTienThua.getText()));
-        String txtDonGiaFormat = Formatter.FormatVND(Double.parseDouble(txtDonGia.getText()));
-        
-        txtTong.setText(txtTongFormat);
-        txtTienThua.setText(txtTienThuaFormat);
-        txtDonGia.setText(txtDonGiaFormat);
-    }
-    
+
     private void pruductLayout() {
         txtSoLuong.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Số lượng...");
         btnReload.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
     }
-            
-            
-            
+
+    private void billLayout() {
+        btnAddCustomer.putClientProperty(FlatClientProperties.STYLE, "arc: 10");
+        formatNumberFields();
+    }
+
+    private boolean validateFields() {
+        if (txtTong.getText().equals("") || txtTienKhachDua.getText().equals("")) {
+            return false;
+        }
+
+        if (!Validation.isNumber(txtTienKhachDua.getText())) {
+            MessageDialog.error(this, "Vui lòng nhập số!");
+            txtTienKhachDua.setText("");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void formatNumberFields() {
+        String txtDonGiaFormat = Formatter.FormatVND(Double.parseDouble(txtDonGia.getText()));
+        txtDonGia.setText(txtDonGiaFormat);
+        String txtTongFormat = Formatter.FormatVND(Double.parseDouble(txtTong.getText()));
+        txtTong.setText(txtTongFormat);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -418,6 +430,7 @@ public class HoaDonPage extends javax.swing.JPanel {
         jButton1.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
         jButton1.setIcon(new FlatSVGIcon("./icon/trash-cart.svg"));
         jButton1.setText("XÓA");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setPreferredSize(new java.awt.Dimension(100, 38));
         jPanel20.add(jButton1);
 
@@ -468,7 +481,7 @@ public class HoaDonPage extends javax.swing.JPanel {
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel3.setText("Họ tên:");
+        jLabel3.setText("Tên khách hàng:");
         jLabel3.setMaximumSize(new java.awt.Dimension(44, 40));
         jLabel3.setPreferredSize(new java.awt.Dimension(120, 40));
         jPanel2.add(jLabel3);
@@ -484,14 +497,15 @@ public class HoaDonPage extends javax.swing.JPanel {
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        jLabel7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
         jLabel7.setText("Tổng hóa đơn:");
         jLabel7.setPreferredSize(new java.awt.Dimension(120, 40));
         jPanel11.add(jLabel7);
 
         txtTong.setEditable(false);
         txtTong.setFont(new java.awt.Font("Roboto Mono Medium", 0, 14)); // NOI18N
-        txtTong.setText("100000");
+        txtTong.setText("1000000");
         txtTong.setFocusable(false);
         txtTong.setPreferredSize(new java.awt.Dimension(200, 40));
         jPanel11.add(txtTong);
@@ -505,8 +519,12 @@ public class HoaDonPage extends javax.swing.JPanel {
         jPanel10.add(jLabel6);
 
         txtTienKhachDua.setFont(new java.awt.Font("Roboto Mono Medium", 0, 14)); // NOI18N
-        txtTienKhachDua.setText("100000");
         txtTienKhachDua.setPreferredSize(new java.awt.Dimension(200, 40));
+        txtTienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTienKhachDuaKeyReleased(evt);
+            }
+        });
         jPanel10.add(txtTienKhachDua);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -519,7 +537,6 @@ public class HoaDonPage extends javax.swing.JPanel {
 
         txtTienThua.setEditable(false);
         txtTienThua.setFont(new java.awt.Font("Roboto Mono Medium", 0, 14)); // NOI18N
-        txtTienThua.setText("55000");
         txtTienThua.setFocusable(false);
         txtTienThua.setPreferredSize(new java.awt.Dimension(200, 40));
         jPanel9.add(txtTienThua);
@@ -593,6 +610,21 @@ public class HoaDonPage extends javax.swing.JPanel {
         add(billPanel, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
+        if (validateFields()) {
+            Double tong = Formatter.unformatVND(txtTong.getText());
+            Double tienKhachDua = Double.valueOf(txtTienKhachDua.getText());
+            Double tienThua = tienKhachDua - tong;
+
+            if (tienThua <= 0) {
+                tienThua = 0.0;
+            }
+
+            String txtTienThuaFormat = Formatter.FormatVND(Double.parseDouble(tienThua.toString()));
+            txtTienThua.setText(txtTienThuaFormat);
+        }
+    }//GEN-LAST:event_txtTienKhachDuaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
@@ -665,4 +697,5 @@ public class HoaDonPage extends javax.swing.JPanel {
     private javax.swing.JTextField txtTienThua;
     private javax.swing.JTextField txtTong;
     // End of variables declaration//GEN-END:variables
+
 }

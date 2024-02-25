@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Tran Nhat Sinh
+ * @author atuandev
  */
 public class Validation {
 
@@ -25,16 +25,17 @@ public class Validation {
     }
 
     public static boolean isNumber(String num) {
-        boolean result = true;
-        if (num == null) return false;
+        if (num == null) {
+            return false;
+        }
         try {
             long k = Long.parseLong(num);
-            if(k < 0) {
-                result = false;
+            if (k < 0) {
+                return false;
             }
         } catch (NumberFormatException e) {
-            result = false;
+            return false;
         }
-        return result;
+        return true;
     }
 }

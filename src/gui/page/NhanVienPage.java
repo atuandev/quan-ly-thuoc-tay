@@ -1,22 +1,35 @@
-package gui.panel;
+package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import gui.dialog.CreateNhanVienDialog;
+import gui.dialog.UpdateNhanVienDialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import utils.TableSorter;
 
 /**
  *
  * @author atuandev
  */
-public class SanPhamPage extends javax.swing.JPanel {
+public class NhanVienPage extends javax.swing.JPanel {
 
     private List<JButton> listButton;
+    private JFrame main;
 
-    public SanPhamPage() {
+    public NhanVienPage() {
+        initComponents();
+        headerLayout();
+        tableLayout();
+        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+        FlatIntelliJLaf.setup();
+    }
+    
+    public NhanVienPage(JFrame main) {
+        this.main = main;
         initComponents();
         headerLayout();
         tableLayout();
@@ -147,6 +160,11 @@ public class SanPhamPage extends javax.swing.JPanel {
         btnAdd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAdd.setPreferredSize(new java.awt.Dimension(90, 90));
         btnAdd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
         actionPanel.add(btnAdd);
 
         btnUpdate.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -159,6 +177,11 @@ public class SanPhamPage extends javax.swing.JPanel {
         btnUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnUpdate.setPreferredSize(new java.awt.Dimension(90, 90));
         btnUpdate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
         actionPanel.add(btnUpdate);
 
         btnDelete.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -218,17 +241,17 @@ public class SanPhamPage extends javax.swing.JPanel {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"123", "Anh Tuấn", "123123",  new Double(123123.0)},
-                {"13124", "czczxc", "zxc",  new Double(4.1234123E7)},
-                {"14123", "zxczc", "zxc",  new Double(123.0)},
-                {"124123", "zxczx", "zxc",  new Double(1231.0)}
+                {"123", "Anh Tuấn", "123123", null, null, null},
+                {"13124", "czczxc", "zxc", null, null, null},
+                {"14123", "zxczc", "zxc", null, null, null},
+                {"124123", "zxczx", "zxc", null, null, null}
             },
             new String [] {
-                "Mã", "Tên thuốc", "Xuất xứ", "Đơn giá"
+                "Mã", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -249,13 +272,23 @@ public class SanPhamPage extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("THÔNG TIN THUỐC");
+        jLabel2.setText("THÔNG TIN NHÂN VIÊN");
         jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         tablePanel.add(jPanel5, java.awt.BorderLayout.NORTH);
 
         add(tablePanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        CreateNhanVienDialog dialog = new CreateNhanVienDialog(main, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        UpdateNhanVienDialog dialog = new UpdateNhanVienDialog(main, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

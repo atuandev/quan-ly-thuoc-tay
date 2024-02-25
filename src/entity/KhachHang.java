@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import java.util.Date;
@@ -9,31 +5,29 @@ import java.util.Objects;
 
 /**
  *
- * @author HP
+ * @author atuandev
  */
-public class NhanVien {
+public class KhachHang {
 
     private String id;
     private String hoTen;
     private String sdt;
     private String gioiTinh;
-    private int namSinh;
-    private Date ngayVaoLam;
+    private Date ngayThamGia;
 
-    public NhanVien() {
+    public KhachHang() {
     }
 
-    public NhanVien(String id) {
+    public KhachHang(String id) {
         this.id = id;
     }
 
-    public NhanVien(String id, String hoTen, String sdt, String gioiTinh, int namSinh, Date ngayVaoLam) {
+    public KhachHang(String id, String hoTen, String sdt, String gioiTinh, Date ngayThamGia) {
         this.id = id;
         this.hoTen = hoTen;
         this.sdt = sdt;
         this.gioiTinh = gioiTinh;
-        this.namSinh = namSinh;
-        this.ngayVaoLam = ngayVaoLam;
+        this.ngayThamGia = ngayThamGia;
     }
 
     public String getId() {
@@ -68,25 +62,17 @@ public class NhanVien {
         this.gioiTinh = gioiTinh;
     }
 
-    public int getNamSinh() {
-        return namSinh;
+    public Date getNgayThamGia() {
+        return ngayThamGia;
     }
 
-    public void setNamSinh(int namSinh) {
-        this.namSinh = namSinh;
-    }
-
-    public Date getNgayVaoLam() {
-        return ngayVaoLam;
-    }
-
-    public void setNgayVaoLam(Date ngayVaoLam) {
-        this.ngayVaoLam = ngayVaoLam;
+    public void setNgayThamGia(Date ngayThamGia) {
+        this.ngayThamGia = ngayThamGia;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         hash = 13 * hash + Objects.hashCode(this.id);
         return hash;
     }
@@ -102,13 +88,13 @@ public class NhanVien {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final NhanVien other = (NhanVien) obj;
-        return Objects.equals(this.id, other.id);
+        final KhachHang other = (KhachHang) obj;
+        return true;
     }
 
     @Override
     public String toString() {
-        return "NhanVien{" + "id=" + id + ", hoTen=" + hoTen + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh + ", namSinh=" + namSinh + ", ngayVaoLam=" + ngayVaoLam + '}';
+        return "KhachHang{" + "id=" + id + ", hoTen=" + hoTen + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh + ", ngayThamGia=" + ngayThamGia + '}';
     }
 
 }

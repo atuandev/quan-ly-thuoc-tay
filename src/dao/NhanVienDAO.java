@@ -18,12 +18,12 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
 
     @Override
     public void insert(NhanVien e) {
-        jdbcHelper.update(INSERT_SQL_NV, e.getId(), e.getHoTen(), e.getSdt(), e.isGioiTinh(), e.getEmail());
+//        jdbcHelper.update(INSERT_SQL_NV, e.getId(), e.getHoTen(), e.getSdt(), e.isGioiTinh(), e.getEmail());
     }
 
     @Override
     public void update(NhanVien e) {
-        jdbcHelper.update(UPDATE_SQL, e.getHoTen(), e.getSdt(), e.isGioiTinh(), e.getEmail(), e.getId());
+//        jdbcHelper.update(UPDATE_SQL, e.getHoTen(), e.getSdt(), e.isGioiTinh(), e.getEmail(), e.getId());
     }
 
     @Override
