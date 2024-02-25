@@ -5,6 +5,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import gui.page.CreateHoaDonPage;
 import gui.page.HoaDonPage;
 import gui.page.KhachHangPage;
 import gui.page.NhaSanXuatPage;
@@ -439,7 +440,7 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_thuocTinhItemActionPerformed
 
     private void hoaDonItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hoaDonItemActionPerformed
-        hoaDon = new HoaDonPage();
+        hoaDon = new HoaDonPage(this);
         this.setPanel(hoaDon);
         resetActive();
         hoaDonItem.setSelected(true);
