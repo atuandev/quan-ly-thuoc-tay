@@ -1,8 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package gui.dialog;
+
+import dao.NhanVienDAO;
+import entity.NhanVien;
+import gui.page.NhanVienPage;
+import java.util.Calendar;
+import java.util.Date;
+import utils.MessageDialog;
+import utils.RandomGenerator;
+import utils.Validation;
 
 /**
  *
@@ -10,9 +15,57 @@ package gui.dialog;
  */
 public class CreateNhanVienDialog extends javax.swing.JDialog {
 
+    NhanVienDAO nv_DAO = new NhanVienDAO();
+    NhanVienPage nv_GUI;
+
     public CreateNhanVienDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public CreateNhanVienDialog(java.awt.Frame parent, boolean modal, NhanVienPage nv_GUI) {
+        super(parent, modal);
+        initComponents();
+        this.nv_GUI = nv_GUI;
+    }
+
+    private boolean isValidateFields() {
+        if (Validation.isEmpty(txtHoTen.getText().trim())) {
+            MessageDialog.warring(this, "Tên nhân viên không được rỗng!");
+            return false;
+        }
+
+        if (Validation.isEmpty(txtSdt.getText().trim()) || !Validation.isNumber(txtNamSinh.getText()) || txtSdt.getText().length() != 10) {
+            MessageDialog.warring(this, "Số điện thoại không được rỗng và có 10 ký tự sô!");
+            return false;
+        }
+
+        if (!Validation.isEmpty(txtNamSinh.getText().trim())) {
+            try {
+                int namSinh = Integer.parseInt(txtNamSinh.getText());
+                int namHienTai = Calendar.getInstance().get(Calendar.YEAR);
+                if (!(namSinh >= 1900 && namSinh <= namHienTai)) {
+                    MessageDialog.warring(this, "Năm sinh phải >= 1900 và <= " + namHienTai);
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                MessageDialog.warring(this, "Năm sinh phải là số!");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private NhanVien getInputFields() {
+        String id = RandomGenerator.getRandomId();
+        String hoTen = txtHoTen.getText().trim();
+        String sdt = txtSdt.getText().trim();
+        String gioiTinh = cboxGioiTinh.getSelectedItem().toString();
+        int namSinh = Integer.parseInt(txtNamSinh.getText().trim());
+        Date ngayVaoLam = new Date();
+
+        return new NhanVien(id, hoTen, sdt, gioiTinh, namSinh, ngayVaoLam);
     }
 
     @SuppressWarnings("unchecked")
@@ -39,6 +92,7 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(600, 600));
 
         jPanel15.setBackground(new java.awt.Color(0, 153, 153));
         jPanel15.setMinimumSize(new java.awt.Dimension(100, 60));
@@ -67,7 +121,6 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
         jPanel18.add(lblHoTen);
 
         txtHoTen.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        txtHoTen.setText("Anh Tuấn");
         txtHoTen.setToolTipText("");
         txtHoTen.setPreferredSize(new java.awt.Dimension(330, 40));
         jPanel18.add(txtHoTen);
@@ -170,7 +223,12 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        if (isValidateFields()) {
+            NhanVien nv = getInputFields();
+            nv_DAO.create(nv);
+            nv_GUI.loadTableNhanVien();
+            this.dispose();
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
 

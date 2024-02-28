@@ -39,10 +39,8 @@ public class HoaDonPage extends javax.swing.JPanel {
     private void headerLayout() {
         listButton = new ArrayList<>();
         listButton.add(btnAdd);
-        listButton.add(btnUpdate);
         listButton.add(btnDelete);
         listButton.add(btnInfo);
-        listButton.add(btnImport);
         listButton.add(btnExport);
         
         // Border radius
@@ -77,10 +75,8 @@ public class HoaDonPage extends javax.swing.JPanel {
         btnReload = new javax.swing.JButton();
         actionPanel = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnInfo = new javax.swing.JButton();
-        btnImport = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -147,7 +143,7 @@ public class HoaDonPage extends javax.swing.JPanel {
 
         actionPanel.setBackground(new java.awt.Color(255, 255, 255));
         actionPanel.setPreferredSize(new java.awt.Dimension(560, 100));
-        actionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 5));
+        actionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 4, 5));
 
         btnAdd.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         btnAdd.setIcon(new FlatSVGIcon("./icon/add.svg"));
@@ -165,18 +161,6 @@ public class HoaDonPage extends javax.swing.JPanel {
             }
         });
         actionPanel.add(btnAdd);
-
-        btnUpdate.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnUpdate.setIcon(new FlatSVGIcon("./icon/update.svg"));
-        btnUpdate.setText("SỬA");
-        btnUpdate.setBorder(null);
-        btnUpdate.setBorderPainted(false);
-        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUpdate.setFocusPainted(false);
-        btnUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUpdate.setPreferredSize(new java.awt.Dimension(90, 90));
-        btnUpdate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        actionPanel.add(btnUpdate);
 
         btnDelete.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         btnDelete.setIcon(new FlatSVGIcon("./icon/delete.svg"));
@@ -201,18 +185,6 @@ public class HoaDonPage extends javax.swing.JPanel {
         btnInfo.setPreferredSize(new java.awt.Dimension(90, 90));
         btnInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         actionPanel.add(btnInfo);
-
-        btnImport.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnImport.setIcon(new FlatSVGIcon("./icon/import.svg"));
-        btnImport.setText("IMPORT");
-        btnImport.setBorder(null);
-        btnImport.setBorderPainted(false);
-        btnImport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnImport.setFocusPainted(false);
-        btnImport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnImport.setPreferredSize(new java.awt.Dimension(90, 90));
-        btnImport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        actionPanel.add(btnImport);
 
         btnExport.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         btnExport.setIcon(new FlatSVGIcon("./icon/export.svg"));
@@ -285,10 +257,8 @@ public class HoaDonPage extends javax.swing.JPanel {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnExport;
-    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnReload;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxSearch;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel jLabel2;

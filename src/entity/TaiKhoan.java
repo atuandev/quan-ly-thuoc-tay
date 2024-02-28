@@ -1,38 +1,28 @@
 package entity;
 
-import java.util.Objects;
-
 /**
  *
  * @author Atuandev
  */
 public class TaiKhoan {
 
-    private String id;
     private String username;
     private String password;
-    private String role;
+    private NhanVien nhanVien;
+    private VaiTro vaiTro;
 
     public TaiKhoan() {
     }
 
-    public TaiKhoan(String id) {
-        this.id = id;
+    public TaiKhoan(String username) {
+        this.username = username;
     }
 
-    public TaiKhoan(String id, String username, String password, String role) {
-        this.id = id;
+    public TaiKhoan(String username, String password, NhanVien nhanVien, VaiTro vaiTro) {
         this.username = username;
         this.password = password;
-        this.role = role;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.nhanVien = nhanVien;
+        this.vaiTro = vaiTro;
     }
 
     public String getUsername() {
@@ -51,39 +41,25 @@ public class TaiKhoan {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public NhanVien getNhanVien() {
+        return nhanVien;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        return hash;
+    public VaiTro getVaiTro() {
+        return vaiTro;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TaiKhoan other = (TaiKhoan) obj;
-        return Objects.equals(this.id, other.id);
+    public void setVaiTro(VaiTro vaiTro) {
+        this.vaiTro = vaiTro;
     }
 
     @Override
     public String toString() {
-        return "TaiKhoan{" + "id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + '}';
+        return "TaiKhoan{" + "username=" + username + ", password=" + password + ", nhanVien=" + nhanVien + ", vaiTro=" + vaiTro + '}';
     }
 
 }

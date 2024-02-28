@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class InterfaceDAO<Entity, Key> {
 
-    abstract public void insert(Entity e);
+    abstract public void create(Entity e);
 
     abstract public void update(Entity e);
 

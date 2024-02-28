@@ -5,13 +5,12 @@ use QLTHUOC
 go
 
 CREATE TABLE NhanVien (
-    id NVARCHAR(9) NOT NULL,
+    id NVARCHAR(10) NOT NULL PRIMARY KEY,
     hoTen NVARCHAR(50) NOT NULL,
     sdt NVARCHAR(10) NOT NULL,
     gioiTinh NVARCHAR(10) NOT NULL,
     namSinh INT NOT NULL,
     ngayVaoLam DATE NOT NULL,
-	PRIMARY KEY (id),
 );
 go
 
@@ -22,8 +21,34 @@ VALUES
     ('DKJFJO1K2', 'Le Van C', '096756671', 'Nam', 2003, '2024-02-20');
 go
 
+CREATE TABLE VaiTro (
+    id NVARCHAR(10) NOT NULL PRIMARY KEY,
+    ten NVARCHAR(50) NOT NULL,
+);
+go
+
+INSERT INTO VaiTro (id, ten)
+VALUES
+    ('admin', N'Quản Lý'),
+	('nvbh', N'Nhân viên Bán hàng'),
+	('nvsp', N'Nhân viên Quản lý Sản phẩm')
+go
+
+CREATE TABLE TaiKhoan (
+    username NVARCHAR(50) NOT NULL PRIMARY KEY,
+    password NVARCHAR(50) NOT NULL,
+    idNV NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES NhanVien(id),
+	idVaiTro NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES VaiTro(id),
+);
+go
+
+INSERT INTO TaiKhoan (username, password, idNV, idVaiTro)
+VALUES
+    ('admin', '123456', 'LKD2SFSL1', 'admin')
+go
+
 CREATE TABLE KhachHang (
-    id NVARCHAR(9) NOT NULL,
+    id NVARCHAR(10) NOT NULL,
     hoTen NVARCHAR(50) NOT NULL,
     sdt NVARCHAR(10) NOT NULL,
     gioiTinh NVARCHAR(10) NOT NULL,

@@ -7,11 +7,11 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author ducit
+ * @author atuandev
  */
 public class jdbcHelper {
 
-    static String url = "jdbc:sqlserver://localhost:1433;databasename=QLTHUOC";
+    static String url = "jdbc:sqlserver://localhost:1433;databasename=QLTHUOC;encrypt=true;trustServerCertificate=true;";
     static String user = "sa";
     static String password = "sapassword";
     static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
@@ -39,6 +39,20 @@ public class jdbcHelper {
         return stmt;
     }
 
+    public static int update(String sql, Object... args) {
+        try {
+            PreparedStatement stmt = jdbcHelper.getStmt(sql, args);
+            try {
+                return stmt.executeUpdate();
+            } finally {
+                stmt.getConnection().close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     public static ResultSet query(String sql, Object... args) throws Exception {
         PreparedStatement stmt = jdbcHelper.getStmt(sql, args);
         return stmt.executeQuery();
@@ -52,20 +66,6 @@ public class jdbcHelper {
             }
             rs.getStatement().getConnection().close();
             return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static int update(String sql, Object... args) {
-        try {
-            PreparedStatement stmt = jdbcHelper.getStmt(sql, args);
-            try {
-                return stmt.executeUpdate();
-            } finally {
-                stmt.getConnection().close();
-            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);

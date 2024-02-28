@@ -3,12 +3,19 @@ package gui.page;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import dao.NhanVienDAO;
+import entity.NhanVien;
 import gui.dialog.CreateNhanVienDialog;
 import gui.dialog.UpdateNhanVienDialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import utils.Formatter;
+import utils.MessageDialog;
 import utils.TableSorter;
 
 /**
@@ -19,6 +26,7 @@ public class NhanVienPage extends javax.swing.JPanel {
 
     private List<JButton> listButton;
     private JFrame main;
+    private NhanVienDAO nv_DAO = new NhanVienDAO();
 
     public NhanVienPage() {
         initComponents();
@@ -27,7 +35,7 @@ public class NhanVienPage extends javax.swing.JPanel {
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
     }
-    
+
     public NhanVienPage(JFrame main) {
         this.main = main;
         initComponents();
@@ -42,28 +50,49 @@ public class NhanVienPage extends javax.swing.JPanel {
         listButton.add(btnAdd);
         listButton.add(btnUpdate);
         listButton.add(btnDelete);
-        listButton.add(btnInfo);
         listButton.add(btnImport);
         listButton.add(btnExport);
-        
+
         // Border radius
         for (JButton item : listButton) {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
         btnReload.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        
+
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
     }
-    
+
     private void tableLayout() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        table.setDefaultRenderer(Object.class, centerRenderer);
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(2).setPreferredWidth(200);
+
+        DefaultTableModel modal = new DefaultTableModel();
+        String[] header = new String[]{"STT", "Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
+        modal.setColumnIdentifiers(header);
+        table.setModel(modal);
+
+        loadTableNhanVien();
         sortTable();
     }
-    
+
     private void sortTable() {
-        table.getColumnModel().getColumn(1).setPreferredWidth(180);
         table.setAutoCreateRowSorter(true);
-        TableSorter.configureTableColumnSorter(table, 3, TableSorter.DOUBLE_COMPARATOR);
+        TableSorter.configureTableColumnSorter(table, 0, TableSorter.STRING_COMPARATOR);
+    }
+
+    public void loadTableNhanVien() {
+        DefaultTableModel modal = (DefaultTableModel) table.getModel();
+        modal.setRowCount(0);
+        List<NhanVien> list = nv_DAO.selectAll();
+        int stt = 1;
+        for (NhanVien e : list) {
+            modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), Formatter.FormatDate(e.getNgayVaoLam())});
+            stt++;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -80,7 +109,6 @@ public class NhanVienPage extends javax.swing.JPanel {
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnInfo = new javax.swing.JButton();
         btnImport = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
         tablePanel = new javax.swing.JPanel();
@@ -101,12 +129,13 @@ public class NhanVienPage extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(590, 100));
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 16, 24));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(584, 50));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
 
-        cboxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên", "Mã" }));
+        cboxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên", "Mã", "Số điện thoại" }));
         cboxSearch.setToolTipText("");
         cboxSearch.setPreferredSize(new java.awt.Dimension(100, 40));
         jPanel3.add(cboxSearch);
@@ -127,28 +156,13 @@ public class NhanVienPage extends javax.swing.JPanel {
         btnReload.setPreferredSize(new java.awt.Dimension(40, 40));
         jPanel3.add(btnReload);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+        jPanel1.add(jPanel3);
 
         headerPanel.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         actionPanel.setBackground(new java.awt.Color(255, 255, 255));
         actionPanel.setPreferredSize(new java.awt.Dimension(560, 100));
-        actionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 5));
+        actionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 5));
 
         btnAdd.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         btnAdd.setIcon(new FlatSVGIcon("./icon/add.svg"));
@@ -194,19 +208,12 @@ public class NhanVienPage extends javax.swing.JPanel {
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setPreferredSize(new java.awt.Dimension(90, 90));
         btnDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         actionPanel.add(btnDelete);
-
-        btnInfo.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnInfo.setIcon(new FlatSVGIcon("./icon/info.svg"));
-        btnInfo.setText("INFO");
-        btnInfo.setBorder(null);
-        btnInfo.setBorderPainted(false);
-        btnInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnInfo.setFocusPainted(false);
-        btnInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnInfo.setPreferredSize(new java.awt.Dimension(90, 90));
-        btnInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        actionPanel.add(btnInfo);
 
         btnImport.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         btnImport.setIcon(new FlatSVGIcon("./icon/import.svg"));
@@ -253,9 +260,16 @@ public class NhanVienPage extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         table.setFocusable(false);
@@ -281,14 +295,38 @@ public class NhanVienPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        CreateNhanVienDialog dialog = new CreateNhanVienDialog(main, true);
+        CreateNhanVienDialog dialog = new CreateNhanVienDialog(main, true, this);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        UpdateNhanVienDialog dialog = new UpdateNhanVienDialog(main, true);
-        dialog.setVisible(true);
+        try {
+            int row = table.getSelectedRow();
+            String id = table.getValueAt(row, 1).toString();
+            NhanVien nv = nv_DAO.selectById(id);
+
+            UpdateNhanVienDialog dialog = new UpdateNhanVienDialog(main, true, this, nv);
+            dialog.setVisible(true);
+        } catch (Exception e) {
+            MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        DefaultTableModel modal = (DefaultTableModel) table.getModel();
+
+        try {
+            int row = table.getSelectedRow();
+            String id = table.getValueAt(row, 1).toString();
+
+            if (MessageDialog.confirm(this, "Bạn có chắc chắn xóa dòng này?", "Xóa")) {
+                nv_DAO.delete(id);
+                modal.removeRow(row);
+            }
+        } catch (Exception e) {
+            MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -297,7 +335,6 @@ public class NhanVienPage extends javax.swing.JPanel {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnImport;
-    private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnReload;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxSearch;

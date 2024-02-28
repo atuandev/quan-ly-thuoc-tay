@@ -8,22 +8,23 @@ import java.util.List;
 
 public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
 
-    private String INSERT_SQL_NV = "insert NhanVien values (?,?,?,?,?,?,?)";
-    private String UPDATE_SQL = "update NhanVien set ho=?, ten=?, tuoi=?, phai=?, maPhong=?, tienLuong=? where maNV=?";
-    private String DELETE_SQL = "delete from NhanVien where maNV = ?";
-    private String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
+    private String INSERT_SQL = "insert NhanVien values (?,?,?,?,?,?)";
+    private String UPDATE_SQL = "update NhanVien set hoTen=?, sdt=?, gioiTinh=?, namSinh=?, ngayVaoLam=? where id=?";
+    private String DELETE_SQL = "delete from NhanVien where id = ?";
 
-    private String SELECT_BY_ID = "SELECT * FROM NhanVien WHERE maNV = ?";
-    private String SELECT_BY_KEY = "SELECT * FROM NhanVien WHERE name LIKE ? ";
+    private String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
+    private String SELECT_BY_ID = "SELECT * FROM NhanVien WHERE id = ?";
+    private String SELECT_BY_HO_TEN = "SELECT * FROM NhanVien WHERE hoTen LIKE ? ";
+    private String SELECT_BY_SDT = "SELECT * FROM NhanVien WHERE sdt LIKE ? ";
 
     @Override
-    public void insert(NhanVien e) {
-//        jdbcHelper.update(INSERT_SQL_NV, e.getId(), e.getHoTen(), e.getSdt(), e.isGioiTinh(), e.getEmail());
+    public void create(NhanVien e) {
+        jdbcHelper.update(INSERT_SQL, e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), e.getNgayVaoLam());
     }
 
     @Override
     public void update(NhanVien e) {
-//        jdbcHelper.update(UPDATE_SQL, e.getHoTen(), e.getSdt(), e.isGioiTinh(), e.getEmail(), e.getId());
+        jdbcHelper.update(UPDATE_SQL, e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), e.getNgayVaoLam(), e.getId());
     }
 
     @Override
@@ -38,13 +39,12 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
                 NhanVien e = new NhanVien();
-//                e.setMaNV(rs.getString("maNV"));
-//                e.setHo(rs.getString("ho"));
-//                e.setTen(rs.getString("ten"));
-//                e.setTuoi(rs.getInt("tuoi"));
-//                e.setPhai(rs.getBoolean("phai"));
-//                e.setTienLuong(rs.getDouble("tienLuong"));
-//                e.setPhong(new PhongBan(rs.getString("maPhong")));
+                e.setId(rs.getString("id"));
+                e.setHoTen(rs.getString("hoTen"));
+                e.setSdt(rs.getString("sdt"));
+                e.setGioiTinh(rs.getString("gioiTinh"));
+                e.setNamSinh(rs.getInt("namSinh"));
+                e.setNgayVaoLam(rs.getDate("ngayVaoLam"));
                 listE.add(e);
             }
             rs.getStatement().getConnection().close();
@@ -68,8 +68,16 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
         return list.get(0);
     }
 
-    public List<NhanVien> selectByKey(String k) {
-        return selectBySql(SELECT_BY_KEY, "%" + k + "%");
+    public NhanVien selectBySDT(String k) {
+        List<NhanVien> list = selectBySql(SELECT_BY_SDT, k);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
+    public List<NhanVien> selectByHoTen(String k) {
+        return selectBySql(SELECT_BY_HO_TEN, "%" + k + "%");
     }
 
 }
