@@ -10,7 +10,7 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
 
     private String INSERT_SQL = "insert NhanVien values (?,?,?,?,?,?)";
     private String UPDATE_SQL = "update NhanVien set hoTen=?, sdt=?, gioiTinh=?, namSinh=?, ngayVaoLam=? where id=?";
-    private String DELETE_SQL = "delete from NhanVien where id = ?";
+    private String DELETE_BY_ID = "delete from NhanVien where id = ?";
 
     private String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
     private String SELECT_BY_ID = "SELECT * FROM NhanVien WHERE id = ?";
@@ -28,8 +28,8 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
     }
 
     @Override
-    public void delete(String k) {
-        jdbcHelper.update(DELETE_SQL, k);
+    public void deleteById(String id) {
+        jdbcHelper.update(DELETE_BY_ID, id);
     }
 
     @Override
@@ -60,8 +60,8 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
     }
 
     @Override
-    public NhanVien selectById(String k) {
-        List<NhanVien> list = selectBySql(SELECT_BY_ID, k);
+    public NhanVien selectById(String id) {
+        List<NhanVien> list = selectBySql(SELECT_BY_ID, id);
         if (list.isEmpty()) {
             return null;
         }

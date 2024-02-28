@@ -1,5 +1,6 @@
 package gui.dialog;
 
+import controller.NhanVienController;
 import dao.NhanVienDAO;
 import entity.NhanVien;
 import gui.page.NhanVienPage;
@@ -14,32 +15,32 @@ import utils.Validation;
  * @author atuandev
  */
 public class CreateNhanVienDialog extends javax.swing.JDialog {
-
-    NhanVienDAO nv_DAO = new NhanVienDAO();
-    NhanVienPage nv_GUI;
-
+    
+    NhanVienController NV_CON = new NhanVienController();
+    NhanVienPage NV_GUI;
+    
     public CreateNhanVienDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
-    public CreateNhanVienDialog(java.awt.Frame parent, boolean modal, NhanVienPage nv_GUI) {
+    
+    public CreateNhanVienDialog(java.awt.Frame parent, boolean modal, NhanVienPage NV_GUI) {
         super(parent, modal);
         initComponents();
-        this.nv_GUI = nv_GUI;
+        this.NV_GUI = NV_GUI;
     }
-
+    
     private boolean isValidateFields() {
         if (Validation.isEmpty(txtHoTen.getText().trim())) {
             MessageDialog.warring(this, "Tên nhân viên không được rỗng!");
             return false;
         }
-
+        
         if (Validation.isEmpty(txtSdt.getText().trim()) || !Validation.isNumber(txtNamSinh.getText()) || txtSdt.getText().length() != 10) {
             MessageDialog.warring(this, "Số điện thoại không được rỗng và có 10 ký tự sô!");
             return false;
         }
-
+        
         if (!Validation.isEmpty(txtNamSinh.getText().trim())) {
             try {
                 int namSinh = Integer.parseInt(txtNamSinh.getText());
@@ -53,10 +54,10 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
                 return false;
             }
         }
-
+        
         return true;
     }
-
+    
     private NhanVien getInputFields() {
         String id = RandomGenerator.getRandomId();
         String hoTen = txtHoTen.getText().trim();
@@ -64,10 +65,10 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
         String gioiTinh = cboxGioiTinh.getSelectedItem().toString();
         int namSinh = Integer.parseInt(txtNamSinh.getText().trim());
         Date ngayVaoLam = new Date();
-
+        
         return new NhanVien(id, hoTen, sdt, gioiTinh, namSinh, ngayVaoLam);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -225,8 +226,8 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (isValidateFields()) {
             NhanVien nv = getInputFields();
-            nv_DAO.create(nv);
-            nv_GUI.loadTableNhanVien();
+            NV_CON.create(nv);
+            NV_GUI.loadTableNhanVien();
             this.dispose();
         }
     }//GEN-LAST:event_btnAddActionPerformed

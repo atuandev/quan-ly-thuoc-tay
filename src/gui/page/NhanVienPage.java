@@ -3,6 +3,7 @@ package gui.page;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import controller.NhanVienController;
 import dao.NhanVienDAO;
 import entity.NhanVien;
 import gui.dialog.CreateNhanVienDialog;
@@ -26,23 +27,25 @@ public class NhanVienPage extends javax.swing.JPanel {
 
     private List<JButton> listButton;
     private JFrame main;
-    private NhanVienDAO nv_DAO = new NhanVienDAO();
+    private NhanVienController NV_CON = new NhanVienController();
 
     public NhanVienPage() {
         initComponents();
-        headerLayout();
-        tableLayout();
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
+
+        headerLayout();
+        tableLayout();
     }
 
     public NhanVienPage(JFrame main) {
         this.main = main;
         initComponents();
-        headerLayout();
-        tableLayout();
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
+
+        headerLayout();
+        tableLayout();
     }
 
     private void headerLayout() {
@@ -87,7 +90,7 @@ public class NhanVienPage extends javax.swing.JPanel {
     public void loadTableNhanVien() {
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
-        List<NhanVien> list = nv_DAO.selectAll();
+        List<NhanVien> list = NV_CON.getList();
         int stt = 1;
         for (NhanVien e : list) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), Formatter.FormatDate(e.getNgayVaoLam())});
@@ -225,6 +228,11 @@ public class NhanVienPage extends javax.swing.JPanel {
         btnImport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnImport.setPreferredSize(new java.awt.Dimension(90, 90));
         btnImport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
+            }
+        });
         actionPanel.add(btnImport);
 
         btnExport.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -237,6 +245,11 @@ public class NhanVienPage extends javax.swing.JPanel {
         btnExport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExport.setPreferredSize(new java.awt.Dimension(90, 90));
         btnExport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
         actionPanel.add(btnExport);
 
         headerPanel.add(actionPanel, java.awt.BorderLayout.WEST);
@@ -303,7 +316,7 @@ public class NhanVienPage extends javax.swing.JPanel {
         try {
             int row = table.getSelectedRow();
             String id = table.getValueAt(row, 1).toString();
-            NhanVien nv = nv_DAO.selectById(id);
+            NhanVien nv = NV_CON.selectById(id);
 
             UpdateNhanVienDialog dialog = new UpdateNhanVienDialog(main, true, this, nv);
             dialog.setVisible(true);
@@ -313,20 +326,30 @@ public class NhanVienPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        DefaultTableModel modal = (DefaultTableModel) table.getModel();
-
         try {
+            DefaultTableModel modal = (DefaultTableModel) table.getModel();
             int row = table.getSelectedRow();
             String id = table.getValueAt(row, 1).toString();
 
             if (MessageDialog.confirm(this, "Bạn có chắc chắn xóa dòng này?", "Xóa")) {
-                nv_DAO.delete(id);
+                NV_CON.deleteById(id);
                 modal.removeRow(row);
             }
         } catch (Exception e) {
             MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnImportActionPerformed
+
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        String[] header = new String[]{"Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
+        List<NhanVien> listNV = NV_CON.getList();
+        
+        NV_CON.exportExcel(listNV, header);
+    }//GEN-LAST:event_btnExportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
