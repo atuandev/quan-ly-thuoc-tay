@@ -22,6 +22,8 @@ git clone git@github.com:atuandev/quan-ly-thuoc-tay.git
 
 3. Sử dụng **NetBeans** để Import project
 
+4. Run project ở file **Login.java**
+
 ## Giao diện 
 
 ### Đăng nhập
