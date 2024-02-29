@@ -4,6 +4,7 @@
  */
 package gui.dialog;
 
+import controller.NhanVienController;
 import dao.NhanVienDAO;
 import entity.NhanVien;
 import gui.page.NhanVienPage;
@@ -19,8 +20,8 @@ import utils.Validation;
  */
 public class UpdateNhanVienDialog extends javax.swing.JDialog {
 
-    NhanVienDAO nv_DAO = new NhanVienDAO();
-    NhanVienPage nv_GUI;
+    NhanVienController NV_CON = new NhanVienController();
+    NhanVienPage NV_GUI;
     NhanVien nv;
 
     public UpdateNhanVienDialog(java.awt.Frame parent, boolean modal) {
@@ -28,10 +29,10 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
         initComponents();
     }
 
-    public UpdateNhanVienDialog(java.awt.Frame parent, boolean modal, NhanVienPage nv_GUI, NhanVien nv) {
+    public UpdateNhanVienDialog(java.awt.Frame parent, boolean modal, NhanVienPage NV_GUI, NhanVien nv) {
         super(parent, modal);
         initComponents();
-        this.nv_GUI = nv_GUI;
+        this.NV_GUI = NV_GUI;
         this.nv = nv;
         fillInput();
     }
@@ -239,8 +240,8 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
     private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
         if (isValidateFields()) {
             NhanVien nv = getInputFields();
-            nv_DAO.update(nv);
-            nv_GUI.loadTableNhanVien();
+            NV_CON.update(nv);
+            NV_GUI.loadTableNhanVien();
             this.dispose();
         }
     }//GEN-LAST:event_btnInActionPerformed

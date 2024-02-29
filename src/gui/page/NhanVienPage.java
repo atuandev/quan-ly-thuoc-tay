@@ -4,7 +4,6 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.NhanVienController;
-import dao.NhanVienDAO;
 import entity.NhanVien;
 import gui.dialog.CreateNhanVienDialog;
 import gui.dialog.UpdateNhanVienDialog;
@@ -25,9 +24,8 @@ import utils.TableSorter;
  */
 public class NhanVienPage extends javax.swing.JPanel {
 
-    private List<JButton> listButton;
     private JFrame main;
-    private NhanVienController NV_CON = new NhanVienController();
+    private NhanVienController NV_CON = new NhanVienController(this);
 
     public NhanVienPage() {
         initComponents();
@@ -49,7 +47,7 @@ public class NhanVienPage extends javax.swing.JPanel {
     }
 
     private void headerLayout() {
-        listButton = new ArrayList<>();
+        List<JButton> listButton = new ArrayList<>();
         listButton.add(btnAdd);
         listButton.add(btnUpdate);
         listButton.add(btnDelete);
@@ -341,13 +339,13 @@ public class NhanVienPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        // TODO add your handling code here:
+        NV_CON.importExcel();
     }//GEN-LAST:event_btnImportActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         String[] header = new String[]{"Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
         List<NhanVien> listNV = NV_CON.getList();
-        
+
         NV_CON.exportExcel(listNV, header);
     }//GEN-LAST:event_btnExportActionPerformed
 

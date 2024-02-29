@@ -4,16 +4,22 @@
  */
 package controller;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dao.NhanVienDAO;
 import entity.NhanVien;
 import gui.page.NhanVienPage;
 import java.awt.Desktop;
 import java.awt.HeadlessException;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.BuiltinFormats;
 import org.apache.poi.ss.usermodel.Cell;
@@ -24,22 +30,29 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import utils.Formatter;
 import utils.MessageDialog;
+import utils.Validation;
 
 /**
  *
  * @author HP
  */
-public class NhanVienController extends InterfaceController<NhanVien, String>{
+public class NhanVienController extends InterfaceController<NhanVien, String> {
 
-    NhanVienDAO NV_DAO = new NhanVienDAO();
+    NhanVienDAO NV_DAO;
     NhanVienPage NV_GUI;
 
     public NhanVienController() {
+        this.NV_DAO = new NhanVienDAO();
+        this.NV_GUI = new NhanVienPage();
     }
 
     public NhanVienController(NhanVienPage NV_GUI) {
+        this.NV_DAO = new NhanVienDAO();
         this.NV_GUI = NV_GUI;
     }
 
@@ -67,7 +80,82 @@ public class NhanVienController extends InterfaceController<NhanVien, String>{
     public NhanVien selectById(String id) {
         return NV_DAO.selectById(id);
     }
-    
+
+    public void importExcel() {
+        File excelFile;
+        FileInputStream excelFIS = null;
+        BufferedInputStream excelBIS = null;
+        XSSFWorkbook excelJTableImport = null;
+        JFileChooser jf = new JFileChooser();
+        jf.setDialogTitle("Open file");
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
+        jf.setFileFilter(fnef);
+        int result = jf.showOpenDialog(null);
+
+        int check = 0;
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+                excelFile = jf.getSelectedFile();
+                excelFIS = new FileInputStream(excelFile);
+                excelBIS = new BufferedInputStream(excelFIS);
+                excelJTableImport = new XSSFWorkbook(excelBIS);
+                XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
+
+                for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
+                    XSSFRow excelRow = excelSheet.getRow(row);
+
+                    // Select row cell
+                    String id = excelRow.getCell(0).getStringCellValue();
+                    String hoTen = excelRow.getCell(1).getStringCellValue();
+                    String sdt = excelRow.getCell(2).getStringCellValue();
+                    String gioitinh = excelRow.getCell(3).getStringCellValue();
+                    String ns = excelRow.getCell(4).getStringCellValue();
+                    int namSinh = Integer.parseInt(ns);
+                    String ngay = excelRow.getCell(5).getStringCellValue();
+                    Date ngayVaoLam = new Date(ngay);
+
+                    // Validate row cell
+                    if (Validation.isEmpty(id) || Validation.isEmpty(hoTen)
+                            || Validation.isEmpty(sdt)
+                            || Validation.isEmpty(gioitinh) || !isPhoneNumber(sdt)
+                            || sdt.length() != 10 || Validation.isEmpty(ns) || Validation.isEmpty(ngayVaoLam.toString())) {
+                        check += 1;
+                    } else {
+                        // Add NhanVien to database
+                        NhanVien nv = new NhanVien(id, hoTen, sdt, gioitinh, namSinh, ngayVaoLam);
+                        NV_DAO.create(nv);
+                        NV_GUI.loadTableNhanVien();
+                    }
+
+                }
+                MessageDialog.info(NV_GUI, "Nhập dữ liệu thành công!");
+
+            } catch (FileNotFoundException ex) {
+                MessageDialog.error(NV_GUI, "Lỗi đọc file");
+            } catch (IOException ex) {
+                MessageDialog.error(NV_GUI, "Lỗi đọc file");
+            }
+        }
+        if (check != 0) {
+            MessageDialog.error(NV_GUI, "Có " + check + " dòng dữ liệu không được thêm vào!");
+        }
+    }
+
+    public static boolean isPhoneNumber(String str) {
+        // Loại bỏ khoảng trắng và dấu ngoặc đơn nếu có
+        str = str.replaceAll("\\s+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\-", "");
+
+        // Kiểm tra xem chuỗi có phải là một số điện thoại hợp lệ hay không
+        if (str.matches("\\d{10}")) { // Kiểm tra số điện thoại 10 chữ số
+            return true;
+        } else if (str.matches("\\d{3}-\\d{3}-\\d{4}")) { // Kiểm tra số điện thoại có dấu gạch ngang
+            return true;
+        } else {
+            return str.matches("\\(\\d{3}\\)\\d{3}-\\d{4}"); // Kiểm tra số điện thoại có dấu ngoặc đơn
+        }        // Trả về false nếu chuỗi không phải là số điện thoại hợp lệ
+
+    }
+
     public void openFile(String file) {
         try {
             File path = new File(file);
@@ -147,7 +235,7 @@ public class NhanVienController extends InterfaceController<NhanVien, String>{
             cellStyleFormatNumber = workbook.createCellStyle();
             cellStyleFormatNumber.setDataFormat(format);
         }
-        
+
         Cell cell = row.createCell(0);
         cell.setCellValue(nv.getId());
 
@@ -164,7 +252,7 @@ public class NhanVienController extends InterfaceController<NhanVien, String>{
         cell.setCellValue(nv.getNamSinh() + "");
 
         cell = row.createCell(5);
-        cell.setCellValue(nv.getNgayVaoLam().toString());
+        cell.setCellValue(Formatter.FormatDateExcel(nv.getNgayVaoLam()));
     }
 
 }

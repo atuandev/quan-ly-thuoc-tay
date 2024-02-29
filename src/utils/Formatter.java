@@ -38,12 +38,17 @@ public class Formatter {
     }
 
     public static String FormatDate(Date date) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+        return formatDate.format(date);
+    }
+    
+    public static String FormatDateExcel(Date date) {
+        SimpleDateFormat formatDate = new SimpleDateFormat("MM/dd/yyyy");
         return formatDate.format(date);
     }
 
     public static String FormatTime(Timestamp thoigian) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return formatDate.format(thoigian);
     }
 
