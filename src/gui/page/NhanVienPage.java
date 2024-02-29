@@ -9,6 +9,7 @@ import gui.dialog.CreateNhanVienDialog;
 import gui.dialog.UpdateNhanVienDialog;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -62,6 +63,10 @@ public class NhanVienPage extends javax.swing.JPanel {
 
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
+        
+        String[] searchType = {"Tất cả", "Mã", "Tên", "Số điện thoại", "Năm sinh"};
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(searchType);
+        cboxSearch.setModel(model);
     }
 
     private void tableLayout() {
@@ -88,6 +93,7 @@ public class NhanVienPage extends javax.swing.JPanel {
     public void loadTableNhanVien() {
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
+        
         List<NhanVien> list = NV_CON.getList();
         int stt = 1;
         for (NhanVien e : list) {
@@ -136,7 +142,6 @@ public class NhanVienPage extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(584, 50));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
 
-        cboxSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên", "Mã", "Số điện thoại" }));
         cboxSearch.setToolTipText("");
         cboxSearch.setPreferredSize(new java.awt.Dimension(100, 40));
         jPanel3.add(cboxSearch);
@@ -144,6 +149,11 @@ public class NhanVienPage extends javax.swing.JPanel {
         txtSearch.setToolTipText("Tìm kiếm");
         txtSearch.setPreferredSize(new java.awt.Dimension(200, 40));
         txtSearch.setSelectionColor(new java.awt.Color(230, 245, 245));
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
         jPanel3.add(txtSearch);
 
         btnReload.setIcon(new FlatSVGIcon("./icon/reload.svg"));
@@ -155,6 +165,11 @@ public class NhanVienPage extends javax.swing.JPanel {
         btnReload.setFocusable(false);
         btnReload.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReload.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadActionPerformed(evt);
+            }
+        });
         jPanel3.add(btnReload);
 
         jPanel1.add(jPanel3);
@@ -348,6 +363,27 @@ public class NhanVienPage extends javax.swing.JPanel {
 
         NV_CON.exportExcel(listNV, header);
     }//GEN-LAST:event_btnExportActionPerformed
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        DefaultTableModel modal = (DefaultTableModel) table.getModel();
+        modal.setRowCount(0);
+        
+        String search = txtSearch.getText().toLowerCase().trim();
+        String searchType = cboxSearch.getSelectedItem().toString();
+        List<NhanVien> listsearch = NV_CON.getSearchTable(search, searchType);
+        
+        int stt = 1;
+        for (NhanVien e : listsearch) {
+            modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), Formatter.FormatDate(e.getNgayVaoLam())});
+            stt++;
+        }
+    }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+        txtSearch.setText("");
+        cboxSearch.setSelectedIndex(0);
+        loadTableNhanVien();
+    }//GEN-LAST:event_btnReloadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

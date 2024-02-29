@@ -68,16 +68,12 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
         return list.get(0);
     }
 
-    public NhanVien selectBySDT(String k) {
-        List<NhanVien> list = selectBySql(SELECT_BY_SDT, k);
-        if (list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
-    }
-
-    public List<NhanVien> selectByHoTen(String k) {
-        return selectBySql(SELECT_BY_HO_TEN, "%" + k + "%");
-    }
+//    public List<NhanVien> selectByHoTen(String k) {
+//        return selectBySql(SELECT_BY_HO_TEN, "%" + k + "%");
+//    }
+//    
+//    public List<NhanVien> selectBySDT(String k) {
+//        return selectBySql(SELECT_BY_SDT, "%" + k + "%");
+//    }
 
 }

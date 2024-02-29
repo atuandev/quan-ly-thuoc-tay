@@ -5,13 +5,12 @@
 package gui.dialog;
 
 import controller.NhanVienController;
-import dao.NhanVienDAO;
 import entity.NhanVien;
 import gui.page.NhanVienPage;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import utils.MessageDialog;
-import utils.RandomGenerator;
 import utils.Validation;
 
 /**

@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JFileChooser;
@@ -79,6 +80,53 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
     @Override
     public NhanVien selectById(String id) {
         return NV_DAO.selectById(id);
+    }
+
+    public List<NhanVien> getSearchTable(String text, String searchType) {
+        text = text.toLowerCase();
+        List result = new ArrayList<NhanVien>();
+
+        switch (searchType) {
+            case "Tất cả" -> {
+                for (NhanVien nv : this.getList()) {
+                    if (nv.getId().toLowerCase().contains(text) || nv.getHoTen().toLowerCase().contains(text) || nv.getSdt().toLowerCase().contains(text) || String.valueOf(nv.getNamSinh()).toLowerCase().contains(text)) {
+                        result.add(nv);
+                    }
+                }
+            }
+            case "Mã" -> {
+                for (NhanVien nv : this.getList()) {
+                    if (nv.getId().toLowerCase().contains(text)) {
+                        result.add(nv);
+                    }
+                }
+            }
+            case "Tên" -> {
+                for (NhanVien nv : this.getList()) {
+                    if (nv.getHoTen().toLowerCase().contains(text)) {
+                        result.add(nv);
+                    }
+                }
+            }
+            case "Số điện thoại" -> {
+                for (NhanVien nv : this.getList()) {
+                    if (nv.getGioiTinh().toLowerCase().contains(text)) {
+                        result.add(nv);
+                    }
+                }
+            }
+            case "Năm sinh" -> {
+                for (NhanVien nv : this.getList()) {
+                    if (String.valueOf(nv.getNamSinh()).toLowerCase().contains(text)) {
+                        result.add(nv);
+                    }
+                }
+            }
+            default ->
+                throw new AssertionError();
+        }
+
+        return result;
     }
 
     public void importExcel() {

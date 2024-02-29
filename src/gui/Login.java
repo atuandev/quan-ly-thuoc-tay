@@ -239,14 +239,12 @@ public class Login extends javax.swing.JFrame {
 
     private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("Enter");
             checkLogin();
         }
     }//GEN-LAST:event_txtUsernameKeyPressed
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("Enter");
             checkLogin();
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
