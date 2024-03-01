@@ -1,8 +1,9 @@
 package utils;
 
-import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ public class Formatter {
     }
 
     public static String FormatDate(Date date) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return formatDate.format(date);
     }
     
@@ -47,9 +48,9 @@ public class Formatter {
         return formatDate.format(date);
     }
 
-    public static String FormatTime(Timestamp thoigian) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        return formatDate.format(thoigian);
+    public static String FormatTime(LocalDateTime thoigian) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return format.format(thoigian);
     }
 
     public static String formatNumber(double number) {

@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
-import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -12,49 +8,40 @@ import java.util.Date;
  */
 public class ChiTietHoaDon {
 
-    private HoaDon idHoadon;
-    private Thuoc idThuoc;
-    private Date thoiGian;
+    private HoaDon hoaDon;
+    private Thuoc thuoc;
     private int soLuong;
-    private double thanhTien;
+    private double donGia;
 
     public ChiTietHoaDon() {
     }
 
-    public ChiTietHoaDon(HoaDon idHoadon) {
-        this.idHoadon = idHoadon;
+    public ChiTietHoaDon(HoaDon hoaDon, Thuoc thuoc) {
+        this.hoaDon = hoaDon;
+        this.thuoc = thuoc;
     }
 
-    public ChiTietHoaDon(HoaDon idHoadon, Thuoc idThuoc, Date thoiGian, int soLuong, double thanhTien) {
-        this.idHoadon = idHoadon;
-        this.idThuoc = idThuoc;
-        this.thoiGian = thoiGian;
+    public ChiTietHoaDon(HoaDon hoaDon, Thuoc thuoc, int soLuong, double donGia) {
+        this.hoaDon = hoaDon;
+        this.thuoc = thuoc;
         this.soLuong = soLuong;
-        this.thanhTien = thanhTien;
+        this.donGia = donGia;
     }
 
-    public HoaDon getIdHoadon() {
-        return idHoadon;
+    public HoaDon getHoaDon() {
+        return hoaDon;
     }
 
-    public void setIdHoadon(HoaDon idHoadon) {
-        this.idHoadon = idHoadon;
+    public void setHoaDon(HoaDon hoaDon) {
+        this.hoaDon = hoaDon;
     }
 
-    public Thuoc getIdThuoc() {
-        return idThuoc;
+    public Thuoc getThuoc() {
+        return thuoc;
     }
 
-    public void setIdThuoc(Thuoc idThuoc) {
-        this.idThuoc = idThuoc;
-    }
-
-    public Date getThoiGian() {
-        return thoiGian;
-    }
-
-    public void setThoiGian(Date thoiGian) {
-        this.thoiGian = thoiGian;
+    public void setThuoc(Thuoc thuoc) {
+        this.thuoc = thuoc;
     }
 
     public int getSoLuong() {
@@ -65,17 +52,39 @@ public class ChiTietHoaDon {
         this.soLuong = soLuong;
     }
 
-    public double getThanhTien() {
-        return thanhTien;
+    public double getDonGia() {
+        return donGia;
     }
 
-    public void setThanhTien(double thanhTien) {
-        this.thanhTien = thanhTien;
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.hoaDon);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ChiTietHoaDon other = (ChiTietHoaDon) obj;
+        return Objects.equals(this.hoaDon, other.hoaDon);
     }
 
     @Override
     public String toString() {
-        return "ChiTietHoaDon{" + "idHoadon=" + idHoadon + ", idThuoc=" + idThuoc + ", thoiGian=" + thoiGian + ", soLuong=" + soLuong + ", thanhTien=" + thanhTien + '}';
+        return "ChiTietHoaDon{" + "hoaDon=" + hoaDon + ", thuoc=" + thuoc + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
     }
 
 }

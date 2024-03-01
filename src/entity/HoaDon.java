@@ -1,5 +1,8 @@
 package entity;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 /**
  *
  * @author atuandev
@@ -7,12 +10,9 @@ package entity;
 public class HoaDon {
 
     private String id;
-    private String thoiGian;
+    private LocalDateTime thoiGian;
     private NhanVien nhanVien;
     private KhachHang khachHang;
-    private double tongTien;
-    private double tienKhachDua;
-    private double tienThua;
 
     public HoaDon() {
     }
@@ -21,14 +21,11 @@ public class HoaDon {
         this.id = id;
     }
 
-    public HoaDon(String id, String thoiGian, NhanVien nhanVien, KhachHang khachHang, double tongTien, double tienKhachDua, double tienThua) {
+    public HoaDon(String id, LocalDateTime thoiGian, NhanVien nhanVien, KhachHang khachHang) {
         this.id = id;
         this.thoiGian = thoiGian;
         this.nhanVien = nhanVien;
         this.khachHang = khachHang;
-        this.tongTien = tongTien;
-        this.tienKhachDua = tienKhachDua;
-        this.tienThua = tienThua;
     }
 
     public String getId() {
@@ -39,11 +36,11 @@ public class HoaDon {
         this.id = id;
     }
 
-    public String getThoiGian() {
+    public LocalDateTime getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(String thoiGian) {
+    public void setThoiGian(LocalDateTime thoiGian) {
         this.thoiGian = thoiGian;
     }
 
@@ -63,33 +60,31 @@ public class HoaDon {
         this.khachHang = khachHang;
     }
 
-    public double getTongTien() {
-        return tongTien;
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 
-    public void setTongTien(double tongTien) {
-        this.tongTien = tongTien;
-    }
-
-    public double getTienKhachDua() {
-        return tienKhachDua;
-    }
-
-    public void setTienKhachDua(double tienKhachDua) {
-        this.tienKhachDua = tienKhachDua;
-    }
-
-    public double getTienThua() {
-        return tienThua;
-    }
-
-    public void setTienThua(double tienThua) {
-        this.tienThua = tienThua;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final HoaDon other = (HoaDon) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "HoaDon{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", tongTien=" + tongTien + ", tienKhachDua=" + tienKhachDua + ", tienThua=" + tienThua + '}';
+        return "HoaDon{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + '}';
     }
 
 }

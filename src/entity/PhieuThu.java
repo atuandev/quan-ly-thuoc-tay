@@ -1,5 +1,8 @@
 package entity;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
+
 /**
  *
  * @author atuandev
@@ -7,18 +10,9 @@ package entity;
 public class PhieuThu {
 
     private String id;
-    private String thoiGian;
+    private LocalDateTime thoiGian;
     private NhanVien nhanVien;
     private NhaSanXuat nxs;
-    private double tongTien;
-
-    public PhieuThu(String id, String thoiGian, NhanVien nhanVien, NhaSanXuat nxs, double tongTien) {
-        this.id = id;
-        this.thoiGian = thoiGian;
-        this.nhanVien = nhanVien;
-        this.nxs = nxs;
-        this.tongTien = tongTien;
-    }
 
     public PhieuThu() {
     }
@@ -35,11 +29,11 @@ public class PhieuThu {
         this.id = id;
     }
 
-    public String getThoiGian() {
+    public LocalDateTime getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(String thoiGian) {
+    public void setThoiGian(LocalDateTime thoiGian) {
         this.thoiGian = thoiGian;
     }
 
@@ -59,17 +53,31 @@ public class PhieuThu {
         this.nxs = nxs;
     }
 
-    public double getTongTien() {
-        return tongTien;
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        return hash;
     }
 
-    public void setTongTien(double tongTien) {
-        this.tongTien = tongTien;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PhieuThu other = (PhieuThu) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "PhieuThu{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", nxs=" + nxs + ", tongTien=" + tongTien + '}';
+        return "PhieuThu{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", nxs=" + nxs + '}';
     }
 
 }

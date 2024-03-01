@@ -68,12 +68,4 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
         return list.get(0);
     }
 
-//    public List<NhanVien> selectByHoTen(String k) {
-//        return selectBySql(SELECT_BY_HO_TEN, "%" + k + "%");
-//    }
-//    
-//    public List<NhanVien> selectBySDT(String k) {
-//        return selectBySql(SELECT_BY_SDT, "%" + k + "%");
-//    }
-
 }

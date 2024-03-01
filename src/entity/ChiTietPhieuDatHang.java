@@ -6,34 +6,34 @@ import java.util.Objects;
  *
  * @author HP
  */
-public class ChiTietPhieuThu {
+public class ChiTietPhieuDatHang {
 
-    private PhieuThu phieuThu;
+    private PhieuDatHang phieuDatHang;
     private Thuoc thuoc;
     private int soLuong;
     private double donGia;
 
-    public ChiTietPhieuThu() {
+    public ChiTietPhieuDatHang() {
     }
 
-    public ChiTietPhieuThu(PhieuThu phieuThu, Thuoc thuoc) {
-        this.phieuThu = phieuThu;
+    public ChiTietPhieuDatHang(PhieuDatHang phieuDatHang, Thuoc thuoc) {
+        this.phieuDatHang = phieuDatHang;
         this.thuoc = thuoc;
     }
 
-    public ChiTietPhieuThu(PhieuThu phieuThu, Thuoc thuoc, int soLuong, double donGia) {
-        this.phieuThu = phieuThu;
+    public ChiTietPhieuDatHang(PhieuDatHang phieuDatHang, Thuoc thuoc, int soLuong, double donGia) {
+        this.phieuDatHang = phieuDatHang;
         this.thuoc = thuoc;
         this.soLuong = soLuong;
         this.donGia = donGia;
     }
 
-    public PhieuThu getPhieuThu() {
-        return phieuThu;
+    public PhieuDatHang getPhieuDatHang() {
+        return phieuDatHang;
     }
 
-    public void setPhieuThu(PhieuThu phieuThu) {
-        this.phieuThu = phieuThu;
+    public void setPhieuDatHang(PhieuDatHang phieuDatHang) {
+        this.phieuDatHang = phieuDatHang;
     }
 
     public Thuoc getThuoc() {
@@ -63,7 +63,7 @@ public class ChiTietPhieuThu {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.phieuThu);
+        hash = 23 * hash + Objects.hashCode(this.phieuDatHang);
         return hash;
     }
 
@@ -78,13 +78,13 @@ public class ChiTietPhieuThu {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ChiTietPhieuThu other = (ChiTietPhieuThu) obj;
-        return true;
+        final ChiTietPhieuDatHang other = (ChiTietPhieuDatHang) obj;
+        return Objects.equals(this.phieuDatHang, other.phieuDatHang);
     }
 
     @Override
     public String toString() {
-        return "ChiTietPhieuThu{" + "phieuThu=" + phieuThu + ", thuoc=" + thuoc + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
+        return "ChiTietPhieuDatHang{" + "phieuDatHang=" + phieuDatHang + ", thuoc=" + thuoc + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
     }
 
 }
