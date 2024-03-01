@@ -30,11 +30,11 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
         this.nv = nv;
         fillInput();
     }
-    
+
     private void fillInput() {
         txtHoTen.setText(nv.getHoTen());
         txtSdt.setText(nv.getSdt());
-        txtNamSinh.setText(String.valueOf( nv.getNamSinh()));
+        txtNamSinh.setText(String.valueOf(nv.getNamSinh()));
         cboxGioiTinh.setSelectedItem(nv.getGioiTinh());
         txtNgayVaoLam.setDate(new Date());
     }
@@ -50,7 +50,7 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
             return false;
         }
 
-        if (!Validation.isEmpty(txtNamSinh.getText().trim())) {
+        if (Validation.isEmpty(txtNamSinh.getText().trim())) {
             try {
                 int namSinh = Integer.parseInt(txtNamSinh.getText());
                 int namHienTai = Calendar.getInstance().get(Calendar.YEAR);
@@ -62,6 +62,11 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
                 MessageDialog.warring(this, "Năm sinh phải là số!");
                 return false;
             }
+        }
+
+        if (Validation.isEmpty(txtNgayVaoLam.getDateFormatString())) {
+            MessageDialog.warring(this, "Ngày vào làm không được rỗng và có kiểu dd/MM/yyyy");
+            return false;
         }
 
         return true;

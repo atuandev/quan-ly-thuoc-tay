@@ -14,38 +14,41 @@ import utils.Validation;
  * @author atuandev
  */
 public class CreateNhanVienDialog extends javax.swing.JDialog {
-    
+
     NhanVienController NV_CON = new NhanVienController();
     NhanVienPage NV_GUI;
-    
+
     public CreateNhanVienDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    
+
     public CreateNhanVienDialog(java.awt.Frame parent, boolean modal, NhanVienPage NV_GUI) {
         super(parent, modal);
         initComponents();
         this.NV_GUI = NV_GUI;
         fillInput();
     }
-    
+
     private void fillInput() {
         txtNgayVaoLam.setDate(new Date());
     }
-    
+
     private boolean isValidateFields() {
-        if (Validation.isEmpty(txtHoTen.getText().trim())) {
+        if (txtHoTen.getText().trim().equals("")) {
             MessageDialog.warring(this, "Tên nhân viên không được rỗng!");
             return false;
         }
-        
-        if (Validation.isEmpty(txtSdt.getText().trim()) || !Validation.isNumber(txtNamSinh.getText()) || txtSdt.getText().length() != 10) {
+
+        if (txtSdt.getText().trim().equals("") || !Validation.isNumber(txtSdt.getText()) || txtSdt.getText().length() != 10) {
             MessageDialog.warring(this, "Số điện thoại không được rỗng và có 10 ký tự sô!");
             return false;
         }
-        
-        if (!Validation.isEmpty(txtNamSinh.getText().trim())) {
+
+        if (txtNamSinh.getText().trim().equals("")) {
+            MessageDialog.warring(this, "Năm sinh không được rỗng!");
+            return false;
+        } else {
             try {
                 int namSinh = Integer.parseInt(txtNamSinh.getText());
                 int namHienTai = Calendar.getInstance().get(Calendar.YEAR);
@@ -54,14 +57,19 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
                     return false;
                 }
             } catch (NumberFormatException e) {
-                MessageDialog.warring(this, "Năm sinh phải là số!");
+                MessageDialog.warring(this, "Năm sinh phải có 10 ký tự số!");
                 return false;
             }
         }
-        
+
+        if (txtNgayVaoLam.getDate() == null) {
+            MessageDialog.warring(this, "Ngày vào làm không được rỗng và có kiểu dd/MM/yyyy");
+            return false;
+        }
+
         return true;
     }
-    
+
     private NhanVien getInputFields() {
         String id = RandomGenerator.getRandomId();
         String hoTen = txtHoTen.getText().trim();
@@ -69,10 +77,10 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
         String gioiTinh = cboxGioiTinh.getSelectedItem().toString();
         int namSinh = Integer.parseInt(txtNamSinh.getText().trim());
         Date ngayVaoLam = txtNgayVaoLam.getDate();
-        
+
         return new NhanVien(id, hoTen, sdt, gioiTinh, namSinh, ngayVaoLam);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
