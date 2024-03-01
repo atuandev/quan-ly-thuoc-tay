@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package gui.dialog;
 
 import controller.NhanVienController;
@@ -9,7 +5,6 @@ import entity.NhanVien;
 import gui.page.NhanVienPage;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import utils.MessageDialog;
 import utils.Validation;
 
@@ -41,6 +36,7 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
         txtSdt.setText(nv.getSdt());
         txtNamSinh.setText(String.valueOf( nv.getNamSinh()));
         cboxGioiTinh.setSelectedItem(nv.getGioiTinh());
+        txtNgayVaoLam.setDate(new Date());
     }
 
     private boolean isValidateFields() {
@@ -77,7 +73,7 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
         String sdt = txtSdt.getText().trim();
         String gioiTinh = cboxGioiTinh.getSelectedItem().toString();
         int namSinh = Integer.parseInt(txtNamSinh.getText().trim());
-        Date ngayVaoLam = nv.getNgayVaoLam();
+        Date ngayVaoLam = txtNgayVaoLam.getDate();
 
         return new NhanVien(id, hoTen, sdt, gioiTinh, namSinh, ngayVaoLam);
     }
@@ -101,6 +97,9 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
         jPanel20 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtNamSinh = new javax.swing.JTextField();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        txtNgayVaoLam = new com.toedter.calendar.JDateChooser();
         jPanel8 = new javax.swing.JPanel();
         btnHuy = new javax.swing.JButton();
         btnIn = new javax.swing.JButton();
@@ -189,6 +188,23 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
 
         jPanel1.add(jPanel20);
 
+        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel22.setPreferredSize(new java.awt.Dimension(500, 40));
+        jPanel22.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+
+        jLabel15.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel15.setText("Ngày vào làm");
+        jLabel15.setMaximumSize(new java.awt.Dimension(44, 40));
+        jLabel15.setPreferredSize(new java.awt.Dimension(150, 40));
+        jPanel22.add(jLabel15);
+
+        txtNgayVaoLam.setBackground(new java.awt.Color(255, 255, 255));
+        txtNgayVaoLam.setDateFormatString("dd/MM/yyyy");
+        txtNgayVaoLam.setPreferredSize(new java.awt.Dimension(200, 40));
+        jPanel22.add(txtNgayVaoLam);
+
+        jPanel1.add(jPanel22);
+
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -253,6 +269,7 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
@@ -260,10 +277,12 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lblHoTen;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtNamSinh;
+    private com.toedter.calendar.JDateChooser txtNgayVaoLam;
     private javax.swing.JTextField txtSdt;
     // End of variables declaration//GEN-END:variables
 }

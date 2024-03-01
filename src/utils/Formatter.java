@@ -1,8 +1,9 @@
 package utils;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
@@ -31,15 +32,14 @@ public class Formatter {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         try {
             return formatter.parse(formattedString).doubleValue();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ParseException e) {
             // Handle the exception based on your application's requirements
             return 0.0;
         }
     }
 
     public static String FormatDate(Date date) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
         return formatDate.format(date);
     }
     
@@ -48,9 +48,9 @@ public class Formatter {
         return formatDate.format(date);
     }
 
-    public static String FormatTime(LocalDateTime thoigian) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return format.format(thoigian);
+    public static String FormatTime(Timestamp thoigian) {
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+        return formatDate.format(thoigian);
     }
 
     public static String formatNumber(double number) {

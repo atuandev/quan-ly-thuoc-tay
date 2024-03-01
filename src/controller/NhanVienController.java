@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dao.NhanVienDAO;
 import entity.NhanVien;
 import gui.page.NhanVienPage;

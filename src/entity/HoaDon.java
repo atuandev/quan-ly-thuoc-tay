@@ -1,6 +1,6 @@
 package entity;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
@@ -10,7 +10,7 @@ import java.util.Objects;
 public class HoaDon {
 
     private String id;
-    private LocalDateTime thoiGian;
+    private Timestamp thoiGian;
     private NhanVien nhanVien;
     private KhachHang khachHang;
 
@@ -21,7 +21,7 @@ public class HoaDon {
         this.id = id;
     }
 
-    public HoaDon(String id, LocalDateTime thoiGian, NhanVien nhanVien, KhachHang khachHang) {
+    public HoaDon(String id, Timestamp thoiGian, NhanVien nhanVien, KhachHang khachHang) {
         this.id = id;
         this.thoiGian = thoiGian;
         this.nhanVien = nhanVien;
@@ -36,11 +36,11 @@ public class HoaDon {
         this.id = id;
     }
 
-    public LocalDateTime getThoiGian() {
+    public Timestamp getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(LocalDateTime thoiGian) {
+    public void setThoiGian(Timestamp thoiGian) {
         this.thoiGian = thoiGian;
     }
 

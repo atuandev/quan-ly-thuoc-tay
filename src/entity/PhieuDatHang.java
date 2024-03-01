@@ -1,7 +1,7 @@
 package entity;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
+import java.sql.Timestamp;
 
 /**
  *
@@ -10,7 +10,7 @@ import java.util.Objects;
 public class PhieuDatHang {
 
     private String id;
-    private LocalDateTime thoiGian;
+    private Timestamp thoiGian;
     private KhachHang khachHang;
     private String diaChi;
     private String hinhThucThanhToan;
@@ -23,7 +23,7 @@ public class PhieuDatHang {
         this.id = id;
     }
 
-    public PhieuDatHang(String id, LocalDateTime thoiGian, KhachHang khachHang, String diaChi, String hinhThucThanhToan, String trangThai) {
+    public PhieuDatHang(String id, Timestamp thoiGian, KhachHang khachHang, String diaChi, String hinhThucThanhToan, String trangThai) {
         this.id = id;
         this.thoiGian = thoiGian;
         this.khachHang = khachHang;
@@ -40,11 +40,11 @@ public class PhieuDatHang {
         this.id = id;
     }
 
-    public LocalDateTime getThoiGian() {
+    public Timestamp getThoiGian() {
         return thoiGian;
     }
 
-    public void setThoiGian(LocalDateTime thoiGian) {
+    public void setThoiGian(Timestamp thoiGian) {
         this.thoiGian = thoiGian;
     }
 
