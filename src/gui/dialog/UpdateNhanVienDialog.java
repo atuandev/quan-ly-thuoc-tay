@@ -36,35 +36,43 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
         txtSdt.setText(nv.getSdt());
         txtNamSinh.setText(String.valueOf(nv.getNamSinh()));
         cboxGioiTinh.setSelectedItem(nv.getGioiTinh());
-        txtNgayVaoLam.setDate(new Date());
+        txtNgayVaoLam.setDate(nv.getNgayVaoLam());
     }
 
     private boolean isValidateFields() {
-        if (Validation.isEmpty(txtHoTen.getText().trim())) {
+        if (txtHoTen.getText().trim().equals("")) {
             MessageDialog.warring(this, "Tên nhân viên không được rỗng!");
+            txtHoTen.requestFocus();
             return false;
         }
 
-        if (Validation.isEmpty(txtSdt.getText().trim()) || !Validation.isNumber(txtNamSinh.getText()) || txtSdt.getText().length() != 10) {
+        if (txtSdt.getText().trim().equals("") || !Validation.isNumber(txtSdt.getText()) || txtSdt.getText().length() != 10) {
             MessageDialog.warring(this, "Số điện thoại không được rỗng và có 10 ký tự sô!");
+            txtSdt.requestFocus();
             return false;
         }
 
-        if (Validation.isEmpty(txtNamSinh.getText().trim())) {
+        if (txtNamSinh.getText().trim().equals("")) {
+            MessageDialog.warring(this, "Năm sinh không được rỗng!");
+            txtNamSinh.requestFocus();
+            return false;
+        } else {
             try {
                 int namSinh = Integer.parseInt(txtNamSinh.getText());
                 int namHienTai = Calendar.getInstance().get(Calendar.YEAR);
                 if (!(namSinh >= 1900 && namSinh <= namHienTai)) {
                     MessageDialog.warring(this, "Năm sinh phải >= 1900 và <= " + namHienTai);
+                    txtNamSinh.requestFocus();
                     return false;
                 }
             } catch (NumberFormatException e) {
-                MessageDialog.warring(this, "Năm sinh phải là số!");
+                MessageDialog.warring(this, "Năm sinh phải có 4 ký tự số!");
+                txtNamSinh.requestFocus();
                 return false;
             }
         }
 
-        if (Validation.isEmpty(txtNgayVaoLam.getDateFormatString())) {
+        if (txtNgayVaoLam.getDate() == null) {
             MessageDialog.warring(this, "Ngày vào làm không được rỗng và có kiểu dd/MM/yyyy");
             return false;
         }
