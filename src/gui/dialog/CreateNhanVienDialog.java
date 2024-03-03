@@ -18,7 +18,6 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
 
     NhanVienController NV_CON = new NhanVienController();
     NhanVienPage NV_GUI;
-    List<NhanVien> listNV = NV_CON.getListNV();
 
     public CreateNhanVienDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -35,7 +34,7 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
     private void fillInput() {
         txtNgayVaoLam.setDate(new Date());
     }
-    
+
     private boolean isValidateFields() {
         if (txtHoTen.getText().trim().equals("")) {
             MessageDialog.warring(this, "Tên nhân viên không được rỗng!");
@@ -47,6 +46,15 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
             MessageDialog.warring(this, "Số điện thoại không được rỗng và có 10 ký tự sô!");
             txtSdt.requestFocus();
             return false;
+        } else {
+            List<String> listSdt = NV_CON.getListSdt();
+            for (String sdt : listSdt) {
+                if (sdt.equals(txtSdt.getText())) {
+                    MessageDialog.warring(this, "Trùng số điện thoại!");
+                    txtSdt.requestFocus();
+                    return false;
+                }
+            }
         }
 
         if (txtNamSinh.getText().trim().equals("")) {

@@ -5,6 +5,7 @@ import entity.NhanVien;
 import gui.page.NhanVienPage;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import utils.MessageDialog;
 import utils.Validation;
 
@@ -50,6 +51,15 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
             MessageDialog.warring(this, "Số điện thoại không được rỗng và có 10 ký tự sô!");
             txtSdt.requestFocus();
             return false;
+        } else {
+            List<String> listSdt = NV_CON.getListSdt();
+            for (String sdt : listSdt) {
+                if (sdt.equals(txtSdt.getText())) {
+                    MessageDialog.warring(this, "Trùng số điện thoại!");
+                    txtSdt.requestFocus();
+                    return false;
+                }
+            }
         }
 
         if (txtNamSinh.getText().trim().equals("")) {

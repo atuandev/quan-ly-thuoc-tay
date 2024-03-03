@@ -73,7 +73,14 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
     }
     
     public List<String> getListSdt() {
+        List<NhanVien> listNV = this.getListNV();
+        List<String> result = new ArrayList<>();
         
+        listNV.forEach(nv -> {
+            result.add(nv.getSdt());
+        });
+        
+        return result;
     }
 
     @Override
