@@ -5,6 +5,7 @@ import entity.NhanVien;
 import gui.page.NhanVienPage;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import utils.MessageDialog;
 import utils.RandomGenerator;
 import utils.Validation;
@@ -17,6 +18,7 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
 
     NhanVienController NV_CON = new NhanVienController();
     NhanVienPage NV_GUI;
+    List<NhanVien> listNV = NV_CON.getListNV();
 
     public CreateNhanVienDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -33,7 +35,7 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
     private void fillInput() {
         txtNgayVaoLam.setDate(new Date());
     }
-
+    
     private boolean isValidateFields() {
         if (txtHoTen.getText().trim().equals("")) {
             MessageDialog.warring(this, "Tên nhân viên không được rỗng!");
@@ -59,6 +61,10 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
                     MessageDialog.warring(this, "Năm sinh phải >= 1900 và <= " + namHienTai);
                     txtNamSinh.requestFocus();
                     return false;
+                } else if (namHienTai - namSinh < 18) {
+                    MessageDialog.warring(this, "Nhân viên phải đủ 18 tuổi");
+                    txtNamSinh.requestFocus();
+                    return false;
                 }
             } catch (NumberFormatException e) {
                 MessageDialog.warring(this, "Năm sinh phải có 4 ký tự số!");
@@ -67,8 +73,11 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
             }
         }
 
-        if (txtNgayVaoLam.getDate() == null) {
+        if (txtNgayVaoLam.getDate() == null || !txtNgayVaoLam.getDateFormatString().equals("dd/MM/yyyy")) {
             MessageDialog.warring(this, "Ngày vào làm không được rỗng và có kiểu dd/MM/yyyy");
+            return false;
+        } else if (txtNgayVaoLam.getDate().after(new Date())) {
+            MessageDialog.warring(this, "Ngày vào làm phải trước ngày hiện tại");
             return false;
         }
 

@@ -14,11 +14,11 @@ public class MessageDialog {
     }
 
     public static void warring(Component parent, String message) {
-        JOptionPane.showMessageDialog(parent, message, "Warning", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(parent, message, "Warning!", JOptionPane.WARNING_MESSAGE);
     }
 
     public static void error(Component parent, String message) {
-        JOptionPane.showMessageDialog(parent, message, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(parent, message, "Error!", JOptionPane.ERROR_MESSAGE);
     }
 
     public static boolean confirm(Component parent, String message, String title) {

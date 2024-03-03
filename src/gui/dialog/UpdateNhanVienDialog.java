@@ -64,6 +64,10 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
                     MessageDialog.warring(this, "Năm sinh phải >= 1900 và <= " + namHienTai);
                     txtNamSinh.requestFocus();
                     return false;
+                } else if (namHienTai - namSinh < 18) {
+                    MessageDialog.warring(this, "Nhân viên phải đủ 18 tuổi");
+                    txtNamSinh.requestFocus();
+                    return false;
                 }
             } catch (NumberFormatException e) {
                 MessageDialog.warring(this, "Năm sinh phải có 4 ký tự số!");
@@ -72,8 +76,11 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
             }
         }
 
-        if (txtNgayVaoLam.getDate() == null) {
+        if (txtNgayVaoLam.getDate() == null || !txtNgayVaoLam.getDateFormatString().equals("dd/MM/yyyy")) {
             MessageDialog.warring(this, "Ngày vào làm không được rỗng và có kiểu dd/MM/yyyy");
+            return false;
+        } else if (txtNgayVaoLam.getDate().after(new Date())) {
+            MessageDialog.warring(this, "Ngày vào làm phải trước ngày hiện tại");
             return false;
         }
 

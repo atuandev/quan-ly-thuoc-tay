@@ -63,7 +63,7 @@ public class NhanVienPage extends javax.swing.JPanel {
 
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
-        
+
         String[] searchType = {"Tất cả", "Mã", "Tên", "Số điện thoại", "Năm sinh"};
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(searchType);
         cboxSearch.setModel(model);
@@ -93,8 +93,8 @@ public class NhanVienPage extends javax.swing.JPanel {
     public void loadTableNhanVien() {
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
-        
-        List<NhanVien> list = NV_CON.getList();
+
+        List<NhanVien> list = NV_CON.getListNV();
         int stt = 1;
         for (NhanVien e : list) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), Formatter.FormatDate(e.getNgayVaoLam())});
@@ -359,7 +359,7 @@ public class NhanVienPage extends javax.swing.JPanel {
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         String[] header = new String[]{"Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
-        List<NhanVien> listNV = NV_CON.getList();
+        List<NhanVien> listNV = NV_CON.getListNV();
 
         NV_CON.exportExcel(listNV, header);
     }//GEN-LAST:event_btnExportActionPerformed
@@ -367,11 +367,11 @@ public class NhanVienPage extends javax.swing.JPanel {
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
-        
+
         String search = txtSearch.getText().toLowerCase().trim();
         String searchType = cboxSearch.getSelectedItem().toString();
         List<NhanVien> listsearch = NV_CON.getSearchTable(search, searchType);
-        
+
         int stt = 1;
         for (NhanVien e : listsearch) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), Formatter.FormatDate(e.getNgayVaoLam())});

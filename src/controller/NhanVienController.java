@@ -68,8 +68,12 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
     }
 
     @Override
-    public List<NhanVien> getList() {
+    public List<NhanVien> getListNV() {
         return NV_DAO.selectAll();
+    }
+    
+    public List<String> getListSdt() {
+        
     }
 
     @Override
@@ -83,35 +87,35 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
 
         switch (searchType) {
             case "Tất cả" -> {
-                for (NhanVien nv : this.getList()) {
+                for (NhanVien nv : this.getListNV()) {
                     if (nv.getId().toLowerCase().contains(text) || nv.getHoTen().toLowerCase().contains(text) || nv.getSdt().toLowerCase().contains(text) || String.valueOf(nv.getNamSinh()).toLowerCase().contains(text)) {
                         result.add(nv);
                     }
                 }
             }
             case "Mã" -> {
-                for (NhanVien nv : this.getList()) {
+                for (NhanVien nv : this.getListNV()) {
                     if (nv.getId().toLowerCase().contains(text)) {
                         result.add(nv);
                     }
                 }
             }
             case "Tên" -> {
-                for (NhanVien nv : this.getList()) {
+                for (NhanVien nv : this.getListNV()) {
                     if (nv.getHoTen().toLowerCase().contains(text)) {
                         result.add(nv);
                     }
                 }
             }
             case "Số điện thoại" -> {
-                for (NhanVien nv : this.getList()) {
+                for (NhanVien nv : this.getListNV()) {
                     if (nv.getGioiTinh().toLowerCase().contains(text)) {
                         result.add(nv);
                     }
                 }
             }
             case "Năm sinh" -> {
-                for (NhanVien nv : this.getList()) {
+                for (NhanVien nv : this.getListNV()) {
                     if (String.valueOf(nv.getNamSinh()).toLowerCase().contains(text)) {
                         result.add(nv);
                     }
