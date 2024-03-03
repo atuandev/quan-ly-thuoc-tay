@@ -5,7 +5,6 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
-import gui.page.CreateHoaDonPage;
 import gui.page.HoaDonPage;
 import gui.page.KhachHangPage;
 import gui.page.NhaSanXuatPage;
@@ -46,7 +45,6 @@ public class MainLayout extends javax.swing.JFrame {
 
     public MainLayout() {
         initComponents();
-        initFlatLaf();
         sideBarLayout();
     }
 
@@ -56,30 +54,7 @@ public class MainLayout extends javax.swing.JFrame {
         mainContent.repaint();
         mainContent.validate();
     }
-
-    private void initFlatLaf() {
-        FlatRobotoFont.install();
-        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
-        UIManager.put("TextComponent.arc", 10);
-        UIManager.put("Component.arc", 10);
-        UIManager.put("ScrollBar.thumbArc", 999);
-        UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
-        UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
-        UIManager.put("Table.rowHeight", 40);
-        UIManager.put("Table.showVerticalLines", false);
-        UIManager.put("Table.showHorizontalLines", true);
-        UIManager.put("TabbedPane.selectedBackground", Color.white);
-        UIManager.put("TableHeader.height", 40);
-        UIManager.put("TableHeader.font", UIManager.getFont("h4.font"));
-        UIManager.put("TableHeader.background", new Color(242, 242, 242));
-        UIManager.put("TableHeader.separatorColor", new Color(242, 242, 242));
-        UIManager.put("TableHeader.bottomSeparatorColor", new Color(242, 242, 242));
-    }
-
+    
     private void sideBarLayout() {
         // Add list item Sidebar
         listItem = new ArrayList<>();
@@ -92,7 +67,7 @@ public class MainLayout extends javax.swing.JFrame {
         listItem.add(nhanVienItem);
         listItem.add(taiKhoanItem);
         listItem.add(thongKeItem);
-
+        
         for (JButton item : listItem) {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
@@ -134,7 +109,7 @@ public class MainLayout extends javax.swing.JFrame {
 
         leftContent = new javax.swing.JPanel();
         sidebarPanel = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        itemPanel = new javax.swing.JPanel();
         sanPhamItem = new javax.swing.JButton();
         thuocTinhItem = new javax.swing.JButton();
         hoaDonItem = new javax.swing.JButton();
@@ -167,8 +142,8 @@ public class MainLayout extends javax.swing.JFrame {
         sidebarPanel.setPreferredSize(new java.awt.Dimension(200, 800));
         sidebarPanel.setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 8, true));
+        itemPanel.setBackground(new java.awt.Color(255, 255, 255));
+        itemPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 8, true));
 
         sanPhamItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         sanPhamItem.setIcon(new FlatSVGIcon("./icon/medicine.svg"));
@@ -186,7 +161,7 @@ public class MainLayout extends javax.swing.JFrame {
                 sanPhamItemActionPerformed(evt);
             }
         });
-        jPanel3.add(sanPhamItem);
+        itemPanel.add(sanPhamItem);
 
         thuocTinhItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         thuocTinhItem.setIcon(new FlatSVGIcon("./icon/menu.svg"));
@@ -204,7 +179,7 @@ public class MainLayout extends javax.swing.JFrame {
                 thuocTinhItemActionPerformed(evt);
             }
         });
-        jPanel3.add(thuocTinhItem);
+        itemPanel.add(thuocTinhItem);
 
         hoaDonItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         hoaDonItem.setIcon(new FlatSVGIcon("./icon/bill.svg"));
@@ -222,7 +197,7 @@ public class MainLayout extends javax.swing.JFrame {
                 hoaDonItemActionPerformed(evt);
             }
         });
-        jPanel3.add(hoaDonItem);
+        itemPanel.add(hoaDonItem);
 
         phieuNhapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         phieuNhapItem.setIcon(new FlatSVGIcon("./icon/bill-import.svg"));
@@ -235,7 +210,7 @@ public class MainLayout extends javax.swing.JFrame {
         phieuNhapItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         phieuNhapItem.setIconTextGap(16);
         phieuNhapItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        jPanel3.add(phieuNhapItem);
+        itemPanel.add(phieuNhapItem);
 
         nhaSanXuatItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         nhaSanXuatItem.setIcon(new FlatSVGIcon("./icon/trucks.svg"));
@@ -253,7 +228,7 @@ public class MainLayout extends javax.swing.JFrame {
                 nhaSanXuatItemActionPerformed(evt);
             }
         });
-        jPanel3.add(nhaSanXuatItem);
+        itemPanel.add(nhaSanXuatItem);
 
         khachHangItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         khachHangItem.setIcon(new FlatSVGIcon("./icon/customer.svg"));
@@ -271,7 +246,7 @@ public class MainLayout extends javax.swing.JFrame {
                 khachHangItemActionPerformed(evt);
             }
         });
-        jPanel3.add(khachHangItem);
+        itemPanel.add(khachHangItem);
 
         nhanVienItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         nhanVienItem.setIcon(new FlatSVGIcon("./icon/employee.svg"));
@@ -289,7 +264,7 @@ public class MainLayout extends javax.swing.JFrame {
                 nhanVienItemActionPerformed(evt);
             }
         });
-        jPanel3.add(nhanVienItem);
+        itemPanel.add(nhanVienItem);
 
         taiKhoanItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         taiKhoanItem.setIcon(new FlatSVGIcon("./icon/account.svg"));
@@ -307,7 +282,7 @@ public class MainLayout extends javax.swing.JFrame {
                 taiKhoanItemActionPerformed(evt);
             }
         });
-        jPanel3.add(taiKhoanItem);
+        itemPanel.add(taiKhoanItem);
 
         thongKeItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         thongKeItem.setIcon(new FlatSVGIcon("./icon/statistics.svg"));
@@ -320,9 +295,9 @@ public class MainLayout extends javax.swing.JFrame {
         thongKeItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         thongKeItem.setIconTextGap(16);
         thongKeItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        jPanel3.add(thongKeItem);
+        itemPanel.add(thongKeItem);
 
-        sidebarPanel.add(jPanel3, java.awt.BorderLayout.CENTER);
+        sidebarPanel.add(itemPanel, java.awt.BorderLayout.CENTER);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 10, true));
@@ -486,10 +461,10 @@ public class MainLayout extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton hoaDonItem;
     private javax.swing.JPanel infoPanel;
+    private javax.swing.JPanel itemPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton khachHangItem;

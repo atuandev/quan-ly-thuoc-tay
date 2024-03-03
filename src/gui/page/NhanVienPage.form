@@ -371,7 +371,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="200" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -399,7 +399,9 @@
                   </TableColumnModel>
                 </Property>
                 <Property name="focusable" type="boolean" value="false"/>
+                <Property name="rowHeight" type="int" value="40"/>
                 <Property name="selectionMode" type="int" value="0"/>
+                <Property name="showHorizontalLines" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>

@@ -1,6 +1,7 @@
 package gui;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -20,6 +21,14 @@ public class Login extends javax.swing.JFrame {
         loginLayout();
     }
 
+    public static void main(String args[]) {
+        initFlatlaf();
+        java.awt.EventQueue.invokeLater(() -> {
+            Login login = new Login();
+            login.setVisible(true);
+        });
+    }
+
     private static void initFlatlaf() {
         FlatRobotoFont.install();
         FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
@@ -28,7 +37,6 @@ public class Login extends javax.swing.JFrame {
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
         UIManager.put("PasswordField.showRevealButton", true);
-        UIManager.put("TextComponent.arc", 10);
     }
 
     private void loginLayout() {
@@ -36,7 +44,7 @@ public class Login extends javax.swing.JFrame {
         txtPassword.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/password.svg"));
         btnLogin.putClientProperty(FlatClientProperties.STYLE, "arc: 10");
     }
-    
+
     private void checkLogin() {
         String txtUser = txtUsername.getText();
         String txtPass = txtPassword.getText();
@@ -265,9 +273,4 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-    public static void main(String args[]) {
-        initFlatlaf();
-        Login login = new Login();
-        login.setVisible(true);
-    }
 }

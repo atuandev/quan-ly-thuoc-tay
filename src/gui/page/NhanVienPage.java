@@ -30,9 +30,6 @@ public class NhanVienPage extends javax.swing.JPanel {
 
     public NhanVienPage() {
         initComponents();
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
-
         headerLayout();
         tableLayout();
     }
@@ -40,9 +37,6 @@ public class NhanVienPage extends javax.swing.JPanel {
     public NhanVienPage(JFrame main) {
         this.main = main;
         initComponents();
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
-
         headerLayout();
         tableLayout();
     }
@@ -299,8 +293,13 @@ public class NhanVienPage extends javax.swing.JPanel {
             }
         });
         table.setFocusable(false);
+        table.setRowHeight(40);
         table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        table.setShowHorizontalLines(true);
         jScrollPane1.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
 
         tablePanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
