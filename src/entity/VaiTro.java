@@ -4,19 +4,19 @@ package entity;
  *
  * @author HP
  */
-public class PhanQuyen {
+public class VaiTro {
 
     private String id;
     private String ten;
 
-    public PhanQuyen() {
+    public VaiTro() {
     }
 
-    public PhanQuyen(String id) {
+    public VaiTro(String id) {
         this.id = id;
     }
 
-    public PhanQuyen(String id, String ten) {
+    public VaiTro(String id, String ten) {
         this.id = id;
         this.ten = ten;
     }

@@ -1,0 +1,65 @@
+package dao;
+
+import connectDB.jdbcHelper;
+import entity.DonViTinh;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DonViTinhDAO extends InterfaceDAO<DonViTinh, String> {
+
+    private String INSERT_SQL = "INSERT INTO DonViTinh values (?,?)";
+    private String UPDATE_SQL = "UPDATE DonViTinh SET ten=? where id=?";
+    private String DELETE_BY_ID = "DELETE from DonViTinh where id = ?";
+
+    private String SELECT_ALL_SQL = "SELECT * FROM DonViTinh";
+    private String SELECT_BY_ID = "SELECT * FROM DonViTinh WHERE id = ?";
+
+    @Override
+    public void create(DonViTinh e) {
+        jdbcHelper.update(INSERT_SQL, e.getId(), e.getTen());
+    }
+
+    @Override
+    public void update(DonViTinh e) {
+        jdbcHelper.update(UPDATE_SQL, e.getTen(), e.getId());
+    }
+
+    @Override
+    public void deleteById(String id) {
+        jdbcHelper.update(DELETE_BY_ID, id);
+    }
+
+    @Override
+    protected List<DonViTinh> selectBySql(String sql, Object... args) {
+        List<DonViTinh> listE = new ArrayList<>();
+        try {
+            ResultSet rs = jdbcHelper.query(sql, args);
+            while (rs.next()) {
+                DonViTinh e = new DonViTinh();
+                e.setId(rs.getString("id"));
+                e.setTen(rs.getString("ten"));
+                listE.add(e);
+            }
+            rs.getStatement().getConnection().close();
+            return listE;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<DonViTinh> selectAll() {
+        return this.selectBySql(SELECT_ALL_SQL);
+    }
+
+    @Override
+    public DonViTinh selectById(String id) {
+        List<DonViTinh> list = selectBySql(SELECT_BY_ID, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
+}

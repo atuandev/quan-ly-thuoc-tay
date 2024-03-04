@@ -9,7 +9,7 @@ public class TaiKhoan {
     private String username;
     private String password;
     private NhanVien nhanVien;
-    private PhanQuyen phanQuyen;
+    private VaiTro vaiTro;
 
     public TaiKhoan() {
     }
@@ -18,11 +18,11 @@ public class TaiKhoan {
         this.username = username;
     }
 
-    public TaiKhoan(String username, String password, NhanVien nhanVien, PhanQuyen phanQuyen) {
+    public TaiKhoan(String username, String password, NhanVien nhanVien, VaiTro vaiTro) {
         this.username = username;
         this.password = password;
         this.nhanVien = nhanVien;
-        this.phanQuyen = phanQuyen;
+        this.vaiTro = vaiTro;
     }
 
     public String getUsername() {
@@ -49,17 +49,17 @@ public class TaiKhoan {
         this.nhanVien = nhanVien;
     }
 
-    public PhanQuyen getPhanQuyen() {
-        return phanQuyen;
+    public VaiTro getVaiTro() {
+        return vaiTro;
     }
 
-    public void setPhanQuyen(PhanQuyen phanQuyen) {
-        this.phanQuyen = phanQuyen;
+    public void setVaiTro(VaiTro vaiTro) {
+        this.vaiTro = vaiTro;
     }
 
     @Override
     public String toString() {
-        return "TaiKhoan{" + "username=" + username + ", password=" + password + ", nhanVien=" + nhanVien + ", phanQuyen=" + phanQuyen + '}';
+        return "TaiKhoan{" + "username=" + username + ", password=" + password + ", nhanVien=" + nhanVien + ", vaiTro=" + vaiTro + '}';
     }
 
 }

@@ -16,9 +16,9 @@ go
 
 INSERT INTO NhanVien (id, hoTen, sdt, gioiTinh, namSinh, ngayVaoLam)
 VALUES
-    ('LKD2SFSL1', N'Nguyễn Phan Anh Tuấn', '0906765871', 'Nam', 2003, '2024-02-12'),
-    ('IU42JDKJ2', 'Vũ Nương', '0931265687', 'Nữ', 2003, '2024-02-15'),
-    ('DKJFJO1K2', 'Chí Phèo', '0967566712', 'Nam', 2003, '2024-02-20');
+    ('LKD2SFSL1', N'Nguyễn Phan Anh Tuấn', '0906765871', N'Nam', 2003, '2024-02-12'),
+    ('IU42JDKJ2', 'Vũ Nương', '0931265687', N'Nữ', 2003, '2024-02-15'),
+    ('DKJFJO1K2', 'Chí Phèo', '0967566712', N'Nam', 2003, '2024-02-20');
 go
 
 CREATE TABLE VaiTro (
@@ -52,21 +52,22 @@ CREATE TABLE KhachHang (
     hoTen NVARCHAR(50) NOT NULL,
     sdt NVARCHAR(10) NOT NULL,
     gioiTinh NVARCHAR(10) NOT NULL,
+	ngayThamGia DATE NOT NULL,
 );
 go
 
-INSERT INTO KhachHang (id, hoTen, sdt, gioiTinh)
+INSERT INTO KhachHang (id, hoTen, sdt, gioiTinh, ngayThamGia)
 VALUES
-    ('ASDASN131', N'Nguyễn Văn Hùng', '0906765871', 'Nam'),
-	('12ZAS1SX1', N'Nguyễn Thị Lan', '0931265687', 'Nữ'),
-	('SDF3F13DZ', N'Lê Đức Anh', '096756671', 'Nam'),
-	('ABCD12345', N'Trần Mai Hương', '0987654321', 'Nữ'),
-	('XYZ98765Z', N'Phạm Xuân Phong', '0912345678', 'Nam'),
-	('KLM45678X', N'Lê Thị Linh', '0956789012', 'Nữ'),
-	('PQR23456V', N'Hồ Ngọc Minh', '0923456789', 'Nam'),
-	('789ABCDEF', N'Võ Thị Hải Yến', '0945678901', 'Nữ'),
-	('456ZYXWVQ', N'Phạm Thị Anh', '0978901234', 'Nữ'),
-	('QWE78901S', N'Hoàng Hữu Đức', '0912345678', 'Nam');
+    ('ASDASN131', N'Nguyễn Văn Hùng', '0906765871', N'Nam', '2024-02-15'),
+	('12ZAS1SX1', N'Nguyễn Thị Lan', '0931265687', N'Nữ', '2024-02-15'),
+	('SDF3F13DZ', N'Lê Đức Anh', '0967566712', N'Nam', '2024-02-15'),
+	('ABCD12345', N'Trần Mai Hương', '0987654321', N'Nữ', '2024-02-15'),
+	('XYZ98765Z', N'Phạm Xuân Phong', '0912345678', N'Nam', '2024-02-15'),
+	('KLM45678X', N'Lê Thị Linh', '0956789012', N'Nữ', '2024-02-15'),
+	('PQR23456V', N'Hồ Ngọc Minh', '0923456789', N'Nam', '2024-02-15'),
+	('789ABCDEF', N'Võ Thị Hải Yến', '0945678901', N'Nữ', '2024-02-15'),
+	('456ZYXWVQ', N'Phạm Thị Anh', '0978901234', N'Nữ', '2024-02-15'),
+	('QWE78901S', N'Hoàng Hữu Đức', '0912345678', N'Nam', '2024-02-15');
 go
 
 CREATE TABLE DonViTinh (

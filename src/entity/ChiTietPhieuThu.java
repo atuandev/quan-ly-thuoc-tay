@@ -16,9 +16,8 @@ public class ChiTietPhieuThu {
     public ChiTietPhieuThu() {
     }
 
-    public ChiTietPhieuThu(PhieuThu phieuThu, Thuoc thuoc) {
+    public ChiTietPhieuThu(PhieuThu phieuThu) {
         this.phieuThu = phieuThu;
-        this.thuoc = thuoc;
     }
 
     public ChiTietPhieuThu(PhieuThu phieuThu, Thuoc thuoc, int soLuong, double donGia) {

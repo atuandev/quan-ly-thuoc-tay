@@ -14,8 +14,6 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
 
     private String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
     private String SELECT_BY_ID = "SELECT * FROM NhanVien WHERE id = ?";
-    private String SELECT_BY_HO_TEN = "SELECT * FROM NhanVien WHERE hoTen LIKE ? ";
-    private String SELECT_BY_SDT = "SELECT * FROM NhanVien WHERE sdt LIKE ? ";
 
     @Override
     public void create(NhanVien e) {

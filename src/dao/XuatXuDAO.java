@@ -1,0 +1,65 @@
+package dao;
+
+import connectDB.jdbcHelper;
+import entity.XuatXu;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+public class XuatXuDAO extends InterfaceDAO<XuatXu, String> {
+
+    private String INSERT_SQL = "INSERT INTO XuatXu values (?,?)";
+    private String UPDATE_SQL = "UPDATE XuatXu SET ten=? where id=?";
+    private String DELETE_BY_ID = "DELETE from XuatXu where id = ?";
+
+    private String SELECT_ALL_SQL = "SELECT * FROM XuatXu";
+    private String SELECT_BY_ID = "SELECT * FROM XuatXu WHERE id = ?";
+
+    @Override
+    public void create(XuatXu e) {
+        jdbcHelper.update(INSERT_SQL, e.getId(), e.getTen());
+    }
+
+    @Override
+    public void update(XuatXu e) {
+        jdbcHelper.update(UPDATE_SQL, e.getTen(), e.getId());
+    }
+
+    @Override
+    public void deleteById(String id) {
+        jdbcHelper.update(DELETE_BY_ID, id);
+    }
+
+    @Override
+    protected List<XuatXu> selectBySql(String sql, Object... args) {
+        List<XuatXu> listE = new ArrayList<>();
+        try {
+            ResultSet rs = jdbcHelper.query(sql, args);
+            while (rs.next()) {
+                XuatXu e = new XuatXu();
+                e.setId(rs.getString("id"));
+                e.setTen(rs.getString("ten"));
+                listE.add(e);
+            }
+            rs.getStatement().getConnection().close();
+            return listE;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<XuatXu> selectAll() {
+        return this.selectBySql(SELECT_ALL_SQL);
+    }
+
+    @Override
+    public XuatXu selectById(String id) {
+        List<XuatXu> list = selectBySql(SELECT_BY_ID, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
+}

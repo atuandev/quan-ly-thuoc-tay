@@ -19,7 +19,7 @@ public class Thuoc {
     private DonViTinh donViTinh;
     private DanhMuc danhMuc;
     private XuatXu xuatXu;
-    private int soLuong;
+    private int soLuongTon;
     private double giaNhap;
     private double donGia;
 
@@ -38,7 +38,7 @@ public class Thuoc {
         this.donViTinh = donViTinh;
         this.danhMuc = danhMuc;
         this.xuatXu = xuatXu;
-        this.soLuong = soLuong;
+        this.soLuongTon = soLuong;
         this.giaNhap = giaNhap;
         this.donGia = donGia;
     }
@@ -99,12 +99,12 @@ public class Thuoc {
         this.xuatXu = xuatXu;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public int getSoLuongTon() {
+        return soLuongTon;
     }
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+    public void setSoLuongTon(int soLuongTon) {
+        this.soLuongTon = soLuongTon;
     }
 
     public double getGiaNhap() {
@@ -147,7 +147,9 @@ public class Thuoc {
 
     @Override
     public String toString() {
-        return "Thuoc{" + "id=" + id + ", ten=" + ten + ", hinhAnh=" + hinhAnh + ", thanhPhan=" + thanhPhan + ", donViTinh=" + donViTinh + ", danhMuc=" + danhMuc + ", xuatXu=" + xuatXu + ", soLuong=" + soLuong + ", giaNhap=" + giaNhap + ", donGia=" + donGia + '}';
+        return "Thuoc{" + "id=" + id + ", ten=" + ten + ", hinhAnh=" + hinhAnh + ", thanhPhan=" + thanhPhan 
+                + ", donViTinh=" + donViTinh + ", danhMuc=" + danhMuc + ", xuatXu=" + xuatXu + ", soLuongTon=" 
+                + soLuongTon + ", giaNhap=" + giaNhap + ", donGia=" + donGia + '}';
     }
 
 }
