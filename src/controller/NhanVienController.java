@@ -25,64 +25,76 @@ import static utils.Validation.isPhoneNumber;
  * @author HP
  */
 public class NhanVienController extends InterfaceController<NhanVien, String> {
-
+    
     NhanVienDAO NV_DAO;
     NhanVienPage NV_GUI;
-
+    
     public NhanVienController() {
         this.NV_DAO = new NhanVienDAO();
         this.NV_GUI = new NhanVienPage();
     }
-
+    
     public NhanVienController(NhanVienPage NV_GUI) {
         this.NV_DAO = new NhanVienDAO();
         this.NV_GUI = NV_GUI;
     }
-
+    
     @Override
     public void create(NhanVien e) {
+        for (NhanVien nv : this.getListNV()) {
+            if (nv.getHoTen().contains(e.getId())) {
+                MessageDialog.error(NV_GUI, "Trùng mã!");
+            }
+        }
         NV_DAO.create(e);
     }
-
+    
     @Override
     public void update(NhanVien e) {
         NV_DAO.update(e);
     }
-
+    
     @Override
     public void deleteById(String id) {
         NV_DAO.deleteById(id);
     }
-
+    
     @Override
     public List<NhanVien> getListNV() {
         return NV_DAO.selectAll();
     }
-
+    
     public List<String> getListSdt() {
         List<NhanVien> listNV = this.getListNV();
         List<String> result = new ArrayList<>();
-
+        
         listNV.forEach(nv -> {
             result.add(nv.getSdt());
         });
-
+        
         return result;
     }
-
+    
     @Override
     public NhanVien selectById(String id) {
         return NV_DAO.selectById(id);
     }
-
+    
+    public String getHoTenById(String id) {
+        return NV_DAO.selectById(id).getHoTen();
+    }
+    
     public List<NhanVien> getSearchTable(String text, String searchType) {
         text = text.toLowerCase();
         List result = new ArrayList<NhanVien>();
-
+        
         switch (searchType) {
             case "Tất cả" -> {
                 for (NhanVien nv : this.getListNV()) {
-                    if (nv.getId().toLowerCase().contains(text) || nv.getHoTen().toLowerCase().contains(text) || nv.getSdt().toLowerCase().contains(text) || String.valueOf(nv.getNamSinh()).toLowerCase().contains(text)) {
+                    if (nv.getId().toLowerCase().contains(text)
+                            || nv.getHoTen().toLowerCase().contains(text)
+                            || nv.getSdt().toLowerCase().contains(text)
+                            || String.valueOf(nv.getNamSinh()).toLowerCase().contains(text)) {
                         result.add(nv);
                     }
                 }
@@ -118,10 +130,10 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
             default ->
                 throw new AssertionError();
         }
-
+        
         return result;
     }
-
+    
     public void importExcel() {
         File excelFile;
         FileInputStream excelFIS = null;
@@ -132,7 +144,7 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
         FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
         jf.setFileFilter(fnef);
         int result = jf.showOpenDialog(null);
-
+        
         int check = 0;
         if (result == JFileChooser.APPROVE_OPTION) {
             try {
@@ -141,7 +153,7 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
                 excelBIS = new BufferedInputStream(excelFIS);
                 excelJTableImport = new XSSFWorkbook(excelBIS);
                 XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
-
+                
                 for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
                     XSSFRow excelRow = excelSheet.getRow(row);
 
@@ -167,10 +179,10 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
                         NV_DAO.create(nv);
                         NV_GUI.loadTableNhanVien();
                     }
-
+                    
                 }
                 MessageDialog.info(NV_GUI, "Nhập dữ liệu thành công!");
-
+                
             } catch (FileNotFoundException ex) {
                 MessageDialog.error(NV_GUI, "Lỗi đọc file");
             } catch (IOException ex) {
@@ -181,6 +193,5 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
             MessageDialog.error(NV_GUI, "Có " + check + " dòng dữ liệu không được thêm vào!");
         }
     }
-
-
+    
 }
