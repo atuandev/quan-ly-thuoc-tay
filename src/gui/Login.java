@@ -45,7 +45,7 @@ public class Login extends javax.swing.JFrame {
         btnLogin.putClientProperty(FlatClientProperties.STYLE, "arc: 10");
     }
 
-    private void checkLogin() {
+    private void authentication() {
         String txtUser = txtUsername.getText();
         String txtPass = txtPassword.getText();
 
@@ -242,18 +242,18 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        checkLogin();
+        authentication();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            checkLogin();
+            authentication();
         }
     }//GEN-LAST:event_txtUsernameKeyPressed
 
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            checkLogin();
+            authentication();
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
 

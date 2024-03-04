@@ -34,14 +34,14 @@ public class MainLayout extends javax.swing.JFrame {
     private SanPhamPage sanPham;
     private HoaDonPage hoaDon;
     private ThuocTinhPage thuocTinh;
-
-    private List<JButton> listItem;
-
-    Color ACTIVE_BACKGROUND_COLOR = new Color(195, 240, 235);
     private NhaSanXuatPage nhaSanXuat;
     private KhachHangPage khachHang;
     private NhanVienPage nhanVien;
     private TaiKhoanPage taiKhoan;
+
+    private List<JButton> listItem;
+
+    Color ACTIVE_BACKGROUND_COLOR = new Color(195, 240, 235);
 
     public MainLayout() {
         initComponents();
@@ -83,14 +83,11 @@ public class MainLayout extends javax.swing.JFrame {
 
         // Set active item
         for (JButton item : listItem) {
-            item.getModel().addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    ButtonModel model = (ButtonModel) e.getSource();
-
-                    if (model.isSelected()) {
-                        item.setBackground(ACTIVE_BACKGROUND_COLOR); // Change color when selected
-                    }
+            item.getModel().addChangeListener((ChangeEvent e) -> {
+                ButtonModel model = (ButtonModel) e.getSource();
+                
+                if (model.isSelected()) {
+                    item.setBackground(ACTIVE_BACKGROUND_COLOR); // Change color when selected
                 }
             });
         }

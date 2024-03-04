@@ -38,4 +38,16 @@ public class Validation {
         }
         return true;
     }
+
+    public static boolean isPhoneNumber(String str) {
+        str = str.replaceAll("\\s+", "").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\-", "");
+
+        if (str.matches("\\d{10}")) {
+            return true;
+        } else if (str.matches("\\d{3}-\\d{3}-\\d{4}")) {
+            return true;
+        } else {
+            return str.matches("\\(\\d{3}\\)\\d{3}-\\d{4}");
+        }
+    }
 }

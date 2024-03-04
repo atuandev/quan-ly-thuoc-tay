@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
@@ -35,7 +31,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         formatNumberFields();
     }
 
-    private boolean validateFields() {
+    private boolean isValidateFields() {
         if (txtTong.getText().equals("") || txtTienKhachDua.getText().equals("")) {
             return false;
         }
@@ -518,7 +514,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jLabel6.setPreferredSize(new java.awt.Dimension(120, 40));
         jPanel10.add(jLabel6);
 
-        txtTienKhachDua.setFont(new java.awt.Font("Roboto Mono Medium", 0, 14)); // NOI18N
         txtTienKhachDua.setPreferredSize(new java.awt.Dimension(200, 40));
         txtTienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -611,7 +606,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
-        if (validateFields()) {
+        if (isValidateFields()) {
             Double tong = Formatter.unformatVND(txtTong.getText());
             Double tienKhachDua = Double.valueOf(txtTienKhachDua.getText());
             Double tienThua = tienKhachDua - tong;
@@ -620,8 +615,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
                 tienThua = 0.0;
             }
 
-            String txtTienThuaFormat = Formatter.FormatVND(Double.parseDouble(tienThua.toString()));
-            txtTienThua.setText(txtTienThuaFormat);
+            txtTienThua.setText(Formatter.FormatVND(tienThua));
         }
     }//GEN-LAST:event_txtTienKhachDuaKeyReleased
 

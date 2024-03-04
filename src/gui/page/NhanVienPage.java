@@ -7,8 +7,11 @@ import controller.NhanVienController;
 import entity.NhanVien;
 import gui.dialog.CreateNhanVienDialog;
 import gui.dialog.UpdateNhanVienDialog;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.Formatter;
+import utils.JTableExporter;
 import utils.MessageDialog;
 import utils.TableSorter;
 
@@ -24,23 +28,23 @@ import utils.TableSorter;
  * @author atuandev
  */
 public class NhanVienPage extends javax.swing.JPanel {
-
+    
     private JFrame main;
     private NhanVienController NV_CON = new NhanVienController(this);
-
+    
     public NhanVienPage() {
         initComponents();
         headerLayout();
         tableLayout();
     }
-
+    
     public NhanVienPage(JFrame main) {
         this.main = main;
         initComponents();
         headerLayout();
         tableLayout();
     }
-
+    
     private void headerLayout() {
         List<JButton> listButton = new ArrayList<>();
         listButton.add(btnAdd);
@@ -54,40 +58,40 @@ public class NhanVienPage extends javax.swing.JPanel {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
         btnReload.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-
+        
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
-
+        
         String[] searchType = {"Tất cả", "Mã", "Tên", "Số điện thoại", "Năm sinh"};
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(searchType);
         cboxSearch.setModel(model);
     }
-
+    
     private void tableLayout() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         table.setDefaultRenderer(Object.class, centerRenderer);
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
-
+        
         DefaultTableModel modal = new DefaultTableModel();
         String[] header = new String[]{"STT", "Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
-
+        
         loadTableNhanVien();
         sortTable();
     }
-
+    
     private void sortTable() {
         table.setAutoCreateRowSorter(true);
         TableSorter.configureTableColumnSorter(table, 0, TableSorter.STRING_COMPARATOR);
     }
-
+    
     public void loadTableNhanVien() {
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
-
+        
         List<NhanVien> list = NV_CON.getListNV();
         int stt = 1;
         for (NhanVien e : list) {
@@ -95,7 +99,7 @@ public class NhanVienPage extends javax.swing.JPanel {
             stt++;
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -329,7 +333,7 @@ public class NhanVienPage extends javax.swing.JPanel {
             int row = table.getSelectedRow();
             String id = table.getValueAt(row, 1).toString();
             NhanVien nv = NV_CON.selectById(id);
-
+            
             UpdateNhanVienDialog dialog = new UpdateNhanVienDialog(main, true, this, nv);
             dialog.setVisible(true);
         } catch (Exception e) {
@@ -342,7 +346,7 @@ public class NhanVienPage extends javax.swing.JPanel {
             DefaultTableModel modal = (DefaultTableModel) table.getModel();
             int row = table.getSelectedRow();
             String id = table.getValueAt(row, 1).toString();
-
+            
             if (MessageDialog.confirm(this, "Bạn có chắc chắn xóa dòng này?", "Xóa")) {
                 NV_CON.deleteById(id);
                 modal.removeRow(row);
@@ -357,20 +361,25 @@ public class NhanVienPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnImportActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
-        String[] header = new String[]{"Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
-        List<NhanVien> listNV = NV_CON.getListNV();
-
-        NV_CON.exportExcel(listNV, header);
+        try {
+            //        String[] header = new String[]{"Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
+//        List<NhanVien> listNV = NV_CON.getListNV();
+//
+//        NV_CON.exportExcel(listNV, header);
+            JTableExporter.exportJTableToExcel(table);
+        } catch (IOException ex) {
+            MessageDialog.error(this, "Lỗi export");
+        }
     }//GEN-LAST:event_btnExportActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
-
+        
         String search = txtSearch.getText().toLowerCase().trim();
         String searchType = cboxSearch.getSelectedItem().toString();
         List<NhanVien> listsearch = NV_CON.getSearchTable(search, searchType);
-
+        
         int stt = 1;
         for (NhanVien e : listsearch) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), Formatter.FormatDate(e.getNgayVaoLam())});
