@@ -162,7 +162,7 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
                             || Validation.isEmpty(ngayVaoLam.toString())) {
                         check += 1;
                     } else {
-                        // Add NhanVien to database
+                        // Add NhanVien to databasef
                         NhanVien nv = new NhanVien(id, hoTen, sdt, gioitinh, namSinh, ngayVaoLam);
                         NV_DAO.create(nv);
                         NV_GUI.loadTableNhanVien();

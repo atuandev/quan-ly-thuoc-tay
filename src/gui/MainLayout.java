@@ -19,6 +19,7 @@ import java.util.List;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
@@ -54,7 +55,7 @@ public class MainLayout extends javax.swing.JFrame {
         mainContent.repaint();
         mainContent.validate();
     }
-    
+
     private void sideBarLayout() {
         // Add list item Sidebar
         listItem = new ArrayList<>();
@@ -67,7 +68,9 @@ public class MainLayout extends javax.swing.JFrame {
         listItem.add(nhanVienItem);
         listItem.add(taiKhoanItem);
         listItem.add(thongKeItem);
-        
+        listItem.add(phieuDatHang);
+        listItem.add(vaiTroItem);
+
         for (JButton item : listItem) {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
@@ -85,7 +88,7 @@ public class MainLayout extends javax.swing.JFrame {
         for (JButton item : listItem) {
             item.getModel().addChangeListener((ChangeEvent e) -> {
                 ButtonModel model = (ButtonModel) e.getSource();
-                
+
                 if (model.isSelected()) {
                     item.setBackground(ACTIVE_BACKGROUND_COLOR); // Change color when selected
                 }
@@ -106,15 +109,18 @@ public class MainLayout extends javax.swing.JFrame {
 
         leftContent = new javax.swing.JPanel();
         sidebarPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         itemPanel = new javax.swing.JPanel();
         sanPhamItem = new javax.swing.JButton();
         thuocTinhItem = new javax.swing.JButton();
+        khachHangItem = new javax.swing.JButton();
         hoaDonItem = new javax.swing.JButton();
+        phieuDatHang = new javax.swing.JButton();
         phieuNhapItem = new javax.swing.JButton();
         nhaSanXuatItem = new javax.swing.JButton();
-        khachHangItem = new javax.swing.JButton();
         nhanVienItem = new javax.swing.JButton();
         taiKhoanItem = new javax.swing.JButton();
+        vaiTroItem = new javax.swing.JButton();
         thongKeItem = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -139,8 +145,13 @@ public class MainLayout extends javax.swing.JFrame {
         sidebarPanel.setPreferredSize(new java.awt.Dimension(200, 800));
         sidebarPanel.setLayout(new java.awt.BorderLayout());
 
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(220, 550));
+
         itemPanel.setBackground(new java.awt.Color(255, 255, 255));
         itemPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 8, true));
+        itemPanel.setPreferredSize(new java.awt.Dimension(250, 550));
 
         sanPhamItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         sanPhamItem.setIcon(new FlatSVGIcon("./icon/medicine.svg"));
@@ -178,6 +189,24 @@ public class MainLayout extends javax.swing.JFrame {
         });
         itemPanel.add(thuocTinhItem);
 
+        khachHangItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        khachHangItem.setIcon(new FlatSVGIcon("./icon/customer.svg"));
+        khachHangItem.setText("Khách hàng");
+        khachHangItem.setBorder(null);
+        khachHangItem.setBorderPainted(false);
+        khachHangItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        khachHangItem.setFocusPainted(false);
+        khachHangItem.setFocusable(false);
+        khachHangItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        khachHangItem.setIconTextGap(16);
+        khachHangItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        khachHangItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                khachHangItemActionPerformed(evt);
+            }
+        });
+        itemPanel.add(khachHangItem);
+
         hoaDonItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         hoaDonItem.setIcon(new FlatSVGIcon("./icon/bill.svg"));
         hoaDonItem.setText("Hóa đơn");
@@ -195,6 +224,19 @@ public class MainLayout extends javax.swing.JFrame {
             }
         });
         itemPanel.add(hoaDonItem);
+
+        phieuDatHang.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        phieuDatHang.setIcon(new FlatSVGIcon("./icon/ticket.svg"));
+        phieuDatHang.setText("Phiếu đặt hàng");
+        phieuDatHang.setBorder(null);
+        phieuDatHang.setBorderPainted(false);
+        phieuDatHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        phieuDatHang.setFocusPainted(false);
+        phieuDatHang.setFocusable(false);
+        phieuDatHang.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        phieuDatHang.setIconTextGap(16);
+        phieuDatHang.setPreferredSize(new java.awt.Dimension(226, 46));
+        itemPanel.add(phieuDatHang);
 
         phieuNhapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         phieuNhapItem.setIcon(new FlatSVGIcon("./icon/bill-import.svg"));
@@ -226,24 +268,6 @@ public class MainLayout extends javax.swing.JFrame {
             }
         });
         itemPanel.add(nhaSanXuatItem);
-
-        khachHangItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        khachHangItem.setIcon(new FlatSVGIcon("./icon/customer.svg"));
-        khachHangItem.setText("Khách hàng");
-        khachHangItem.setBorder(null);
-        khachHangItem.setBorderPainted(false);
-        khachHangItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        khachHangItem.setFocusPainted(false);
-        khachHangItem.setFocusable(false);
-        khachHangItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        khachHangItem.setIconTextGap(16);
-        khachHangItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        khachHangItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                khachHangItemActionPerformed(evt);
-            }
-        });
-        itemPanel.add(khachHangItem);
 
         nhanVienItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         nhanVienItem.setIcon(new FlatSVGIcon("./icon/employee.svg"));
@@ -281,6 +305,24 @@ public class MainLayout extends javax.swing.JFrame {
         });
         itemPanel.add(taiKhoanItem);
 
+        vaiTroItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        vaiTroItem.setIcon(new FlatSVGIcon("./icon/security.svg"));
+        vaiTroItem.setText("Phân quyền");
+        vaiTroItem.setBorder(null);
+        vaiTroItem.setBorderPainted(false);
+        vaiTroItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        vaiTroItem.setFocusPainted(false);
+        vaiTroItem.setFocusable(false);
+        vaiTroItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        vaiTroItem.setIconTextGap(16);
+        vaiTroItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        vaiTroItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vaiTroItemActionPerformed(evt);
+            }
+        });
+        itemPanel.add(vaiTroItem);
+
         thongKeItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         thongKeItem.setIcon(new FlatSVGIcon("./icon/statistics.svg"));
         thongKeItem.setText("Thống kê");
@@ -294,7 +336,9 @@ public class MainLayout extends javax.swing.JFrame {
         thongKeItem.setPreferredSize(new java.awt.Dimension(226, 46));
         itemPanel.add(thongKeItem);
 
-        sidebarPanel.add(itemPanel, java.awt.BorderLayout.CENTER);
+        jScrollPane1.setViewportView(itemPanel);
+
+        sidebarPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 10, true));
@@ -330,11 +374,10 @@ public class MainLayout extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(64, 80));
-        jPanel2.setLayout(new java.awt.BorderLayout());
 
         jLabel1.setIcon(new FlatSVGIcon("./icon/man.svg"));
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jLabel1, java.awt.BorderLayout.CENTER);
+        jPanel2.add(jLabel1);
 
         infoPanel.add(jPanel2, java.awt.BorderLayout.WEST);
 
@@ -397,27 +440,6 @@ public class MainLayout extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sanPhamItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sanPhamItemActionPerformed
-        sanPham = new SanPhamPage();
-        this.setPanel(sanPham);
-        resetActive();
-        sanPhamItem.setSelected(true);
-    }//GEN-LAST:event_sanPhamItemActionPerformed
-
-    private void thuocTinhItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thuocTinhItemActionPerformed
-        thuocTinh = new ThuocTinhPage();
-        this.setPanel(thuocTinh);
-        resetActive();
-        thuocTinhItem.setSelected(true);
-    }//GEN-LAST:event_thuocTinhItemActionPerformed
-
-    private void hoaDonItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hoaDonItemActionPerformed
-        hoaDon = new HoaDonPage(this);
-        this.setPanel(hoaDon);
-        resetActive();
-        hoaDonItem.setSelected(true);
-    }//GEN-LAST:event_hoaDonItemActionPerformed
-
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         if (MessageDialog.confirm(this, "Bạn có chắc chắn muốn đăng xuất không?", "Đăng xuẩt")) {
             this.dispose();
@@ -425,19 +447,12 @@ public class MainLayout extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void nhaSanXuatItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaSanXuatItemActionPerformed
-        nhaSanXuat = new NhaSanXuatPage();
-        this.setPanel(nhaSanXuat);
+    private void taiKhoanItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taiKhoanItemActionPerformed
+        taiKhoan = new TaiKhoanPage();
+        this.setPanel(taiKhoan);
         resetActive();
-        nhaSanXuatItem.setSelected(true);
-    }//GEN-LAST:event_nhaSanXuatItemActionPerformed
-
-    private void khachHangItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_khachHangItemActionPerformed
-        khachHang = new KhachHangPage();
-        this.setPanel(khachHang);
-        resetActive();
-        khachHangItem.setSelected(true);
-    }//GEN-LAST:event_khachHangItemActionPerformed
+        taiKhoanItem.setSelected(true);
+    }//GEN-LAST:event_taiKhoanItemActionPerformed
 
     private void nhanVienItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhanVienItemActionPerformed
         nhanVien = new NhanVienPage();
@@ -446,12 +461,44 @@ public class MainLayout extends javax.swing.JFrame {
         nhanVienItem.setSelected(true);
     }//GEN-LAST:event_nhanVienItemActionPerformed
 
-    private void taiKhoanItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taiKhoanItemActionPerformed
-        taiKhoan = new TaiKhoanPage();
-        this.setPanel(taiKhoan);
+    private void khachHangItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_khachHangItemActionPerformed
+        khachHang = new KhachHangPage();
+        this.setPanel(khachHang);
         resetActive();
-        taiKhoanItem.setSelected(true);
-    }//GEN-LAST:event_taiKhoanItemActionPerformed
+        khachHangItem.setSelected(true);
+    }//GEN-LAST:event_khachHangItemActionPerformed
+
+    private void nhaSanXuatItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaSanXuatItemActionPerformed
+        nhaSanXuat = new NhaSanXuatPage();
+        this.setPanel(nhaSanXuat);
+        resetActive();
+        nhaSanXuatItem.setSelected(true);
+    }//GEN-LAST:event_nhaSanXuatItemActionPerformed
+
+    private void hoaDonItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hoaDonItemActionPerformed
+        hoaDon = new HoaDonPage(this);
+        this.setPanel(hoaDon);
+        resetActive();
+        hoaDonItem.setSelected(true);
+    }//GEN-LAST:event_hoaDonItemActionPerformed
+
+    private void thuocTinhItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thuocTinhItemActionPerformed
+        thuocTinh = new ThuocTinhPage();
+        this.setPanel(thuocTinh);
+        resetActive();
+        thuocTinhItem.setSelected(true);
+    }//GEN-LAST:event_thuocTinhItemActionPerformed
+
+    private void sanPhamItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sanPhamItemActionPerformed
+        sanPham = new SanPhamPage();
+        this.setPanel(sanPham);
+        resetActive();
+        sanPhamItem.setSelected(true);
+    }//GEN-LAST:event_sanPhamItemActionPerformed
+
+    private void vaiTroItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaiTroItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vaiTroItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -463,12 +510,14 @@ public class MainLayout extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton khachHangItem;
     private javax.swing.JPanel leftContent;
     private javax.swing.JPanel mainContent;
     private javax.swing.JButton nhaSanXuatItem;
     private javax.swing.JButton nhanVienItem;
+    private javax.swing.JButton phieuDatHang;
     private javax.swing.JButton phieuNhapItem;
     private javax.swing.JButton sanPhamItem;
     private javax.swing.JPanel sidebarPanel;
@@ -477,5 +526,6 @@ public class MainLayout extends javax.swing.JFrame {
     private javax.swing.JButton thuocTinhItem;
     private javax.swing.JLabel txtFullName;
     private javax.swing.JLabel txtRole;
+    private javax.swing.JButton vaiTroItem;
     // End of variables declaration//GEN-END:variables
 }
