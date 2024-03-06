@@ -9,11 +9,11 @@ import java.util.List;
 public class VaiTroDAO extends InterfaceDAO<VaiTro, String> {
 
     private String INSERT_SQL = "INSERT INTO VaiTro values (?,?)";
-    private String UPDATE_SQL = "UPDATE VaiTro SET ten=? where id=?";
-    private String DELETE_BY_ID = "DELETE from VaiTro where id = ?";
+    private String UPDATE_SQL = "UPDATE VaiTro SET ten=? where idVT=?";
+    private String DELETE_BY_ID = "DELETE from VaiTro where idVT = ?";
 
     private String SELECT_ALL_SQL = "SELECT * FROM VaiTro";
-    private String SELECT_BY_ID = "SELECT * FROM VaiTro WHERE id = ?";
+    private String SELECT_BY_ID = "SELECT * FROM VaiTro WHERE idVT= ?";
 
     @Override
     public void create(VaiTro e) {
@@ -37,7 +37,7 @@ public class VaiTroDAO extends InterfaceDAO<VaiTro, String> {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
                 VaiTro e = new VaiTro();
-                e.setId(rs.getString("id"));
+                e.setId(rs.getString("idVT"));
                 e.setTen(rs.getString("ten"));
                 listE.add(e);
             }

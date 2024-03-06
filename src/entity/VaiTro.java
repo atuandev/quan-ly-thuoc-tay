@@ -39,7 +39,7 @@ public class VaiTro {
 
     @Override
     public String toString() {
-        return "VaiTro{" + "id=" + id + ", ten=" + ten + '}';
+        return ten;
     }
 
 }

@@ -147,9 +147,7 @@ public class Thuoc {
 
     @Override
     public String toString() {
-        return "Thuoc{" + "id=" + id + ", ten=" + ten + ", hinhAnh=" + hinhAnh + ", thanhPhan=" + thanhPhan 
-                + ", donViTinh=" + donViTinh + ", danhMuc=" + danhMuc + ", xuatXu=" + xuatXu + ", soLuongTon=" 
-                + soLuongTon + ", giaNhap=" + giaNhap + ", donGia=" + donGia + '}';
+        return ten;
     }
 
 }

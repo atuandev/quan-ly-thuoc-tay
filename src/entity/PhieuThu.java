@@ -12,7 +12,7 @@ public class PhieuThu {
     private String id;
     private Timestamp thoiGian;
     private NhanVien nhanVien;
-    private NhaSanXuat nxs;
+    private NhaCungCap nxs;
 
     public PhieuThu() {
     }
@@ -45,11 +45,11 @@ public class PhieuThu {
         this.nhanVien = nhanVien;
     }
 
-    public NhaSanXuat getNxs() {
+    public NhaCungCap getNxs() {
         return nxs;
     }
 
-    public void setNxs(NhaSanXuat nxs) {
+    public void setNxs(NhaCungCap nxs) {
         this.nxs = nxs;
     }
 

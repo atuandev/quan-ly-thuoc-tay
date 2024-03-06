@@ -10,26 +10,27 @@ import java.util.List;
 
 public class TaiKhoanDAO extends InterfaceDAO<TaiKhoan, String> {
 
-    private String INSERT_SQL = "INSERT INTO TaiKhoan values (?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE TaiKhoan SET password=?, idNV=?, idVaiTro=? where username=?";
-    private String DELETE_BY_ID = "DELETE from TaiKhoan where username = ?";
+    private String INSERT_SQL = "INSERT INTO TaiKhoan values (?,?,?,?,?)";
+    private String UPDATE_SQL = "UPDATE TaiKhoan SET username=?, password=?, idNV=?, idVT=? where idTK=?";
+    private String DELETE_BY_ID = "DELETE from TaiKhoan where idTK = ?";
 
     private String SELECT_ALL_SQL = "SELECT * FROM TaiKhoan";
-    private String SELECT_BY_ID = "SELECT * FROM TaiKhoan WHERE username = ?";
+    private String SELECT_BY_ID = "SELECT * FROM TaiKhoan WHERE idTK = ?";
+    private String SELECT_BY_USERNAME = "SELECT * FROM TaiKhoan WHERE username = ?";
 
     @Override
     public void create(TaiKhoan e) {
-        jdbcHelper.update(INSERT_SQL, e.getUsername(), e.getPassword(), e.getNhanVien().getId(), e.getVaiTro().getId());
+        jdbcHelper.update(INSERT_SQL, e.getId(), e.getUsername(), e.getPassword(), e.getNhanVien().getId(), e.getVaiTro().getId());
     }
 
     @Override
     public void update(TaiKhoan e) {
-        jdbcHelper.update(UPDATE_SQL, e.getPassword(), e.getNhanVien().getId(), e.getVaiTro().getId(), e.getUsername());
+        jdbcHelper.update(UPDATE_SQL, e.getUsername(), e.getPassword(), e.getNhanVien().getId(), e.getVaiTro().getId(), e.getId());
     }
 
     @Override
-    public void deleteById(String username) {
-        jdbcHelper.update(DELETE_BY_ID, username);
+    public void deleteById(String id) {
+        jdbcHelper.update(DELETE_BY_ID, id);
     }
 
     @Override
@@ -39,10 +40,11 @@ public class TaiKhoanDAO extends InterfaceDAO<TaiKhoan, String> {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
                 TaiKhoan e = new TaiKhoan();
+                e.setId(rs.getString("idTK"));
                 e.setUsername(rs.getString("username"));
                 e.setPassword(rs.getString("password"));
                 e.setNhanVien(new NhanVien(rs.getString("idNV")));
-                e.setVaiTro(new VaiTro(rs.getString("idVaiTro")));
+                e.setVaiTro(new VaiTro(rs.getString("idVT")));
                 listE.add(e);
             }
             rs.getStatement().getConnection().close();
@@ -58,12 +60,21 @@ public class TaiKhoanDAO extends InterfaceDAO<TaiKhoan, String> {
     }
 
     @Override
-    public TaiKhoan selectById(String username) {
-        List<TaiKhoan> list = selectBySql(SELECT_BY_ID, username);
+    public TaiKhoan selectById(String id) {
+        List<TaiKhoan> list = selectBySql(SELECT_BY_ID, id);
         if (list.isEmpty()) {
             return null;
         }
         return list.get(0);
     }
+    
+    public TaiKhoan selectByUsername(String username) {
+        List<TaiKhoan> list = selectBySql(SELECT_BY_USERNAME, username);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
 
 }

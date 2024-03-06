@@ -11,11 +11,11 @@ import java.util.List;
 public class PhieuDatHangDAO extends InterfaceDAO<PhieuDatHang, String> {
 
     private String INSERT_SQL = "INSERT INTO PhieuDatHang values (?,?,?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE PhieuDatHang SET thoiGian=?, idKH=?, diaChi=?, phuongThucThanhToan=?, trangThai=? where id=?";
-    private String DELETE_BY_ID = "DELETE from PhieuDatHang where id = ?";
+    private String UPDATE_SQL = "UPDATE PhieuDatHang SET thoiGian=?, idKH=?, diaChi=?, phuongThucThanhToan=?, trangThai=? where idPDH=?";
+    private String DELETE_BY_ID = "DELETE from PhieuDatHang where idPDH = ?";
 
     private String SELECT_ALL_SQL = "SELECT * FROM PhieuDatHang";
-    private String SELECT_BY_ID = "SELECT * FROM PhieuDatHang WHERE id = ?";
+    private String SELECT_BY_ID = "SELECT * FROM PhieuDatHang WHERE idPDH = ?";
 
     @Override
     public void create(PhieuDatHang e) {
@@ -39,7 +39,7 @@ public class PhieuDatHangDAO extends InterfaceDAO<PhieuDatHang, String> {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
                 PhieuDatHang e = new PhieuDatHang();
-                e.setId(rs.getString("id"));
+                e.setId(rs.getString("idPDH"));
                 e.setThoiGian(rs.getTimestamp("thoiGian"));
                 e.setKhachHang(new KhachHang(rs.getString("idKH")));
                 e.setDiaChi(rs.getString("diaChi"));

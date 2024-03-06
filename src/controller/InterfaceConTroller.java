@@ -10,7 +10,7 @@ public abstract class InterfaceController<Entity, Key> {
 
     abstract public void deleteById(Key id);
 
-    abstract public List<Entity> getListNV();
+    abstract public List<Entity> getAllList();
 
     abstract public Entity selectById(Key id);
 }

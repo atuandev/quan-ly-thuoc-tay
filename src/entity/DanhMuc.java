@@ -43,7 +43,7 @@ public class DanhMuc {
 
     @Override
     public String toString() {
-        return "DanhMuc{" + "id=" + id + ", ten=" + ten + '}';
+        return ten;
     }
 
 }

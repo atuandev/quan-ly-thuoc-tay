@@ -12,6 +12,7 @@ import gui.page.NhanVienPage;
 import gui.page.SanPhamPage;
 import gui.page.TaiKhoanPage;
 import gui.page.ThuocTinhPage;
+import gui.page.VaiTroPage;
 import java.awt.Color;
 import java.awt.Insets;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class MainLayout extends javax.swing.JFrame {
     private List<JButton> listItem;
 
     Color ACTIVE_BACKGROUND_COLOR = new Color(195, 240, 235);
+    private VaiTroPage vaiTro;
 
     public MainLayout() {
         initComponents();
@@ -135,7 +137,6 @@ public class MainLayout extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hệ thống quản lý hiệu thuốc tây");
-        setPreferredSize(new java.awt.Dimension(1400, 800));
 
         leftContent.setBackground(new java.awt.Color(230, 245, 245));
         leftContent.setPreferredSize(new java.awt.Dimension(250, 800));
@@ -236,6 +237,11 @@ public class MainLayout extends javax.swing.JFrame {
         phieuDatHang.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         phieuDatHang.setIconTextGap(16);
         phieuDatHang.setPreferredSize(new java.awt.Dimension(226, 46));
+        phieuDatHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phieuDatHangActionPerformed(evt);
+            }
+        });
         itemPanel.add(phieuDatHang);
 
         phieuNhapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
@@ -433,6 +439,7 @@ public class MainLayout extends javax.swing.JFrame {
         getContentPane().add(leftContent, java.awt.BorderLayout.WEST);
 
         mainContent.setBackground(new java.awt.Color(243, 255, 255));
+        mainContent.setPreferredSize(new java.awt.Dimension(1130, 800));
         mainContent.setLayout(new java.awt.BorderLayout());
         getContentPane().add(mainContent, java.awt.BorderLayout.CENTER);
 
@@ -497,8 +504,18 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_sanPhamItemActionPerformed
 
     private void vaiTroItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaiTroItemActionPerformed
-        // TODO add your handling code here:
+        vaiTro = new VaiTroPage();
+        this.setPanel(vaiTro);
+        resetActive();
+        vaiTroItem.setSelected(true);
     }//GEN-LAST:event_vaiTroItemActionPerformed
+
+    private void phieuDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phieuDatHangActionPerformed
+//        phieuDatHang = new P();
+//        this.setPanel(vaiTro);
+//        resetActive();
+//        vaiTroItem.setSelected(true);
+    }//GEN-LAST:event_phieuDatHangActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

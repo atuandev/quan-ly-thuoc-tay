@@ -2,10 +2,10 @@ package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import controller.NhanVienController;
-import entity.NhanVien;
-import gui.dialog.CreateNhanVienDialog;
-import gui.dialog.UpdateNhanVienDialog;
+import controller.VaiTroController;
+import entity.VaiTro;
+import gui.dialog.CreateVaiTroDialog;
+import gui.dialog.UpdateVaiTroDialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import utils.Formatter;
 import utils.JTableExporter;
 import utils.MessageDialog;
 import utils.TableSorter;
@@ -23,18 +22,18 @@ import utils.TableSorter;
  *
  * @author atuandev
  */
-public class NhanVienPage extends javax.swing.JPanel {
+public class VaiTroPage extends javax.swing.JPanel {
 
     private JFrame main;
-    private NhanVienController NV_CON = new NhanVienController(this);
+    private VaiTroController VT_CON = new VaiTroController(this);
 
-    public NhanVienPage() {
+    public VaiTroPage() {
         initComponents();
         headerLayout();
         tableLayout();
     }
 
-    public NhanVienPage(JFrame main) {
+    public VaiTroPage(JFrame main) {
         this.main = main;
         initComponents();
         headerLayout();
@@ -59,7 +58,7 @@ public class NhanVienPage extends javax.swing.JPanel {
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
 
-        String[] searchType = {"Tất cả", "Mã", "Tên", "Số điện thoại", "Năm sinh"};
+        String[] searchType = {"Tất cả", "Mã", "Tên"};
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(searchType);
         cboxSearch.setModel(model);
     }
@@ -72,7 +71,7 @@ public class NhanVienPage extends javax.swing.JPanel {
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
 
         DefaultTableModel modal = new DefaultTableModel();
-        String[] header = new String[]{"STT", "Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
+        String[] header = new String[]{"STT", "Mã vai trò", "Tên vai trò"};
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
 
@@ -89,10 +88,10 @@ public class NhanVienPage extends javax.swing.JPanel {
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
 
-        List<NhanVien> list = NV_CON.getAllList();
+        List<VaiTro> list = VT_CON.getAllList();
         int stt = 1;
-        for (NhanVien e : list) {
-            modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), Formatter.FormatDate(e.getNgayVaoLam())});
+        for (VaiTro e : list) {
+            modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTen()});
             stt++;
         }
     }
@@ -325,7 +324,7 @@ public class NhanVienPage extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("THÔNG TIN NHÂN VIÊN");
+        jLabel2.setText("THÔNG TIN VAI TRÒ");
         jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
 
         tablePanel.add(jPanel5, java.awt.BorderLayout.NORTH);
@@ -334,7 +333,7 @@ public class NhanVienPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        CreateNhanVienDialog dialog = new CreateNhanVienDialog(main, true, this);
+        CreateVaiTroDialog dialog = new CreateVaiTroDialog(main, true, this);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -342,9 +341,9 @@ public class NhanVienPage extends javax.swing.JPanel {
         try {
             int row = table.getSelectedRow();
             String id = table.getValueAt(row, 1).toString();
-            NhanVien nv = NV_CON.selectById(id);
+            VaiTro e = VT_CON.selectById(id);
 
-            UpdateNhanVienDialog dialog = new UpdateNhanVienDialog(main, true, this, nv);
+            UpdateVaiTroDialog dialog = new UpdateVaiTroDialog(main, true, this, e);
             dialog.setVisible(true);
         } catch (Exception e) {
             MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
@@ -358,7 +357,7 @@ public class NhanVienPage extends javax.swing.JPanel {
             String id = table.getValueAt(row, 1).toString();
 
             if (MessageDialog.confirm(this, "Bạn có chắc chắn xóa dòng này?", "Xóa")) {
-                NV_CON.deleteById(id);
+                VT_CON.deleteById(id);
                 modal.removeRow(row);
             }
         } catch (Exception e) {
@@ -367,7 +366,7 @@ public class NhanVienPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
-        NV_CON.importExcel();
+        VT_CON.importExcel();
     }//GEN-LAST:event_btnImportActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
@@ -380,11 +379,11 @@ public class NhanVienPage extends javax.swing.JPanel {
 
         String search = txtSearch.getText().toLowerCase().trim();
         String searchType = cboxSearch.getSelectedItem().toString();
-        List<NhanVien> listsearch = NV_CON.getSearchTable(search, searchType);
-
+        List<VaiTro> listsearch = VT_CON.getSearchTable(search, searchType);
+        
         int stt = 1;
-        for (NhanVien e : listsearch) {
-            modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), Formatter.FormatDate(e.getNgayVaoLam())});
+        for (VaiTro e : listsearch) {
+            modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTen()});
             stt++;
         }
     }//GEN-LAST:event_txtSearchKeyReleased

@@ -11,11 +11,11 @@ import java.util.List;
 public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
 
     private String INSERT_SQL = "INSERT INTO HoaDon values (?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE HoaDon SET thoiGian=?, idNV=?, idKH=? where id=?";
-    private String DELETE_BY_ID = "DELETE from HoaDon where id = ?";
+    private String UPDATE_SQL = "UPDATE HoaDon SET thoiGian=?, idNV=?, idKH=? where idHD=?";
+    private String DELETE_BY_ID = "DELETE from HoaDon where idHD = ?";
 
     private String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
-    private String SELECT_BY_ID = "SELECT * FROM HoaDon WHERE id = ?";
+    private String SELECT_BY_ID = "SELECT * FROM HoaDon WHERE idHD = ?";
 
     @Override
     public void create(HoaDon e) {
@@ -39,7 +39,7 @@ public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
                 HoaDon e = new HoaDon();
-                e.setId(rs.getString("id"));
+                e.setId(rs.getString("idHD"));
                 e.setThoiGian(rs.getTimestamp("thoiGian"));
                 e.setNhanVien(new NhanVien(rs.getString("idNV")));
                 e.setKhachHang(new KhachHang(rs.getString("idKH")));

@@ -108,7 +108,7 @@ public class NhanVien {
 
     @Override
     public String toString() {
-        return "NhanVien{" + "id=" + id + ", hoTen=" + hoTen + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh + ", namSinh=" + namSinh + ", ngayVaoLam=" + ngayVaoLam + '}';
+        return hoTen;
     }
 
 }

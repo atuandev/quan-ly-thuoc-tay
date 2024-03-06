@@ -11,14 +11,14 @@ import java.util.List;
 
 public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
 
-    private String INSERT_SQL = "INSERT INTO Thuoc values (?,?)";
-    private String UPDATE_SQL = "UPDATE Thuoc SET ten=?, hinhAnh=?, thanhPhan=?, idDonViTinh=?, idDanhMuc=?, idXuatXu=?, soLuongTon=?, giaNhap=?, donGia=? where id=?";
-    private String DELETE_BY_ID = "DELETE from Thuoc where id = ?";
+    private String INSERT_SQL = "INSERT INTO Thuoc values (?,?,?,?,?,?,?,?,?,?)";
+    private String UPDATE_SQL = "UPDATE Thuoc SET tenThuoc=?, hinhAnh=?, thanhPhan=?, idDonViTinh=?, idDanhMuc=?, idXuatXu=?, soLuongTon=?, giaNhap=?, donGia=? where idThuoc=?";
+    private String DELETE_BY_ID = "DELETE from Thuoc where idThuoc = ?";
 
     private String SELECT_ALL_SQL = "SELECT * FROM Thuoc";
-    private String SELECT_BY_ID = "SELECT * FROM Thuoc WHERE id = ?";
+    private String SELECT_BY_ID = "SELECT * FROM Thuoc WHERE idThuoc = ?";
 
-    private String UPDATE_SO_LUONG = "UPDATE Thuoc SET soLuongTon=? WHERE id = ?";
+    private String UPDATE_SO_LUONG = "UPDATE Thuoc SET soLuongTon=? WHERE idThuoc = ?";
 
     @Override
     public void create(Thuoc e) {
@@ -44,8 +44,8 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
                 Thuoc e = new Thuoc();
-                e.setId(rs.getString("id"));
-                e.setTen(rs.getString("ten"));
+                e.setId(rs.getString("idThuoc"));
+                e.setTen(rs.getString("tenThuoc"));
                 e.setHinhAnh(rs.getString("hinhAnh"));
                 e.setThanhPhan(rs.getString("thanhPhan"));
                 e.setDonViTinh(new DonViTinh(rs.getString("idDonViTinh")));

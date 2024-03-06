@@ -94,7 +94,7 @@ public class KhachHang {
 
     @Override
     public String toString() {
-        return "KhachHang{" + "id=" + id + ", hoTen=" + hoTen + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh + ", ngayThamGia=" + ngayThamGia + '}';
+        return hoTen;
     }
 
 }

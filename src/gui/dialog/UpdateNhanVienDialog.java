@@ -277,7 +277,7 @@ public class UpdateNhanVienDialog extends javax.swing.JDialog {
         if (isValidateFields()) {
             NhanVien nv = getInputFields();
             NV_CON.update(nv);
-            NV_GUI.loadTableNhanVien();
+            NV_GUI.loadTable();
             this.dispose();
         }
     }//GEN-LAST:event_btnInActionPerformed

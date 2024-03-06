@@ -9,11 +9,11 @@ import java.util.List;
 public class XuatXuDAO extends InterfaceDAO<XuatXu, String> {
 
     private String INSERT_SQL = "INSERT INTO XuatXu values (?,?)";
-    private String UPDATE_SQL = "UPDATE XuatXu SET ten=? where id=?";
-    private String DELETE_BY_ID = "DELETE from XuatXu where id = ?";
+    private String UPDATE_SQL = "UPDATE XuatXu SET ten=? where idXX=?";
+    private String DELETE_BY_ID = "DELETE from XuatXu where idXX = ?";
 
     private String SELECT_ALL_SQL = "SELECT * FROM XuatXu";
-    private String SELECT_BY_ID = "SELECT * FROM XuatXu WHERE id = ?";
+    private String SELECT_BY_ID = "SELECT * FROM XuatXu WHERE idXX = ?";
 
     @Override
     public void create(XuatXu e) {
@@ -37,7 +37,7 @@ public class XuatXuDAO extends InterfaceDAO<XuatXu, String> {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
                 XuatXu e = new XuatXu();
-                e.setId(rs.getString("id"));
+                e.setId(rs.getString("idXX"));
                 e.setTen(rs.getString("ten"));
                 listE.add(e);
             }

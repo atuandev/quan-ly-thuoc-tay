@@ -42,7 +42,7 @@ public class DonViTinh {
 
     @Override
     public String toString() {
-        return "DonViTinh{" + "id=" + id + ", ten=" + ten + '}';
+        return ten;
     }
     
     

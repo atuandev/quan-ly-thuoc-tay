@@ -42,7 +42,7 @@ public class XuatXu {
 
     @Override
     public String toString() {
-        return "XuatXu{" + "id=" + id + ", ten=" + ten + '}';
+        return ten;
     }
     
     

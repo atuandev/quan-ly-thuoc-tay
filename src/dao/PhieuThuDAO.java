@@ -2,7 +2,7 @@ package dao;
 
 import connectDB.jdbcHelper;
 import entity.PhieuThu;
-import entity.NhaSanXuat;
+import entity.NhaCungCap;
 import entity.NhanVien;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class PhieuThuDAO extends InterfaceDAO<PhieuThu, String> {
                 e.setId(rs.getString("id"));
                 e.setThoiGian(rs.getTimestamp("thoiGian"));
                 e.setNhanVien(new NhanVien(rs.getString("idNV")));
-                e.setNxs(new NhaSanXuat(rs.getString("idNSX")));
+                e.setNxs(new NhaCungCap(rs.getString("idNSX")));
                 listE.add(e);
             }
             rs.getStatement().getConnection().close();

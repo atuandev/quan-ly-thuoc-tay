@@ -6,6 +6,7 @@ package entity;
  */
 public class TaiKhoan {
 
+    private String id;
     private String username;
     private String password;
     private NhanVien nhanVien;
@@ -14,15 +15,24 @@ public class TaiKhoan {
     public TaiKhoan() {
     }
 
-    public TaiKhoan(String username) {
-        this.username = username;
+    public TaiKhoan(String id) {
+        this.id = id;
     }
 
-    public TaiKhoan(String username, String password, NhanVien nhanVien, VaiTro vaiTro) {
+    public TaiKhoan(String id, String username, String password, NhanVien nhanVien, VaiTro vaiTro) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.nhanVien = nhanVien;
         this.vaiTro = vaiTro;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -59,7 +69,7 @@ public class TaiKhoan {
 
     @Override
     public String toString() {
-        return "TaiKhoan{" + "username=" + username + ", password=" + password + ", nhanVien=" + nhanVien + ", vaiTro=" + vaiTro + '}';
+        return username;
     }
 
 }

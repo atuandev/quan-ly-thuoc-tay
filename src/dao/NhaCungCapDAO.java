@@ -1,27 +1,27 @@
 package dao;
 
 import connectDB.jdbcHelper;
-import entity.NhaSanXuat;
+import entity.NhaCungCap;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NhaSanXuatDAO extends InterfaceDAO<NhaSanXuat, String> {
+public class NhaCungCapDAO extends InterfaceDAO<NhaCungCap, String> {
 
-    private String INSERT_SQL = "INSERT INTO NhaSanXuat values (?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE NhaSanXuat SET ten=?, sdt=?, diaChi=? where id=?";
-    private String DELETE_BY_ID = "DELETE from NhaSanXuat where id = ?";
+    private String INSERT_SQL = "INSERT INTO NhaCungCap values (?,?,?,?)";
+    private String UPDATE_SQL = "UPDATE NhaCungCap SET tenNCC=?, sdt=?, diaChi=? where idNCC=?";
+    private String DELETE_BY_ID = "DELETE from NhaCungCap where idNCC = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM NhaSanXuat";
-    private String SELECT_BY_ID = "SELECT * FROM NhaSanXuat WHERE id = ?";
+    private String SELECT_ALL_SQL = "SELECT * FROM NhaCungCap";
+    private String SELECT_BY_ID = "SELECT * FROM NhaCungCap WHERE idNCC = ?";
 
     @Override
-    public void create(NhaSanXuat e) {
+    public void create(NhaCungCap e) {
         jdbcHelper.update(INSERT_SQL, e.getId(), e.getTen(), e.getSdt(), e.getDiaChi());
     }
 
     @Override
-    public void update(NhaSanXuat e) {
+    public void update(NhaCungCap e) {
         jdbcHelper.update(UPDATE_SQL, e.getTen(), e.getSdt(), e.getDiaChi(), e.getId());
     }
 
@@ -31,14 +31,14 @@ public class NhaSanXuatDAO extends InterfaceDAO<NhaSanXuat, String> {
     }
 
     @Override
-    protected List<NhaSanXuat> selectBySql(String sql, Object... args) {
-        List<NhaSanXuat> listE = new ArrayList<>();
+    protected List<NhaCungCap> selectBySql(String sql, Object... args) {
+        List<NhaCungCap> listE = new ArrayList<>();
         try {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
-                NhaSanXuat e = new NhaSanXuat();
-                e.setId(rs.getString("id"));
-                e.setTen(rs.getString("ten"));
+                NhaCungCap e = new NhaCungCap();
+                e.setId(rs.getString("idNCC"));
+                e.setTen(rs.getString("tenNCC"));
                 e.setSdt(rs.getString("sdt"));
                 e.setDiaChi(rs.getString("diaChi"));
                 listE.add(e);
@@ -51,13 +51,13 @@ public class NhaSanXuatDAO extends InterfaceDAO<NhaSanXuat, String> {
     }
 
     @Override
-    public List<NhaSanXuat> selectAll() {
+    public List<NhaCungCap> selectAll() {
         return this.selectBySql(SELECT_ALL_SQL);
     }
 
     @Override
-    public NhaSanXuat selectById(String id) {
-        List<NhaSanXuat> list = selectBySql(SELECT_BY_ID, id);
+    public NhaCungCap selectById(String id) {
+        List<NhaCungCap> list = selectBySql(SELECT_BY_ID, id);
         if (list.isEmpty()) {
             return null;
         }

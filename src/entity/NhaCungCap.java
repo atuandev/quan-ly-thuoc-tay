@@ -8,20 +8,20 @@ package entity;
  *
  * @author HP
  */
-public class NhaSanXuat {
+public class NhaCungCap {
     private String id;
     private String ten;
     private String sdt;
     private String diaChi;
 
-    public NhaSanXuat() {
+    public NhaCungCap() {
     }
 
-    public NhaSanXuat(String id) {
+    public NhaCungCap(String id) {
         this.id = id;
     }
 
-    public NhaSanXuat(String id, String ten, String sdt, String diaChi) {
+    public NhaCungCap(String id, String ten, String sdt, String diaChi) {
         this.id = id;
         this.ten = ten;
         this.sdt = sdt;
@@ -62,7 +62,7 @@ public class NhaSanXuat {
 
     @Override
     public String toString() {
-        return "NhaSanXuat{" + "id=" + id + ", ten=" + ten + ", sdt=" + sdt + ", diaChi=" + diaChi + '}';
+        return "NhaCungCap {" + "id=" + id + ", ten=" + ten + ", sdt=" + sdt + ", diaChi=" + diaChi + '}';
     }
     
     
