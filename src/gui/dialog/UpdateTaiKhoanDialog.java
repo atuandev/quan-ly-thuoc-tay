@@ -100,7 +100,7 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         cboxVaiTro = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         btnHuy = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 600));
@@ -190,21 +190,21 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         });
         jPanel8.add(btnHuy);
 
-        btnAdd.setBackground(new java.awt.Color(0, 204, 102));
-        btnAdd.setFont(new java.awt.Font("Roboto Mono Medium", 0, 16)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("THÊM");
-        btnAdd.setBorderPainted(false);
-        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdd.setFocusPainted(false);
-        btnAdd.setFocusable(false);
-        btnAdd.setPreferredSize(new java.awt.Dimension(200, 40));
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(0, 204, 102));
+        btnUpdate.setFont(new java.awt.Font("Roboto Mono Medium", 0, 16)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Cập nhập");
+        btnUpdate.setBorderPainted(false);
+        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUpdate.setFocusPainted(false);
+        btnUpdate.setFocusable(false);
+        btnUpdate.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
-        jPanel8.add(btnAdd);
+        jPanel8.add(btnUpdate);
 
         getContentPane().add(jPanel8, java.awt.BorderLayout.PAGE_END);
 
@@ -216,19 +216,19 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (isValidateFields()) {
             TaiKhoan tk = getInputFields();
             TK_CON.create(tk);
             TK_GUI.loadTable();
             this.dispose();
         }
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnHuy;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxNhanVien;
     private javax.swing.JComboBox<String> cboxVaiTro;
     private javax.swing.JLabel jLabel14;
