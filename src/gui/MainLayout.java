@@ -8,6 +8,7 @@ import controller.VaiTroController;
 import entity.NhanVien;
 import entity.TaiKhoan;
 import entity.VaiTro;
+import gui.dialog.InfoDialog;
 import gui.page.HoaDonPage;
 import gui.page.KhachHangPage;
 import gui.page.NhaSanXuatPage;
@@ -41,6 +42,7 @@ public class MainLayout extends javax.swing.JFrame {
     private VaiTroPage vaiTro;
 
     private TaiKhoan tk;
+    private NhanVien nv;
     private TaiKhoanController TK_CON = new TaiKhoanController();
 
     private List<JButton> listItem;
@@ -49,14 +51,14 @@ public class MainLayout extends javax.swing.JFrame {
 
     public MainLayout() {
         initComponents();
-        infoLayout();
+        fillInfo();
         sideBarLayout();
     }
 
     public MainLayout(TaiKhoan tk) {
         this.tk = tk;
         initComponents();
-        infoLayout();
+        fillInfo();
         sideBarLayout();
     }
 
@@ -67,8 +69,8 @@ public class MainLayout extends javax.swing.JFrame {
         mainContent.validate();
     }
 
-    private void infoLayout() {
-        NhanVien nv = TK_CON.getNhanVienByTK(tk);
+    public void fillInfo() {
+        nv = TK_CON.getNhanVienByTK(tk);
         VaiTro vt = TK_CON.getVaiTroByTK(tk);
 
         if (nv.getGioiTinh().equals("Nam")) {
@@ -426,6 +428,11 @@ public class MainLayout extends javax.swing.JFrame {
         btnInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnInfo.setPreferredSize(new java.awt.Dimension(90, 90));
         btnInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnInfo, java.awt.BorderLayout.CENTER);
 
         infoPanel.add(jPanel2, java.awt.BorderLayout.WEST);
@@ -559,6 +566,11 @@ public class MainLayout extends javax.swing.JFrame {
 //        resetActive();
 //        vaiTroItem.setSelected(true);
     }//GEN-LAST:event_phieuDatHangActionPerformed
+
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+        InfoDialog dialog = new InfoDialog(this, true, this, tk, nv);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnInfoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
