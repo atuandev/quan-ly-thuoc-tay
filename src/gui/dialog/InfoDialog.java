@@ -289,7 +289,9 @@ public class InfoDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        // TODO add your handling code here:
+        InfoChangePasswordDialog dialog = new InfoChangePasswordDialog(null, true, main, tk, nv);
+        this.dispose();
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
 

@@ -2,9 +2,7 @@ package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import controller.NhanVienController;
 import controller.TaiKhoanController;
-import controller.VaiTroController;
 import entity.NhanVien;
 import entity.TaiKhoan;
 import entity.VaiTro;
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -54,7 +51,7 @@ public class TaiKhoanPage extends javax.swing.JPanel {
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
 
-        String[] searchType = {"Tất cả", "Username", "Tên nhân viên"};
+        String[] searchType = {"Tất cả", "Username"};
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(searchType);
         cboxSearch.setModel(model);
     }

@@ -151,7 +151,6 @@ public class MainLayout extends javax.swing.JFrame {
         taiKhoanItem = new javax.swing.JButton();
         vaiTroItem = new javax.swing.JButton();
         thongKeItem = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         btnLogout = new javax.swing.JButton();
@@ -376,9 +375,6 @@ public class MainLayout extends javax.swing.JFrame {
         thongKeItem.setPreferredSize(new java.awt.Dimension(226, 46));
         itemPanel.add(thongKeItem);
 
-        jSeparator4.setPreferredSize(new java.awt.Dimension(230, 2));
-        itemPanel.add(jSeparator4);
-
         jScrollPane1.setViewportView(itemPanel);
 
         sidebarPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -586,7 +582,6 @@ public class MainLayout extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JButton khachHangItem;
     private javax.swing.JPanel leftContent;
     private javax.swing.JPanel mainContent;
