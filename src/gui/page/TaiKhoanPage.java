@@ -18,7 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import utils.Formatter;
 import utils.JTableExporter;
 import utils.MessageDialog;
 import utils.TableSorter;
@@ -65,7 +64,7 @@ public class TaiKhoanPage extends javax.swing.JPanel {
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
 
-        String[] searchType = {"Tất cả", "Username", "Tên", "Vai Trò"};
+        String[] searchType = {"Tất cả", "Username", "Tên nhân viên"};
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(searchType);
         cboxSearch.setModel(model);
     }

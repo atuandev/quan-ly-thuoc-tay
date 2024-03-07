@@ -11,7 +11,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -20,7 +19,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utils.MessageDialog;
 import utils.Validation;
-import static utils.Validation.isPhoneNumber;
 
 /**
  *
@@ -40,7 +38,13 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
 
     @Override
     public void create(TaiKhoan e) {
-        TK_DAO.create(e);
+        for (TaiKhoan tk : this.getAllList()) {
+            if (tk.getId().equals(e.getId())) {
+                MessageDialog.error(TK_GUI, "Trùng mã!");
+            } else {
+                TK_DAO.create(e);
+            }
+        }
     }
 
     @Override
@@ -80,9 +84,7 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
         switch (searchType) {
             case "Tất cả" -> {
                 for (TaiKhoan e : this.getAllList()) {
-                    if (e.getUsername().toLowerCase().contains(text)
-                            || e.getNhanVien().getHoTen().toLowerCase().contains(text)
-                            || e.getVaiTro().getTen().toLowerCase().contains(text)) {
+                    if (e.getId().toLowerCase().contains(text) || e.getUsername().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
@@ -90,20 +92,6 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
             case "Username" -> {
                 for (TaiKhoan e : this.getAllList()) {
                     if (e.getUsername().toLowerCase().contains(text)) {
-                        result.add(e);
-                    }
-                }
-            }
-            case "Tên" -> {
-                for (TaiKhoan e : this.getAllList()) {
-                    if (e.getNhanVien().getHoTen().toLowerCase().contains(text)) {
-                        result.add(e);
-                    }
-                }
-            }
-            case "Vai trò" -> {
-                for (TaiKhoan e : this.getAllList()) {
-                    if (e.getVaiTro().getTen().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
@@ -150,8 +138,8 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
                             || Validation.isEmpty(idNV) || Validation.isEmpty(idVT)) {
                         check += 1;
                     } else {
-                        TaiKhoan nv = new TaiKhoan(id, username, password, new NhanVien(idNV), new VaiTro(idVT));
-                        TK_DAO.create(nv);
+                        TaiKhoan tk = new TaiKhoan(id, username, password, new NhanVien(idNV), new VaiTro(idVT));
+                        TK_DAO.create(tk);
                         TK_GUI.loadTable();
                     }
 
@@ -165,7 +153,7 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
             }
         }
         if (check != 0) {
-            MessageDialog.error(TK_GUI, "Có " + check + " dòng dữ liệu không được thêm vào!");
+            MessageDialog.error(TK_GUI, "Có " + check + " dữ liệu không được thêm vào!");
         }
     }
 

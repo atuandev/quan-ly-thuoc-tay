@@ -24,6 +24,9 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
     private VaiTroController VT_CON = new VaiTroController();
     private TaiKhoanPage TK_GUI;
     private TaiKhoan tk;
+    private List<NhanVien> listNV = NV_CON.getAllList();
+    private List<VaiTro> listVT = VT_CON.getAllList();
+
 
     public UpdateTaiKhoanDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -40,13 +43,13 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
     }
 
     private void fillCombobox() {
-        String[] listNV = NV_CON.getArrayHoTen();
-        DefaultComboBoxModel<String> modelNV = new DefaultComboBoxModel<>(listNV);
-        cboxNhanVien.setModel(modelNV);
+        for (NhanVien nv : listNV) {
+            cboxNhanVien.addItem(nv.getHoTen());
+        }
 
-        String[] listVT = VT_CON.getArrayTenVaiTro();
-        DefaultComboBoxModel<String> modelVT = new DefaultComboBoxModel<>(listVT);
-        cboxVaiTro.setModel(modelVT);
+        for (VaiTro vt : listVT) {
+            cboxNhanVien.addItem(vt.getTen());
+        }
     }
 
     private void fillInput() {
@@ -71,8 +74,6 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
     }
 
     private TaiKhoan getInputFields() {
-        List<VaiTro> listVT = VT_CON.getAllList();
-
         String id = tk.getId();
         String username = tk.getUsername();
         String password = tk.getPassword();

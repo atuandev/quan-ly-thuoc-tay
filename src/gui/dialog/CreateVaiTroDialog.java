@@ -27,13 +27,14 @@ public class CreateVaiTroDialog extends javax.swing.JDialog {
     }
 
     private boolean isValidateFields() {
-        List<String> listId = VT_CON.getAllListId();
 
         if (txtId.getText().trim().equals("")) {
             MessageDialog.warring(this, "Mã vai trò không được rỗng!");
             txtId.requestFocus();
             return false;
         } else {
+            List<String> listId = VT_CON.getAllListId();
+
             for (String id : listId) {
                 if (txtId.getText().equals(id)) {
                     MessageDialog.warring(this, "Trùng mã!");

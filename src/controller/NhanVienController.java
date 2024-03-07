@@ -38,7 +38,13 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
 
     @Override
     public void create(NhanVien e) {
-        NV_DAO.create(e);
+        for (NhanVien nv : this.getAllList()) {
+            if (nv.getId().equals(e.getId())) {
+                MessageDialog.error(NV_GUI, "Trùng mã!");
+            } else {
+                NV_DAO.create(e);
+            }
+        }
     }
 
     @Override
@@ -56,33 +62,9 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
         return NV_DAO.selectAll();
     }
 
-    public String[] getArrayHoTen() {
-        int size = this.getAllList().size();
-        String[] result = new String[size];
-        for (int i = 0; i < size; i++) {
-            result[i] = this.getAllList().get(i).getHoTen();
-        }
-        return result;
-    }
-
-    public List<String> getListSdt() {
-        List<NhanVien> listNV = this.getAllList();
-        List<String> result = new ArrayList<>();
-
-        listNV.forEach(nv -> {
-            result.add(nv.getSdt());
-        });
-
-        return result;
-    }
-
     @Override
     public NhanVien selectById(String id) {
         return NV_DAO.selectById(id);
-    }
-
-    public String getHoTenById(String id) {
-        return NV_DAO.selectById(id).getHoTen();
     }
 
     public List<NhanVien> getSearchTable(String text, String searchType) {
@@ -175,7 +157,6 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
                             || Validation.isEmpty(ngayVaoLam.toString())) {
                         check += 1;
                     } else {
-                        // Add NhanVien to databasef
                         NhanVien nv = new NhanVien(id, hoTen, sdt, gioitinh, namSinh, ngayVaoLam);
                         NV_DAO.create(nv);
                         NV_GUI.loadTable();

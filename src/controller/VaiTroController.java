@@ -42,9 +42,10 @@ public class VaiTroController extends InterfaceController<VaiTro, String> {
         for (VaiTro vt : this.getAllList()) {
             if (vt.getId().equals(e.getId())) {
                 MessageDialog.error(VT_GUI, "Trùng mã!");
+            } else {
+                VT_DAO.create(e);
             }
         }
-        VT_DAO.create(e);
     }
 
     @Override
@@ -62,32 +63,9 @@ public class VaiTroController extends InterfaceController<VaiTro, String> {
         return VT_DAO.selectAll();
     }
 
-    public List<String> getAllListId() {
-        List<String> result = new ArrayList<>();
-
-        this.getAllList().forEach(e -> {
-            result.add(e.getId());
-        });
-
-        return result;
-    }
-
-    public String[] getArrayTenVaiTro() {
-        int size = this.getAllList().size();
-        String[] result = new String[size];
-        for (int i = 0; i < size; i++) {
-            result[i] = this.getAllList().get(i).getTen();
-        }
-        return result;
-    }
-
     @Override
     public VaiTro selectById(String id) {
         return VT_DAO.selectById(id);
-    }
-
-    public String getTenVaiTroById(String id) {
-        return VT_DAO.selectById(id).getTen();
     }
 
     public List<VaiTro> getSearchTable(String text, String searchType) {
@@ -154,7 +132,6 @@ public class VaiTroController extends InterfaceController<VaiTro, String> {
                     if (Validation.isEmpty(id) || Validation.isEmpty(ten)) {
                         check += 1;
                     } else {
-                        // Add NhanVien to databasef
                         VaiTro nv = new VaiTro(id, ten);
                         VT_DAO.create(nv);
                         VT_GUI.loadTable();

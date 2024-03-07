@@ -11,11 +11,11 @@ import java.util.List;
 public class PhieuThuDAO extends InterfaceDAO<PhieuThu, String> {
 
     private String INSERT_SQL = "INSERT INTO PhieuThu values (?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE PhieuThu SET thoiGian=?, idNV=?, idNSX=? where id=?";
-    private String DELETE_BY_ID = "DELETE from PhieuThu where id = ?";
+    private String UPDATE_SQL = "UPDATE PhieuThu SET thoiGian=?, idNV=?, idNCC=? where idPT=?";
+    private String DELETE_BY_ID = "DELETE from PhieuThu where idPT = ?";
 
     private String SELECT_ALL_SQL = "SELECT * FROM PhieuThu";
-    private String SELECT_BY_ID = "SELECT * FROM PhieuThu WHERE id = ?";
+    private String SELECT_BY_ID = "SELECT * FROM PhieuThu WHERE idPT = ?";
 
     @Override
     public void create(PhieuThu e) {
@@ -39,10 +39,10 @@ public class PhieuThuDAO extends InterfaceDAO<PhieuThu, String> {
             ResultSet rs = jdbcHelper.query(sql, args);
             while (rs.next()) {
                 PhieuThu e = new PhieuThu();
-                e.setId(rs.getString("id"));
+                e.setId(rs.getString("idPT"));
                 e.setThoiGian(rs.getTimestamp("thoiGian"));
                 e.setNhanVien(new NhanVien(rs.getString("idNV")));
-                e.setNxs(new NhaCungCap(rs.getString("idNSX")));
+                e.setNxs(new NhaCungCap(rs.getString("idNCC")));
                 listE.add(e);
             }
             rs.getStatement().getConnection().close();
