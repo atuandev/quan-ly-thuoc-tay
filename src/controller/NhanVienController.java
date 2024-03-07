@@ -38,13 +38,7 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
 
     @Override
     public void create(NhanVien e) {
-        for (NhanVien nv : this.getAllList()) {
-            if (nv.getId().equals(e.getId())) {
-                MessageDialog.error(NV_GUI, "Trùng mã!");
-            } else {
-                NV_DAO.create(e);
-            }
-        }
+        NV_DAO.create(e);
     }
 
     @Override

@@ -215,7 +215,7 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (isValidateFields()) {
             TaiKhoan tk = getInputFields();
-            TK_CON.create(tk);
+            TK_CON.update(tk);
             TK_GUI.loadTable();
             this.dispose();
         }

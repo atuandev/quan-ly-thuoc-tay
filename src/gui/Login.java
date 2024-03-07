@@ -54,17 +54,22 @@ public class Login extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
-        TaiKhoan tk = TK_CON.selectByUsername(username);
-
         if (Validation.isEmpty(username) || Validation.isEmpty(password)) {
             MessageDialog.warring(this, "Không được để trống!");
         } else {
-            if (username.equals(tk.getUsername()) && BCrypt.compare(password, tk.getPassword())) {
-                new MainLayout(tk).setVisible(true);
-                this.dispose();
+            TaiKhoan tk = TK_CON.selectByUsername(username);
+            if (tk == null) {
+                MessageDialog.error(this, "Tài khoản không tồn tại!");
+
             } else {
-                MessageDialog.error(this, "Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại");
+                if (username.equals(tk.getUsername()) && BCrypt.compare(password, tk.getPassword())) {
+                    new MainLayout(tk).setVisible(true);
+                    this.dispose();
+                } else {
+                    MessageDialog.error(this, "Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại");
+                }
             }
+
         }
     }
 

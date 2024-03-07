@@ -71,6 +71,11 @@ public class MainLayout extends javax.swing.JFrame {
         NhanVien nv = TK_CON.getNhanVienByTK(tk);
         VaiTro vt = TK_CON.getVaiTroByTK(tk);
 
+        if (nv.getGioiTinh().equals("Nam")) {
+            btnInfo.setIcon(new FlatSVGIcon("./icon/man.svg"));
+        } else {
+            btnInfo.setIcon(new FlatSVGIcon("./icon/woman.svg"));
+        }
         txtFullName.setText(nv.getHoTen());
         txtRole.setText(vt.getTen());
     }
@@ -78,11 +83,11 @@ public class MainLayout extends javax.swing.JFrame {
     private void sideBarLayout() {
         // Add list item Sidebar
         listItem = new ArrayList<>();
+        listItem.add(hoaDonItem);
         listItem.add(sanPhamItem);
         listItem.add(thuocTinhItem);
-        listItem.add(hoaDonItem);
         listItem.add(phieuNhapItem);
-        listItem.add(nhaSanXuatItem);
+        listItem.add(nhaCungCapItem);
         listItem.add(khachHangItem);
         listItem.add(nhanVienItem);
         listItem.add(taiKhoanItem);
@@ -97,8 +102,8 @@ public class MainLayout extends javax.swing.JFrame {
         btnInfo.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
 
         // Default content
-        sanPham = new SanPhamPage();
-        mainContent.add(sanPham).setVisible(true);
+        hoaDon = new HoaDonPage(this);
+        mainContent.add(hoaDon).setVisible(true);
 
         // Default selected
         listItem.get(0).setSelected(true);
@@ -131,17 +136,20 @@ public class MainLayout extends javax.swing.JFrame {
         sidebarPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         itemPanel = new javax.swing.JPanel();
-        sanPhamItem = new javax.swing.JButton();
-        thuocTinhItem = new javax.swing.JButton();
-        khachHangItem = new javax.swing.JButton();
         hoaDonItem = new javax.swing.JButton();
         phieuDatHang = new javax.swing.JButton();
+        khachHangItem = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        sanPhamItem = new javax.swing.JButton();
+        thuocTinhItem = new javax.swing.JButton();
         phieuNhapItem = new javax.swing.JButton();
-        nhaSanXuatItem = new javax.swing.JButton();
+        nhaCungCapItem = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
         nhanVienItem = new javax.swing.JButton();
         taiKhoanItem = new javax.swing.JButton();
         vaiTroItem = new javax.swing.JButton();
         thongKeItem = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         btnLogout = new javax.swing.JButton();
@@ -171,60 +179,6 @@ public class MainLayout extends javax.swing.JFrame {
         itemPanel.setBackground(new java.awt.Color(255, 255, 255));
         itemPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 8, true));
         itemPanel.setPreferredSize(new java.awt.Dimension(250, 550));
-
-        sanPhamItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        sanPhamItem.setIcon(new FlatSVGIcon("./icon/medicine.svg"));
-        sanPhamItem.setText("Thuốc");
-        sanPhamItem.setBorder(null);
-        sanPhamItem.setBorderPainted(false);
-        sanPhamItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        sanPhamItem.setFocusPainted(false);
-        sanPhamItem.setFocusable(false);
-        sanPhamItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        sanPhamItem.setIconTextGap(16);
-        sanPhamItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        sanPhamItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sanPhamItemActionPerformed(evt);
-            }
-        });
-        itemPanel.add(sanPhamItem);
-
-        thuocTinhItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        thuocTinhItem.setIcon(new FlatSVGIcon("./icon/menu.svg"));
-        thuocTinhItem.setText("Thuộc tính");
-        thuocTinhItem.setBorder(null);
-        thuocTinhItem.setBorderPainted(false);
-        thuocTinhItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        thuocTinhItem.setFocusPainted(false);
-        thuocTinhItem.setFocusable(false);
-        thuocTinhItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        thuocTinhItem.setIconTextGap(16);
-        thuocTinhItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        thuocTinhItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                thuocTinhItemActionPerformed(evt);
-            }
-        });
-        itemPanel.add(thuocTinhItem);
-
-        khachHangItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        khachHangItem.setIcon(new FlatSVGIcon("./icon/customer.svg"));
-        khachHangItem.setText("Khách hàng");
-        khachHangItem.setBorder(null);
-        khachHangItem.setBorderPainted(false);
-        khachHangItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        khachHangItem.setFocusPainted(false);
-        khachHangItem.setFocusable(false);
-        khachHangItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        khachHangItem.setIconTextGap(16);
-        khachHangItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        khachHangItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                khachHangItemActionPerformed(evt);
-            }
-        });
-        itemPanel.add(khachHangItem);
 
         hoaDonItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         hoaDonItem.setIcon(new FlatSVGIcon("./icon/bill.svg"));
@@ -262,6 +216,63 @@ public class MainLayout extends javax.swing.JFrame {
         });
         itemPanel.add(phieuDatHang);
 
+        khachHangItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        khachHangItem.setIcon(new FlatSVGIcon("./icon/customer.svg"));
+        khachHangItem.setText("Khách hàng");
+        khachHangItem.setBorder(null);
+        khachHangItem.setBorderPainted(false);
+        khachHangItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        khachHangItem.setFocusPainted(false);
+        khachHangItem.setFocusable(false);
+        khachHangItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        khachHangItem.setIconTextGap(16);
+        khachHangItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        khachHangItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                khachHangItemActionPerformed(evt);
+            }
+        });
+        itemPanel.add(khachHangItem);
+
+        jSeparator2.setPreferredSize(new java.awt.Dimension(230, 2));
+        itemPanel.add(jSeparator2);
+
+        sanPhamItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        sanPhamItem.setIcon(new FlatSVGIcon("./icon/medicine.svg"));
+        sanPhamItem.setText("Thuốc");
+        sanPhamItem.setBorder(null);
+        sanPhamItem.setBorderPainted(false);
+        sanPhamItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sanPhamItem.setFocusPainted(false);
+        sanPhamItem.setFocusable(false);
+        sanPhamItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        sanPhamItem.setIconTextGap(16);
+        sanPhamItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        sanPhamItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sanPhamItemActionPerformed(evt);
+            }
+        });
+        itemPanel.add(sanPhamItem);
+
+        thuocTinhItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        thuocTinhItem.setIcon(new FlatSVGIcon("./icon/menu.svg"));
+        thuocTinhItem.setText("Thuộc tính");
+        thuocTinhItem.setBorder(null);
+        thuocTinhItem.setBorderPainted(false);
+        thuocTinhItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        thuocTinhItem.setFocusPainted(false);
+        thuocTinhItem.setFocusable(false);
+        thuocTinhItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        thuocTinhItem.setIconTextGap(16);
+        thuocTinhItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        thuocTinhItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thuocTinhItemActionPerformed(evt);
+            }
+        });
+        itemPanel.add(thuocTinhItem);
+
         phieuNhapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         phieuNhapItem.setIcon(new FlatSVGIcon("./icon/bill-import.svg"));
         phieuNhapItem.setText("Phiếu nhập");
@@ -275,23 +286,26 @@ public class MainLayout extends javax.swing.JFrame {
         phieuNhapItem.setPreferredSize(new java.awt.Dimension(226, 46));
         itemPanel.add(phieuNhapItem);
 
-        nhaSanXuatItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        nhaSanXuatItem.setIcon(new FlatSVGIcon("./icon/trucks.svg"));
-        nhaSanXuatItem.setText("Nhà sản xuất");
-        nhaSanXuatItem.setBorder(null);
-        nhaSanXuatItem.setBorderPainted(false);
-        nhaSanXuatItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        nhaSanXuatItem.setFocusPainted(false);
-        nhaSanXuatItem.setFocusable(false);
-        nhaSanXuatItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        nhaSanXuatItem.setIconTextGap(16);
-        nhaSanXuatItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        nhaSanXuatItem.addActionListener(new java.awt.event.ActionListener() {
+        nhaCungCapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        nhaCungCapItem.setIcon(new FlatSVGIcon("./icon/trucks.svg"));
+        nhaCungCapItem.setText("Nhà cung cấp");
+        nhaCungCapItem.setBorder(null);
+        nhaCungCapItem.setBorderPainted(false);
+        nhaCungCapItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        nhaCungCapItem.setFocusPainted(false);
+        nhaCungCapItem.setFocusable(false);
+        nhaCungCapItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        nhaCungCapItem.setIconTextGap(16);
+        nhaCungCapItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        nhaCungCapItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nhaSanXuatItemActionPerformed(evt);
+                nhaCungCapItemActionPerformed(evt);
             }
         });
-        itemPanel.add(nhaSanXuatItem);
+        itemPanel.add(nhaCungCapItem);
+
+        jSeparator3.setPreferredSize(new java.awt.Dimension(230, 2));
+        itemPanel.add(jSeparator3);
 
         nhanVienItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         nhanVienItem.setIcon(new FlatSVGIcon("./icon/employee.svg"));
@@ -360,6 +374,9 @@ public class MainLayout extends javax.swing.JFrame {
         thongKeItem.setPreferredSize(new java.awt.Dimension(226, 46));
         itemPanel.add(thongKeItem);
 
+        jSeparator4.setPreferredSize(new java.awt.Dimension(230, 2));
+        itemPanel.add(jSeparator4);
+
         jScrollPane1.setViewportView(itemPanel);
 
         sidebarPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -418,8 +435,8 @@ public class MainLayout extends javax.swing.JFrame {
         txtFullName.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         txtFullName.setText("Nguyễn Phan Anh Tuấn");
 
-        txtRole.setFont(new java.awt.Font("Roboto Mono", 2, 12)); // NOI18N
-        txtRole.setText("Quản lý");
+        txtRole.setFont(new java.awt.Font("Roboto Light", 2, 13)); // NOI18N
+        txtRole.setText("Nhân viên Quản lý sản phẩm");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -428,18 +445,18 @@ public class MainLayout extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFullName, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                    .addComponent(txtRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtRole, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(txtFullName, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRole)
-                .addGap(15, 15, 15))
+                .addComponent(txtRole, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         infoPanel.add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -501,12 +518,12 @@ public class MainLayout extends javax.swing.JFrame {
         khachHangItem.setSelected(true);
     }//GEN-LAST:event_khachHangItemActionPerformed
 
-    private void nhaSanXuatItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaSanXuatItemActionPerformed
+    private void nhaCungCapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaCungCapItemActionPerformed
         nhaSanXuat = new NhaSanXuatPage();
         this.setPanel(nhaSanXuat);
         resetActive();
-        nhaSanXuatItem.setSelected(true);
-    }//GEN-LAST:event_nhaSanXuatItemActionPerformed
+        nhaCungCapItem.setSelected(true);
+    }//GEN-LAST:event_nhaCungCapItemActionPerformed
 
     private void hoaDonItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hoaDonItemActionPerformed
         hoaDon = new HoaDonPage(this);
@@ -555,10 +572,13 @@ public class MainLayout extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JButton khachHangItem;
     private javax.swing.JPanel leftContent;
     private javax.swing.JPanel mainContent;
-    private javax.swing.JButton nhaSanXuatItem;
+    private javax.swing.JButton nhaCungCapItem;
     private javax.swing.JButton nhanVienItem;
     private javax.swing.JButton phieuDatHang;
     private javax.swing.JButton phieuNhapItem;

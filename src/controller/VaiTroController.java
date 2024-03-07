@@ -39,13 +39,6 @@ public class VaiTroController extends InterfaceController<VaiTro, String> {
 
     @Override
     public void create(VaiTro e) {
-        for (VaiTro vt : this.getAllList()) {
-            if (vt.getId().equals(e.getId())) {
-                MessageDialog.error(VT_GUI, "Trùng mã!");
-            } else {
-                VT_DAO.create(e);
-            }
-        }
     }
 
     @Override

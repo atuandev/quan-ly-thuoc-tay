@@ -40,13 +40,7 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
 
     @Override
     public void create(TaiKhoan e) {
-        for (TaiKhoan tk : this.getAllList()) {
-            if (tk.getId().equals(e.getId())) {
-                MessageDialog.error(TK_GUI, "Trùng mã!");
-            } else {
-                TK_DAO.create(e);
-            }
-        }
+        TK_DAO.create(e);
     }
 
     @Override
