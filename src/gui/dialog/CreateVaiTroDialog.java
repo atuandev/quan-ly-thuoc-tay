@@ -3,7 +3,6 @@ package gui.dialog;
 import controller.VaiTroController;
 import entity.VaiTro;
 import gui.page.VaiTroPage;
-import java.util.List;
 import utils.MessageDialog;
 
 /**
@@ -32,16 +31,6 @@ public class CreateVaiTroDialog extends javax.swing.JDialog {
             MessageDialog.warring(this, "Mã vai trò không được rỗng!");
             txtId.requestFocus();
             return false;
-        } else {
-            List<String> listId = VT_CON.getAllListId();
-
-            for (String id : listId) {
-                if (txtId.getText().equals(id)) {
-                    MessageDialog.warring(this, "Trùng mã!");
-                    txtId.requestFocus();
-                    return false;
-                }
-            }
         }
 
         if (txtTen.getText().trim().equals("")) {

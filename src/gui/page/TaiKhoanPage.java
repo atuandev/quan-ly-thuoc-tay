@@ -30,8 +30,6 @@ public class TaiKhoanPage extends javax.swing.JPanel {
 
     private JFrame main;
     private TaiKhoanController TK_CON = new TaiKhoanController(this);
-    private NhanVienController NV_CON = new NhanVienController();
-    private VaiTroController VT_CON = new VaiTroController();
 
     public TaiKhoanPage() {
         initComponents();
@@ -97,8 +95,8 @@ public class TaiKhoanPage extends javax.swing.JPanel {
         List<TaiKhoan> list = TK_CON.getAllList();
         int stt = 1;
         for (TaiKhoan e : list) {
-            NhanVien nv = NV_CON.selectById(e.getNhanVien().getId());
-            VaiTro vt = VT_CON.selectById(e.getVaiTro().getId());
+            NhanVien nv = TK_CON.getNhanVienByTK(e);
+            VaiTro vt = TK_CON.getVaiTroByTK(e);
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getUsername(), e.getPassword(), nv.getHoTen(), vt.getTen()});
             stt++;
         }
@@ -391,8 +389,8 @@ public class TaiKhoanPage extends javax.swing.JPanel {
 
         int stt = 1;
         for (TaiKhoan e : listSearch) {
-            NhanVien nv = NV_CON.selectById(e.getNhanVien().getId());
-            VaiTro vt = VT_CON.selectById(e.getVaiTro().getId());
+            NhanVien nv = TK_CON.getNhanVienByTK(e);
+            VaiTro vt = TK_CON.getVaiTroByTK(e);
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getUsername(), e.getPassword(), nv.getHoTen(), vt.getTen()});
             stt++;
         }

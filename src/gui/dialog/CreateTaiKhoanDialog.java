@@ -20,11 +20,10 @@ import utils.RandomGenerator;
 public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
     private TaiKhoanController TK_CON = new TaiKhoanController();
-    private NhanVienController NV_CON = new NhanVienController();
-    private VaiTroController VT_CON = new VaiTroController();
     private TaiKhoanPage TK_GUI;
-    private List<NhanVien> listNV = NV_CON.getAllList();
-    private List<VaiTro> listVT = VT_CON.getAllList();
+    
+    private List<NhanVien> listNV = new NhanVienController().getAllList();
+    private List<VaiTro> listVT = new VaiTroController().getAllList();
 
     public CreateTaiKhoanDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -33,8 +32,8 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
     public CreateTaiKhoanDialog(java.awt.Frame parent, boolean modal, TaiKhoanPage TK_GUI) {
         super(parent, modal);
-        initComponents();
         this.TK_GUI = TK_GUI;
+        initComponents();
         fillCombobox();
     }
 
@@ -44,7 +43,7 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         }
 
         for (VaiTro vt : listVT) {
-            cboxNhanVien.addItem(vt.getTen());
+            cboxVaiTro.addItem(vt.getTen());
         }
     }
 

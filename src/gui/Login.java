@@ -1,20 +1,25 @@
 package gui;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import controller.TaiKhoanController;
+import entity.TaiKhoan;
 import java.awt.event.KeyEvent;
 import javax.swing.UIManager;
+import utils.BCrypt;
 import utils.MessageDialog;
+import utils.Validation;
 
 /**
  *
  * @author atuandev
  */
 public class Login extends javax.swing.JFrame {
+
+    TaiKhoanController TK_CON = new TaiKhoanController();
 
     public Login() {
         initComponents();
@@ -46,14 +51,16 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void authentication() {
-        String txtUser = txtUsername.getText();
-        String txtPass = txtPassword.getText();
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
 
-        if (txtUser.equals("") || txtPass.equals("")) {
+        TaiKhoan tk = TK_CON.selectByUsername(username);
+
+        if (Validation.isEmpty(username) || Validation.isEmpty(password)) {
             MessageDialog.warring(this, "Không được để trống!");
         } else {
-            if (txtUser.equals("admin") && txtPass.equals("123456")) {
-                new MainLayout().setVisible(true);
+            if (username.equals(tk.getUsername()) && BCrypt.compare(password, tk.getPassword())) {
+                new MainLayout(tk).setVisible(true);
                 this.dispose();
             } else {
                 MessageDialog.error(this, "Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại");
@@ -147,7 +154,7 @@ public class Login extends javax.swing.JFrame {
         lblPassword.setText("Mật khẩu");
 
         txtPassword.setFont(new java.awt.Font("Roboto Mono", 0, 14)); // NOI18N
-        txtPassword.setText("123456");
+        txtPassword.setText("123123");
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyPressed(evt);

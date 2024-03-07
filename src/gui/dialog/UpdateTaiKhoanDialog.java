@@ -8,10 +8,7 @@ import entity.TaiKhoan;
 import entity.VaiTro;
 import gui.page.TaiKhoanPage;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import utils.BCrypt;
 import utils.MessageDialog;
-import utils.RandomGenerator;
 
 /**
  *
@@ -20,13 +17,11 @@ import utils.RandomGenerator;
 public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
 
     private TaiKhoanController TK_CON = new TaiKhoanController();
-    private NhanVienController NV_CON = new NhanVienController();
-    private VaiTroController VT_CON = new VaiTroController();
     private TaiKhoanPage TK_GUI;
     private TaiKhoan tk;
-    private List<NhanVien> listNV = NV_CON.getAllList();
-    private List<VaiTro> listVT = VT_CON.getAllList();
-
+    
+    private List<NhanVien> listNV = new NhanVienController().getAllList();
+    private List<VaiTro> listVT = new VaiTroController().getAllList();
 
     public UpdateTaiKhoanDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -48,14 +43,14 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         }
 
         for (VaiTro vt : listVT) {
-            cboxNhanVien.addItem(vt.getTen());
+            cboxVaiTro.addItem(vt.getTen());
         }
     }
 
     private void fillInput() {
-        NhanVien nv = NV_CON.selectById(tk.getNhanVien().getId());
-        VaiTro vt = VT_CON.selectById(tk.getVaiTro().getId());
-        
+        NhanVien nv = TK_CON.getNhanVienByTK(tk);
+        VaiTro vt = TK_CON.getVaiTroByTK(tk);
+
         txtUsername.setText(tk.getUsername());
         txtUsername.setEditable(false);
         cboxNhanVien.setSelectedItem(nv.getHoTen());

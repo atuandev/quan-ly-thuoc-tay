@@ -26,6 +26,8 @@ import utils.Validation;
  */
 public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
 
+    private NhanVienController NV_CON = new NhanVienController();
+    private VaiTroController VT_CON = new VaiTroController();
     public TaiKhoanDAO TK_DAO = new TaiKhoanDAO();
     public TaiKhoanPage TK_GUI;
 
@@ -75,6 +77,18 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
     @Override
     public TaiKhoan selectById(String id) {
         return TK_DAO.selectById(id);
+    }
+
+    public TaiKhoan selectByUsername(String username) {
+        return TK_DAO.selectByUsername(username);
+    }
+
+    public NhanVien getNhanVienByTK(TaiKhoan tk) {
+        return NV_CON.selectById(tk.getNhanVien().getId());
+    }
+
+    public VaiTro getVaiTroByTK(TaiKhoan tk) {
+        return VT_CON.selectById(tk.getVaiTro().getId());
     }
 
     public List<TaiKhoan> getSearchTable(String text, String searchType) {

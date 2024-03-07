@@ -1,10 +1,13 @@
 package gui;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import controller.NhanVienController;
+import controller.TaiKhoanController;
+import controller.VaiTroController;
+import entity.NhanVien;
+import entity.TaiKhoan;
+import entity.VaiTro;
 import gui.page.HoaDonPage;
 import gui.page.KhachHangPage;
 import gui.page.NhaSanXuatPage;
@@ -14,17 +17,12 @@ import gui.page.TaiKhoanPage;
 import gui.page.ThuocTinhPage;
 import gui.page.VaiTroPage;
 import java.awt.Color;
-import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import utils.MessageDialog;
 
 /**
@@ -40,14 +38,25 @@ public class MainLayout extends javax.swing.JFrame {
     private KhachHangPage khachHang;
     private NhanVienPage nhanVien;
     private TaiKhoanPage taiKhoan;
+    private VaiTroPage vaiTro;
+
+    private TaiKhoan tk;
+    private TaiKhoanController TK_CON = new TaiKhoanController();
 
     private List<JButton> listItem;
 
     Color ACTIVE_BACKGROUND_COLOR = new Color(195, 240, 235);
-    private VaiTroPage vaiTro;
 
     public MainLayout() {
         initComponents();
+        infoLayout();
+        sideBarLayout();
+    }
+
+    public MainLayout(TaiKhoan tk) {
+        this.tk = tk;
+        initComponents();
+        infoLayout();
         sideBarLayout();
     }
 
@@ -56,6 +65,14 @@ public class MainLayout extends javax.swing.JFrame {
         mainContent.add(pn).setVisible(true);
         mainContent.repaint();
         mainContent.validate();
+    }
+
+    private void infoLayout() {
+        NhanVien nv = TK_CON.getNhanVienByTK(tk);
+        VaiTro vt = TK_CON.getVaiTroByTK(tk);
+
+        txtFullName.setText(nv.getHoTen());
+        txtRole.setText(vt.getTen());
     }
 
     private void sideBarLayout() {
@@ -77,6 +94,7 @@ public class MainLayout extends javax.swing.JFrame {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
         btnLogout.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
+        btnInfo.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
 
         // Default content
         sanPham = new SanPhamPage();
@@ -129,7 +147,7 @@ public class MainLayout extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         infoPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        btnInfo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtFullName = new javax.swing.JLabel();
         txtRole = new javax.swing.JLabel();
@@ -380,10 +398,18 @@ public class MainLayout extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(64, 80));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setIcon(new FlatSVGIcon("./icon/man.svg"));
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(jLabel1);
+        btnInfo.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnInfo.setIcon(new FlatSVGIcon("./icon/man.svg"));
+        btnInfo.setBorder(null);
+        btnInfo.setBorderPainted(false);
+        btnInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInfo.setFocusPainted(false);
+        btnInfo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnInfo.setPreferredSize(new java.awt.Dimension(90, 90));
+        btnInfo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(btnInfo, java.awt.BorderLayout.CENTER);
 
         infoPanel.add(jPanel2, java.awt.BorderLayout.WEST);
 
@@ -519,11 +545,11 @@ public class MainLayout extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton hoaDonItem;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel itemPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
