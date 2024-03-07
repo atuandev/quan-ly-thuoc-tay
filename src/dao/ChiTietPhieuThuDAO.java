@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChiTietPhieuThuDAO implements ChiTietInterface<ChiTietPhieuThu, String> {
+public class ChiTietPhieuThuDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu, String> {
 
     private String INSERT_SQL = "INSERT INTO ChiTietPhieuThu values (?,?,?,?)";
     private String UPDATE_SQL = "UPDATE ChiTietPhieuThu SET idThuoc=?, soLuong=?, donGia=? where idPT=?";

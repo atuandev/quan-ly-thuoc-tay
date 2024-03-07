@@ -8,9 +8,15 @@ import entity.TaiKhoan;
 import entity.VaiTro;
 import gui.page.TaiKhoanPage;
 import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import utils.BCrypt;
+import utils.Formatter;
 import utils.MessageDialog;
 import utils.RandomGenerator;
+import utils.TableSorter;
 
 /**
  *
@@ -19,9 +25,9 @@ import utils.RandomGenerator;
 public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
     private TaiKhoanController TK_CON = new TaiKhoanController();
+    private NhanVienController NV_CON = new NhanVienController();
     private TaiKhoanPage TK_GUI;
-    
-    private List<NhanVien> listNV = new NhanVienController().getAllList();
+
     private List<VaiTro> listVT = new VaiTroController().getAllList();
 
     public CreateTaiKhoanDialog(java.awt.Frame parent, boolean modal) {
@@ -34,15 +40,49 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         this.TK_GUI = TK_GUI;
         initComponents();
         fillCombobox();
+        tableLayout();
     }
 
     private void fillCombobox() {
-        for (NhanVien nv : listNV) {
-            cboxNhanVien.addItem(nv.getHoTen());
-        }
-
         for (VaiTro vt : listVT) {
             cboxVaiTro.addItem(vt.getTen());
+        }
+    }
+
+    private void tableLayout() {
+        String[] header = new String[]{"STT", "Mã nhân viên", "Họ tên", "Số điện thoại", "Năm sinh"};
+
+        DefaultTableModel modal = new DefaultTableModel();
+        modal.setColumnIdentifiers(header);
+        tableNV.setModel(modal);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        tableNV.setDefaultRenderer(Object.class, centerRenderer);
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tableNV.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tableNV.getColumnModel().getColumn(2).setPreferredWidth(200);
+
+        loadTable();
+        sortTable();
+    }
+
+    private void sortTable() {
+        tableNV.setAutoCreateRowSorter(true);
+        TableSorter.configureTableColumnSorter(tableNV, 0, TableSorter.STRING_COMPARATOR);
+    }
+
+    public void loadTable() {
+        DefaultTableModel modal = (DefaultTableModel) tableNV.getModel();
+        modal.setRowCount(0);
+
+        List<NhanVien> list = NV_CON.getAllList();
+        List<NhanVien> listNV = TK_CON.getListNV();
+        int stt = 1;
+        for (NhanVien e : list) {
+            if (!listNV.contains(e)) {
+                modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getNamSinh()});
+            }
+            stt++;
         }
     }
 
@@ -66,6 +106,11 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
             return false;
         }
 
+        if (tableNV.getSelectedRow() < 0) {
+            MessageDialog.warring(this, "Vui lòng chọn nhân viên!");
+            return false;
+        }
+
         return true;
     }
 
@@ -73,7 +118,8 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         String id = RandomGenerator.getRandomId();
         String username = txtUsername.getText().trim();
         String password = BCrypt.hashpw(txtPassword.getText(), BCrypt.gensalt(10));
-        String idNV = listNV.get(cboxNhanVien.getSelectedIndex()).getId();
+        int row = tableNV.getSelectedRow();
+        String idNV = tableNV.getValueAt(row, 1).toString();
         String idVT = listVT.get(cboxVaiTro.getSelectedIndex()).getId();
 
         return new TaiKhoan(id, username, password, new NhanVien(idNV), new VaiTro(idVT));
@@ -92,18 +138,18 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         jPanel19 = new javax.swing.JPanel();
         Password = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        jPanel21 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        cboxNhanVien = new javax.swing.JComboBox<>();
         jPanel22 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         cboxVaiTro = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableNV = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         btnHuy = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 600));
+        setPreferredSize(new java.awt.Dimension(700, 600));
 
         jPanel15.setBackground(new java.awt.Color(0, 153, 153));
         jPanel15.setMinimumSize(new java.awt.Dimension(100, 60));
@@ -119,6 +165,7 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         getContentPane().add(jPanel15, java.awt.BorderLayout.NORTH);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(600, 600));
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 16));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
@@ -153,21 +200,6 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
         jPanel1.add(jPanel19);
 
-        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel21.setPreferredSize(new java.awt.Dimension(500, 40));
-        jPanel21.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
-
-        jLabel14.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel14.setText("Nhân viên");
-        jLabel14.setMaximumSize(new java.awt.Dimension(44, 40));
-        jLabel14.setPreferredSize(new java.awt.Dimension(150, 40));
-        jPanel21.add(jLabel14);
-
-        cboxNhanVien.setPreferredSize(new java.awt.Dimension(330, 40));
-        jPanel21.add(cboxNhanVien);
-
-        jPanel1.add(jPanel21);
-
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
         jPanel22.setPreferredSize(new java.awt.Dimension(500, 40));
         jPanel22.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
@@ -182,6 +214,45 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         jPanel22.add(cboxVaiTro);
 
         jPanel1.add(jPanel22);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(600, 230));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        tableNV.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"123", "Anh Tuấn", "123123", null, null, null},
+                {"13124", "czczxc", "zxc", null, null, null},
+                {"14123", "zxczc", "zxc", null, null, null},
+                {"124123", "zxczx", "zxc", null, null, null}
+            },
+            new String [] {
+                "Mã", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableNV.setFocusable(false);
+        tableNV.setRowHeight(40);
+        tableNV.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableNV.setShowHorizontalLines(true);
+        jScrollPane1.setViewportView(tableNV);
+
+        jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel2);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -244,19 +315,19 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
     private javax.swing.JLabel Password;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnHuy;
-    private javax.swing.JComboBox<String> cboxNhanVien;
     private javax.swing.JComboBox<String> cboxVaiTro;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblHoTen;
+    private javax.swing.JTable tableNV;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

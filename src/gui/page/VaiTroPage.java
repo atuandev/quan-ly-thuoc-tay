@@ -24,17 +24,9 @@ import utils.TableSorter;
  */
 public class VaiTroPage extends javax.swing.JPanel {
 
-    private JFrame main;
     private VaiTroController VT_CON = new VaiTroController(this);
 
     public VaiTroPage() {
-        initComponents();
-        headerLayout();
-        tableLayout();
-    }
-
-    public VaiTroPage(JFrame main) {
-        this.main = main;
         initComponents();
         headerLayout();
         tableLayout();
@@ -64,16 +56,18 @@ public class VaiTroPage extends javax.swing.JPanel {
     }
 
     private void tableLayout() {
+        String[] header = new String[]{"STT", "Mã vai trò", "Tên vai trò"};
+        
+        DefaultTableModel modal = new DefaultTableModel();
+        modal.setColumnIdentifiers(header);
+        table.setModel(modal);
+        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         table.setDefaultRenderer(Object.class, centerRenderer);
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
 
-        DefaultTableModel modal = new DefaultTableModel();
-        String[] header = new String[]{"STT", "Mã vai trò", "Tên vai trò"};
-        modal.setColumnIdentifiers(header);
-        table.setModel(modal);
 
         loadTable();
         sortTable();
@@ -333,7 +327,7 @@ public class VaiTroPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        CreateVaiTroDialog dialog = new CreateVaiTroDialog(main, true, this);
+        CreateVaiTroDialog dialog = new CreateVaiTroDialog(null, true, this);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -343,7 +337,7 @@ public class VaiTroPage extends javax.swing.JPanel {
             String id = table.getValueAt(row, 1).toString();
             VaiTro e = VT_CON.selectById(id);
 
-            UpdateVaiTroDialog dialog = new UpdateVaiTroDialog(main, true, this, e);
+            UpdateVaiTroDialog dialog = new UpdateVaiTroDialog(null, true, this, e);
             dialog.setVisible(true);
         } catch (Exception e) {
             MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");

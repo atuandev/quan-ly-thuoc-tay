@@ -8,7 +8,7 @@ import java.util.List;
  * @param <E>
  * @param <Key>
  */
-public interface ChiTietInterface<E, Key> {
+public interface ChiTietInterfaceDAO<E, Key> {
 
     public void insert(List<E> e);
 

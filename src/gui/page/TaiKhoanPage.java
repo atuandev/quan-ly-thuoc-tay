@@ -28,17 +28,9 @@ import utils.TableSorter;
  */
 public class TaiKhoanPage extends javax.swing.JPanel {
 
-    private JFrame main;
     private TaiKhoanController TK_CON = new TaiKhoanController(this);
 
     public TaiKhoanPage() {
-        initComponents();
-        headerLayout();
-        tableLayout();
-    }
-
-    public TaiKhoanPage(JFrame main) {
-        this.main = main;
         initComponents();
         headerLayout();
         tableLayout();
@@ -339,7 +331,7 @@ public class TaiKhoanPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        CreateTaiKhoanDialog dialog = new CreateTaiKhoanDialog(main, true, this);
+        CreateTaiKhoanDialog dialog = new CreateTaiKhoanDialog(null, true, this);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -349,7 +341,7 @@ public class TaiKhoanPage extends javax.swing.JPanel {
             String id = table.getValueAt(row, 1).toString();
             TaiKhoan tk = TK_CON.selectById(id);
 
-            UpdateTaiKhoanDialog dialog = new UpdateTaiKhoanDialog(main, true, this, tk);
+            UpdateTaiKhoanDialog dialog = new UpdateTaiKhoanDialog(null, true, this, tk);
             dialog.setVisible(true);
         } catch (Exception e) {
             MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");

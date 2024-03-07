@@ -68,6 +68,16 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
         return result;
     }
 
+    public List<NhanVien> getListNV() {
+        List<NhanVien> result = new ArrayList<>();
+
+        this.getAllList().forEach(e -> {
+            result.add(e.getNhanVien());
+        });
+
+        return result;
+    }
+
     @Override
     public TaiKhoan selectById(String id) {
         return TK_DAO.selectById(id);

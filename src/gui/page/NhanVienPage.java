@@ -25,17 +25,9 @@ import utils.TableSorter;
  */
 public class NhanVienPage extends javax.swing.JPanel {
 
-    private JFrame main;
     private NhanVienController NV_CON = new NhanVienController(this);
 
     public NhanVienPage() {
-        initComponents();
-        headerLayout();
-        tableLayout();
-    }
-
-    public NhanVienPage(JFrame main) {
-        this.main = main;
         initComponents();
         headerLayout();
         tableLayout();
@@ -65,16 +57,17 @@ public class NhanVienPage extends javax.swing.JPanel {
     }
 
     private void tableLayout() {
+        String[] header = new String[]{"STT", "Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
+        DefaultTableModel modal = new DefaultTableModel();
+        modal.setColumnIdentifiers(header);
+        table.setModel(modal);
+        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         table.setDefaultRenderer(Object.class, centerRenderer);
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
 
-        DefaultTableModel modal = new DefaultTableModel();
-        String[] header = new String[]{"STT", "Mã nhân viên", "Họ tên", "Số điện thoại", "Giới tính", "Năm sinh", "Ngày vào làm"};
-        modal.setColumnIdentifiers(header);
-        table.setModel(modal);
 
         loadTable();
         sortTable();
@@ -334,7 +327,7 @@ public class NhanVienPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        CreateNhanVienDialog dialog = new CreateNhanVienDialog(main, true, this);
+        CreateNhanVienDialog dialog = new CreateNhanVienDialog(null, true, this);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -344,7 +337,7 @@ public class NhanVienPage extends javax.swing.JPanel {
             String id = table.getValueAt(row, 1).toString();
             NhanVien nv = NV_CON.selectById(id);
 
-            UpdateNhanVienDialog dialog = new UpdateNhanVienDialog(main, true, this, nv);
+            UpdateNhanVienDialog dialog = new UpdateNhanVienDialog(null, true, this, nv);
             dialog.setVisible(true);
         } catch (Exception e) {
             MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
