@@ -99,6 +99,7 @@ public class UpdateVaiTroDialog extends javax.swing.JDialog {
 
         txtId.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtId.setToolTipText("");
+        txtId.setFocusable(false);
         txtId.setPreferredSize(new java.awt.Dimension(330, 40));
         jPanel19.add(txtId);
 

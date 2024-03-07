@@ -60,16 +60,18 @@ public class TaiKhoanPage extends javax.swing.JPanel {
     }
 
     private void tableLayout() {
+        String[] header = new String[]{"STT", "Mã tài khoản", "Username", "Password", "Tên nhân viên", "Vai Trò"};
+
+        DefaultTableModel modal = new DefaultTableModel();
+        modal.setColumnIdentifiers(header);
+        table.setModel(modal);
+        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         table.setDefaultRenderer(Object.class, centerRenderer);
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
-
-        DefaultTableModel modal = new DefaultTableModel();
-        String[] header = new String[]{"STT", "Mã tài khoản", "Username", "Password", "Tên nhân viên", "Vai Trò"};
-        modal.setColumnIdentifiers(header);
-        table.setModel(modal);
 
         loadTable();
         sortTable();

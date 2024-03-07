@@ -57,17 +57,17 @@ public class VaiTroPage extends javax.swing.JPanel {
 
     private void tableLayout() {
         String[] header = new String[]{"STT", "Mã vai trò", "Tên vai trò"};
-        
+
         DefaultTableModel modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
-        
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         table.setDefaultRenderer(Object.class, centerRenderer);
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
-
 
         loadTable();
         sortTable();
@@ -304,9 +304,6 @@ public class VaiTroPage extends javax.swing.JPanel {
         table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         table.setShowHorizontalLines(true);
         jScrollPane1.setViewportView(table);
-        if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(1).setPreferredWidth(200);
-        }
 
         tablePanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -374,7 +371,7 @@ public class VaiTroPage extends javax.swing.JPanel {
         String search = txtSearch.getText().toLowerCase().trim();
         String searchType = cboxSearch.getSelectedItem().toString();
         List<VaiTro> listsearch = VT_CON.getSearchTable(search, searchType);
-        
+
         int stt = 1;
         for (VaiTro e : listsearch) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTen()});

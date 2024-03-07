@@ -52,9 +52,7 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         VaiTro vt = TK_CON.getVaiTroByTK(tk);
 
         txtUsername.setText(tk.getUsername());
-        txtUsername.setEditable(false);
         cboxNhanVien.setSelectedItem(nv.getHoTen());
-        cboxNhanVien.setEnabled(false);
         cboxVaiTro.setSelectedItem(vt.getTen());
     }
 
@@ -127,6 +125,7 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         lblHoTen.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel18.add(lblHoTen);
 
+        txtUsername.setEditable(false);
         txtUsername.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtUsername.setToolTipText("");
         txtUsername.setFocusable(false);
@@ -145,6 +144,8 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         jLabel14.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel21.add(jLabel14);
 
+        cboxNhanVien.setEnabled(false);
+        cboxNhanVien.setFocusable(false);
         cboxNhanVien.setPreferredSize(new java.awt.Dimension(330, 40));
         jPanel21.add(cboxNhanVien);
 

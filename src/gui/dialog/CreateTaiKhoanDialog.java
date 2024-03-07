@@ -60,6 +60,7 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         tableNV.setDefaultRenderer(Object.class, centerRenderer);
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         tableNV.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tableNV.getColumnModel().getColumn(0).setPreferredWidth(30);
         tableNV.getColumnModel().getColumn(2).setPreferredWidth(200);
 
         loadTable();
