@@ -97,12 +97,6 @@ public class MainLayout extends javax.swing.JFrame {
         listItem.add(phieuDatHang);
         listItem.add(vaiTroItem);
 
-        for (JButton item : listItem) {
-            item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        }
-        btnLogout.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        btnInfo.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-
         // Default content
         hoaDon = new HoaDonPage(this);
         mainContent.add(hoaDon).setVisible(true);
@@ -184,7 +178,6 @@ public class MainLayout extends javax.swing.JFrame {
         hoaDonItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         hoaDonItem.setIcon(new FlatSVGIcon("./icon/bill.svg"));
         hoaDonItem.setText("Hóa đơn");
-        hoaDonItem.setBorder(null);
         hoaDonItem.setBorderPainted(false);
         hoaDonItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         hoaDonItem.setFocusPainted(false);
@@ -202,7 +195,6 @@ public class MainLayout extends javax.swing.JFrame {
         phieuDatHang.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         phieuDatHang.setIcon(new FlatSVGIcon("./icon/ticket.svg"));
         phieuDatHang.setText("Phiếu đặt hàng");
-        phieuDatHang.setBorder(null);
         phieuDatHang.setBorderPainted(false);
         phieuDatHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         phieuDatHang.setFocusPainted(false);
@@ -220,7 +212,6 @@ public class MainLayout extends javax.swing.JFrame {
         khachHangItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         khachHangItem.setIcon(new FlatSVGIcon("./icon/customer.svg"));
         khachHangItem.setText("Khách hàng");
-        khachHangItem.setBorder(null);
         khachHangItem.setBorderPainted(false);
         khachHangItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         khachHangItem.setFocusPainted(false);
@@ -241,7 +232,6 @@ public class MainLayout extends javax.swing.JFrame {
         sanPhamItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         sanPhamItem.setIcon(new FlatSVGIcon("./icon/medicine.svg"));
         sanPhamItem.setText("Thuốc");
-        sanPhamItem.setBorder(null);
         sanPhamItem.setBorderPainted(false);
         sanPhamItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sanPhamItem.setFocusPainted(false);
@@ -259,7 +249,6 @@ public class MainLayout extends javax.swing.JFrame {
         thuocTinhItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         thuocTinhItem.setIcon(new FlatSVGIcon("./icon/menu.svg"));
         thuocTinhItem.setText("Thuộc tính");
-        thuocTinhItem.setBorder(null);
         thuocTinhItem.setBorderPainted(false);
         thuocTinhItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         thuocTinhItem.setFocusPainted(false);
@@ -277,7 +266,6 @@ public class MainLayout extends javax.swing.JFrame {
         phieuNhapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         phieuNhapItem.setIcon(new FlatSVGIcon("./icon/bill-import.svg"));
         phieuNhapItem.setText("Phiếu nhập");
-        phieuNhapItem.setBorder(null);
         phieuNhapItem.setBorderPainted(false);
         phieuNhapItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         phieuNhapItem.setFocusPainted(false);
@@ -290,7 +278,6 @@ public class MainLayout extends javax.swing.JFrame {
         nhaCungCapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         nhaCungCapItem.setIcon(new FlatSVGIcon("./icon/trucks.svg"));
         nhaCungCapItem.setText("Nhà cung cấp");
-        nhaCungCapItem.setBorder(null);
         nhaCungCapItem.setBorderPainted(false);
         nhaCungCapItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         nhaCungCapItem.setFocusPainted(false);
@@ -311,7 +298,6 @@ public class MainLayout extends javax.swing.JFrame {
         nhanVienItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         nhanVienItem.setIcon(new FlatSVGIcon("./icon/employee.svg"));
         nhanVienItem.setText("Nhân viên");
-        nhanVienItem.setBorder(null);
         nhanVienItem.setBorderPainted(false);
         nhanVienItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         nhanVienItem.setFocusPainted(false);
@@ -329,7 +315,6 @@ public class MainLayout extends javax.swing.JFrame {
         taiKhoanItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         taiKhoanItem.setIcon(new FlatSVGIcon("./icon/account.svg"));
         taiKhoanItem.setText("Tài khoản");
-        taiKhoanItem.setBorder(null);
         taiKhoanItem.setBorderPainted(false);
         taiKhoanItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         taiKhoanItem.setFocusPainted(false);
@@ -347,7 +332,6 @@ public class MainLayout extends javax.swing.JFrame {
         vaiTroItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         vaiTroItem.setIcon(new FlatSVGIcon("./icon/security.svg"));
         vaiTroItem.setText("Phân quyền");
-        vaiTroItem.setBorder(null);
         vaiTroItem.setBorderPainted(false);
         vaiTroItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         vaiTroItem.setFocusPainted(false);
@@ -365,7 +349,6 @@ public class MainLayout extends javax.swing.JFrame {
         thongKeItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         thongKeItem.setIcon(new FlatSVGIcon("./icon/statistics.svg"));
         thongKeItem.setText("Thống kê");
-        thongKeItem.setBorder(null);
         thongKeItem.setBorderPainted(false);
         thongKeItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         thongKeItem.setFocusPainted(false);
@@ -388,7 +371,6 @@ public class MainLayout extends javax.swing.JFrame {
         btnLogout.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         btnLogout.setIcon(new FlatSVGIcon("./icon/logout.svg"));
         btnLogout.setText("Đăng Xuất");
-        btnLogout.setBorder(null);
         btnLogout.setBorderPainted(false);
         btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogout.setFocusPainted(false);
@@ -417,7 +399,6 @@ public class MainLayout extends javax.swing.JFrame {
 
         btnInfo.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         btnInfo.setIcon(new FlatSVGIcon("./icon/man.svg"));
-        btnInfo.setBorder(null);
         btnInfo.setBorderPainted(false);
         btnInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInfo.setFocusPainted(false);

@@ -25,7 +25,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         loginLayout();
     }
-
+    
     public static void main(String args[]) {
         initFlatlaf();
         java.awt.EventQueue.invokeLater(() -> {
@@ -39,7 +39,7 @@ public class Login extends javax.swing.JFrame {
         FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
         FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
         FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+        FlatLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
         UIManager.put("PasswordField.showRevealButton", true);
     }
@@ -47,7 +47,6 @@ public class Login extends javax.swing.JFrame {
     private void loginLayout() {
         txtUsername.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/username.svg"));
         txtPassword.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/password.svg"));
-        btnLogin.putClientProperty(FlatClientProperties.STYLE, "arc: 10");
     }
 
     private void authentication() {
@@ -197,7 +196,6 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Roboto Mono", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Đăng nhập");
-        btnLogin.setBorder(null);
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.setFocusable(false);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
