@@ -56,6 +56,7 @@ public class VaiTroPage extends javax.swing.JPanel {
     }
 
     private void tableLayout() {
+        lblTable.setText("danh sách thông tin vai trò".toUpperCase());
         String[] header = new String[]{"STT", "Mã vai trò", "Tên vai trò"};
 
         DefaultTableModel modal = new DefaultTableModel();
@@ -111,7 +112,7 @@ public class VaiTroPage extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblTable = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(230, 245, 245));
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(230, 245, 245), 6, true));
@@ -312,11 +313,11 @@ public class VaiTroPage extends javax.swing.JPanel {
         jPanel5.setPreferredSize(new java.awt.Dimension(500, 40));
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("THÔNG TIN VAI TRÒ");
-        jPanel5.add(jLabel2, java.awt.BorderLayout.CENTER);
+        lblTable.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        lblTable.setForeground(new java.awt.Color(255, 255, 255));
+        lblTable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTable.setText("THÔNG TIN VAI TRÒ");
+        jPanel5.add(lblTable, java.awt.BorderLayout.CENTER);
 
         tablePanel.add(jPanel5, java.awt.BorderLayout.NORTH);
 
@@ -397,11 +398,11 @@ public class VaiTroPage extends javax.swing.JPanel {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxSearch;
     private javax.swing.JPanel headerPanel;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTable;
     private javax.swing.JTable table;
     private javax.swing.JPanel tablePanel;
     private javax.swing.JTextField txtSearch;
