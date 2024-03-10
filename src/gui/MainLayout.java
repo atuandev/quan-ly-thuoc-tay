@@ -1,17 +1,14 @@
 package gui;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import controller.NhanVienController;
 import controller.TaiKhoanController;
-import controller.VaiTroController;
 import entity.NhanVien;
 import entity.TaiKhoan;
 import entity.VaiTro;
 import gui.dialog.InfoDialog;
 import gui.page.HoaDonPage;
 import gui.page.KhachHangPage;
-import gui.page.NhaSanXuatPage;
+import gui.page.NhaCungCapPage;
 import gui.page.NhanVienPage;
 import gui.page.SanPhamPage;
 import gui.page.TaiKhoanPage;
@@ -35,7 +32,7 @@ public class MainLayout extends javax.swing.JFrame {
     private SanPhamPage sanPham;
     private HoaDonPage hoaDon;
     private ThuocTinhPage thuocTinh;
-    private NhaSanXuatPage nhaSanXuat;
+    private NhaCungCapPage nhaSanXuat;
     private KhachHangPage khachHang;
     private NhanVienPage nhanVien;
     private TaiKhoanPage taiKhoan;
@@ -69,7 +66,7 @@ public class MainLayout extends javax.swing.JFrame {
         mainContent.validate();
     }
 
-    public void fillInfo() {
+    public final void fillInfo() {
         nv = TK_CON.getNhanVienByTK(tk);
         VaiTro vt = TK_CON.getVaiTroByTK(tk);
 
@@ -503,7 +500,7 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_khachHangItemActionPerformed
 
     private void nhaCungCapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaCungCapItemActionPerformed
-        nhaSanXuat = new NhaSanXuatPage();
+        nhaSanXuat = new NhaCungCapPage();
         this.setPanel(nhaSanXuat);
         resetActive();
         nhaCungCapItem.setSelected(true);

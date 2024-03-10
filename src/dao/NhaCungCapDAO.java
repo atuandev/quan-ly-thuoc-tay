@@ -8,7 +8,7 @@ import java.util.List;
 
 public class NhaCungCapDAO extends InterfaceDAO<NhaCungCap, String> {
 
-    private String INSERT_SQL = "INSERT INTO NhaCungCap values (?,?,?,?)";
+    private String INSERT_SQL = "INSERT INTO NhaCungCap values(?,?,?,?)";
     private String UPDATE_SQL = "UPDATE NhaCungCap SET tenNCC=?, sdt=?, diaChi=? where idNCC=?";
     private String DELETE_BY_ID = "DELETE from NhaCungCap where idNCC = ?";
 

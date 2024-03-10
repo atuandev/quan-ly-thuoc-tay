@@ -6,7 +6,7 @@ go
 
 CREATE TABLE NhanVien (
     idNV NVARCHAR(10) NOT NULL PRIMARY KEY,
-    hoTen NVARCHAR(50) NOT NULL,
+    hoTen NVARCHAR(255) NOT NULL,
     sdt NVARCHAR(10) NOT NULL,
     gioiTinh NVARCHAR(10) NOT NULL,
     namSinh INT NOT NULL,
@@ -16,6 +16,7 @@ go
 
 INSERT INTO NhanVien (idNV, hoTen, sdt, gioiTinh, namSinh, ngayVaoLam)
 VALUES
+	('ADMIN1111', N'Admin', '0111111111', N'Nam', 2003, '2024-01-01'),
     ('LKD2SFSL1', N'Nguyễn Phan Anh Tuấn', '0906765871', N'Nam', 2003, '2024-02-12'),
     ('IU42JDKJ2', N'Vũ Nương', '0931265687', N'Nữ', 2003, '2024-02-15'),
     ('DKJFJO1K2', N'Chí Phèo', '0967566712', N'Nam', 2003, '2024-02-20');
@@ -23,34 +24,35 @@ go
 
 CREATE TABLE VaiTro (
     idVT NVARCHAR(10) NOT NULL PRIMARY KEY,
-    ten NVARCHAR(50) NOT NULL,
+    ten NVARCHAR(255) NOT NULL,
 );
 go
 
 INSERT INTO VaiTro (idVT, ten)
 VALUES
-    ('admin', N'Nhân viên Quản Lý'),
+	('admin', N'Admin'),
+    ('nvql', N'Nhân viên Quản Lý'),
 	('nvbh', N'Nhân viên Bán hàng'),
 	('nvsp', N'Nhân viên Quản lý Sản phẩm')
 go
 
 CREATE TABLE TaiKhoan (
 	idTK NVARCHAR(10) NOT NULL PRIMARY KEY,
-    username NVARCHAR(50) NOT NULL,
+    username NVARCHAR(255) NOT NULL,
     password NVARCHAR(255) NOT NULL,
     idNV NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES NhanVien(idNV),
 	idVT NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES VaiTro(idVT),
 );
 go
 
---INSERT INTO TaiKhoan (username, password, maNV, maVT)
---VALUES
---    ('admin', '123456', 'LKD2SFSL1', 'admin')
---go
+INSERT INTO TaiKhoan (idTK, username, password, idNV, idVT)
+VALUES
+    ('ADMIN0000', 'admin', '123456', 'ADMIN1111', 'admin')
+go
 
 CREATE TABLE KhachHang (
     idKH NVARCHAR(10) NOT NULL PRIMARY KEY,
-    hoTen NVARCHAR(50) NOT NULL,
+    hoTen NVARCHAR(255) NOT NULL,
     sdt NVARCHAR(10) NOT NULL,
     gioiTinh NVARCHAR(10) NOT NULL,
 	ngayThamGia DATE NOT NULL,
@@ -73,25 +75,25 @@ go
 
 CREATE TABLE DonViTinh (
     idDVT NVARCHAR(10) NOT NULL PRIMARY KEY,
-    ten NVARCHAR(50) NOT NULL,
+    ten NVARCHAR(255) NOT NULL,
 );
 go
 
 CREATE TABLE XuatXu (
     idXX NVARCHAR(10) NOT NULL PRIMARY KEY,
-    ten NVARCHAR(50) NOT NULL,
+    ten NVARCHAR(255) NOT NULL,
 );
 go
 
 CREATE TABLE DanhMuc (
     idDM NVARCHAR(10) NOT NULL PRIMARY KEY,
-    ten NVARCHAR(50) NOT NULL,
+    ten NVARCHAR(255) NOT NULL,
 );
 go
 
 CREATE TABLE Thuoc (
     idThuoc NVARCHAR(10) NOT NULL PRIMARY KEY,
-    tenThuoc NVARCHAR(50) NOT NULL,
+    tenThuoc NVARCHAR(255) NOT NULL,
     hinhAnh NVARCHAR(255) NOT NULL,
     thanhPhan NVARCHAR(255) NOT NULL,
 	idDVT NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES DonViTinh(idDVT),
@@ -143,11 +145,17 @@ go
 
 CREATE TABLE NhaCungCap (
     idNCC NVARCHAR(10) NOT NULL PRIMARY KEY,
-    tenNCC NVARCHAR(50) NOT NULL,
+    tenNCC NVARCHAR(255) NOT NULL,
 	sdt NVARCHAR(10) NOT NULL,
 	diaChi NVARCHAR(255) NOT NULL,
 );
 go
+
+INSERT INTO NhaCungCap (idNCC, tenNCC, sdt, diaChi)
+VALUES
+  ('N4M35KL1B', N'Công ty Dược phẩm Phano', '0243574133', N'286 P. Xã Đàn, Đống Đa, Hà Nội'),
+  ('XCHUWE123', N'Công ty Dược phẩm Trung ương 2', N'0243825535', '138B Đội Cấn, Ba Đình, Hà Nội'),
+  ('2B32N31B2', N'Công ty Dược phẩm VCP', '0285413833', N'780 Đường Nguyễn Văn Linh, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh'),
 
 CREATE TABLE PhieuThu (
     idPT NVARCHAR(10) NOT NULL PRIMARY KEY,

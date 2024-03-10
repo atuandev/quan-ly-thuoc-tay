@@ -15,9 +15,9 @@ import utils.Validation;
  */
 public class UpdateNhanVienDialog extends javax.swing.JDialog {
 
-    NhanVienController NV_CON = new NhanVienController();
-    NhanVienPage NV_GUI;
-    NhanVien nv;
+    private NhanVienController NV_CON = new NhanVienController();
+    private NhanVienPage NV_GUI;
+    private NhanVien nv;
 
     public UpdateNhanVienDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

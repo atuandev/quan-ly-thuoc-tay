@@ -1,10 +1,8 @@
 package gui.dialog;
 
-import controller.NhanVienController;
-import entity.NhanVien;
-import gui.page.NhanVienPage;
-import java.util.Calendar;
-import java.util.Date;
+import controller.NhaCungCapController;
+import entity.NhaCungCap;
+import gui.page.NhaCungCapPage;
 import utils.MessageDialog;
 import utils.RandomGenerator;
 import utils.Validation;
@@ -13,31 +11,26 @@ import utils.Validation;
  *
  * @author atuandev
  */
-public class CreateNhanVienDialog extends javax.swing.JDialog {
+public class CreateNhaCungCapDialog extends javax.swing.JDialog {
 
-    private NhanVienController NV_CON = new NhanVienController();
-    private NhanVienPage NV_GUI;
+    private NhaCungCapController NCC_CON = new NhaCungCapController();
+    private NhaCungCapPage NCC_GUI;
 
-    public CreateNhanVienDialog(java.awt.Frame parent, boolean modal) {
+    public CreateNhaCungCapDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public CreateNhanVienDialog(java.awt.Frame parent, boolean modal, NhanVienPage NV_GUI) {
+    public CreateNhaCungCapDialog(java.awt.Frame parent, boolean modal, NhaCungCapPage NCC_GUI) {
         super(parent, modal);
         initComponents();
-        this.NV_GUI = NV_GUI;
-        fillInput();
-    }
-
-    private void fillInput() {
-        txtNgayVaoLam.setDate(new Date());
+        this.NCC_GUI = NCC_GUI;
     }
 
     private boolean isValidateFields() {
-        if (txtHoTen.getText().trim().equals("")) {
-            MessageDialog.warring(this, "Tên nhân viên không được rỗng!");
-            txtHoTen.requestFocus();
+        if (txtTen.getText().trim().equals("")) {
+            MessageDialog.warring(this, "Tên Nhà cung cấp không được rỗng!");
+            txtTen.requestFocus();
             return false;
         }
 
@@ -46,51 +39,23 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
             txtSdt.requestFocus();
             return false;
         }
-
-        if (txtNamSinh.getText().trim().equals("")) {
-            MessageDialog.warring(this, "Năm sinh không được rỗng!");
-            txtNamSinh.requestFocus();
-            return false;
-        } else {
-            try {
-                int namSinh = Integer.parseInt(txtNamSinh.getText());
-                int namHienTai = Calendar.getInstance().get(Calendar.YEAR);
-                if (!(namSinh >= 1900 && namSinh <= namHienTai)) {
-                    MessageDialog.warring(this, "Năm sinh phải >= 1900 và <= " + namHienTai);
-                    txtNamSinh.requestFocus();
-                    return false;
-                } else if (namHienTai - namSinh < 18) {
-                    MessageDialog.warring(this, "Nhân viên phải đủ 18 tuổi");
-                    txtNamSinh.requestFocus();
-                    return false;
-                }
-            } catch (NumberFormatException e) {
-                MessageDialog.warring(this, "Năm sinh phải có 4 ký tự số!");
-                txtNamSinh.requestFocus();
-                return false;
-            }
-        }
-
-        if (txtNgayVaoLam.getDate() == null || !txtNgayVaoLam.getDateFormatString().equals("dd/MM/yyyy")) {
-            MessageDialog.warring(this, "Ngày vào làm không được rỗng và có kiểu dd/MM/yyyy");
-            return false;
-        } else if (txtNgayVaoLam.getDate().after(new Date())) {
-            MessageDialog.warring(this, "Ngày vào làm phải trước ngày hiện tại");
+        
+        if (txtDiaChi.getText().trim().equals("")) {
+            MessageDialog.warring(this, "Địa chỉ Nhà cung cấp không được rỗng!");
+            txtDiaChi.requestFocus();
             return false;
         }
-
+        
         return true;
     }
 
-    private NhanVien getInputFields() {
+    private NhaCungCap getInputFields() {
         String id = RandomGenerator.getRandomId();
-        String hoTen = txtHoTen.getText().trim();
+        String hoTen = txtTen.getText().trim();
         String sdt = txtSdt.getText().trim();
-        String gioiTinh = cboxGioiTinh.getSelectedItem().toString();
-        int namSinh = Integer.parseInt(txtNamSinh.getText().trim());
-        Date ngayVaoLam = txtNgayVaoLam.getDate();
+        String diaChi = txtDiaChi.getText().trim();
 
-        return new NhanVien(id, hoTen, sdt, gioiTinh, namSinh, ngayVaoLam);
+        return new NhaCungCap(id, hoTen, sdt, diaChi);
     }
 
     @SuppressWarnings("unchecked")
@@ -102,19 +67,13 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         lblHoTen = new javax.swing.JLabel();
-        txtHoTen = new javax.swing.JTextField();
+        txtTen = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         txtSdt = new javax.swing.JTextField();
-        jPanel21 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        cboxGioiTinh = new javax.swing.JComboBox<>();
         jPanel20 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        txtNamSinh = new javax.swing.JTextField();
-        jPanel22 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        txtNgayVaoLam = new com.toedter.calendar.JDateChooser();
+        txtDiaChi = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         btnHuy = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -130,7 +89,7 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("THÊM NHÂN VIÊN");
+        jLabel8.setText("THÊM NHÀ CUNG CẤP");
         jPanel15.add(jLabel8, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel15, java.awt.BorderLayout.NORTH);
@@ -143,15 +102,15 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
         jPanel18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
 
         lblHoTen.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        lblHoTen.setText("Họ tên");
+        lblHoTen.setText("Tên nhà cung cấp");
         lblHoTen.setMaximumSize(new java.awt.Dimension(44, 40));
         lblHoTen.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel18.add(lblHoTen);
 
-        txtHoTen.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        txtHoTen.setToolTipText("");
-        txtHoTen.setPreferredSize(new java.awt.Dimension(330, 40));
-        jPanel18.add(txtHoTen);
+        txtTen.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtTen.setToolTipText("");
+        txtTen.setPreferredSize(new java.awt.Dimension(330, 40));
+        jPanel18.add(txtTen);
 
         jPanel1.add(jPanel18);
 
@@ -171,54 +130,21 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
 
         jPanel1.add(jPanel19);
 
-        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel21.setPreferredSize(new java.awt.Dimension(500, 40));
-        jPanel21.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
-
-        jLabel14.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel14.setText("Giới tính");
-        jLabel14.setMaximumSize(new java.awt.Dimension(44, 40));
-        jLabel14.setPreferredSize(new java.awt.Dimension(150, 40));
-        jPanel21.add(jLabel14);
-
-        cboxGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
-        cboxGioiTinh.setPreferredSize(new java.awt.Dimension(200, 40));
-        jPanel21.add(cboxGioiTinh);
-
-        jPanel1.add(jPanel21);
-
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
         jPanel20.setPreferredSize(new java.awt.Dimension(500, 40));
         jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
 
         jLabel13.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel13.setText("Năm sinh");
+        jLabel13.setText("Địa chỉ");
         jLabel13.setMaximumSize(new java.awt.Dimension(44, 40));
         jLabel13.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel20.add(jLabel13);
 
-        txtNamSinh.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        txtNamSinh.setPreferredSize(new java.awt.Dimension(330, 40));
-        jPanel20.add(txtNamSinh);
+        txtDiaChi.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtDiaChi.setPreferredSize(new java.awt.Dimension(330, 40));
+        jPanel20.add(txtDiaChi);
 
         jPanel1.add(jPanel20);
-
-        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel22.setPreferredSize(new java.awt.Dimension(500, 40));
-        jPanel22.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
-
-        jLabel15.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel15.setText("Ngày vào làm");
-        jLabel15.setMaximumSize(new java.awt.Dimension(44, 40));
-        jLabel15.setPreferredSize(new java.awt.Dimension(150, 40));
-        jPanel22.add(jLabel15);
-
-        txtNgayVaoLam.setBackground(new java.awt.Color(255, 255, 255));
-        txtNgayVaoLam.setDateFormatString("dd/MM/yyyy");
-        txtNgayVaoLam.setPreferredSize(new java.awt.Dimension(200, 40));
-        jPanel22.add(txtNgayVaoLam);
-
-        jPanel1.add(jPanel22);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -269,9 +195,9 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (isValidateFields()) {
-            NhanVien nv = getInputFields();
-            NV_CON.create(nv);
-            NV_GUI.loadTable();
+            NhaCungCap e = getInputFields();
+            NCC_CON.create(e);
+            NCC_GUI.loadTable();
             this.dispose();
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -280,24 +206,18 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnHuy;
-    private javax.swing.JComboBox<String> cboxGioiTinh;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JLabel lblHoTen;
-    private javax.swing.JTextField txtHoTen;
-    private javax.swing.JTextField txtNamSinh;
-    private com.toedter.calendar.JDateChooser txtNgayVaoLam;
+    private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtSdt;
+    private javax.swing.JTextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

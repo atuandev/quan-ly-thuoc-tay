@@ -3,9 +3,7 @@ package gui.dialog;
 import controller.KhachHangController;
 import entity.KhachHang;
 import gui.page.KhachHangPage;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import utils.MessageDialog;
 import utils.Validation;
 
@@ -15,9 +13,9 @@ import utils.Validation;
  */
 public class UpdateKhachHangDialog extends javax.swing.JDialog {
 
-    KhachHangController KH_CON = new KhachHangController();
-    KhachHangPage KH_GUI;
-    KhachHang kh;
+    private KhachHangController KH_CON = new KhachHangController();
+    private KhachHangPage KH_GUI;
+    private KhachHang kh;
 
     public UpdateKhachHangDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

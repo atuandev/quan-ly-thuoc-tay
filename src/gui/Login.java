@@ -25,7 +25,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         loginLayout();
     }
-    
+
     public static void main(String args[]) {
         initFlatlaf();
         java.awt.EventQueue.invokeLater(() -> {
@@ -41,7 +41,6 @@ public class Login extends javax.swing.JFrame {
         FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
         FlatLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
-        UIManager.put("PasswordField.showRevealButton", true);
     }
 
     private void loginLayout() {
@@ -49,13 +48,23 @@ public class Login extends javax.swing.JFrame {
         txtPassword.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/password.svg"));
     }
 
-    private void authentication() {
+    private boolean isValidateFields() {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
         if (Validation.isEmpty(username) || Validation.isEmpty(password)) {
             MessageDialog.warring(this, "Không được để trống!");
-        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    private void authentication() {
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+
+        if (isValidateFields()) {
             TaiKhoan tk = TK_CON.selectByUsername(username);
             if (tk == null) {
                 MessageDialog.error(this, "Tài khoản không tồn tại!");
@@ -68,7 +77,6 @@ public class Login extends javax.swing.JFrame {
                     MessageDialog.error(this, "Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại");
                 }
             }
-
         }
     }
 
