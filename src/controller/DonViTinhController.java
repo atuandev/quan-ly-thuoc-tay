@@ -1,8 +1,8 @@
 package controller;
 
-import dao.VaiTroDAO;
-import entity.VaiTro;
-import gui.page.VaiTroPage;
+import dao.DonViTinhDAO;
+import entity.DonViTinh;
+import gui.dialog.thuoctinh.DonViTinhDialog;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,63 +22,64 @@ import utils.Validation;
  *
  * @author HP
  */
-public class VaiTroController extends InterfaceController<VaiTro, String> {
+public class DonViTinhController extends InterfaceController<DonViTinh, String> {
 
-    VaiTroDAO VT_DAO = new VaiTroDAO();
-    VaiTroPage VT_GUI;
+    DonViTinhDAO DVT_DAO = new DonViTinhDAO();
+    DonViTinhDialog DVT_GUI;
 
-    public VaiTroController() {
+    public DonViTinhController() {
     }
 
-    public VaiTroController(VaiTroPage VT_GUI) {
-        this.VT_GUI = VT_GUI;
-    }
-
-    @Override
-    public void create(VaiTro e) {
+    public DonViTinhController(DonViTinhDialog VT_GUI) {
+        this.DVT_GUI = VT_GUI;
     }
 
     @Override
-    public void update(VaiTro e) {
-        VT_DAO.update(e);
+    public void create(DonViTinh e) {
+        DVT_DAO.create(e);
+    }
+
+    @Override
+    public void update(DonViTinh e) {
+        DVT_DAO.update(e);
     }
 
     @Override
     public void deleteById(String id) {
-        VT_DAO.deleteById(id);
+        DVT_DAO.deleteById(id);
     }
 
     @Override
-    public List<VaiTro> getAllList() {
-        return VT_DAO.selectAll();
+    public List<DonViTinh> getAllList() {
+        return DVT_DAO.selectAll();
     }
 
     @Override
-    public VaiTro selectById(String id) {
-        return VT_DAO.selectById(id);
+    public DonViTinh selectById(String id) {
+        return DVT_DAO.selectById(id);
     }
 
-    public List<VaiTro> getSearchTable(String text, String searchType) {
+    public List<DonViTinh> getSearchTable(String text, String searchType) {
         text = text.toLowerCase();
-        List result = new ArrayList<VaiTro>();
+        List result = new ArrayList<DonViTinh>();
 
         switch (searchType) {
             case "Tất cả" -> {
-                for (VaiTro e : this.getAllList()) {
+                for (DonViTinh e : this.getAllList()) {
                     if (e.getId().toLowerCase().contains(text) || e.getTen().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
             }
             case "Mã" -> {
-                for (VaiTro e : this.getAllList()) {
+                for (DonViTinh e : this.getAllList()) {
                     if (e.getId().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
             }
             case "Tên" -> {
-                for (VaiTro e : this.getAllList()) {
+                for (DonViTinh e : this.getAllList()) {
                     if (e.getTen().toLowerCase().contains(text)) {
                         result.add(e);
                     }
@@ -122,22 +123,22 @@ public class VaiTroController extends InterfaceController<VaiTro, String> {
                     if (Validation.isEmpty(id) || Validation.isEmpty(ten)) {
                         check += 1;
                     } else {
-                        VaiTro nv = new VaiTro(id, ten);
-                        VT_DAO.create(nv);
-                        VT_GUI.loadTable();
+                        DonViTinh nv = new DonViTinh(id, ten);
+                        DVT_DAO.create(nv);
+                        DVT_GUI.loadTable();
                     }
 
                 }
-                MessageDialog.info(VT_GUI, "Nhập dữ liệu thành công!");
+                MessageDialog.info(DVT_GUI, "Nhập dữ liệu thành công!");
 
             } catch (FileNotFoundException ex) {
-                MessageDialog.error(VT_GUI, "Lỗi đọc file");
+                MessageDialog.error(DVT_GUI, "Lỗi đọc file");
             } catch (IOException ex) {
-                MessageDialog.error(VT_GUI, "Lỗi đọc file");
+                MessageDialog.error(DVT_GUI, "Lỗi đọc file");
             }
         }
         if (check != 0) {
-            MessageDialog.error(VT_GUI, "Có " + check + " dòng dữ liệu không được thêm vào!");
+            MessageDialog.error(DVT_GUI, "Có " + check + " dòng dữ liệu không được thêm vào!");
         }
     }
 

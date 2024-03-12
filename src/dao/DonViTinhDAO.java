@@ -8,12 +8,12 @@ import java.util.List;
 
 public class DonViTinhDAO extends InterfaceDAO<DonViTinh, String> {
 
-    private String INSERT_SQL = "INSERT INTO DonViTinh values (?,?)";
-    private String UPDATE_SQL = "UPDATE DonViTinh SET ten=? where idDVT=?";
-    private String DELETE_BY_ID = "DELETE from DonViTinh where idDVT = ?";
+    private final String INSERT_SQL = "INSERT INTO DonViTinh values (?,?)";
+    private final String UPDATE_SQL = "UPDATE DonViTinh SET ten=? where idDVT=?";
+    private final String DELETE_BY_ID = "DELETE from DonViTinh where idDVT = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM DonViTinh";
-    private String SELECT_BY_ID = "SELECT * FROM DonViTinh WHERE idDVT = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM DonViTinh";
+    private final String SELECT_BY_ID = "SELECT * FROM DonViTinh WHERE idDVT = ?";
 
     @Override
     public void create(DonViTinh e) {

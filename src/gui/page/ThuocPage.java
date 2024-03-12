@@ -12,11 +12,11 @@ import utils.TableSorter;
  *
  * @author atuandev
  */
-public class SanPhamPage extends javax.swing.JPanel {
+public class ThuocPage extends javax.swing.JPanel {
 
     private List<JButton> listButton;
 
-    public SanPhamPage() {
+    public ThuocPage() {
         initComponents();
         headerLayout();
         tableLayout();

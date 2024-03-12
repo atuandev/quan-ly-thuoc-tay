@@ -3,6 +3,7 @@ package gui.page;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import gui.dialog.thuoctinh.DonViTinhDialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -77,6 +78,11 @@ public class ThuocTinhPage extends javax.swing.JPanel {
         donViTinhItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         donViTinhItem.setFocusPainted(false);
         donViTinhItem.setIconTextGap(16);
+        donViTinhItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                donViTinhItemActionPerformed(evt);
+            }
+        });
         tablePanel.add(donViTinhItem);
 
         xuatXuItem.setFont(new java.awt.Font("Roboto Mono Medium", 0, 36)); // NOI18N
@@ -87,6 +93,11 @@ public class ThuocTinhPage extends javax.swing.JPanel {
         xuatXuItem.setBorderPainted(false);
         xuatXuItem.setFocusPainted(false);
         xuatXuItem.setIconTextGap(16);
+        xuatXuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xuatXuItemActionPerformed(evt);
+            }
+        });
         tablePanel.add(xuatXuItem);
 
         add(tablePanel, java.awt.BorderLayout.CENTER);
@@ -95,6 +106,15 @@ public class ThuocTinhPage extends javax.swing.JPanel {
     private void danhMucItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_danhMucItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_danhMucItemActionPerformed
+
+    private void donViTinhItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donViTinhItemActionPerformed
+        DonViTinhDialog dialog = new DonViTinhDialog(null, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_donViTinhItemActionPerformed
+
+    private void xuatXuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xuatXuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_xuatXuItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

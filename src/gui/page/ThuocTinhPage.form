@@ -101,6 +101,9 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="iconTextGap" type="int" value="16"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="donViTinhItemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="xuatXuItem">
           <Properties>
@@ -121,6 +124,9 @@
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="iconTextGap" type="int" value="16"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="xuatXuItemActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

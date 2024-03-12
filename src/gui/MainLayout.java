@@ -10,7 +10,7 @@ import gui.page.HoaDonPage;
 import gui.page.KhachHangPage;
 import gui.page.NhaCungCapPage;
 import gui.page.NhanVienPage;
-import gui.page.SanPhamPage;
+import gui.page.ThuocPage;
 import gui.page.TaiKhoanPage;
 import gui.page.ThuocTinhPage;
 import gui.page.VaiTroPage;
@@ -29,7 +29,7 @@ import utils.MessageDialog;
  */
 public class MainLayout extends javax.swing.JFrame {
 
-    private SanPhamPage sanPham;
+    private ThuocPage sanPham;
     private HoaDonPage hoaDon;
     private ThuocTinhPage thuocTinh;
     private NhaCungCapPage nhaSanXuat;
@@ -521,7 +521,7 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_thuocTinhItemActionPerformed
 
     private void sanPhamItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sanPhamItemActionPerformed
-        sanPham = new SanPhamPage();
+        sanPham = new ThuocPage();
         this.setPanel(sanPham);
         resetActive();
         sanPhamItem.setSelected(true);
