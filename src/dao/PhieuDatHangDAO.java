@@ -2,7 +2,6 @@ package dao;
 
 import connectDB.jdbcHelper;
 import entity.KhachHang;
-import entity.NhanVien;
 import entity.PhieuDatHang;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -10,12 +9,12 @@ import java.util.List;
 
 public class PhieuDatHangDAO extends InterfaceDAO<PhieuDatHang, String> {
 
-    private String INSERT_SQL = "INSERT INTO PhieuDatHang values (?,?,?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE PhieuDatHang SET thoiGian=?, idKH=?, diaChi=?, phuongThucThanhToan=?, trangThai=? where idPDH=?";
-    private String DELETE_BY_ID = "DELETE from PhieuDatHang where idPDH = ?";
+    private final String INSERT_SQL = "INSERT INTO PhieuDatHang values (?,?,?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE PhieuDatHang SET thoiGian=?, idKH=?, diaChi=?, phuongThucThanhToan=?, trangThai=? where idPDH=?";
+    private final String DELETE_BY_ID = "DELETE from PhieuDatHang where idPDH = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM PhieuDatHang";
-    private String SELECT_BY_ID = "SELECT * FROM PhieuDatHang WHERE idPDH = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM PhieuDatHang";
+    private final String SELECT_BY_ID = "SELECT * FROM PhieuDatHang WHERE idPDH = ?";
 
     @Override
     public void create(PhieuDatHang e) {

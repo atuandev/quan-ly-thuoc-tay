@@ -45,7 +45,9 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
     private void fillCombobox() {
         for (VaiTro vt : listVT) {
-            cboxVaiTro.addItem(vt.getTen());
+            if (!vt.getId().equals("admin")) {
+                cboxVaiTro.addItem(vt.getTen());
+            }
         }
     }
 

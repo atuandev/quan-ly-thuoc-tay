@@ -43,7 +43,9 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         }
 
         for (VaiTro vt : listVT) {
-            cboxVaiTro.addItem(vt.getTen());
+            if (!vt.getId().equals("admin")) {
+                cboxVaiTro.addItem(vt.getTen());
+            }
         }
     }
 

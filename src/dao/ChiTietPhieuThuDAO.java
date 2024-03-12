@@ -10,12 +10,12 @@ import java.util.List;
 
 public class ChiTietPhieuThuDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu, String> {
 
-    private String INSERT_SQL = "INSERT INTO ChiTietPhieuThu values (?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE ChiTietPhieuThu SET idThuoc=?, soLuong=?, donGia=? where idPT=?";
-    private String DELETE_BY_ID = "DELETE from ChiTietPhieuThu where idPT = ?";
+    private final String INSERT_SQL = "INSERT INTO ChiTietPhieuThu values (?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE ChiTietPhieuThu SET idThuoc=?, soLuong=?, donGia=? where idPT=?";
+    private final String DELETE_BY_ID = "DELETE from ChiTietPhieuThu where idPT = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM ChiTietPhieuThu";
-    private String SELECT_BY_ID = "SELECT * FROM ChiTietPhieuThu WHERE idPT = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM ChiTietPhieuThu";
+    private final String SELECT_BY_ID = "SELECT * FROM ChiTietPhieuThu WHERE idPT = ?";
 
     @Override
     public void insert(List<ChiTietPhieuThu> e) {

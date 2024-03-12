@@ -199,6 +199,7 @@ public class InfoDialog extends javax.swing.JDialog {
         txtUsername.setEditable(false);
         txtUsername.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtUsername.setToolTipText("");
+        txtUsername.setFocusable(false);
         txtUsername.setPreferredSize(new java.awt.Dimension(330, 40));
         jPanel23.add(txtUsername);
 

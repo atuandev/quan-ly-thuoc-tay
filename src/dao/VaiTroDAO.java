@@ -8,12 +8,12 @@ import java.util.List;
 
 public class VaiTroDAO extends InterfaceDAO<VaiTro, String> {
 
-    private String INSERT_SQL = "INSERT INTO VaiTro values (?,?)";
-    private String UPDATE_SQL = "UPDATE VaiTro SET ten=? where idVT=?";
-    private String DELETE_BY_ID = "DELETE from VaiTro where idVT = ?";
+    private final String INSERT_SQL = "INSERT INTO VaiTro values (?,?)";
+    private final String UPDATE_SQL = "UPDATE VaiTro SET ten=? where idVT=?";
+    private final String DELETE_BY_ID = "DELETE from VaiTro where idVT = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM VaiTro";
-    private String SELECT_BY_ID = "SELECT * FROM VaiTro WHERE idVT= ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM VaiTro";
+    private final String SELECT_BY_ID = "SELECT * FROM VaiTro WHERE idVT= ?";
 
     @Override
     public void create(VaiTro e) {

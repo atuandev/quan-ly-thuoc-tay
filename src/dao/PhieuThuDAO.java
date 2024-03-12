@@ -10,12 +10,12 @@ import java.util.List;
 
 public class PhieuThuDAO extends InterfaceDAO<PhieuThu, String> {
 
-    private String INSERT_SQL = "INSERT INTO PhieuThu values (?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE PhieuThu SET thoiGian=?, idNV=?, idNCC=? where idPT=?";
-    private String DELETE_BY_ID = "DELETE from PhieuThu where idPT = ?";
+    private final String INSERT_SQL = "INSERT INTO PhieuThu values (?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE PhieuThu SET thoiGian=?, idNV=?, idNCC=? where idPT=?";
+    private final String DELETE_BY_ID = "DELETE from PhieuThu where idPT = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM PhieuThu";
-    private String SELECT_BY_ID = "SELECT * FROM PhieuThu WHERE idPT = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM PhieuThu";
+    private final String SELECT_BY_ID = "SELECT * FROM PhieuThu WHERE idPT = ?";
 
     @Override
     public void create(PhieuThu e) {

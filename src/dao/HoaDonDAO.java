@@ -10,12 +10,12 @@ import java.util.List;
 
 public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
 
-    private String INSERT_SQL = "INSERT INTO HoaDon values (?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE HoaDon SET thoiGian=?, idNV=?, idKH=? where idHD=?";
-    private String DELETE_BY_ID = "DELETE from HoaDon where idHD = ?";
+    private final String INSERT_SQL = "INSERT INTO HoaDon values (?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE HoaDon SET thoiGian=?, idNV=?, idKH=? where idHD=?";
+    private final String DELETE_BY_ID = "DELETE from HoaDon where idHD = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
-    private String SELECT_BY_ID = "SELECT * FROM HoaDon WHERE idHD = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
+    private final String SELECT_BY_ID = "SELECT * FROM HoaDon WHERE idHD = ?";
 
     @Override
     public void create(HoaDon e) {

@@ -11,14 +11,14 @@ import java.util.List;
 
 public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
 
-    private String INSERT_SQL = "INSERT INTO Thuoc values (?,?,?,?,?,?,?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE Thuoc SET tenThuoc=?, hinhAnh=?, thanhPhan=?, idDonViTinh=?, idDanhMuc=?, idXuatXu=?, soLuongTon=?, giaNhap=?, donGia=? where idThuoc=?";
-    private String DELETE_BY_ID = "DELETE from Thuoc where idThuoc = ?";
+    private final String INSERT_SQL = "INSERT INTO Thuoc values (?,?,?,?,?,?,?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE Thuoc SET tenThuoc=?, hinhAnh=?, thanhPhan=?, idDonViTinh=?, idDanhMuc=?, idXuatXu=?, soLuongTon=?, giaNhap=?, donGia=? where idThuoc=?";
+    private final String DELETE_BY_ID = "DELETE from Thuoc where idThuoc = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM Thuoc";
-    private String SELECT_BY_ID = "SELECT * FROM Thuoc WHERE idThuoc = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM Thuoc";
+    private final String SELECT_BY_ID = "SELECT * FROM Thuoc WHERE idThuoc = ?";
 
-    private String UPDATE_SO_LUONG = "UPDATE Thuoc SET soLuongTon=? WHERE idThuoc = ?";
+    private final String UPDATE_SO_LUONG = "UPDATE Thuoc SET soLuongTon=? WHERE idThuoc = ?";
 
     @Override
     public void create(Thuoc e) {

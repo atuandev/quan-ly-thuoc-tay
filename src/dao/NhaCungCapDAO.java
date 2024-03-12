@@ -8,12 +8,12 @@ import java.util.List;
 
 public class NhaCungCapDAO extends InterfaceDAO<NhaCungCap, String> {
 
-    private String INSERT_SQL = "INSERT INTO NhaCungCap values(?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE NhaCungCap SET tenNCC=?, sdt=?, diaChi=? where idNCC=?";
-    private String DELETE_BY_ID = "DELETE from NhaCungCap where idNCC = ?";
+    private final String INSERT_SQL = "INSERT INTO NhaCungCap values(?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE NhaCungCap SET tenNCC=?, sdt=?, diaChi=? where idNCC=?";
+    private final String DELETE_BY_ID = "DELETE from NhaCungCap where idNCC = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM NhaCungCap";
-    private String SELECT_BY_ID = "SELECT * FROM NhaCungCap WHERE idNCC = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM NhaCungCap";
+    private final String SELECT_BY_ID = "SELECT * FROM NhaCungCap WHERE idNCC = ?";
 
     @Override
     public void create(NhaCungCap e) {

@@ -8,12 +8,12 @@ import java.util.List;
 
 public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
 
-    private String INSERT_SQL = "INSERT INTO NhanVien values (?,?,?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE NhanVien SET hoTen=?, sdt=?, gioiTinh=?, namSinh=?, ngayVaoLam=? where idNV=?";
-    private String DELETE_BY_ID = "DELETE from NhanVien where idNV = ?";
+    private final String INSERT_SQL = "INSERT INTO NhanVien values (?,?,?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE NhanVien SET hoTen=?, sdt=?, gioiTinh=?, namSinh=?, ngayVaoLam=? where idNV=?";
+    private final String DELETE_BY_ID = "DELETE from NhanVien where idNV = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
-    private String SELECT_BY_ID = "SELECT * FROM NhanVien WHERE idNV = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
+    private final String SELECT_BY_ID = "SELECT * FROM NhanVien WHERE idNV = ?";
 
     @Override
     public void create(NhanVien e) {

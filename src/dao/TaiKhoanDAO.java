@@ -10,13 +10,13 @@ import java.util.List;
 
 public class TaiKhoanDAO extends InterfaceDAO<TaiKhoan, String> {
 
-    private String INSERT_SQL = "INSERT INTO TaiKhoan values (?,?,?,?,?)";
-    private String UPDATE_SQL = "UPDATE TaiKhoan SET username=?, password=?, idNV=?, idVT=? where idTK=?";
-    private String DELETE_BY_ID = "DELETE from TaiKhoan where idTK = ?";
+    private final String INSERT_SQL = "INSERT INTO TaiKhoan values (?,?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE TaiKhoan SET username=?, password=?, idNV=?, idVT=? where idTK=?";
+    private final String DELETE_BY_ID = "DELETE from TaiKhoan where idTK = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM TaiKhoan";
-    private String SELECT_BY_ID = "SELECT * FROM TaiKhoan WHERE idTK = ?";
-    private String SELECT_BY_USERNAME = "SELECT * FROM TaiKhoan WHERE username = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM TaiKhoan";
+    private final String SELECT_BY_ID = "SELECT * FROM TaiKhoan WHERE idTK = ?";
+    private final String SELECT_BY_USERNAME = "SELECT * FROM TaiKhoan WHERE username = ?";
 
     @Override
     public void create(TaiKhoan e) {

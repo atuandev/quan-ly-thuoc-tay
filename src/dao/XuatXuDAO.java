@@ -8,12 +8,12 @@ import java.util.List;
 
 public class XuatXuDAO extends InterfaceDAO<XuatXu, String> {
 
-    private String INSERT_SQL = "INSERT INTO XuatXu values (?,?)";
-    private String UPDATE_SQL = "UPDATE XuatXu SET ten=? where idXX=?";
-    private String DELETE_BY_ID = "DELETE from XuatXu where idXX = ?";
+    private final String INSERT_SQL = "INSERT INTO XuatXu values (?,?)";
+    private final String UPDATE_SQL = "UPDATE XuatXu SET ten=? where idXX=?";
+    private final String DELETE_BY_ID = "DELETE from XuatXu where idXX = ?";
 
-    private String SELECT_ALL_SQL = "SELECT * FROM XuatXu";
-    private String SELECT_BY_ID = "SELECT * FROM XuatXu WHERE idXX = ?";
+    private final String SELECT_ALL_SQL = "SELECT * FROM XuatXu";
+    private final String SELECT_BY_ID = "SELECT * FROM XuatXu WHERE idXX = ?";
 
     @Override
     public void create(XuatXu e) {
