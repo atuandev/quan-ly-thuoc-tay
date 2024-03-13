@@ -29,8 +29,17 @@ git clone git@github.com:atuandev/quan-ly-thuoc-tay.git
 ### Đăng nhập
 <img src="./image/login.png" />
 
-### Quản lý thuốc
-<img src="./image/Quản ký thuốc.png" />
-
 ### Hóa đơn
 <img src="./image/hoa-don.png" />
+
+### Quản lý nhân viên
+<img src="./image/nhan-vien.png" />
+
+### Thêm nhân viên
+<img src="./image/add-nhan-vien.png" />
+
+### Quản lý tài khoản
+<img src="./image/tai-khoan.png" />
+
+### Quản lý thuốc
+<img src="./image/Quản ký thuốc.png" />
