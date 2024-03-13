@@ -48,10 +48,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     private boolean isValidateFields() {
-        String username = txtUsername.getText();
-        String password = txtPassword.getText();
-
-        if (Validation.isEmpty(username) || Validation.isEmpty(password)) {
+        if (Validation.isEmpty(txtUsername.getText()) || Validation.isEmpty(txtPassword.getText())) {
             MessageDialog.warring(this, "Không được để trống!");
             return false;
         }
