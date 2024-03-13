@@ -36,6 +36,7 @@ public class VaiTroController extends InterfaceController<VaiTro, String> {
 
     @Override
     public void create(VaiTro e) {
+        VT_DAO.create(e);
     }
 
     @Override
@@ -111,6 +112,7 @@ public class VaiTroController extends InterfaceController<VaiTro, String> {
                 excelJTableImport = new XSSFWorkbook(excelBIS);
                 XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
 
+                // Import start at row 1
                 for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
                     XSSFRow excelRow = excelSheet.getRow(row);
 
@@ -122,8 +124,8 @@ public class VaiTroController extends InterfaceController<VaiTro, String> {
                     if (Validation.isEmpty(id) || Validation.isEmpty(ten)) {
                         check += 1;
                     } else {
-                        VaiTro nv = new VaiTro(id, ten);
-                        VT_DAO.create(nv);
+                        VaiTro e = new VaiTro(id, ten);
+                        VT_DAO.create(e);
                         VT_GUI.loadTable();
                     }
 
