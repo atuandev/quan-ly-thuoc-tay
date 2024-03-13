@@ -1,7 +1,8 @@
 package controller;
 
-import dao.DonViTinhDAO;
-import entity.DonViTinh;
+import dao.DanhMucDAO;
+import entity.DanhMuc;
+import gui.dialog.thuoctinh.DanhMucDialog;
 import gui.dialog.thuoctinh.DonViTinhDialog;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -22,64 +23,64 @@ import utils.Validation;
  *
  * @author HP
  */
-public class DonViTinhController extends InterfaceController<DonViTinh, String> {
+public class DanhMucController extends InterfaceController<DanhMuc, String> {
 
-    DonViTinhDAO DVT_DAO = new DonViTinhDAO();
-    DonViTinhDialog DVT_GUI;
+    DanhMucDAO DM_DAO = new DanhMucDAO();
+    DanhMucDialog DM_GUI;
 
-    public DonViTinhController() {
+    public DanhMucController() {
     }
 
-    public DonViTinhController(DonViTinhDialog DVT_GUI) {
-        this.DVT_GUI = DVT_GUI;
-    }
-
-    @Override
-    public void create(DonViTinh e) {
-        DVT_DAO.create(e);
+    public DanhMucController(DanhMucDialog DM_GUI) {
+        this.DM_GUI = DM_GUI;
     }
 
     @Override
-    public void update(DonViTinh e) {
-        DVT_DAO.update(e);
+    public void create(DanhMuc e) {
+        DM_DAO.create(e);
+    }
+
+    @Override
+    public void update(DanhMuc e) {
+        DM_DAO.update(e);
     }
 
     @Override
     public void deleteById(String id) {
-        DVT_DAO.deleteById(id);
+        DM_DAO.deleteById(id);
     }
 
     @Override
-    public List<DonViTinh> getAllList() {
-        return DVT_DAO.selectAll();
+    public List<DanhMuc> getAllList() {
+        return DM_DAO.selectAll();
     }
 
     @Override
-    public DonViTinh selectById(String id) {
-        return DVT_DAO.selectById(id);
+    public DanhMuc selectById(String id) {
+        return DM_DAO.selectById(id);
     }
 
-    public List<DonViTinh> getSearchTable(String text, String searchType) {
+    public List<DanhMuc> getSearchTable(String text, String searchType) {
         text = text.toLowerCase();
-        List result = new ArrayList<DonViTinh>();
+        List result = new ArrayList<DanhMuc>();
 
         switch (searchType) {
             case "Tất cả" -> {
-                for (DonViTinh e : this.getAllList()) {
+                for (DanhMuc e : this.getAllList()) {
                     if (e.getId().toLowerCase().contains(text) || e.getTen().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
             }
             case "Mã" -> {
-                for (DonViTinh e : this.getAllList()) {
+                for (DanhMuc e : this.getAllList()) {
                     if (e.getId().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
             }
             case "Tên" -> {
-                for (DonViTinh e : this.getAllList()) {
+                for (DanhMuc e : this.getAllList()) {
                     if (e.getTen().toLowerCase().contains(text)) {
                         result.add(e);
                     }
@@ -123,22 +124,22 @@ public class DonViTinhController extends InterfaceController<DonViTinh, String> 
                     if (Validation.isEmpty(id) || Validation.isEmpty(ten)) {
                         check += 1;
                     } else {
-                        DonViTinh nv = new DonViTinh(id, ten);
-                        DVT_DAO.create(nv);
-                        DVT_GUI.loadTable();
+                        DanhMuc e = new DanhMuc(id, ten);
+                        DM_DAO.create(e);
+                        DM_GUI.loadTable();
                     }
 
                 }
-                MessageDialog.info(DVT_GUI, "Nhập dữ liệu thành công!");
+                MessageDialog.info(DM_GUI, "Nhập dữ liệu thành công!");
 
             } catch (FileNotFoundException ex) {
-                MessageDialog.error(DVT_GUI, "Lỗi đọc file");
+                MessageDialog.error(DM_GUI, "Lỗi đọc file");
             } catch (IOException ex) {
-                MessageDialog.error(DVT_GUI, "Lỗi đọc file");
+                MessageDialog.error(DM_GUI, "Lỗi đọc file");
             }
         }
         if (check != 0) {
-            MessageDialog.error(DVT_GUI, "Có " + check + " dòng dữ liệu không được thêm vào!");
+            MessageDialog.error(DM_GUI, "Có " + check + " dòng dữ liệu không được thêm vào!");
         }
     }
 

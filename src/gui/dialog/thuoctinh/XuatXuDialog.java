@@ -2,8 +2,8 @@ package gui.dialog.thuoctinh;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import controller.DonViTinhController;
-import entity.DonViTinh;
+import controller.XuatXuController;
+import entity.XuatXu;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
@@ -17,11 +17,11 @@ import utils.TableSorter;
  *
  * @author atuandev
  */
-public class DonViTinhDialog extends javax.swing.JDialog {
+public class XuatXuDialog extends javax.swing.JDialog {
 
-    private DonViTinhController DVT_CON = new DonViTinhController(this);
+    private XuatXuController XX_CON = new XuatXuController(this);
 
-    public DonViTinhDialog(java.awt.Frame parent, boolean modal) {
+    public XuatXuDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         searchLayout();
@@ -38,7 +38,7 @@ public class DonViTinhDialog extends javax.swing.JDialog {
     }
 
     private void tableLayout() {
-        String[] header = new String[]{"STT", "Mã đơn vị tính", "Tên đơn vị tính"};
+        String[] header = new String[]{"STT", "Mã xuất xứ", "Tên xuất xứ"};
 
         DefaultTableModel modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
@@ -64,9 +64,9 @@ public class DonViTinhDialog extends javax.swing.JDialog {
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
 
-        List<DonViTinh> list = DVT_CON.getAllList();
+        List<XuatXu> list = XX_CON.getAllList();
         int stt = 1;
-        for (DonViTinh e : list) {
+        for (XuatXu e : list) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTen()});
             stt++;
         }
@@ -82,11 +82,11 @@ public class DonViTinhDialog extends javax.swing.JDialog {
         return true;
     }
 
-    private DonViTinh getInputFields() {
+    private XuatXu getInputFields() {
         String id = RandomGenerator.getRandomId();
         String ten = txtTenDVT.getText().trim();
 
-        return new DonViTinh(id, ten);
+        return new XuatXu(id, ten);
     }
 
     @SuppressWarnings("unchecked")
@@ -94,7 +94,7 @@ public class DonViTinhDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel15 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        lblDialog = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         lblTenDVT = new javax.swing.JLabel();
@@ -113,18 +113,17 @@ public class DonViTinhDialog extends javax.swing.JDialog {
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 600));
 
         jPanel15.setBackground(new java.awt.Color(0, 153, 153));
         jPanel15.setMinimumSize(new java.awt.Dimension(100, 60));
         jPanel15.setPreferredSize(new java.awt.Dimension(500, 50));
         jPanel15.setLayout(new java.awt.BorderLayout());
 
-        jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("ĐƠN VỊ TÍNH");
-        jPanel15.add(jLabel8, java.awt.BorderLayout.CENTER);
+        lblDialog.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        lblDialog.setForeground(new java.awt.Color(255, 255, 255));
+        lblDialog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDialog.setText("XUẤT XỨ");
+        jPanel15.add(lblDialog, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel15, java.awt.BorderLayout.NORTH);
 
@@ -193,6 +192,8 @@ public class DonViTinhDialog extends javax.swing.JDialog {
         jPanel3.add(btnReload);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -302,7 +303,7 @@ public class DonViTinhDialog extends javax.swing.JDialog {
             String id = table.getValueAt(row, 1).toString();
 
             if (MessageDialog.confirm(this, "Bạn có chắc chắn xóa dòng này?", "Xóa")) {
-                DVT_CON.deleteById(id);
+                XX_CON.deleteById(id);
                 MessageDialog.info(this, "Xóa thành công!");
                 modal.removeRow(row);
             }
@@ -313,8 +314,8 @@ public class DonViTinhDialog extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (isValidateFields()) {
-            DonViTinh tk = getInputFields();
-            DVT_CON.create(tk);
+            XuatXu tk = getInputFields();
+            XX_CON.create(tk);
             MessageDialog.info(this, "Thêm thành công!");
             this.loadTable();
         }
@@ -326,10 +327,10 @@ public class DonViTinhDialog extends javax.swing.JDialog {
 
         String search = txtSearch.getText().toLowerCase().trim();
         String searchType = cboxSearch.getSelectedItem().toString();
-        List<DonViTinh> listsearch = DVT_CON.getSearchTable(search, searchType);
+        List<XuatXu> listsearch = XX_CON.getSearchTable(search, searchType);
 
         int stt = 1;
-        for (DonViTinh e : listsearch) {
+        for (XuatXu e : listsearch) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTen()});
             stt++;
         }
@@ -341,9 +342,9 @@ public class DonViTinhDialog extends javax.swing.JDialog {
                 int row = table.getSelectedRow();
                 String id = table.getValueAt(row, 1).toString();
                 String ten = txtTenDVT.getText();
-                DonViTinh e = new DonViTinh(id, ten);
+                XuatXu e = new XuatXu(id, ten);
 
-                DVT_CON.update(e);
+                XX_CON.update(e);
                 MessageDialog.info(this, "Sửa thành công!");
                 this.loadTable();
             } catch (Exception e) {
@@ -371,7 +372,6 @@ public class DonViTinhDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxSearch;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel18;
@@ -380,6 +380,7 @@ public class DonViTinhDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblDialog;
     private javax.swing.JLabel lblTenDVT;
     private javax.swing.JTable table;
     private javax.swing.JTextField txtSearch;
