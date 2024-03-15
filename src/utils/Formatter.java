@@ -33,7 +33,6 @@ public class Formatter {
         try {
             return formatter.parse(formattedString).doubleValue();
         } catch (ParseException e) {
-            // Handle the exception based on your application's requirements
             return 0.0;
         }
     }
@@ -88,8 +87,7 @@ public class Formatter {
                 return number * Math.pow(1000, index);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException e) {
         }
 
         return 0;

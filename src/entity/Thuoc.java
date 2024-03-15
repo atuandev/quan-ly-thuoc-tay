@@ -14,7 +14,7 @@ public class Thuoc {
 
     private String id;
     private String ten;
-    private String hinhAnh;
+    private byte[] hinhAnh;
     private String thanhPhan;
     private DonViTinh donViTinh;
     private DanhMuc danhMuc;
@@ -30,9 +30,9 @@ public class Thuoc {
         this.id = id;
     }
 
-    public Thuoc(String id, String ten, String hinhAnh, String thanhPhan, DonViTinh donViTinh, DanhMuc danhMuc, XuatXu xuatXu, int soLuong, double giaNhap, double donGia) {
+    public Thuoc(String id, String tenThuoc, byte[] hinhAnh, String thanhPhan, DonViTinh donViTinh, DanhMuc danhMuc, XuatXu xuatXu, int soLuong, double giaNhap, double donGia) {
         this.id = id;
-        this.ten = ten;
+        this.ten = tenThuoc;
         this.hinhAnh = hinhAnh;
         this.thanhPhan = thanhPhan;
         this.donViTinh = donViTinh;
@@ -51,7 +51,7 @@ public class Thuoc {
         this.id = id;
     }
 
-    public String getTen() {
+    public String getTenThuoc() {
         return ten;
     }
 
@@ -59,11 +59,11 @@ public class Thuoc {
         this.ten = ten;
     }
 
-    public String getHinhAnh() {
+    public byte[] getHinhAnh() {
         return hinhAnh;
     }
 
-    public void setHinhAnh(String hinhAnh) {
+    public void setHinhAnh(byte[] hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
 

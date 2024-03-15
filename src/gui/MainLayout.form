@@ -271,6 +271,9 @@
                           <Dimension value="[226, 46]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phieuNhapItemActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="nhaCungCapItem">
                       <Properties>
@@ -400,6 +403,9 @@
                           <Dimension value="[226, 46]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="thongKeItemActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

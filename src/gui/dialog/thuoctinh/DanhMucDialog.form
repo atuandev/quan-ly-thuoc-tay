@@ -105,7 +105,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="T&#xea;n &#x111;&#x1a1;n v&#x1ecb; t&#xed;nh"/>
+                <Property name="text" type="java.lang.String" value="T&#xea;n danh m&#x1ee5;c thu&#x1ed1;c"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[44, 40]"/>
                 </Property>

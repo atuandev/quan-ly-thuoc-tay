@@ -62,7 +62,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        txtImage = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -158,9 +158,9 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel22.setPreferredSize(new java.awt.Dimension(250, 200));
         jPanel22.setLayout(new java.awt.BorderLayout(20, 20));
 
-        jLabel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(230, 230, 230), 4, true));
-        jLabel9.setPreferredSize(new java.awt.Dimension(200, 200));
-        jPanel22.add(jLabel9, java.awt.BorderLayout.CENTER);
+        txtImage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(230, 230, 230), 4, true));
+        txtImage.setPreferredSize(new java.awt.Dimension(200, 200));
+        jPanel22.add(txtImage, java.awt.BorderLayout.CENTER);
 
         jPanel16.add(jPanel22, java.awt.BorderLayout.WEST);
 
@@ -645,7 +645,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -680,6 +679,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JPanel tablePanel;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtHoTenKH;
+    private javax.swing.JLabel txtImage;
     private javax.swing.JTextField txtMaThuoc;
     private javax.swing.JTextField txtSdtKH;
     private javax.swing.JTextField txtSearch;

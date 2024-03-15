@@ -29,7 +29,7 @@ import utils.MessageDialog;
  */
 public class MainLayout extends javax.swing.JFrame {
 
-    private ThuocPage sanPham;
+    private ThuocPage thuoc;
     private HoaDonPage hoaDon;
     private ThuocTinhPage thuocTinh;
     private NhaCungCapPage nhaSanXuat;
@@ -270,6 +270,11 @@ public class MainLayout extends javax.swing.JFrame {
         phieuNhapItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         phieuNhapItem.setIconTextGap(16);
         phieuNhapItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        phieuNhapItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phieuNhapItemActionPerformed(evt);
+            }
+        });
         itemPanel.add(phieuNhapItem);
 
         nhaCungCapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
@@ -353,6 +358,11 @@ public class MainLayout extends javax.swing.JFrame {
         thongKeItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         thongKeItem.setIconTextGap(16);
         thongKeItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        thongKeItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thongKeItemActionPerformed(evt);
+            }
+        });
         itemPanel.add(thongKeItem);
 
         jScrollPane1.setViewportView(itemPanel);
@@ -521,8 +531,8 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_thuocTinhItemActionPerformed
 
     private void sanPhamItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sanPhamItemActionPerformed
-        sanPham = new ThuocPage();
-        this.setPanel(sanPham);
+        thuoc = new ThuocPage();
+        this.setPanel(thuoc);
         resetActive();
         sanPhamItem.setSelected(true);
     }//GEN-LAST:event_sanPhamItemActionPerformed
@@ -545,6 +555,14 @@ public class MainLayout extends javax.swing.JFrame {
         InfoDialog dialog = new InfoDialog(this, true, this, tk, nv);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnInfoActionPerformed
+
+    private void phieuNhapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phieuNhapItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phieuNhapItemActionPerformed
+
+    private void thongKeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongKeItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_thongKeItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

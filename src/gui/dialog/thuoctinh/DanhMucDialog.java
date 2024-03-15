@@ -137,7 +137,7 @@ public class DanhMucDialog extends javax.swing.JDialog {
         jPanel18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
 
         lblTenDVT.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        lblTenDVT.setText("Tên đơn vị tính");
+        lblTenDVT.setText("Tên danh mục thuốc");
         lblTenDVT.setMaximumSize(new java.awt.Dimension(44, 40));
         lblTenDVT.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel18.add(lblTenDVT);
