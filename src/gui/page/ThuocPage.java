@@ -2,7 +2,10 @@ package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import controller.DanhMucController;
+import controller.DonViTinhController;
 import controller.ThuocController;
+import controller.XuatXuController;
 import entity.DanhMuc;
 import entity.DonViTinh;
 import entity.Thuoc;
@@ -32,10 +35,14 @@ public class ThuocPage extends javax.swing.JPanel {
 
     private ThuocController THUOC_CON = new ThuocController(this);
 
+    private final List<DonViTinh> listDVT = new DonViTinhController().getAllList();
+    private final List<XuatXu> listXX = new XuatXuController().getAllList();
+
     public ThuocPage() {
         initComponents();
         headerLayout();
         tableLayout();
+        fillCombobox();
     }
 
     private void headerLayout() {
@@ -56,7 +63,7 @@ public class ThuocPage extends javax.swing.JPanel {
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
 
-        String[] searchType = {"Tất cả", "Mã", "Tên"};
+        String[] searchType = {"Tất cả", "Mã", "Tên", "Thành phần"};
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(searchType);
         cboxSearch.setModel(model);
     }
@@ -74,6 +81,7 @@ public class ThuocPage extends javax.swing.JPanel {
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(0).setPreferredWidth(30);
         table.getColumnModel().getColumn(2).setPreferredWidth(200);
+        table.getColumnModel().getColumn(3).setPreferredWidth(200);
 
         loadTable();
         sortTable();
@@ -100,12 +108,29 @@ public class ThuocPage extends javax.swing.JPanel {
         }
     }
 
+    private void fillCombobox() {
+        cboxDonViTinh.addItem("Tất cả");
+        for (DonViTinh vt : listDVT) {
+            cboxDonViTinh.addItem(vt.getTen());
+        }
+
+        cboxXuatXu.addItem("Tất cả");
+        for (XuatXu vt : listXX) {
+            cboxXuatXu.addItem(vt.getTen());
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         headerPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cboxXuatXu = new javax.swing.JComboBox<>();
+        cboxDonViTinh = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         cboxSearch = new javax.swing.JComboBox<>();
         txtSearch = new javax.swing.JTextField();
@@ -137,8 +162,35 @@ public class ThuocPage extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(590, 100));
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 16, 24));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(250, 60));
+        jPanel2.setLayout(new java.awt.GridLayout(2, 2, 4, 0));
+
+        jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel1.setText("Xuất xứ");
+        jPanel2.add(jLabel1);
+
+        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel2.setText("Đơn vị tính");
+        jPanel2.add(jLabel2);
+
+        cboxXuatXu.setToolTipText("");
+        cboxXuatXu.setPreferredSize(new java.awt.Dimension(100, 40));
+        cboxXuatXu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxXuatXuActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cboxXuatXu);
+
+        cboxDonViTinh.setToolTipText("");
+        cboxDonViTinh.setPreferredSize(new java.awt.Dimension(100, 40));
+        jPanel2.add(cboxDonViTinh);
+
+        jPanel1.add(jPanel2);
+
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setPreferredSize(new java.awt.Dimension(584, 50));
+        jPanel3.setPreferredSize(new java.awt.Dimension(370, 50));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
 
         cboxSearch.setToolTipText("");
@@ -421,6 +473,28 @@ public class ThuocPage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnInfoActionPerformed
 
+    private void cboxXuatXuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxXuatXuActionPerformed
+        DefaultTableModel modal = (DefaultTableModel) table.getModel();
+        modal.setRowCount(0);
+
+        String xuatXu = cboxXuatXu.getSelectedItem().toString();
+        List<Thuoc> listsearch = THUOC_CON.getListByTenXuatXu(xuatXu);
+
+        if (xuatXu.equals("Tất cả")) {
+            listsearch = THUOC_CON.getAllList();
+        }
+        
+        int stt = 1;
+        for (Thuoc e : listsearch) {
+            DanhMuc dm = THUOC_CON.getDanhMucByThuoc(e);
+            XuatXu xx = THUOC_CON.getXuatXuByThuoc(e);
+            DonViTinh dvt = THUOC_CON.getDonViTinhByThuoc(e);
+            modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTenThuoc(), dm.getTen(), xx.getTen(), dvt.getTen(),
+                e.getSoLuongTon(), Formatter.FormatVND(e.getGiaNhap()), Formatter.FormatVND(e.getDonGia())});
+            stt++;
+        }
+    }//GEN-LAST:event_cboxXuatXuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
@@ -431,9 +505,14 @@ public class ThuocPage extends javax.swing.JPanel {
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnReload;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cboxDonViTinh;
     private javax.swing.JComboBox<String> cboxSearch;
+    private javax.swing.JComboBox<String> cboxXuatXu;
     private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;

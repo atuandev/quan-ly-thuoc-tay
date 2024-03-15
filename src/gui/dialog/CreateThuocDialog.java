@@ -1,6 +1,7 @@
 package gui.dialog;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import controller.DanhMucController;
 import controller.DonViTinhController;
 import controller.ThuocController;
@@ -71,8 +72,8 @@ public class CreateThuocDialog extends javax.swing.JDialog {
             txtTenThuoc.requestFocus();
             return false;
         }
-        
-        if (txtHinhAnh.getIcon() == null) {
+
+        if (txtHinhAnh.getIcon() == new FlatSVGIcon("./icon/image.svg")) {
             MessageDialog.warring(this, "Hình ảnh không được rỗng!");
             txtHinhAnh.requestFocus();
             return false;

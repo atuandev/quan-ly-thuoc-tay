@@ -28,9 +28,9 @@ import utils.Validation;
 public class ThuocController extends InterfaceController<Thuoc, String> {
 
     public ThuocDAO THUOC_DAO = new ThuocDAO();
-    public DanhMucController DM_DAO = new DanhMucController();
-    public DonViTinhController DVT_DAO = new DonViTinhController();
-    public XuatXuController XX_DAO = new XuatXuController();
+    public DanhMucController DM_CON = new DanhMucController();
+    public DonViTinhController DVT_CON = new DonViTinhController();
+    public XuatXuController XX_CON = new XuatXuController();
     public ThuocPage THUOC_GUI;
 
     public ThuocController() {
@@ -60,21 +60,32 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
         return THUOC_DAO.selectAll();
     }
 
+    public List<Thuoc> getListByTenXuatXu(String xuatXu) {
+        List<Thuoc> result = new ArrayList<>();
+        THUOC_DAO.selectAll().forEach(e -> {
+            XuatXu xx = XX_CON.selectById(e.getXuatXu().getId());
+            if (xx.getTen().equals(xuatXu)) {
+                result.add(e);
+            }
+        });
+        return result;
+    }
+
     @Override
     public Thuoc selectById(String id) {
         return THUOC_DAO.selectById(id);
     }
 
     public DanhMuc getDanhMucByThuoc(Thuoc e) {
-        return DM_DAO.selectById(e.getDanhMuc().getId());
+        return DM_CON.selectById(e.getDanhMuc().getId());
     }
 
     public DonViTinh getDonViTinhByThuoc(Thuoc e) {
-        return DVT_DAO.selectById(e.getDonViTinh().getId());
+        return DVT_CON.selectById(e.getDonViTinh().getId());
     }
 
     public XuatXu getXuatXuByThuoc(Thuoc e) {
-        return XX_DAO.selectById(e.getXuatXu().getId());
+        return XX_CON.selectById(e.getXuatXu().getId());
     }
 
     public List<Thuoc> getSearchTable(String text, String searchType) {
@@ -100,6 +111,13 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
             case "Tên" -> {
                 for (Thuoc e : this.getAllList()) {
                     if (e.getTenThuoc().toLowerCase().contains(text)) {
+                        result.add(e);
+                    }
+                }
+            }
+            case "Thành phần" -> {
+                for (Thuoc e : this.getAllList()) {
+                    if (e.getThanhPhan().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
