@@ -75,12 +75,9 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
                 new ImageIcon(thuocImage).getImage().getScaledInstance(txtHinhAnh.getWidth(), txtHinhAnh.getHeight(), Image.SCALE_SMOOTH));
         txtHinhAnh.setIcon(imageIcon);
         txtThanhPhan.setText(thuoc.getThanhPhan());
-        DanhMuc dm = THUOC_CON.getDanhMucByThuoc(thuoc);
-        cboxDanhMuc.setSelectedItem(dm.getTen());
-        DonViTinh dvt = THUOC_CON.getDonViTinhByThuoc(thuoc);
-        cboxDonViTinh.setSelectedItem(dvt.getTen());
-        XuatXu xx = THUOC_CON.getXuatXuByThuoc(thuoc);
-        cboxXuatXu.setSelectedItem(xx.getTen());
+        cboxDanhMuc.setSelectedItem(thuoc.getDanhMuc().getTen());
+        cboxDonViTinh.setSelectedItem(thuoc.getDonViTinh().getTen());
+        cboxXuatXu.setSelectedItem(thuoc.getXuatXu().getTen());
         txtSoLuong.setText(String.valueOf(thuoc.getSoLuongTon()));
         txtGiaNhap.setText(String.valueOf(thuoc.getGiaNhap()));
         txtDonGia.setText(String.valueOf(thuoc.getDonGia()));
@@ -176,13 +173,16 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
         byte[] hinhAnh = thuocImage;
         String thanhPhan = txtThanhPhan.getText().trim();
         String idDVT = listDVT.get(cboxDonViTinh.getSelectedIndex()).getId();
+        DonViTinh donViTinh = new DonViTinhController().selectById(idDVT);
         String idDM = listDM.get(cboxDanhMuc.getSelectedIndex()).getId();
+        DanhMuc danhMuc = new DanhMucController().selectById(idDM);
         String idXX = listXX.get(cboxXuatXu.getSelectedIndex()).getId();
+        XuatXu xuatXu = new XuatXuController().selectById(idXX);
         int soLuong = Integer.parseInt(txtSoLuong.getText().trim());
         double giaNhap = Double.parseDouble(txtGiaNhap.getText().trim());
         double donGia = Double.parseDouble(txtDonGia.getText().trim());
 
-        return new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, new DonViTinh(idDVT), new DanhMuc(idDM), new XuatXu(idXX), soLuong, giaNhap, donGia);
+        return new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, donViTinh, danhMuc, xuatXu, soLuong, giaNhap, donGia);
     }
 
     @SuppressWarnings("unchecked")
@@ -484,7 +484,7 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
             Thuoc e = getInputFields();
             THUOC_CON.update(e);
             MessageDialog.info(this, "Cập nhập thành công!");
-            THUOC_GUI.loadTable();
+            THUOC_GUI.loadTable(THUOC_CON.getAllList());
             this.dispose();
         }
     }//GEN-LAST:event_btnAddActionPerformed

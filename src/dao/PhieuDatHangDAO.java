@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.KhachHang;
 import entity.PhieuDatHang;
 import java.sql.ResultSet;
@@ -18,24 +18,24 @@ public class PhieuDatHangDAO extends InterfaceDAO<PhieuDatHang, String> {
 
     @Override
     public void create(PhieuDatHang e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getKhachHang().getId(), e.getDiaChi(), e.getHinhThucThanhToan(), e.getTrangThai());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getKhachHang().getId(), e.getDiaChi(), e.getHinhThucThanhToan(), e.getTrangThai());
     }
 
     @Override
     public void update(PhieuDatHang e) {
-        jdbcHelper.update(UPDATE_SQL, e.getThoiGian(), e.getKhachHang().getId(), e.getDiaChi(), e.getHinhThucThanhToan(), e.getTrangThai(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getThoiGian(), e.getKhachHang().getId(), e.getDiaChi(), e.getHinhThucThanhToan(), e.getTrangThai(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<PhieuDatHang> selectBySql(String sql, Object... args) {
         List<PhieuDatHang> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 PhieuDatHang e = new PhieuDatHang();
                 e.setId(rs.getString("idPDH"));

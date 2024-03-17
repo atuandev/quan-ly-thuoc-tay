@@ -75,12 +75,9 @@ public class DetailThuocDialog extends javax.swing.JDialog {
                 new ImageIcon(thuocImage).getImage().getScaledInstance(txtHinhAnh.getWidth(), txtHinhAnh.getHeight(), Image.SCALE_SMOOTH));
         txtHinhAnh.setIcon(imageIcon);
         txtThanhPhan.setText(thuoc.getThanhPhan());
-        DanhMuc dm = THUOC_CON.getDanhMucByThuoc(thuoc);
-        cboxDanhMuc.setSelectedItem(dm.getTen());
-        DonViTinh dvt = THUOC_CON.getDonViTinhByThuoc(thuoc);
-        cboxDonViTinh.setSelectedItem(dvt.getTen());
-        XuatXu xx = THUOC_CON.getXuatXuByThuoc(thuoc);
-        cboxXuatXu.setSelectedItem(xx.getTen());
+        cboxDanhMuc.setSelectedItem(thuoc.getDanhMuc().getTen());
+        cboxDonViTinh.setSelectedItem(thuoc.getDonViTinh().getTen());
+        cboxXuatXu.setSelectedItem(thuoc.getXuatXu().getTen());
         txtSoLuong.setText(String.valueOf(thuoc.getSoLuongTon()));
         txtGiaNhap.setText(String.valueOf(thuoc.getGiaNhap()));
         txtDonGia.setText(String.valueOf(thuoc.getDonGia()));

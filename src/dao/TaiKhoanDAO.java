@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.NhanVien;
 import entity.TaiKhoan;
 import entity.VaiTro;
@@ -20,24 +20,24 @@ public class TaiKhoanDAO extends InterfaceDAO<TaiKhoan, String> {
 
     @Override
     public void create(TaiKhoan e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getUsername(), e.getPassword(), e.getNhanVien().getId(), e.getVaiTro().getId());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getUsername(), e.getPassword(), e.getNhanVien().getId(), e.getVaiTro().getId());
     }
 
     @Override
     public void update(TaiKhoan e) {
-        jdbcHelper.update(UPDATE_SQL, e.getUsername(), e.getPassword(), e.getNhanVien().getId(), e.getVaiTro().getId(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getUsername(), e.getPassword(), e.getNhanVien().getId(), e.getVaiTro().getId(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<TaiKhoan> selectBySql(String sql, Object... args) {
         List<TaiKhoan> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 TaiKhoan e = new TaiKhoan();
                 e.setId(rs.getString("idTK"));

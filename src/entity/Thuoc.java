@@ -30,6 +30,17 @@ public class Thuoc {
         this.id = id;
     }
 
+    public Thuoc(String id, String ten, DonViTinh donViTinh, DanhMuc danhMuc, XuatXu xuatXu, int soLuongTon, double giaNhap, double donGia) {
+        this.id = id;
+        this.ten = ten;
+        this.donViTinh = donViTinh;
+        this.danhMuc = danhMuc;
+        this.xuatXu = xuatXu;
+        this.soLuongTon = soLuongTon;
+        this.giaNhap = giaNhap;
+        this.donGia = donGia;
+    }
+
     public Thuoc(String id, String tenThuoc, byte[] hinhAnh, String thanhPhan, DonViTinh donViTinh, DanhMuc danhMuc, XuatXu xuatXu, int soLuong, double giaNhap, double donGia) {
         this.id = id;
         this.ten = tenThuoc;

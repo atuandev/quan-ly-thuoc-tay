@@ -28,10 +28,11 @@ import utils.Validation;
 public class ThuocController extends InterfaceController<Thuoc, String> {
 
     public ThuocDAO THUOC_DAO = new ThuocDAO();
+    public ThuocPage THUOC_GUI;
+
     public DanhMucController DM_CON = new DanhMucController();
     public DonViTinhController DVT_CON = new DonViTinhController();
     public XuatXuController XX_CON = new XuatXuController();
-    public ThuocPage THUOC_GUI;
 
     public ThuocController() {
     }
@@ -60,11 +61,30 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
         return THUOC_DAO.selectAll();
     }
 
-    public List<Thuoc> getListByTenXuatXu(String xuatXu) {
+    public List<Thuoc> getListByTenXuatXu(String tenXX) {
         List<Thuoc> result = new ArrayList<>();
         THUOC_DAO.selectAll().forEach(e -> {
-            XuatXu xx = XX_CON.selectById(e.getXuatXu().getId());
-            if (xx.getTen().equals(xuatXu)) {
+            if (e.getXuatXu().getTen().equals(tenXX)) {
+                result.add(e);
+            }
+        });
+        return result;
+    }
+
+    public List<Thuoc> getListByTenDonViTinh(String tenDVT) {
+        List<Thuoc> result = new ArrayList<>();
+        THUOC_DAO.selectAll().forEach(e -> {
+            if (e.getDonViTinh().getTen().equals(tenDVT)) {
+                result.add(e);
+            }
+        });
+        return result;
+    }
+    
+    public List<Thuoc> getListByTenDanhMuc(String tenDM) {
+        List<Thuoc> result = new ArrayList<>();
+        THUOC_DAO.selectAll().forEach(e -> {
+            if (e.getDanhMuc().getTen().equals(tenDM)) {
                 result.add(e);
             }
         });
@@ -74,18 +94,6 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
     @Override
     public Thuoc selectById(String id) {
         return THUOC_DAO.selectById(id);
-    }
-
-    public DanhMuc getDanhMucByThuoc(Thuoc e) {
-        return DM_CON.selectById(e.getDanhMuc().getId());
-    }
-
-    public DonViTinh getDonViTinhByThuoc(Thuoc e) {
-        return DVT_CON.selectById(e.getDonViTinh().getId());
-    }
-
-    public XuatXu getXuatXuByThuoc(Thuoc e) {
-        return XX_CON.selectById(e.getXuatXu().getId());
     }
 
     public List<Thuoc> getSearchTable(String text, String searchType) {
@@ -111,13 +119,6 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
             case "Tên" -> {
                 for (Thuoc e : this.getAllList()) {
                     if (e.getTenThuoc().toLowerCase().contains(text)) {
-                        result.add(e);
-                    }
-                }
-            }
-            case "Thành phần" -> {
-                for (Thuoc e : this.getAllList()) {
-                    if (e.getThanhPhan().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
@@ -160,16 +161,13 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
                     String thanhPhan = excelRow.getCell(3).getStringCellValue();
 
                     String idDVT = excelRow.getCell(4).getStringCellValue();
-                    DonViTinhController DVT_CON = new DonViTinhController();
-                    DonViTinh donViTinh = DVT_CON.selectById(idDVT);
+                    DonViTinh donViTinh = new DonViTinhController().selectById(idDVT);
 
                     String idDM = excelRow.getCell(5).getStringCellValue();
-                    DanhMucController DM_CON = new DanhMucController();
-                    DanhMuc danhMuc = DM_CON.selectById(idDM);
+                    DanhMuc danhMuc = new DanhMucController().selectById(idDM);
 
                     String idXX = excelRow.getCell(6).getStringCellValue();
-                    XuatXuController XX_CON = new XuatXuController();
-                    XuatXu xuatXu = XX_CON.selectById(idXX);
+                    XuatXu xuatXu = new XuatXuController().selectById(idXX);
 
                     String sl = excelRow.getCell(7).getStringCellValue();
                     int soLuong = Integer.parseInt(sl);
@@ -186,7 +184,7 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
                     } else {
                         Thuoc e = new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, donViTinh, danhMuc, xuatXu, soLuong, giaNhap, donGia);
                         THUOC_DAO.create(e);
-                        THUOC_GUI.loadTable();
+                        THUOC_GUI.loadTable(this.getAllList());
                     }
 
                 }

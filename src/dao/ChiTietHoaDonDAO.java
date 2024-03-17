@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.Thuoc;
@@ -20,7 +20,7 @@ public class ChiTietHoaDonDAO implements ChiTietInterfaceDAO<ChiTietHoaDon, Stri
     @Override
     public void insert(List<ChiTietHoaDon> e) {
         for (int i = 0; i < e.size(); i++) {
-            jdbcHelper.update(INSERT_SQL, e.get(i).getHoaDon().getId(), e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
+            JDBCConnection.update(INSERT_SQL, e.get(i).getHoaDon().getId(), e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
         }
     }
 
@@ -32,7 +32,7 @@ public class ChiTietHoaDonDAO implements ChiTietInterfaceDAO<ChiTietHoaDon, Stri
 
     @Override
     public void deleteById(String k) {
-        jdbcHelper.update(DELETE_BY_ID, k);
+        JDBCConnection.update(DELETE_BY_ID, k);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ChiTietHoaDonDAO implements ChiTietInterfaceDAO<ChiTietHoaDon, Stri
     protected List<ChiTietHoaDon> selectBySql(String sql, Object... args) {
         List<ChiTietHoaDon> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 ChiTietHoaDon e = new ChiTietHoaDon();
                 e.setHoaDon(new HoaDon(rs.getString("idHD")));

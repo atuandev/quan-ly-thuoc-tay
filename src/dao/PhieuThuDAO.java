@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.PhieuThu;
 import entity.NhaCungCap;
 import entity.NhanVien;
@@ -19,24 +19,24 @@ public class PhieuThuDAO extends InterfaceDAO<PhieuThu, String> {
 
     @Override
     public void create(PhieuThu e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getNhanVien().getId(), e.getNxs().getId());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getNhanVien().getId(), e.getNxs().getId());
     }
 
     @Override
     public void update(PhieuThu e) {
-        jdbcHelper.update(UPDATE_SQL, e.getThoiGian(), e.getNhanVien().getId(), e.getNxs().getId(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getThoiGian(), e.getNhanVien().getId(), e.getNxs().getId(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<PhieuThu> selectBySql(String sql, Object... args) {
         List<PhieuThu> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 PhieuThu e = new PhieuThu();
                 e.setId(rs.getString("idPT"));

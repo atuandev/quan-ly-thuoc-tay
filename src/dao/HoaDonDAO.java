@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
@@ -19,24 +19,24 @@ public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
 
     @Override
     public void create(HoaDon e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getNhanVien().getId(), e.getKhachHang().getId());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getNhanVien().getId(), e.getKhachHang().getId());
     }
 
     @Override
     public void update(HoaDon e) {
-        jdbcHelper.update(UPDATE_SQL, e.getThoiGian(), e.getNhanVien().getId(), e.getKhachHang().getId(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getThoiGian(), e.getNhanVien().getId(), e.getKhachHang().getId(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<HoaDon> selectBySql(String sql, Object... args) {
         List<HoaDon> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 HoaDon e = new HoaDon();
                 e.setId(rs.getString("idHD"));

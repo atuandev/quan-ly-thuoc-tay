@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.NhaCungCap;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -17,24 +17,24 @@ public class NhaCungCapDAO extends InterfaceDAO<NhaCungCap, String> {
 
     @Override
     public void create(NhaCungCap e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getTen(), e.getSdt(), e.getDiaChi());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getTen(), e.getSdt(), e.getDiaChi());
     }
 
     @Override
     public void update(NhaCungCap e) {
-        jdbcHelper.update(UPDATE_SQL, e.getTen(), e.getSdt(), e.getDiaChi(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getTen(), e.getSdt(), e.getDiaChi(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<NhaCungCap> selectBySql(String sql, Object... args) {
         List<NhaCungCap> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 NhaCungCap e = new NhaCungCap();
                 e.setId(rs.getString("idNCC"));

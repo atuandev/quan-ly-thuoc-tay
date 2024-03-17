@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.DanhMuc;
 import entity.DonViTinh;
 import entity.Thuoc;
@@ -15,46 +15,77 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
     private final String UPDATE_SQL = "UPDATE Thuoc SET tenThuoc=?, hinhAnh=?, thanhPhan=?, idDVT=?, idDM=?, idXX=?, soLuongTon=?, giaNhap=?, donGia=? where idThuoc=?";
     private final String DELETE_BY_ID = "DELETE from Thuoc where idThuoc = ?";
 
-    private final String SELECT_ALL_SQL = "SELECT * FROM Thuoc";
-    private final String SELECT_BY_ID = "SELECT * FROM Thuoc WHERE idThuoc = ?";
+    private final String SELECT_ALL_SQL = "SELECT Thuoc.idThuoc, Thuoc.tenThuoc, Thuoc.hinhAnh, Thuoc.thanhPhan, "
+            + "DonViTinh.idDVT, DonViTinh.ten AS donViTinhTen, "
+            + "DanhMuc.idDM, DanhMuc.ten AS danhMucTen, "
+            + "XuatXu.idXX, XuatXu.ten AS xuatXuTen, "
+            + "Thuoc.soLuongTon, Thuoc.giaNhap, Thuoc.donGia "
+            + "FROM Thuoc "
+            + "JOIN DonViTinh ON Thuoc.idDVT = DonViTinh.idDVT "
+            + "JOIN DanhMuc ON Thuoc.idDM = DanhMuc.idDM "
+            + "JOIN XuatXu ON Thuoc.idXX = XuatXu.idXX";
+
+    private final String SELECT_BY_ID = "SELECT Thuoc.idThuoc, Thuoc.tenThuoc, Thuoc.hinhAnh, Thuoc.thanhPhan, "
+            + "DonViTinh.idDVT, DonViTinh.ten AS donViTinhTen, "
+            + "DanhMuc.idDM, DanhMuc.ten AS danhMucTen, "
+            + "XuatXu.idXX, XuatXu.ten AS xuatXuTen, "
+            + "Thuoc.soLuongTon, Thuoc.giaNhap, Thuoc.donGia "
+            + "FROM Thuoc "
+            + "JOIN DonViTinh ON Thuoc.idDVT = DonViTinh.idDVT "
+            + "JOIN DanhMuc ON Thuoc.idDM = DanhMuc.idDM "
+            + "JOIN XuatXu ON Thuoc.idXX = XuatXu.idXX "
+            + "WHERE Thuoc.idThuoc = ?";
 
     private final String UPDATE_SO_LUONG = "UPDATE Thuoc SET soLuongTon=? WHERE idThuoc = ?";
 
     @Override
     public void create(Thuoc e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getTenThuoc(), e.getHinhAnh(), e.getThanhPhan(), e.getDonViTinh().getId(),
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getTenThuoc(), e.getHinhAnh(), e.getThanhPhan(), e.getDonViTinh().getId(),
                 e.getDanhMuc().getId(), e.getXuatXu().getId(), e.getSoLuongTon(), e.getGiaNhap(), e.getDonGia());
     }
 
     @Override
     public void update(Thuoc e) {
-        jdbcHelper.update(UPDATE_SQL, e.getTenThuoc(), e.getHinhAnh(), e.getThanhPhan(), e.getDonViTinh().getId(),
+        JDBCConnection.update(UPDATE_SQL, e.getTenThuoc(), e.getHinhAnh(), e.getThanhPhan(), e.getDonViTinh().getId(),
                 e.getDanhMuc().getId(), e.getXuatXu().getId(), e.getSoLuongTon(), e.getGiaNhap(), e.getDonGia(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<Thuoc> selectBySql(String sql, Object... args) {
         List<Thuoc> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
-                Thuoc e = new Thuoc();
-                e.setId(rs.getString("idThuoc"));
-                e.setTen(rs.getString("tenThuoc"));
-                e.setHinhAnh(rs.getBytes("hinhAnh"));
-                e.setThanhPhan(rs.getString("thanhPhan"));
-                e.setDonViTinh(new DonViTinh(rs.getString("idDVT")));
-                e.setDanhMuc(new DanhMuc(rs.getString("idDM")));
-                e.setXuatXu(new XuatXu(rs.getString("idXX")));
-                e.setSoLuongTon(rs.getInt("soLuongTon"));
-                e.setGiaNhap(rs.getDouble("giaNhap"));
-                e.setDonGia(rs.getDouble("donGia"));
-                listE.add(e);
+                Thuoc thuoc = new Thuoc();
+                thuoc.setId(rs.getString("idThuoc"));
+                thuoc.setTen(rs.getString("tenThuoc"));
+                thuoc.setHinhAnh(rs.getBytes("hinhAnh"));
+                thuoc.setThanhPhan(rs.getString("thanhPhan"));
+
+                DonViTinh donViTinh = new DonViTinh();
+                donViTinh.setId(rs.getString("idDVT"));
+                donViTinh.setTen(rs.getString("donViTinhTen"));
+                thuoc.setDonViTinh(donViTinh);
+
+                DanhMuc danhMuc = new DanhMuc();
+                danhMuc.setId(rs.getString("idDM"));
+                danhMuc.setTen(rs.getString("danhMucTen"));
+                thuoc.setDanhMuc(danhMuc);
+
+                XuatXu xuatXu = new XuatXu();
+                xuatXu.setId(rs.getString("idXX"));
+                xuatXu.setTen(rs.getString("xuatXuTen"));
+                thuoc.setXuatXu(xuatXu);
+
+                thuoc.setSoLuongTon(rs.getInt("soLuongTon"));
+                thuoc.setGiaNhap(rs.getDouble("giaNhap"));
+                thuoc.setDonGia(rs.getDouble("donGia"));
+                listE.add(thuoc);
             }
             rs.getStatement().getConnection().close();
             return listE;
@@ -80,8 +111,8 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
     public void updateSoLuongTon(String id, int soLuong) {
         Thuoc thuoc = this.selectById(id);
         int updatedSL = thuoc.getSoLuongTon() + soLuong;
-        jdbcHelper.update(UPDATE_SO_LUONG, updatedSL, thuoc.getId());
-        
+        JDBCConnection.update(UPDATE_SO_LUONG, updatedSL, thuoc.getId());
+
         System.out.println("Update:" + updatedSL);
     }
 

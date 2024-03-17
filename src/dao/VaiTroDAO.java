@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.VaiTro;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -17,24 +17,24 @@ public class VaiTroDAO extends InterfaceDAO<VaiTro, String> {
 
     @Override
     public void create(VaiTro e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getTen());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getTen());
     }
 
     @Override
     public void update(VaiTro e) {
-        jdbcHelper.update(UPDATE_SQL, e.getTen(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getTen(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<VaiTro> selectBySql(String sql, Object... args) {
         List<VaiTro> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 VaiTro e = new VaiTro();
                 e.setId(rs.getString("idVT"));

@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.ChiTietPhieuDatHang;
 import entity.PhieuDatHang;
 import entity.Thuoc;
@@ -20,7 +20,7 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
     @Override
     public void insert(List<ChiTietPhieuDatHang> e) {
         for (int i = 0; i < e.size(); i++) {
-            jdbcHelper.update(INSERT_SQL, e.get(i).getPhieuDatHang().getId(), e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
+            JDBCConnection.update(INSERT_SQL, e.get(i).getPhieuDatHang().getId(), e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
         }
     }
 
@@ -32,7 +32,7 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
 
     @Override
     public void deleteById(String k) {
-        jdbcHelper.update(DELETE_BY_ID, k);
+        JDBCConnection.update(DELETE_BY_ID, k);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
     protected List<ChiTietPhieuDatHang> selectBySql(String sql, Object... args) {
         List<ChiTietPhieuDatHang> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 ChiTietPhieuDatHang e = new ChiTietPhieuDatHang();
                 e.setPhieuDatHang(new PhieuDatHang(rs.getString("idPDH")));

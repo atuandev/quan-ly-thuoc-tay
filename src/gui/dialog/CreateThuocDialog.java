@@ -156,13 +156,16 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         byte[] hinhAnh = thuocImage;
         String thanhPhan = txtThanhPhan.getText().trim();
         String idDVT = listDVT.get(cboxDonViTinh.getSelectedIndex()).getId();
+        DonViTinh donViTinh = new DonViTinhController().selectById(idDVT);
         String idDM = listDM.get(cboxDanhMuc.getSelectedIndex()).getId();
+        DanhMuc danhMuc = new DanhMucController().selectById(idDM);
         String idXX = listXX.get(cboxXuatXu.getSelectedIndex()).getId();
+        XuatXu xuatXu = new XuatXuController().selectById(idXX);
         int soLuong = Integer.parseInt(txtSoLuong.getText().trim());
         double giaNhap = Double.parseDouble(txtGiaNhap.getText().trim());
         double donGia = Double.parseDouble(txtDonGia.getText().trim());
 
-        return new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, new DonViTinh(idDVT), new DanhMuc(idDM), new XuatXu(idXX), soLuong, giaNhap, donGia);
+        return new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, donViTinh, danhMuc, xuatXu, soLuong, giaNhap, donGia);
     }
 
     @SuppressWarnings("unchecked")
@@ -465,7 +468,7 @@ public class CreateThuocDialog extends javax.swing.JDialog {
             Thuoc e = getInputFields();
             THUOC_CON.create(e);
             MessageDialog.info(this, "Thêm thành công!");
-            THUOC_GUI.loadTable();
+            THUOC_GUI.loadTable(THUOC_CON.getAllList());
             this.dispose();
         }
     }//GEN-LAST:event_btnAddActionPerformed

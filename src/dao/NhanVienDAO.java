@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.NhanVien;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -17,24 +17,24 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
 
     @Override
     public void create(NhanVien e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), e.getNgayVaoLam());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), e.getNgayVaoLam());
     }
 
     @Override
     public void update(NhanVien e) {
-        jdbcHelper.update(UPDATE_SQL, e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), e.getNgayVaoLam(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNamSinh(), e.getNgayVaoLam(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<NhanVien> selectBySql(String sql, Object... args) {
         List<NhanVien> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 NhanVien e = new NhanVien();
                 e.setId(rs.getString("idNV"));

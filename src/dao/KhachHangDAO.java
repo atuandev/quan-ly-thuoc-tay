@@ -1,6 +1,6 @@
 package dao;
 
-import connectDB.jdbcHelper;
+import connectDB.JDBCConnection;
 import entity.KhachHang;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -17,24 +17,24 @@ public class KhachHangDAO extends InterfaceDAO<KhachHang, String> {
 
     @Override
     public void create(KhachHang e) {
-        jdbcHelper.update(INSERT_SQL, e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNgayThamGia());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNgayThamGia());
     }
 
     @Override
     public void update(KhachHang e) {
-        jdbcHelper.update(UPDATE_SQL, e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNgayThamGia(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getHoTen(), e.getSdt(), e.getGioiTinh(), e.getNgayThamGia(), e.getId());
     }
 
     @Override
     public void deleteById(String id) {
-        jdbcHelper.update(DELETE_BY_ID, id);
+        JDBCConnection.update(DELETE_BY_ID, id);
     }
 
     @Override
     protected List<KhachHang> selectBySql(String sql, Object... args) {
         List<KhachHang> listE = new ArrayList<>();
         try {
-            ResultSet rs = jdbcHelper.query(sql, args);
+            ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 KhachHang e = new KhachHang();
                 e.setId(rs.getString("idKH"));
