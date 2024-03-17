@@ -6,7 +6,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import controller.TaiKhoanController;
-import entity.TaiKhoan;
+import entities.TaiKhoan;
 import java.awt.event.KeyEvent;
 import utils.BCrypt;
 import utils.MessageDialog;

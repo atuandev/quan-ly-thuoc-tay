@@ -1,7 +1,7 @@
 package dao;
 
 import connectDB.JDBCConnection;
-import entity.NhaCungCap;
+import entities.NhaCungCap;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;

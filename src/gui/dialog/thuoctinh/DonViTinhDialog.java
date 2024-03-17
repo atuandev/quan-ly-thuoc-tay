@@ -3,7 +3,7 @@ package gui.dialog.thuoctinh;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.DonViTinhController;
-import entity.DonViTinh;
+import entities.DonViTinh;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;

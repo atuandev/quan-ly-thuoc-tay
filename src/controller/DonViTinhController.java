@@ -1,7 +1,7 @@
 package controller;
 
 import dao.DonViTinhDAO;
-import entity.DonViTinh;
+import entities.DonViTinh;
 import gui.dialog.thuoctinh.DonViTinhDialog;
 import java.io.BufferedInputStream;
 import java.io.File;

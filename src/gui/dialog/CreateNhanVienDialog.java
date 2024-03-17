@@ -1,7 +1,7 @@
 package gui.dialog;
 
 import controller.NhanVienController;
-import entity.NhanVien;
+import entities.NhanVien;
 import gui.page.NhanVienPage;
 import java.util.Calendar;
 import java.util.Date;

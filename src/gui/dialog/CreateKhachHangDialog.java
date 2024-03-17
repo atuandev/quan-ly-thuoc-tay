@@ -1,7 +1,7 @@
 package gui.dialog;
 
 import controller.KhachHangController;
-import entity.KhachHang;
+import entities.KhachHang;
 import gui.page.KhachHangPage;
 import java.util.Date;
 import utils.MessageDialog;

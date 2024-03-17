@@ -1,7 +1,7 @@
 package gui.dialog;
 
 import controller.NhaCungCapController;
-import entity.NhaCungCap;
+import entities.NhaCungCap;
 import gui.page.NhaCungCapPage;
 import utils.MessageDialog;
 import utils.RandomGenerator;

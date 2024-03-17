@@ -1,9 +1,9 @@
 package controller;
 
 import dao.TaiKhoanDAO;
-import entity.NhanVien;
-import entity.TaiKhoan;
-import entity.VaiTro;
+import entities.NhanVien;
+import entities.TaiKhoan;
+import entities.VaiTro;
 import gui.page.TaiKhoanPage;
 import java.io.BufferedInputStream;
 import java.io.File;

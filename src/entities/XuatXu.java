@@ -2,30 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entity;
+package entities;
 
 /**
  *
  * @author HP
  */
-public class NhaCungCap {
+public class XuatXu {
     private String id;
     private String ten;
-    private String sdt;
-    private String diaChi;
 
-    public NhaCungCap() {
+    public XuatXu() {
     }
 
-    public NhaCungCap(String id) {
+    public XuatXu(String id) {
         this.id = id;
     }
 
-    public NhaCungCap(String id, String ten, String sdt, String diaChi) {
+    public XuatXu(String id, String ten) {
         this.id = id;
         this.ten = ten;
-        this.sdt = sdt;
-        this.diaChi = diaChi;
     }
 
     public String getId() {
@@ -44,25 +40,9 @@ public class NhaCungCap {
         this.ten = ten;
     }
 
-    public String getSdt() {
-        return sdt;
-    }
-
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
-    }
-
-    public String getDiaChi() {
-        return diaChi;
-    }
-
-    public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
-    }
-
     @Override
     public String toString() {
-        return "NhaCungCap {" + "id=" + id + ", ten=" + ten + ", sdt=" + sdt + ", diaChi=" + diaChi + '}';
+        return ten;
     }
     
     

@@ -1,10 +1,10 @@
 package dao;
 
 import connectDB.JDBCConnection;
-import entity.DanhMuc;
-import entity.DonViTinh;
-import entity.Thuoc;
-import entity.XuatXu;
+import entities.DanhMuc;
+import entities.DonViTinh;
+import entities.Thuoc;
+import entities.XuatXu;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;

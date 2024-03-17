@@ -1,7 +1,7 @@
 package gui.dialog;
 
 import controller.VaiTroController;
-import entity.VaiTro;
+import entities.VaiTro;
 import gui.page.VaiTroPage;
 import utils.MessageDialog;
 

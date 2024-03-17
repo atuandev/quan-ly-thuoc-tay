@@ -1,22 +1,25 @@
-package entity;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package entities;
 
 /**
  *
  * @author HP
  */
-public class VaiTro {
-
+public class DonViTinh {
     private String id;
     private String ten;
 
-    public VaiTro() {
+    public DonViTinh() {
     }
 
-    public VaiTro(String id) {
+    public DonViTinh(String id) {
         this.id = id;
     }
 
-    public VaiTro(String id, String ten) {
+    public DonViTinh(String id, String ten) {
         this.id = id;
         this.ten = ten;
     }
@@ -41,5 +44,6 @@ public class VaiTro {
     public String toString() {
         return ten;
     }
-
+    
+    
 }

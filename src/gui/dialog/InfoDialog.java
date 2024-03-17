@@ -1,8 +1,8 @@
 package gui.dialog;
 
 import controller.NhanVienController;
-import entity.NhanVien;
-import entity.TaiKhoan;
+import entities.NhanVien;
+import entities.TaiKhoan;
 import gui.MainLayout;
 import java.util.Calendar;
 import java.util.Date;

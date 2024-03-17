@@ -1,7 +1,7 @@
 package controller;
 
 import dao.NhaCungCapDAO;
-import entity.NhaCungCap;
+import entities.NhaCungCap;
 import gui.page.NhaCungCapPage;
 import java.io.BufferedInputStream;
 import java.io.File;

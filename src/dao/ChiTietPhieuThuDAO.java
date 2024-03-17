@@ -1,9 +1,9 @@
 package dao;
 
 import connectDB.JDBCConnection;
-import entity.ChiTietPhieuThu;
-import entity.PhieuThu;
-import entity.Thuoc;
+import entities.ChiTietPhieuThu;
+import entities.PhieuThu;
+import entities.Thuoc;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package controller;
 
 import dao.XuatXuDAO;
-import entity.XuatXu;
+import entities.XuatXu;
 import gui.dialog.thuoctinh.XuatXuDialog;
 import java.io.BufferedInputStream;
 import java.io.File;

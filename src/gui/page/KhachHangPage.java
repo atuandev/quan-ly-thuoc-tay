@@ -3,7 +3,7 @@ package gui.page;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.KhachHangController;
-import entity.KhachHang;
+import entities.KhachHang;
 import gui.dialog.CreateKhachHangDialog;
 import gui.dialog.UpdateKhachHangDialog;
 import java.util.ArrayList;

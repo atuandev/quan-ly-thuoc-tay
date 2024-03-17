@@ -1,31 +1,24 @@
-package entity;
+package entities;
 
-import java.sql.Timestamp;
 import java.util.Objects;
+import java.sql.Timestamp;
 
 /**
  *
  * @author atuandev
  */
-public class HoaDon {
+public class PhieuThu {
 
     private String id;
     private Timestamp thoiGian;
     private NhanVien nhanVien;
-    private KhachHang khachHang;
+    private NhaCungCap nxs;
 
-    public HoaDon() {
+    public PhieuThu() {
     }
 
-    public HoaDon(String id) {
+    public PhieuThu(String id) {
         this.id = id;
-    }
-
-    public HoaDon(String id, Timestamp thoiGian, NhanVien nhanVien, KhachHang khachHang) {
-        this.id = id;
-        this.thoiGian = thoiGian;
-        this.nhanVien = nhanVien;
-        this.khachHang = khachHang;
     }
 
     public String getId() {
@@ -52,18 +45,18 @@ public class HoaDon {
         this.nhanVien = nhanVien;
     }
 
-    public KhachHang getKhachHang() {
-        return khachHang;
+    public NhaCungCap getNxs() {
+        return nxs;
     }
 
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
+    public void setNxs(NhaCungCap nxs) {
+        this.nxs = nxs;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -78,13 +71,13 @@ public class HoaDon {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final HoaDon other = (HoaDon) obj;
+        final PhieuThu other = (PhieuThu) obj;
         return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "HoaDon{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + '}';
+        return "PhieuThu{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", nxs=" + nxs + '}';
     }
 
 }

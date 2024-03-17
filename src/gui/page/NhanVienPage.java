@@ -3,7 +3,7 @@ package gui.page;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.NhanVienController;
-import entity.NhanVien;
+import entities.NhanVien;
 import gui.dialog.CreateNhanVienDialog;
 import gui.dialog.UpdateNhanVienDialog;
 import java.util.ArrayList;

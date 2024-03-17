@@ -1,10 +1,10 @@
 package controller;
 
 import dao.ThuocDAO;
-import entity.DanhMuc;
-import entity.DonViTinh;
-import entity.Thuoc;
-import entity.XuatXu;
+import entities.DanhMuc;
+import entities.DonViTinh;
+import entities.Thuoc;
+import entities.XuatXu;
 import gui.page.ThuocPage;
 import java.io.BufferedInputStream;
 import java.io.File;

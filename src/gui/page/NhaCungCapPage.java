@@ -3,7 +3,7 @@ package gui.page;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.NhaCungCapController;
-import entity.NhaCungCap;
+import entities.NhaCungCap;
 import gui.dialog.CreateNhaCungCapDialog;
 import gui.dialog.UpdateNhaCungCapDialog;
 import java.util.ArrayList;

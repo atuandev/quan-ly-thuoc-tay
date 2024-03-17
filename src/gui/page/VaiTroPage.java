@@ -3,7 +3,7 @@ package gui.page;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.VaiTroController;
-import entity.VaiTro;
+import entities.VaiTro;
 import gui.dialog.CreateVaiTroDialog;
 import gui.dialog.UpdateVaiTroDialog;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package dao;
 
 import connectDB.JDBCConnection;
-import entity.DanhMuc;
+import entities.DanhMuc;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;

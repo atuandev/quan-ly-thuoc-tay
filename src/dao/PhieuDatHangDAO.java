@@ -1,8 +1,8 @@
 package dao;
 
 import connectDB.JDBCConnection;
-import entity.KhachHang;
-import entity.PhieuDatHang;
+import entities.KhachHang;
+import entities.PhieuDatHang;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
