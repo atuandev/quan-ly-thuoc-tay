@@ -80,7 +80,7 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
         });
         return result;
     }
-    
+
     public List<Thuoc> getListByTenDanhMuc(String tenDM) {
         List<Thuoc> result = new ArrayList<>();
         THUOC_DAO.selectAll().forEach(e -> {
@@ -125,6 +125,28 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
             }
             default ->
                 throw new AssertionError();
+        }
+
+        return result;
+    }
+
+    public List<Thuoc> getFilterTable(String tenDM, String tenDVT, String tenXX) {
+        List<Thuoc> result = new ArrayList<>();
+
+        for (Thuoc e : this.getAllList()) {
+            boolean match = false;
+
+            if (e.getXuatXu().getTen().equals(tenXX)) {
+                match = true;
+            } else if (e.getDanhMuc().getTen().equals(tenDM)) {
+                match = true;
+            } else if (e.getDonViTinh().getTen().equals(tenDVT)) {
+                match = true;
+            }
+
+            if (match) {
+                result.add(e);
+            }
         }
 
         return result;

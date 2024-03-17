@@ -14,7 +14,9 @@ import gui.dialog.CreateThuocDialog;
 import gui.dialog.DetailThuocDialog;
 import gui.dialog.UpdateThuocDialog;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -107,19 +109,38 @@ public class ThuocPage extends javax.swing.JPanel {
 
     private void fillCombobox() {
         cboxDonViTinh.addItem("Tất cả");
-        for (DonViTinh vt : listDVT) {
-            cboxDonViTinh.addItem(vt.getTen());
+        for (DonViTinh e : listDVT) {
+            cboxDonViTinh.addItem(e.getTen());
         }
 
         cboxXuatXu.addItem("Tất cả");
-        for (XuatXu vt : listXX) {
-            cboxXuatXu.addItem(vt.getTen());
+        for (XuatXu e : listXX) {
+            cboxXuatXu.addItem(e.getTen());
         }
-        
+
         cboxDanhMuc.addItem("Tất cả");
-        for (DanhMuc vt : listDM) {
-            cboxDanhMuc.addItem(vt.getTen());
+        for (DanhMuc e : listDM) {
+            cboxDanhMuc.addItem(e.getTen());
         }
+    }
+
+    private List<Thuoc> getListFilter() {
+        String tenDM = "";
+        String tenDVT = "";
+        String tenXX = "";
+
+        // Check if selected item is not null before converting to string
+        if (cboxDanhMuc.getSelectedItem() != null) {
+            tenDM = cboxDanhMuc.getSelectedItem().toString();
+        }
+        if (cboxDonViTinh.getSelectedItem() != null) {
+            tenDVT = cboxDonViTinh.getSelectedItem().toString();
+        }
+        if (cboxXuatXu.getSelectedItem() != null) {
+            tenXX = cboxXuatXu.getSelectedItem().toString();
+        }
+
+        return THUOC_CON.getFilterTable(tenDM, tenDVT, tenXX);
     }
 
     @SuppressWarnings("unchecked")
@@ -483,7 +504,7 @@ public class ThuocPage extends javax.swing.JPanel {
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         modal.setRowCount(0);
-        
+
         String search = txtSearch.getText().toLowerCase().trim();
         String searchType = cboxSearch.getSelectedItem().toString();
         List<Thuoc> listsearch = THUOC_CON.getSearchTable(search, searchType);
@@ -515,41 +536,41 @@ public class ThuocPage extends javax.swing.JPanel {
 
     private void cboxXuatXuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxXuatXuActionPerformed
         modal.setRowCount(0);
-        
-        String tenXX = cboxXuatXu.getSelectedItem().toString();
-        List<Thuoc> listsearch = THUOC_CON.getListByTenXuatXu(tenXX);
 
+        List<Thuoc> listSearch = getListFilter();
+
+        String tenXX = cboxXuatXu.getSelectedItem().toString();
         if (tenXX.equals("Tất cả")) {
-            listsearch = THUOC_CON.getAllList();
+            listSearch = THUOC_CON.getAllList();
         }
 
-        loadTable(listsearch);
+        loadTable(listSearch);
     }//GEN-LAST:event_cboxXuatXuActionPerformed
 
     private void cboxDonViTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxDonViTinhActionPerformed
         modal.setRowCount(0);
-        
-        String tenDVT = cboxDonViTinh.getSelectedItem().toString();
-        List<Thuoc> listsearch = THUOC_CON.getListByTenDonViTinh(tenDVT);
 
+        List<Thuoc> listSearch = getListFilter();
+
+        String tenDVT = cboxDonViTinh.getSelectedItem().toString();
         if (tenDVT.equals("Tất cả")) {
-            listsearch = THUOC_CON.getAllList();
+            listSearch = THUOC_CON.getAllList();
         }
 
-        loadTable(listsearch);
+        loadTable(listSearch);
     }//GEN-LAST:event_cboxDonViTinhActionPerformed
 
     private void cboxDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxDanhMucActionPerformed
         modal.setRowCount(0);
-        
-        String tenDM = cboxDanhMuc.getSelectedItem().toString();
-        List<Thuoc> listsearch = THUOC_CON.getListByTenDanhMuc(tenDM);
 
+        List<Thuoc> listSearch = getListFilter();
+
+        String tenDM = cboxDanhMuc.getSelectedItem().toString();
         if (tenDM.equals("Tất cả")) {
-            listsearch = THUOC_CON.getAllList();
+            listSearch = THUOC_CON.getAllList();
         }
 
-        loadTable(listsearch);
+        loadTable(listSearch);
     }//GEN-LAST:event_cboxDanhMucActionPerformed
 
 
