@@ -67,25 +67,25 @@ public class CreateThuocDialog extends javax.swing.JDialog {
 
     private boolean isValidateFields() {
         if (Validation.isEmpty(txtTenThuoc.getText().trim())) {
-            MessageDialog.warring(this, "Tên thuốc không được rỗng!");
+            MessageDialog.warring(this, "Tên thuốc không được để trống!");
             txtTenThuoc.requestFocus();
             return false;
         }
 
-        if (txtHinhAnh.getIcon() == new FlatSVGIcon("./icon/image.svg")) {
-            MessageDialog.warring(this, "Hình ảnh không được rỗng!");
-            txtHinhAnh.requestFocus();
+        if (thuocImage == null) {
+            MessageDialog.warring(this, "Hình ảnh không được để trống!");
+            btnChooseImage.requestFocus();
             return false;
         }
 
         if (Validation.isEmpty(txtThanhPhan.getText().trim())) {
-            MessageDialog.warring(this, "Thành phần không được rỗng!");
+            MessageDialog.warring(this, "Thành phần không được để trống!");
             txtThanhPhan.requestFocus();
             return false;
         }
 
         if (Validation.isEmpty(txtSoLuong.getText().trim())) {
-            MessageDialog.warring(this, "Số lượng không được rỗng!");
+            MessageDialog.warring(this, "Số lượng không được để trống!");
             txtSoLuong.requestFocus();
             return false;
         } else {
@@ -104,7 +104,7 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         }
 
         if (Validation.isEmpty(txtGiaNhap.getText().trim())) {
-            MessageDialog.warring(this, "Giá nhập không được rỗng!");
+            MessageDialog.warring(this, "Giá nhập không được để trống!");
             txtGiaNhap.requestFocus();
             return false;
         } else {
