@@ -31,7 +31,7 @@ import utils.TableSorter;
  */
 public class ThuocPage extends javax.swing.JPanel {
     
-    private ThuocController THUOC_CON = new ThuocController(this);
+    private final ThuocController THUOC_CON = new ThuocController(this);
     private List<Thuoc> listThuoc = THUOC_CON.getAllList();
     
     private final List<DonViTinh> listDVT = new DonViTinhController().getAllList();

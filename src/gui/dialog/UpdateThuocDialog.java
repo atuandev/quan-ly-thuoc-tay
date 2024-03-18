@@ -171,16 +171,16 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
         String tenThuoc = txtTenThuoc.getText().trim();
         byte[] hinhAnh = thuocImage;
         String thanhPhan = txtThanhPhan.getText().trim();
-        
+
         String idDVT = listDVT.get(cboxDonViTinh.getSelectedIndex()).getId();
         DonViTinh donViTinh = new DonViTinhController().selectById(idDVT);
-        
+
         String idDM = listDM.get(cboxDanhMuc.getSelectedIndex()).getId();
         DanhMuc danhMuc = new DanhMucController().selectById(idDM);
-        
+
         String idXX = listXX.get(cboxXuatXu.getSelectedIndex()).getId();
         XuatXu xuatXu = new XuatXuController().selectById(idXX);
-        
+
         int soLuong = Integer.parseInt(txtSoLuong.getText().trim());
         double giaNhap = Double.parseDouble(txtGiaNhap.getText().trim());
         double donGia = Double.parseDouble(txtDonGia.getText().trim());
@@ -513,9 +513,9 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
                 thuocImage = bos.toByteArray();
 
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(UpdateThuocDialog.class.getName()).log(Level.SEVERE, null, ex);
+                MessageDialog.error(this, "Lỗi nhập file!");
             } catch (IOException ex) {
-                Logger.getLogger(UpdateThuocDialog.class.getName()).log(Level.SEVERE, null, ex);
+                MessageDialog.error(this, "Lỗi nhập file!");
             }
         }
     }//GEN-LAST:event_btnChooseImageActionPerformed

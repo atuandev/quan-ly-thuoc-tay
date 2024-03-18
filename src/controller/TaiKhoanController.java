@@ -82,7 +82,9 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
         switch (searchType) {
             case "Tất cả" -> {
                 for (TaiKhoan e : this.getAllList()) {
-                    if (e.getId().toLowerCase().contains(text) || e.getUsername().toLowerCase().contains(text)) {
+                    if (e.getId().toLowerCase().contains(text)
+                            || e.getUsername().toLowerCase().contains(text)
+                            || e.getNhanVien().getHoTen().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }

@@ -493,9 +493,9 @@ public class CreateThuocDialog extends javax.swing.JDialog {
                 thuocImage = bos.toByteArray();
 
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(CreateThuocDialog.class.getName()).log(Level.SEVERE, null, ex);
+                MessageDialog.error(this, "Lỗi nhập file!");
             } catch (IOException ex) {
-                Logger.getLogger(CreateThuocDialog.class.getName()).log(Level.SEVERE, null, ex);
+                MessageDialog.error(this, "Lỗi nhập file!");
             }
         }
     }//GEN-LAST:event_btnChooseImageActionPerformed

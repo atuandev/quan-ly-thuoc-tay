@@ -15,21 +15,19 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
     private final String UPDATE_SQL = "UPDATE Thuoc SET tenThuoc=?, hinhAnh=?, thanhPhan=?, idDVT=?, idDM=?, idXX=?, soLuongTon=?, giaNhap=?, donGia=? where idThuoc=?";
     private final String DELETE_BY_ID = "DELETE from Thuoc where idThuoc = ?";
 
-    private final String SELECT_ALL_SQL = "SELECT Thuoc.idThuoc, Thuoc.tenThuoc, Thuoc.hinhAnh, Thuoc.thanhPhan, "
+    private final String SELECT_ALL_SQL = "SELECT Thuoc.*, "
             + "DonViTinh.idDVT, DonViTinh.ten AS tenDVT, "
             + "DanhMuc.idDM, DanhMuc.ten AS tenDM, "
-            + "XuatXu.idXX, XuatXu.ten AS tenXX, "
-            + "Thuoc.soLuongTon, Thuoc.giaNhap, Thuoc.donGia "
+            + "XuatXu.idXX, XuatXu.ten AS tenXX "
             + "FROM Thuoc "
             + "INNER JOIN DonViTinh ON Thuoc.idDVT = DonViTinh.idDVT "
             + "INNER JOIN DanhMuc ON Thuoc.idDM = DanhMuc.idDM "
             + "INNER JOIN XuatXu ON Thuoc.idXX = XuatXu.idXX";
 
-    private final String SELECT_BY_ID = "SELECT Thuoc.idThuoc, Thuoc.tenThuoc, Thuoc.hinhAnh, Thuoc.thanhPhan, "
+    private final String SELECT_BY_ID = "SELECT Thuoc.*, "
             + "DonViTinh.idDVT, DonViTinh.ten AS tenDVT, "
             + "DanhMuc.idDM, DanhMuc.ten AS tenDM, "
-            + "XuatXu.idXX, XuatXu.ten AS tenXX, "
-            + "Thuoc.soLuongTon, Thuoc.giaNhap, Thuoc.donGia "
+            + "XuatXu.idXX, XuatXu.ten AS tenXX "
             + "FROM Thuoc "
             + "INNER JOIN DonViTinh ON Thuoc.idDVT = DonViTinh.idDVT "
             + "INNER JOIN DanhMuc ON Thuoc.idDM = DanhMuc.idDM "
