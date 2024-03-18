@@ -33,7 +33,7 @@ git clone git@github.com:atuandev/quan-ly-thuoc-tay.git
 <img src="./image/hoa-don.png" />
 
 <h3 align="center">Quản lý thuốc</h3>
-<img src="./image/Quản ký thuốc.png" />
+<img src="./image/thuoc.png" />
 
 <h3 align="center">Cập nhập thuốc</h3>
 <img src="./image/update-thuoc.png" />
