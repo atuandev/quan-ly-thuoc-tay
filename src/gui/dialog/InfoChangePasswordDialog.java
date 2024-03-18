@@ -7,8 +7,6 @@ import entities.NhanVien;
 import entities.TaiKhoan;
 import entities.VaiTro;
 import gui.MainLayout;
-import gui.page.TaiKhoanPage;
-import java.util.List;
 import utils.BCrypt;
 import utils.MessageDialog;
 
@@ -18,22 +16,20 @@ import utils.MessageDialog;
  */
 public class InfoChangePasswordDialog extends javax.swing.JDialog {
 
-    private TaiKhoanController TK_CON = new TaiKhoanController();
-    MainLayout main;
-    NhanVien nv;
-    TaiKhoan tk;
+    private final TaiKhoanController TK_CON = new TaiKhoanController();
+    private MainLayout main;
+    private TaiKhoan tk;
 
     public InfoChangePasswordDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public InfoChangePasswordDialog(java.awt.Frame parent, boolean modal, MainLayout main, TaiKhoan tk, NhanVien nv) {
+    public InfoChangePasswordDialog(java.awt.Frame parent, boolean modal, MainLayout main, TaiKhoan tk) {
         super(parent, modal);
         initComponents();
         this.main = main;
         this.tk = tk;
-        this.nv = nv;
     }
 
     private boolean isValidateFields() {
@@ -75,9 +71,11 @@ public class InfoChangePasswordDialog extends javax.swing.JDialog {
         String username = tk.getUsername();
         String password = BCrypt.hashpw(txtReNewPassword.getText(), BCrypt.gensalt(10));
         String idNV = tk.getNhanVien().getId();
+        NhanVien nhanVien = new NhanVienController().selectById(idNV);
         String idVT = tk.getVaiTro().getId();
+        VaiTro vaiTro = new VaiTroController().selectById(idVT);
 
-        return new TaiKhoan(id, username, password, new NhanVien(idNV), new VaiTro(idVT));
+        return new TaiKhoan(id, username, password, nhanVien, vaiTro);
     }
 
     @SuppressWarnings("unchecked")
@@ -209,14 +207,15 @@ public class InfoChangePasswordDialog extends javax.swing.JDialog {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         this.dispose();
-        InfoDialog dialog = new InfoDialog(null, true, main, tk, nv);
+        InfoDialog dialog = new InfoDialog(null, true, main, tk);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (isValidateFields()) {
-            TaiKhoan tk = getInputFields();
-            TK_CON.update(tk);
+            TaiKhoan e = getInputFields();
+            MessageDialog.info(this, "Cập nhập thành công!");
+            TK_CON.update(e);
             this.dispose();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed

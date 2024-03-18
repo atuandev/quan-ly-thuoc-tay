@@ -14,9 +14,7 @@ import gui.dialog.CreateThuocDialog;
 import gui.dialog.DetailThuocDialog;
 import gui.dialog.UpdateThuocDialog;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -32,14 +30,15 @@ import utils.TableSorter;
  * @author atuandev
  */
 public class ThuocPage extends javax.swing.JPanel {
-
-    public ThuocController THUOC_CON = new ThuocController(this);
-    DefaultTableModel modal;
-
-    public List<Thuoc> listThuoc = THUOC_CON.getAllList();
+    
+    private ThuocController THUOC_CON = new ThuocController(this);
+    private List<Thuoc> listThuoc = THUOC_CON.getAllList();
+    
     private final List<DonViTinh> listDVT = new DonViTinhController().getAllList();
     private final List<XuatXu> listXX = new XuatXuController().getAllList();
     private final List<DanhMuc> listDM = new DanhMucController().getAllList();
+
+    DefaultTableModel modal;
 
     public ThuocPage() {
         initComponents();

@@ -1,7 +1,6 @@
 package gui.dialog;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import controller.DanhMucController;
 import controller.DonViTinhController;
 import controller.ThuocController;

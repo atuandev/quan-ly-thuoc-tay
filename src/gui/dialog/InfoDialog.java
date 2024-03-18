@@ -15,29 +15,26 @@ import utils.Validation;
  */
 public class InfoDialog extends javax.swing.JDialog {
 
-    NhanVienController NV_CON = new NhanVienController();
-    MainLayout main;
-    NhanVien nv;
-    TaiKhoan tk;
+    private MainLayout main;
+    private TaiKhoan tk;
 
     public InfoDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public InfoDialog(java.awt.Frame parent, boolean modal, MainLayout main, TaiKhoan tk, NhanVien nv) {
+    public InfoDialog(java.awt.Frame parent, boolean modal, MainLayout main, TaiKhoan tk) {
         super(parent, modal);
         initComponents();
         this.main = main;
         this.tk = tk;
-        this.nv = nv;
         fillInput();
     }
 
     private void fillInput() {
-        txtHoTen.setText(nv.getHoTen());
-        txtSdt.setText(nv.getSdt());
-        txtNamSinh.setText(String.valueOf(nv.getNamSinh()));
+        txtHoTen.setText(tk.getNhanVien().getHoTen());
+        txtSdt.setText(tk.getNhanVien().getSdt());
+        txtNamSinh.setText(String.valueOf(tk.getNhanVien().getNamSinh()));
         txtUsername.setText(tk.getUsername());
     }
 
@@ -82,12 +79,12 @@ public class InfoDialog extends javax.swing.JDialog {
     }
 
     private NhanVien getInputFields() {
-        String id = nv.getId();
+        String id = tk.getNhanVien().getId();
         String hoTen = txtHoTen.getText().trim();
         String sdt = txtSdt.getText().trim();
-        String gioiTinh = nv.getGioiTinh();
+        String gioiTinh = tk.getNhanVien().getGioiTinh();
         int namSinh = Integer.parseInt(txtNamSinh.getText().trim());
-        Date ngayVaoLam = nv.getNgayVaoLam();
+        Date ngayVaoLam = tk.getNhanVien().getNgayVaoLam();
 
         return new NhanVien(id, hoTen, sdt, gioiTinh, namSinh, ngayVaoLam);
     }
@@ -283,14 +280,14 @@ public class InfoDialog extends javax.swing.JDialog {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (isValidateFields()) {
             NhanVien nv = getInputFields();
-            NV_CON.update(nv);
+            new NhanVienController().update(nv);
             main.fillInfo();
             this.dispose();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        InfoChangePasswordDialog dialog = new InfoChangePasswordDialog(null, true, main, tk, nv);
+        InfoChangePasswordDialog dialog = new InfoChangePasswordDialog(null, true, main, tk);
         this.dispose();
         dialog.setVisible(true);
     }//GEN-LAST:event_btnChangePasswordActionPerformed

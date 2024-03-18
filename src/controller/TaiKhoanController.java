@@ -26,8 +26,6 @@ import utils.Validation;
  */
 public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
 
-    private NhanVienController NV_CON = new NhanVienController();
-    private VaiTroController VT_CON = new VaiTroController();
     public TaiKhoanDAO TK_DAO = new TaiKhoanDAO();
     public TaiKhoanPage TK_GUI;
 
@@ -58,16 +56,6 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
         return TK_DAO.selectAll();
     }
 
-    public List<String> getListUsername() {
-        List<String> result = new ArrayList<>();
-
-        this.getAllList().forEach(nv -> {
-            result.add(nv.getUsername());
-        });
-
-        return result;
-    }
-
     public List<NhanVien> getListNV() {
         List<NhanVien> result = new ArrayList<>();
 
@@ -85,14 +73,6 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
 
     public TaiKhoan selectByUsername(String username) {
         return TK_DAO.selectByUsername(username);
-    }
-
-    public NhanVien getNhanVienByTK(TaiKhoan tk) {
-        return NV_CON.selectById(tk.getNhanVien().getId());
-    }
-
-    public VaiTro getVaiTroByTK(TaiKhoan tk) {
-        return VT_CON.selectById(tk.getVaiTro().getId());
     }
 
     public List<TaiKhoan> getSearchTable(String text, String searchType) {
@@ -114,8 +94,33 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
                     }
                 }
             }
+            case "Tên nhân viên" -> {
+                for (TaiKhoan e : this.getAllList()) {
+                    if (e.getNhanVien().getHoTen().toLowerCase().contains(text)) {
+                        result.add(e);
+                    }
+                }
+            }
             default ->
                 throw new AssertionError();
+        }
+
+        return result;
+    }
+
+    public List<TaiKhoan> getFilterTable(String tenVT) {
+        List<TaiKhoan> result = new ArrayList<>();
+
+        for (TaiKhoan e : this.getAllList()) {
+            boolean match = false;
+
+            if (e.getVaiTro().getTen().equals(tenVT)) {
+                match = true;
+            }
+
+            if (match) {
+                result.add(e);
+            }
         }
 
         return result;
@@ -158,20 +163,20 @@ public class TaiKhoanController extends InterfaceController<TaiKhoan, String> {
                     } else {
                         TaiKhoan tk = new TaiKhoan(id, username, password, new NhanVien(idNV), new VaiTro(idVT));
                         TK_DAO.create(tk);
-                        TK_GUI.loadTable();
+                        TK_GUI.loadTable(this.getAllList());
                     }
 
                 }
-                MessageDialog.info(TK_GUI, "Nhập dữ liệu thành công!");
+                MessageDialog.info(null, "Nhập dữ liệu thành công!");
 
             } catch (FileNotFoundException ex) {
-                MessageDialog.error(TK_GUI, "Lỗi đọc file");
+                MessageDialog.error(null, "Lỗi đọc file");
             } catch (IOException ex) {
-                MessageDialog.error(TK_GUI, "Lỗi đọc file");
+                MessageDialog.error(null, "Lỗi đọc file");
             }
         }
         if (check != 0) {
-            MessageDialog.error(TK_GUI, "Có " + check + " dữ liệu không được thêm vào!");
+            MessageDialog.error(null, "Có " + check + " dữ liệu không được thêm vào!");
         }
     }
 

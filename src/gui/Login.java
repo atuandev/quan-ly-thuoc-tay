@@ -18,8 +18,6 @@ import utils.Validation;
  */
 public class Login extends javax.swing.JFrame {
 
-    TaiKhoanController TK_CON = new TaiKhoanController();
-
     public Login() {
         initComponents();
         loginLayout();
@@ -61,7 +59,7 @@ public class Login extends javax.swing.JFrame {
         String password = txtPassword.getText();
 
         if (isValidateFields()) {
-            TaiKhoan tk = TK_CON.selectByUsername(username);
+            TaiKhoan tk = new TaiKhoanController().selectByUsername(username);
             if (tk == null) {
                 MessageDialog.error(this, "Tài khoản không tồn tại!");
 
@@ -70,7 +68,7 @@ public class Login extends javax.swing.JFrame {
                     new MainLayout(tk).setVisible(true);
                     this.dispose();
                 } else {
-                    MessageDialog.error(this, "Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại");
+                    MessageDialog.error(this, "Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại!");
                 }
             }
         }

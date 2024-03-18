@@ -39,8 +39,6 @@ public class MainLayout extends javax.swing.JFrame {
     private VaiTroPage vaiTro;
 
     private TaiKhoan tk;
-    private NhanVien nv;
-    private TaiKhoanController TK_CON = new TaiKhoanController();
 
     private List<JButton> listItem;
 
@@ -67,16 +65,15 @@ public class MainLayout extends javax.swing.JFrame {
     }
 
     public final void fillInfo() {
-        nv = TK_CON.getNhanVienByTK(tk);
-        VaiTro vt = TK_CON.getVaiTroByTK(tk);
+        tk = new TaiKhoanController().selectById(tk.getId());
 
-        if (nv.getGioiTinh().equals("Nam")) {
+        if (tk.getNhanVien().getGioiTinh().equals("Nam")) {
             btnInfo.setIcon(new FlatSVGIcon("./icon/man.svg"));
         } else {
             btnInfo.setIcon(new FlatSVGIcon("./icon/woman.svg"));
         }
-        txtFullName.setText(nv.getHoTen());
-        txtRole.setText(vt.getTen());
+        txtFullName.setText(tk.getNhanVien().getHoTen());
+        txtRole.setText(tk.getVaiTro().getTen());
     }
 
     private void sideBarLayout() {
@@ -552,7 +549,7 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_phieuDatHangActionPerformed
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
-        InfoDialog dialog = new InfoDialog(this, true, this, tk, nv);
+        InfoDialog dialog = new InfoDialog(this, true, this, tk);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnInfoActionPerformed
 

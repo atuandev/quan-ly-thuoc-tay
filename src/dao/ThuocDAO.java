@@ -16,24 +16,24 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
     private final String DELETE_BY_ID = "DELETE from Thuoc where idThuoc = ?";
 
     private final String SELECT_ALL_SQL = "SELECT Thuoc.idThuoc, Thuoc.tenThuoc, Thuoc.hinhAnh, Thuoc.thanhPhan, "
-            + "DonViTinh.idDVT, DonViTinh.ten AS donViTinhTen, "
-            + "DanhMuc.idDM, DanhMuc.ten AS danhMucTen, "
-            + "XuatXu.idXX, XuatXu.ten AS xuatXuTen, "
+            + "DonViTinh.idDVT, DonViTinh.ten AS tenDVT, "
+            + "DanhMuc.idDM, DanhMuc.ten AS tenDM, "
+            + "XuatXu.idXX, XuatXu.ten AS tenXX, "
             + "Thuoc.soLuongTon, Thuoc.giaNhap, Thuoc.donGia "
             + "FROM Thuoc "
-            + "JOIN DonViTinh ON Thuoc.idDVT = DonViTinh.idDVT "
-            + "JOIN DanhMuc ON Thuoc.idDM = DanhMuc.idDM "
-            + "JOIN XuatXu ON Thuoc.idXX = XuatXu.idXX";
+            + "INNER JOIN DonViTinh ON Thuoc.idDVT = DonViTinh.idDVT "
+            + "INNER JOIN DanhMuc ON Thuoc.idDM = DanhMuc.idDM "
+            + "INNER JOIN XuatXu ON Thuoc.idXX = XuatXu.idXX";
 
     private final String SELECT_BY_ID = "SELECT Thuoc.idThuoc, Thuoc.tenThuoc, Thuoc.hinhAnh, Thuoc.thanhPhan, "
-            + "DonViTinh.idDVT, DonViTinh.ten AS donViTinhTen, "
-            + "DanhMuc.idDM, DanhMuc.ten AS danhMucTen, "
-            + "XuatXu.idXX, XuatXu.ten AS xuatXuTen, "
+            + "DonViTinh.idDVT, DonViTinh.ten AS tenDVT, "
+            + "DanhMuc.idDM, DanhMuc.ten AS tenDM, "
+            + "XuatXu.idXX, XuatXu.ten AS tenXX, "
             + "Thuoc.soLuongTon, Thuoc.giaNhap, Thuoc.donGia "
             + "FROM Thuoc "
-            + "JOIN DonViTinh ON Thuoc.idDVT = DonViTinh.idDVT "
-            + "JOIN DanhMuc ON Thuoc.idDM = DanhMuc.idDM "
-            + "JOIN XuatXu ON Thuoc.idXX = XuatXu.idXX "
+            + "INNER JOIN DonViTinh ON Thuoc.idDVT = DonViTinh.idDVT "
+            + "INNER JOIN DanhMuc ON Thuoc.idDM = DanhMuc.idDM "
+            + "INNER JOIN XuatXu ON Thuoc.idXX = XuatXu.idXX "
             + "WHERE Thuoc.idThuoc = ?";
 
     private final String UPDATE_SO_LUONG = "UPDATE Thuoc SET soLuongTon=? WHERE idThuoc = ?";
@@ -67,19 +67,22 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
                 thuoc.setHinhAnh(rs.getBytes("hinhAnh"));
                 thuoc.setThanhPhan(rs.getString("thanhPhan"));
 
+                // Create DonViTinh object
                 DonViTinh donViTinh = new DonViTinh();
                 donViTinh.setId(rs.getString("idDVT"));
-                donViTinh.setTen(rs.getString("donViTinhTen"));
+                donViTinh.setTen(rs.getString("tenDVT"));
                 thuoc.setDonViTinh(donViTinh);
 
+                // Create DanhMuc object
                 DanhMuc danhMuc = new DanhMuc();
                 danhMuc.setId(rs.getString("idDM"));
-                danhMuc.setTen(rs.getString("danhMucTen"));
+                danhMuc.setTen(rs.getString("tenDM"));
                 thuoc.setDanhMuc(danhMuc);
 
+                // Create XuatXu object
                 XuatXu xuatXu = new XuatXu();
                 xuatXu.setId(rs.getString("idXX"));
-                xuatXu.setTen(rs.getString("xuatXuTen"));
+                xuatXu.setTen(rs.getString("tenXX"));
                 thuoc.setXuatXu(xuatXu);
 
                 thuoc.setSoLuongTon(rs.getInt("soLuongTon"));

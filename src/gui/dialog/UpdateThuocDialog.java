@@ -1,6 +1,5 @@
 package gui.dialog;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.DanhMucController;
 import controller.DonViTinhController;
@@ -33,8 +32,8 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
 
     private final ThuocController THUOC_CON = new ThuocController();
     private ThuocPage THUOC_GUI;
-    private byte[] thuocImage;
     private Thuoc thuoc;
+    private byte[] thuocImage;
 
     private final List<DanhMuc> listDM = new DanhMucController().getAllList();
     private final List<DonViTinh> listDVT = new DonViTinhController().getAllList();
@@ -172,12 +171,16 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
         String tenThuoc = txtTenThuoc.getText().trim();
         byte[] hinhAnh = thuocImage;
         String thanhPhan = txtThanhPhan.getText().trim();
+        
         String idDVT = listDVT.get(cboxDonViTinh.getSelectedIndex()).getId();
         DonViTinh donViTinh = new DonViTinhController().selectById(idDVT);
+        
         String idDM = listDM.get(cboxDanhMuc.getSelectedIndex()).getId();
         DanhMuc danhMuc = new DanhMucController().selectById(idDM);
+        
         String idXX = listXX.get(cboxXuatXu.getSelectedIndex()).getId();
         XuatXu xuatXu = new XuatXuController().selectById(idXX);
+        
         int soLuong = Integer.parseInt(txtSoLuong.getText().trim());
         double giaNhap = Double.parseDouble(txtGiaNhap.getText().trim());
         double donGia = Double.parseDouble(txtDonGia.getText().trim());

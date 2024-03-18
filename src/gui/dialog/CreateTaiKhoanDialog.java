@@ -8,12 +8,10 @@ import entities.TaiKhoan;
 import entities.VaiTro;
 import gui.page.TaiKhoanPage;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.BCrypt;
-import utils.Formatter;
 import utils.MessageDialog;
 import utils.RandomGenerator;
 import utils.TableSorter;
@@ -25,10 +23,11 @@ import utils.TableSorter;
 public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
     private TaiKhoanController TK_CON = new TaiKhoanController();
-    private NhanVienController NV_CON = new NhanVienController();
     private TaiKhoanPage TK_GUI;
 
-    private List<VaiTro> listVT = new VaiTroController().getAllList();
+    private final List<VaiTro> listVT = new VaiTroController().getAllList();
+
+    DefaultTableModel modal;
 
     public CreateTaiKhoanDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -54,7 +53,7 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
     private void tableLayout() {
         String[] header = new String[]{"STT", "Mã nhân viên", "Họ tên", "Số điện thoại", "Năm sinh"};
 
-        DefaultTableModel modal = new DefaultTableModel();
+        modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         tableNV.setModel(modal);
 
@@ -75,14 +74,13 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
     }
 
     public void loadTable() {
-        DefaultTableModel modal = (DefaultTableModel) tableNV.getModel();
         modal.setRowCount(0);
 
-        List<NhanVien> list = NV_CON.getAllList();
-        List<NhanVien> listNV = TK_CON.getListNV();
+        List<NhanVien> listNV = new NhanVienController().getAllList();
+        List<NhanVien> listNVInTK = TK_CON.getListNV();
         int stt = 1;
-        for (NhanVien e : list) {
-            if (!listNV.contains(e)) {
+        for (NhanVien e : listNV) {
+            if (!listNVInTK.contains(e)) {
                 modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getHoTen(), e.getSdt(), e.getNamSinh()});
             }
             stt++;
@@ -123,9 +121,11 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         String password = BCrypt.hashpw(txtPassword.getText(), BCrypt.gensalt(10));
         int row = tableNV.getSelectedRow();
         String idNV = tableNV.getValueAt(row, 1).toString();
-        String idVT = listVT.get(cboxVaiTro.getSelectedIndex()).getId();
+        NhanVien nhanVien = new NhanVienController().selectById(idNV);
+        String idVT = listVT.get(cboxVaiTro.getSelectedIndex() + 1).getId();
+        VaiTro vaiTro = new VaiTroController().selectById(idVT);
 
-        return new TaiKhoan(id, username, password, new NhanVien(idNV), new VaiTro(idVT));
+        return new TaiKhoan(id, username, password, nhanVien, vaiTro);
     }
 
     @SuppressWarnings("unchecked")
@@ -306,9 +306,10 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (isValidateFields()) {
-            TaiKhoan tk = getInputFields();
-            TK_CON.create(tk);
-            TK_GUI.loadTable();
+            TaiKhoan e = getInputFields();
+            TK_CON.create(e);
+            MessageDialog.info(this, "Thêm thành công!");
+            TK_GUI.loadTable(TK_CON.getAllList());
             this.dispose();
         }
     }//GEN-LAST:event_btnAddActionPerformed

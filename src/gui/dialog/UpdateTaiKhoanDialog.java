@@ -19,9 +19,9 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
     private TaiKhoanController TK_CON = new TaiKhoanController();
     private TaiKhoanPage TK_GUI;
     private TaiKhoan tk;
-    
-    private List<NhanVien> listNV = new NhanVienController().getAllList();
-    private List<VaiTro> listVT = new VaiTroController().getAllList();
+
+    private final List<NhanVien> listNV = new NhanVienController().getAllList();
+    private final List<VaiTro> listVT = new VaiTroController().getAllList();
 
     public UpdateTaiKhoanDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -50,12 +50,9 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
     }
 
     private void fillInput() {
-        NhanVien nv = TK_CON.getNhanVienByTK(tk);
-        VaiTro vt = TK_CON.getVaiTroByTK(tk);
-
         txtUsername.setText(tk.getUsername());
-        cboxNhanVien.setSelectedItem(nv.getHoTen());
-        cboxVaiTro.setSelectedItem(vt.getTen());
+        cboxNhanVien.setSelectedItem(tk.getNhanVien().getHoTen());
+        cboxVaiTro.setSelectedItem(tk.getVaiTro().getTen());
     }
 
     private boolean isValidateFields() {
@@ -73,9 +70,11 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
         String username = tk.getUsername();
         String password = tk.getPassword();
         String idNV = tk.getNhanVien().getId();
-        String idVT = listVT.get(cboxVaiTro.getSelectedIndex()).getId();
+        NhanVien nhanVien = new NhanVienController().selectById(idNV);
+        String idVT = listVT.get(cboxVaiTro.getSelectedIndex() + 1).getId();
+        VaiTro vaiTro = new VaiTroController().selectById(idVT);
 
-        return new TaiKhoan(id, username, password, new NhanVien(idNV), new VaiTro(idVT));
+        return new TaiKhoan(id, username, password, nhanVien, vaiTro);
     }
 
     @SuppressWarnings("unchecked")
@@ -217,9 +216,10 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (isValidateFields()) {
-            TaiKhoan tk = getInputFields();
-            TK_CON.update(tk);
-            TK_GUI.loadTable();
+            TaiKhoan e = getInputFields();
+            TK_CON.update(e);
+            MessageDialog.info(this, "Cập nhập thành công!");
+            TK_GUI.loadTable(TK_CON.getAllList());
             this.dispose();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed

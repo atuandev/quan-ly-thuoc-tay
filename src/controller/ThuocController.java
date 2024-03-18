@@ -30,10 +30,6 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
     public ThuocDAO THUOC_DAO = new ThuocDAO();
     public ThuocPage THUOC_GUI;
 
-    public DanhMucController DM_CON = new DanhMucController();
-    public DonViTinhController DVT_CON = new DonViTinhController();
-    public XuatXuController XX_CON = new XuatXuController();
-
     public ThuocController() {
     }
 

@@ -47,7 +47,7 @@ go
 
 INSERT INTO TaiKhoan (idTK, username, password, idNV, idVT)
 VALUES
-    ('ADMIN0000', 'admin', '$2a$10$iisIo5/CQMiRzPHi6v8s8eUQfdDU8kiL3jOcEioy1B2d/dCkIb5ES', 'ADMIN', 'admin')
+    ('ADMIN', 'admin', '$2a$10$iisIo5/CQMiRzPHi6v8s8eUQfdDU8kiL3jOcEioy1B2d/dCkIb5ES', 'ADMIN', 'admin')
 go
 
 CREATE TABLE KhachHang (
@@ -123,6 +123,10 @@ CREATE TABLE Thuoc (
 	giaNhap FLOAT NOT NULL,
 	donGia FLOAT NOT NULL,
 );
+go
+INSERT INTO Thuoc(idThuoc, tenThuoc, hinhAnh, thanhPhan, idDVT, idDM, idXX, soLuongTon, giaNhap, donGia)
+VALUES
+	('745KCI1KX', N'Ninh Tâm Vương Hồng Bàng', (SELECT * FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\ninh-tam-vuong-hong-bang.png', SINGLE_BLOB) as image), N'L-Carnitine, Taurine, Đan sâm, Khổ sâm bắc, Nattokinase, Hoàng đằng, Magie, Tá dược vừa đủ', 'CVB123ERT', 'ZXC311QWE', 'XCVSDF124', 22, 120000, 180000);
 go
 
 CREATE TABLE PhieuDatHang (
