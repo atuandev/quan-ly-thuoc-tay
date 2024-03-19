@@ -16,11 +16,6 @@ public class ChiTietHoaDon {
     public ChiTietHoaDon() {
     }
 
-    public ChiTietHoaDon(HoaDon hoaDon, Thuoc thuoc) {
-        this.hoaDon = hoaDon;
-        this.thuoc = thuoc;
-    }
-
     public ChiTietHoaDon(HoaDon hoaDon, Thuoc thuoc, int soLuong, double donGia) {
         this.hoaDon = hoaDon;
         this.thuoc = thuoc;

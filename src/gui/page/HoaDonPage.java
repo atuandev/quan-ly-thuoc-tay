@@ -8,6 +8,7 @@ import controller.NhanVienController;
 import entities.HoaDon;
 import entities.KhachHang;
 import entities.NhanVien;
+import entities.TaiKhoan;
 import gui.MainLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +75,7 @@ public class HoaDonPage extends javax.swing.JPanel {
 
     private void tableLayout() {
         lblTable.setText("danh sách thông tin hóa đơn".toUpperCase());
-        String[] header = new String[]{"STT", "Mã hóa đơn", "Thời gian", "Tên nhân viên", "Tên khách hàng", "Tồng tiền"};
+        String[] header = new String[]{"STT", "Mã hóa đơn", "Thời gian", "Tên nhân viên", "Tên khách hàng", "Tổng tiền"};
         modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
@@ -379,7 +380,8 @@ public class HoaDonPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        CreateHoaDonPage page = new CreateHoaDonPage();
+        TaiKhoan tk = main.tk;
+        CreateHoaDonPage page = new CreateHoaDonPage(tk);
         main.setPanel(page);
     }//GEN-LAST:event_btnAddActionPerformed
 

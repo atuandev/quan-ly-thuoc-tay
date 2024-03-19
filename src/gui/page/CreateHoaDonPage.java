@@ -1,14 +1,18 @@
 package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import controller.HoaDonController;
 import controller.ThuocController;
+import entities.ChiTietHoaDon;
+import entities.HoaDon;
+import entities.NhanVien;
+import entities.TaiKhoan;
 import entities.Thuoc;
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -25,14 +29,30 @@ import utils.Validation;
 public class CreateHoaDonPage extends javax.swing.JPanel {
 
     private final ThuocController THUOC_CON = new ThuocController(this);
+    private final HoaDonController HD_CON = new HoaDonController();
     private List<Thuoc> listThuoc = THUOC_CON.getAllList();
+    private List<ChiTietHoaDon> listCTHD = new ArrayList<>();
+
+    private TaiKhoan tk;
+
     private DefaultTableModel modal;
+    private DefaultTableModel modalCart;
 
     public CreateHoaDonPage() {
         initComponents();
         pruductLayout();
         billLayout();
-        tableLayout();
+        tableThuocLayout();
+        tableCartLayout();
+    }
+
+    public CreateHoaDonPage(TaiKhoan tk) {
+        this.tk = tk;
+        initComponents();
+        pruductLayout();
+        billLayout();
+        tableThuocLayout();
+        tableCartLayout();
     }
 
     private void pruductLayout() {
@@ -44,7 +64,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         cboxSearch.setModel(model);
     }
 
-    private void tableLayout() {
+    private void tableThuocLayout() {
         lblThuoc.setText(" thông tin thuốc".toUpperCase());
         String[] header = new String[]{"STT", "Mã thuốc", "Tên thuốc", "Danh mục", "Xuất xứ", "Đơn vị tính", "Số lượng", "Giá nhập", "Đơn giá"};
         modal = new DefaultTableModel();
@@ -63,11 +83,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         sortTable();
     }
 
-    private void sortTable() {
-        table.setAutoCreateRowSorter(true);
-        TableSorter.configureTableColumnSorter(table, 0, TableSorter.STRING_COMPARATOR);
-    }
-
     public void loadTable(List<Thuoc> list) {
         modal.setRowCount(0);
 
@@ -81,9 +96,49 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         }
     }
 
+    private void sortTable() {
+        table.setAutoCreateRowSorter(true);
+        TableSorter.configureTableColumnSorter(table, 0, TableSorter.STRING_COMPARATOR);
+    }
+
+    private void tableCartLayout() {
+        modalCart = new DefaultTableModel();
+        String[] header = new String[]{"STT", "Tên thuốc", "Số lượng", "Đơn giá"};
+        modalCart.setColumnIdentifiers(header);
+        tableCart.setModel(modalCart);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        tableCart.setDefaultRenderer(Object.class, centerRenderer);
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tableCart.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tableCart.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tableCart.getColumnModel().getColumn(1).setPreferredWidth(200);
+
+        loadTableCTHD(listCTHD);
+        sortTable();
+    }
+
+    public void loadTableCTHD(List<ChiTietHoaDon> list) {
+        modalCart.setRowCount(0);
+
+        listCTHD = list;
+        int stt = 1;
+        for (ChiTietHoaDon e : listCTHD) {
+            modalCart.addRow(new Object[]{String.valueOf(stt), e.getThuoc().getTenThuoc(), e.getSoLuong(), Formatter.FormatVND(e.getDonGia())});
+            stt++;
+        }
+    }
+
     private void billLayout() {
-        btnAddCustomer.putClientProperty(FlatClientProperties.STYLE, "arc: 10");
+        btnAddCustomer.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         formatNumberFields();
+    }
+
+    private void formatNumberFields() {
+        String txtDonGiaFormat = Formatter.FormatVND(Double.parseDouble(txtDonGia.getText()));
+        txtDonGia.setText(txtDonGiaFormat);
+        String txtTongFormat = Formatter.FormatVND(Double.parseDouble(txtTong.getText()));
+        txtTong.setText(txtTongFormat);
     }
 
     private boolean isValidHoaDonFields() {
@@ -111,11 +166,51 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         return true;
     }
 
-    private void formatNumberFields() {
-        String txtDonGiaFormat = Formatter.FormatVND(Double.parseDouble(txtDonGia.getText()));
-        txtDonGia.setText(txtDonGiaFormat);
-        String txtTongFormat = Formatter.FormatVND(Double.parseDouble(txtTong.getText()));
-        txtTong.setText(txtTongFormat);
+    private boolean isValidInputChiTietHoaDon() {
+        if (Validation.isEmpty(txtSoLuong.getText().trim())) {
+            MessageDialog.warring(this, "Số lượng không được để trống!");
+            txtSoLuong.requestFocus();
+            return false;
+        } else {
+            try {
+                double soLuongTon = Double.parseDouble(txtSoLuongTon.getText());
+                double sl = Double.parseDouble(txtSoLuong.getText());
+                if (sl < 0) {
+                    MessageDialog.warring(this, "Số lượng đưa phải >= 0");
+                    txtSoLuong.requestFocus();
+                    return false;
+                } else if (soLuongTon < sl) {
+                    MessageDialog.warring(this, "Không đủ số lượng!");
+                    txtSoLuong.requestFocus();
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                MessageDialog.warring(this, "Số lượng đưa phải là số!");
+                txtSoLuong.requestFocus();
+                return false;
+            }
+        }
+
+        Thuoc thuoc = listThuoc.get(table.getSelectedRow());
+        for (ChiTietHoaDon cthd : listCTHD) {
+            if (cthd.getThuoc().equals(thuoc)) {
+                MessageDialog.warring(this, "Thuốc đã tồn tại trong giỏ hàng!");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private ChiTietHoaDon getInputChiTietHoaDon() {
+        String idThuoc = txtMaThuoc.getText();
+        Thuoc thuoc = THUOC_CON.selectById(idThuoc);
+        String idHD = txtMaHoaDon.getText();
+        HoaDon hoaDon = HD_CON.selectById(idHD);
+        int soLuong = Integer.parseInt(txtSoLuong.getText());
+        double donGia = thuoc.getDonGia();
+
+        return new ChiTietHoaDon(hoaDon, thuoc, soLuong, donGia);
     }
 
     @SuppressWarnings("unchecked")
@@ -155,14 +250,14 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         btnReload = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         txtSoLuong = new javax.swing.JTextField();
-        btnIn1 = new javax.swing.JButton();
+        btnAddCart = new javax.swing.JButton();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         billPanel = new javax.swing.JPanel();
         cardPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableCard = new javax.swing.JTable();
+        tableCart = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
@@ -171,10 +266,13 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jPanel25 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         txtSdtKH = new javax.swing.JTextField();
         btnAddCustomer = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txtMaHoaDon = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtHoTenKH = new javax.swing.JTextField();
@@ -278,6 +376,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
         txtThanhPhan.setEditable(false);
         txtThanhPhan.setColumns(20);
+        txtThanhPhan.setLineWrap(true);
         txtThanhPhan.setRows(5);
         txtThanhPhan.setFocusable(false);
         txtThanhPhan.setPreferredSize(new java.awt.Dimension(320, 40));
@@ -419,17 +518,22 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         txtSoLuong.setPreferredSize(new java.awt.Dimension(120, 40));
         jPanel13.add(txtSoLuong);
 
-        btnIn1.setBackground(new java.awt.Color(0, 179, 246));
-        btnIn1.setFont(new java.awt.Font("Roboto Black", 0, 16)); // NOI18N
-        btnIn1.setForeground(new java.awt.Color(255, 220, 0));
-        btnIn1.setIcon(new FlatSVGIcon("./icon/add-to-cart.svg"));
-        btnIn1.setText("THÊM");
-        btnIn1.setBorderPainted(false);
-        btnIn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnIn1.setFocusPainted(false);
-        btnIn1.setFocusable(false);
-        btnIn1.setPreferredSize(new java.awt.Dimension(120, 40));
-        jPanel13.add(btnIn1);
+        btnAddCart.setBackground(new java.awt.Color(0, 179, 246));
+        btnAddCart.setFont(new java.awt.Font("Roboto Black", 0, 16)); // NOI18N
+        btnAddCart.setForeground(new java.awt.Color(255, 220, 0));
+        btnAddCart.setIcon(new FlatSVGIcon("./icon/add-to-cart.svg"));
+        btnAddCart.setText("THÊM");
+        btnAddCart.setBorderPainted(false);
+        btnAddCart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddCart.setFocusPainted(false);
+        btnAddCart.setFocusable(false);
+        btnAddCart.setPreferredSize(new java.awt.Dimension(120, 40));
+        btnAddCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCartActionPerformed(evt);
+            }
+        });
+        jPanel13.add(btnAddCart);
 
         actionPanel.add(jPanel13, java.awt.BorderLayout.EAST);
 
@@ -479,7 +583,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
         jScrollPane2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(230, 230, 230), 1, true));
 
-        tableCard.setModel(new javax.swing.table.DefaultTableModel(
+        tableCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -490,8 +594,8 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tableCard.setFocusable(false);
-        jScrollPane2.setViewportView(tableCard);
+        tableCart.setFocusable(false);
+        jScrollPane2.setViewportView(tableCart);
 
         cardPanel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -545,16 +649,16 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel25.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel25.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
-        jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel4.setText("Số điện thoại:");
-        jLabel4.setPreferredSize(new java.awt.Dimension(120, 40));
-        jPanel7.add(jLabel4);
+        jLabel8.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel8.setText("Số điện thoại:");
+        jLabel8.setPreferredSize(new java.awt.Dimension(120, 40));
+        jPanel25.add(jLabel8);
 
         txtSdtKH.setPreferredSize(new java.awt.Dimension(200, 40));
-        jPanel7.add(txtSdtKH);
+        jPanel25.add(txtSdtKH);
 
         btnAddCustomer.setIcon(new FlatSVGIcon("./icon/add-customer.svg"));
         btnAddCustomer.setBorderPainted(false);
@@ -562,10 +666,25 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         btnAddCustomer.setFocusPainted(false);
         btnAddCustomer.setFocusable(false);
         btnAddCustomer.setPreferredSize(new java.awt.Dimension(40, 40));
-        jPanel7.add(btnAddCustomer);
+        jPanel25.add(btnAddCustomer);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+
+        jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel4.setText("Mã hóa đơn ");
+        jLabel4.setPreferredSize(new java.awt.Dimension(120, 40));
+        jPanel7.add(jLabel4);
+
+        txtMaHoaDon.setEditable(false);
+        txtMaHoaDon.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
+        txtMaHoaDon.setText("Z2NX8CN1A");
+        txtMaHoaDon.setFocusable(false);
+        txtMaHoaDon.setPreferredSize(new java.awt.Dimension(200, 40));
+        jPanel7.add(txtMaHoaDon);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel3.setText("Tên khách hàng:");
@@ -582,7 +701,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel2.add(cboxGioiTinhKH);
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 0));
@@ -592,13 +711,14 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
         txtTong.setEditable(false);
         txtTong.setFont(new java.awt.Font("Roboto Mono Medium", 0, 14)); // NOI18N
+        txtTong.setForeground(new java.awt.Color(255, 51, 0));
         txtTong.setText("1000000");
         txtTong.setFocusable(false);
         txtTong.setPreferredSize(new java.awt.Dimension(200, 40));
         jPanel11.add(txtTong);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel6.setText("Tiền khách đưa:");
@@ -614,7 +734,8 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel10.add(txtTienKhachDua);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+        jPanel9.setPreferredSize(new java.awt.Dimension(335, 40));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel5.setText("Tiền thừa:");
@@ -655,36 +776,38 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(0, 0, 0))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jSeparator1)
+                        .addContainerGap())
+                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -741,14 +864,30 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         txtSoLuongTon.setText(String.valueOf(e.getSoLuongTon()));
     }//GEN-LAST:event_tableMouseClicked
 
+    private void btnAddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCartActionPerformed
+        if (isValidInputChiTietHoaDon()) {
+
+            ChiTietHoaDon cthd = getInputChiTietHoaDon();
+            listCTHD.add(cthd);
+            loadTableCTHD(listCTHD);
+
+            int row = table.getSelectedRow();
+            int colSoluong = 6;
+            int soLuongTon = Integer.parseInt(table.getValueAt(row, colSoluong).toString());
+            int updatedSoLuongTon = soLuongTon - cthd.getSoLuong();
+            txtSoLuongTon.setText(String.valueOf(updatedSoLuongTon));
+            modal.setValueAt(updatedSoLuongTon, row, colSoluong);
+        }
+    }//GEN-LAST:event_btnAddCartActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
     private javax.swing.JPanel billPanel;
+    private javax.swing.JButton btnAddCart;
     private javax.swing.JButton btnAddCustomer;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnIn;
-    private javax.swing.JButton btnIn1;
     private javax.swing.JButton btnReload;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JComboBox<String> cboxGioiTinhKH;
@@ -766,6 +905,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -783,6 +923,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -798,11 +939,12 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel sanPhamPanel;
     private javax.swing.JTable table;
-    private javax.swing.JTable tableCard;
+    private javax.swing.JTable tableCart;
     private javax.swing.JPanel tablePanel;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JLabel txtHinhAnh;
     private javax.swing.JTextField txtHoTenKH;
+    private javax.swing.JTextField txtMaHoaDon;
     private javax.swing.JTextField txtMaThuoc;
     private javax.swing.JTextField txtSdtKH;
     private javax.swing.JTextField txtSearch;

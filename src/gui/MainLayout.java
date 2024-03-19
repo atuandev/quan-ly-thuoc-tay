@@ -38,7 +38,7 @@ public class MainLayout extends javax.swing.JFrame {
     private TaiKhoanPage taiKhoan;
     private VaiTroPage vaiTro;
 
-    private TaiKhoan tk;
+    public TaiKhoan tk;
 
     private List<JButton> listItem;
 
