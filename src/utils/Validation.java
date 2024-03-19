@@ -9,10 +9,10 @@ import java.util.regex.Pattern;
 public class Validation {
 
     public static Boolean isEmpty(String input) {
-        if (input == null) {
+        if (input.trim() == null) {
             return true;
         }
-        return input.equals("");
+        return input.trim().equals("");
     }
 
     public static Boolean isEmail(String email) {

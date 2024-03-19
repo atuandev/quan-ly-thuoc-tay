@@ -167,6 +167,11 @@ CREATE TABLE HoaDon (
     idKH NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES KhachHang(idKH),
 );
 go
+INSERT INTO HoaDon (idHD, thoiGian, idNV, idKH)
+VALUES
+	('ASZS32JZX', '20240303 6:24:09 PM', 'DKJFJO1K2', N'12ZAS1SX1'),
+	('MNXS72JXA', '20240301 10:24:09 AM', 'IU42JDKJ2', N'ASDASN131');
+go
 
 CREATE TABLE ChiTietHoaDon (
 	idHD NVARCHAR(10) NOT NULL,
@@ -215,3 +220,10 @@ CREATE TABLE ChiTietPhieuThu (
 	FOREIGN KEY(idThuoc) REFERENCES Thuoc(idThuoc),
 );
 go
+
+SELECT HoaDon.idHD, HoaDon.thoiGian, 
+		NhanVien.idNV, NhanVien.hoTen AS tenNV, NhanVien.sdt AS sdtNV, NhanVien.gioiTinh AS gioiTinhNV, NhanVien.namSinh, NhanVien.ngayVaoLam,
+		KhachHang.idKH, KhachHang.hoTen AS tenKH, KhachHang.sdt AS sdtKH, KhachHang.gioiTinh AS gioiTinhKH, KhachHang.ngayThamGia
+FROM HoaDon
+INNER JOIN NhanVien ON HoaDon.idNV = NhanVien.idNV
+INNER JOIN KhachHang ON HoaDon.idKH = KhachHang.idKH;

@@ -11,11 +11,25 @@ import java.util.List;
 public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
 
     private final String INSERT_SQL = "INSERT INTO HoaDon values (?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE HoaDon SET thoiGian=?, idNV=?, idKH=? where idHD=?";
-    private final String DELETE_BY_ID = "DELETE from HoaDon where idHD = ?";
+    private final String UPDATE_SQL = "UPDATE HoaDon SET thoiGian=?, idNV=?, idKH=? WHERE idHD=?";
+    private final String DELETE_BY_ID = "DELETE from HoaDon WHERE idHD = ?";
 
-    private final String SELECT_ALL_SQL = "SELECT * FROM HoaDon";
-    private final String SELECT_BY_ID = "SELECT * FROM HoaDon WHERE idHD = ?";
+    private final String SELECT_ALL_SQL
+            = "SELECT HoaDon.idHD, HoaDon.thoiGian, HoaDon.idNV, HoaDon.idKH, "
+            + "NhanVien.hoTen AS tenNV, NhanVien.sdt AS sdtNV, NhanVien.gioiTinh AS gioiTinhNV, NhanVien.namSinh, NhanVien.ngayVaoLam, "
+            + "KhachHang.hoTen AS tenKH, KhachHang.sdt AS sdtKH, KhachHang.gioiTinh AS gioiTinhKH, KhachHang.ngayThamGia "
+            + "FROM HoaDon "
+            + "INNER JOIN NhanVien ON HoaDon.idNV = NhanVien.idNV "
+            + "INNER JOIN KhachHang ON HoaDon.idKH = KhachHang.idKH ";
+
+    private final String SELECT_BY_ID
+            = "SELECT HoaDon.idHD, HoaDon.thoiGian, HoaDon.idNV, HoaDon.idKH, "
+            + "NhanVien.hoTen AS tenNV, NhanVien.sdt AS sdtNV, NhanVien.gioiTinh AS gioiTinhNV, NhanVien.namSinh, NhanVien.ngayVaoLam, "
+            + "KhachHang.hoTen AS tenKH, KhachHang.sdt AS sdtKH, KhachHang.gioiTinh AS gioiTinhKH, KhachHang.ngayThamGia "
+            + "FROM HoaDon "
+            + "INNER JOIN NhanVien ON HoaDon.idNV = NhanVien.idNV "
+            + "INNER JOIN KhachHang ON HoaDon.idKH = KhachHang.idKH "
+            + "WHERE idHD = ?";
 
     @Override
     public void create(HoaDon e) {
@@ -38,12 +52,30 @@ public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
         try {
             ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
-                HoaDon e = new HoaDon();
-                e.setId(rs.getString("idHD"));
-                e.setThoiGian(rs.getTimestamp("thoiGian"));
-                e.setNhanVien(new NhanVien(rs.getString("idNV")));
-                e.setKhachHang(new KhachHang(rs.getString("idKH")));
-                listE.add(e);
+                HoaDon hoaDon = new HoaDon();
+                hoaDon.setId(rs.getString("idHD"));
+                hoaDon.setThoiGian(rs.getTimestamp("thoiGian"));
+
+                NhanVien nhanVien = new NhanVien();
+                nhanVien.setId(rs.getString("idNV"));
+                nhanVien.setHoTen(rs.getString("tenNV"));
+                nhanVien.setSdt(rs.getString("sdtNV"));
+                nhanVien.setGioiTinh(rs.getString("gioiTinhNV"));
+                nhanVien.setNamSinh(rs.getInt("namSinh"));
+                nhanVien.setNgayVaoLam(rs.getDate("ngayVaoLam"));
+
+                hoaDon.setNhanVien(nhanVien);
+
+                KhachHang khachHang = new KhachHang();
+                khachHang.setId(rs.getString("idKH"));
+                khachHang.setHoTen(rs.getString("tenKH"));
+                khachHang.setSdt(rs.getString("sdtKH"));
+                khachHang.setGioiTinh(rs.getString("gioiTinhKH"));
+                khachHang.setNgayThamGia(rs.getDate("ngayThamGia"));
+
+                hoaDon.setKhachHang(khachHang);
+                
+                listE.add(hoaDon);
             }
             rs.getStatement().getConnection().close();
             return listE;

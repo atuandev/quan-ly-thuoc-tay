@@ -17,8 +17,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import utils.MessageDialog;
@@ -96,13 +94,13 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
         }
 
         if (Validation.isEmpty(txtThanhPhan.getText().trim())) {
-            MessageDialog.warring(this, "Thành phần không được rỗng!");
+            MessageDialog.warring(this, "Thành phần không được để trống!");
             txtThanhPhan.requestFocus();
             return false;
         }
 
         if (Validation.isEmpty(txtSoLuong.getText().trim())) {
-            MessageDialog.warring(this, "Số lượng không được rỗng!");
+            MessageDialog.warring(this, "Số lượng không để trống!");
             txtSoLuong.requestFocus();
             return false;
         } else {
@@ -121,7 +119,7 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
         }
 
         if (Validation.isEmpty(txtGiaNhap.getText().trim())) {
-            MessageDialog.warring(this, "Giá nhập không được rỗng!");
+            MessageDialog.warring(this, "Giá nhập không được để trống!");
             txtGiaNhap.requestFocus();
             return false;
         } else {
@@ -140,7 +138,7 @@ public class UpdateThuocDialog extends javax.swing.JDialog {
         }
 
         if (Validation.isEmpty(txtDonGia.getText().trim())) {
-            MessageDialog.warring(this, "Đơn giá không được rỗng!");
+            MessageDialog.warring(this, "Đơn giá không được để trống!");
             txtDonGia.requestFocus();
             return false;
         } else {

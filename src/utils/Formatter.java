@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +47,7 @@ public class Formatter {
     }
 
     public static String FormatTime(Timestamp thoigian) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
         return formatDate.format(thoigian);
     }
 

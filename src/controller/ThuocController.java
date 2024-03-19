@@ -5,6 +5,7 @@ import entities.DanhMuc;
 import entities.DonViTinh;
 import entities.Thuoc;
 import entities.XuatXu;
+import gui.page.CreateHoaDonPage;
 import gui.page.ThuocPage;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -29,12 +30,17 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
 
     public ThuocDAO THUOC_DAO = new ThuocDAO();
     public ThuocPage THUOC_GUI;
+    public CreateHoaDonPage CHD_GUI;
 
     public ThuocController() {
     }
 
     public ThuocController(ThuocPage THUOC_GUI) {
         this.THUOC_GUI = THUOC_GUI;
+    }
+    
+    public ThuocController(CreateHoaDonPage CHD_GUI) {
+        this.CHD_GUI = CHD_GUI;
     }
 
     @Override
@@ -55,36 +61,6 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
     @Override
     public List<Thuoc> getAllList() {
         return THUOC_DAO.selectAll();
-    }
-
-    public List<Thuoc> getListByTenXuatXu(String tenXX) {
-        List<Thuoc> result = new ArrayList<>();
-        THUOC_DAO.selectAll().forEach(e -> {
-            if (e.getXuatXu().getTen().equals(tenXX)) {
-                result.add(e);
-            }
-        });
-        return result;
-    }
-
-    public List<Thuoc> getListByTenDonViTinh(String tenDVT) {
-        List<Thuoc> result = new ArrayList<>();
-        THUOC_DAO.selectAll().forEach(e -> {
-            if (e.getDonViTinh().getTen().equals(tenDVT)) {
-                result.add(e);
-            }
-        });
-        return result;
-    }
-
-    public List<Thuoc> getListByTenDanhMuc(String tenDM) {
-        List<Thuoc> result = new ArrayList<>();
-        THUOC_DAO.selectAll().forEach(e -> {
-            if (e.getDanhMuc().getTen().equals(tenDM)) {
-                result.add(e);
-            }
-        });
-        return result;
     }
 
     @Override
@@ -206,16 +182,16 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
                     }
 
                 }
-                MessageDialog.info(THUOC_GUI, "Nhập dữ liệu thành công!");
+                MessageDialog.info(null, "Nhập dữ liệu thành công!");
 
             } catch (FileNotFoundException ex) {
-                MessageDialog.error(THUOC_GUI, "Lỗi đọc file");
+                MessageDialog.error(null, "Lỗi đọc file");
             } catch (IOException ex) {
-                MessageDialog.error(THUOC_GUI, "Lỗi đọc file");
+                MessageDialog.error(null, "Lỗi đọc file");
             }
         }
         if (check != 0) {
-            MessageDialog.error(THUOC_GUI, "Có " + check + " dòng dữ liệu không được thêm vào!");
+            MessageDialog.error(null, "Có " + check + " dòng dữ liệu không được thêm vào!");
         }
     }
 
