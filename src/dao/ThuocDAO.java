@@ -48,6 +48,10 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
                 e.getDanhMuc().getId(), e.getXuatXu().getId(), e.getSoLuongTon(), e.getGiaNhap(), e.getDonGia(), e.getId());
     }
 
+    public void updateSoLuongTon(Thuoc e, int soLuong) {
+        JDBCConnection.update(UPDATE_SO_LUONG, soLuong, e.getId());
+    }
+
     @Override
     public void deleteById(String id) {
         JDBCConnection.update(DELETE_BY_ID, id);
@@ -107,14 +111,6 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
             return null;
         }
         return list.get(0);
-    }
-
-    public void updateSoLuongTon(String id, int soLuong) {
-        Thuoc thuoc = this.selectById(id);
-        int updatedSL = thuoc.getSoLuongTon() + soLuong;
-        JDBCConnection.update(UPDATE_SO_LUONG, updatedSL, thuoc.getId());
-
-        System.out.println("Update:" + updatedSL);
     }
 
 }

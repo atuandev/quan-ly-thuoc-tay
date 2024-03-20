@@ -38,7 +38,7 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
     public ThuocController(ThuocPage THUOC_GUI) {
         this.THUOC_GUI = THUOC_GUI;
     }
-    
+
     public ThuocController(CreateHoaDonPage CHD_GUI) {
         this.CHD_GUI = CHD_GUI;
     }
@@ -66,6 +66,10 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
     @Override
     public Thuoc selectById(String id) {
         return THUOC_DAO.selectById(id);
+    }
+
+    public void updateSoLuongTon(Thuoc e, int soLuong) {
+        THUOC_DAO.updateSoLuongTon(e, soLuong);
     }
 
     public List<Thuoc> getSearchTable(String text, String searchType) {

@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.Formatter;
 import utils.MessageDialog;
+import utils.RandomGenerator;
 import utils.TableSorter;
 import utils.Validation;
 
@@ -58,6 +59,9 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private void pruductLayout() {
         txtSoLuong.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Số lượng...");
         btnReload.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
+        
+        txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
+        txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
 
         String[] searchType = {"Tất cả", "Mã", "Tên"};
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(searchType);
@@ -66,7 +70,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
     private void tableThuocLayout() {
         lblThuoc.setText(" thông tin thuốc".toUpperCase());
-        String[] header = new String[]{"STT", "Mã thuốc", "Tên thuốc", "Danh mục", "Xuất xứ", "Đơn vị tính", "Số lượng", "Giá nhập", "Đơn giá"};
+        String[] header = new String[]{"STT", "Mã thuốc", "Tên thuốc", "Danh mục", "Xuất xứ", "Đơn vị tính", "Số lượng tồn", "Đơn giá"};
         modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
@@ -90,8 +94,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         int stt = 1;
         for (Thuoc e : listThuoc) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTenThuoc(), e.getDanhMuc().getTen(),
-                e.getXuatXu().getTen(), e.getDonViTinh().getTen(), e.getSoLuongTon(),
-                Formatter.FormatVND(e.getGiaNhap()), Formatter.FormatVND(e.getDonGia())});
+                e.getXuatXu().getTen(), e.getDonViTinh().getTen(), e.getSoLuongTon(), Formatter.FormatVND(e.getDonGia())});
             stt++;
         }
     }
@@ -123,15 +126,21 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
         listCTHD = list;
         int stt = 1;
+        double sum = 0;
         for (ChiTietHoaDon e : listCTHD) {
+            sum += e.getDonGia() * e.getSoLuong();
             modalCart.addRow(new Object[]{String.valueOf(stt), e.getThuoc().getTenThuoc(), e.getSoLuong(), Formatter.FormatVND(e.getDonGia())});
             stt++;
         }
+        txtTong.setText(Formatter.FormatVND(sum));
     }
 
     private void billLayout() {
         btnAddCustomer.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         formatNumberFields();
+
+        // Set Random HoaDon ID
+        txtMaHoaDon.setText(RandomGenerator.getRandomId());
     }
 
     private void formatNumberFields() {
@@ -143,7 +152,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
     private boolean isValidHoaDonFields() {
         if (Validation.isEmpty(txtTienKhachDua.getText().trim())) {
-            MessageDialog.warring(this, "Tiền khách đưa không được để trống!");
             txtTienKhachDua.requestFocus();
             return false;
         } else {
@@ -173,8 +181,9 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
             return false;
         } else {
             try {
-                double soLuongTon = Double.parseDouble(txtSoLuongTon.getText());
-                double sl = Double.parseDouble(txtSoLuong.getText());
+                Thuoc selectedThuoc = THUOC_CON.selectById(txtMaThuoc.getText());
+                int soLuongTon = selectedThuoc.getSoLuongTon();
+                int sl = Integer.parseInt(txtSoLuong.getText());
                 if (sl < 0) {
                     MessageDialog.warring(this, "Số lượng đưa phải >= 0");
                     txtSoLuong.requestFocus();
@@ -191,9 +200,9 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
             }
         }
 
-        Thuoc thuoc = listThuoc.get(table.getSelectedRow());
+        Thuoc selectedThuoc = THUOC_CON.selectById(txtMaThuoc.getText());
         for (ChiTietHoaDon cthd : listCTHD) {
-            if (cthd.getThuoc().equals(thuoc)) {
+            if (cthd.getThuoc().equals(selectedThuoc)) {
                 MessageDialog.warring(this, "Thuốc đã tồn tại trong giỏ hàng!");
                 return false;
             }
@@ -203,10 +212,8 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     }
 
     private ChiTietHoaDon getInputChiTietHoaDon() {
-        String idThuoc = txtMaThuoc.getText();
-        Thuoc thuoc = THUOC_CON.selectById(idThuoc);
-        String idHD = txtMaHoaDon.getText();
-        HoaDon hoaDon = HD_CON.selectById(idHD);
+        Thuoc thuoc = THUOC_CON.selectById(txtMaThuoc.getText());
+        HoaDon hoaDon = HD_CON.selectById(txtMaHoaDon.getText());
         int soLuong = Integer.parseInt(txtSoLuong.getText());
         double donGia = thuoc.getDonGia();
 
@@ -238,9 +245,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel21 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         txtDonGia = new javax.swing.JTextField();
-        jPanel23 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        txtSoLuongTon = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         actionPanel = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -401,23 +405,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         txtDonGia.setPreferredSize(new java.awt.Dimension(120, 40));
         jPanel21.add(txtDonGia);
 
-        jPanel23.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel23.setPreferredSize(new java.awt.Dimension(215, 40));
-        jPanel23.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 4, 0));
-
-        jLabel16.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel16.setText("Số lượng tồn:");
-        jLabel16.setMaximumSize(new java.awt.Dimension(44, 40));
-        jLabel16.setPreferredSize(new java.awt.Dimension(100, 40));
-        jPanel23.add(jLabel16);
-
-        txtSoLuongTon.setEditable(false);
-        txtSoLuongTon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtSoLuongTon.setText("12");
-        txtSoLuongTon.setFocusable(false);
-        txtSoLuongTon.setPreferredSize(new java.awt.Dimension(60, 40));
-        jPanel23.add(txtSoLuongTon);
-
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
@@ -425,9 +412,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
             .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel24Layout.createSequentialGroup()
                     .addContainerGap()
@@ -440,11 +425,9 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
-                .addContainerGap(220, Short.MAX_VALUE)
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(205, Short.MAX_VALUE)
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
             .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel24Layout.createSequentialGroup()
                     .addContainerGap()
@@ -623,6 +606,11 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jButton1.setText("XÓA");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setPreferredSize(new java.awt.Dimension(100, 38));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel20.add(jButton1);
 
         cardPanel.add(jPanel20, java.awt.BorderLayout.PAGE_END);
@@ -846,7 +834,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
         txtSearch.setText("");
         cboxSearch.setSelectedIndex(0);
-        loadTable(listThuoc);
+        loadTable(THUOC_CON.getAllList());
     }//GEN-LAST:event_btnReloadActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
@@ -861,7 +849,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         txtTenThuoc.setText(e.getTenThuoc());
         txtThanhPhan.setText(e.getThanhPhan());
         txtDonGia.setText(Formatter.FormatVND(e.getDonGia()));
-        txtSoLuongTon.setText(String.valueOf(e.getSoLuongTon()));
     }//GEN-LAST:event_tableMouseClicked
 
     private void btnAddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCartActionPerformed
@@ -871,14 +858,30 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
             listCTHD.add(cthd);
             loadTableCTHD(listCTHD);
 
-            int row = table.getSelectedRow();
-            int colSoluong = 6;
-            int soLuongTon = Integer.parseInt(table.getValueAt(row, colSoluong).toString());
-            int updatedSoLuongTon = soLuongTon - cthd.getSoLuong();
-            txtSoLuongTon.setText(String.valueOf(updatedSoLuongTon));
-            modal.setValueAt(updatedSoLuongTon, row, colSoluong);
+            // Update số lượng tồn
+            Thuoc thuoc = THUOC_CON.selectById(txtMaThuoc.getText());
+            int updatedSoLuongTon = thuoc.getSoLuongTon() - cthd.getSoLuong();
+            THUOC_CON.updateSoLuongTon(thuoc, updatedSoLuongTon);
+            loadTable(THUOC_CON.getAllList());
+
+            txtSoLuong.setText("");
         }
     }//GEN-LAST:event_btnAddCartActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (MessageDialog.confirm(this, "Bạn có chắc muốc xóa khỏi giỏ hàng?", "Xóa thuốc khỏi giỏ hàng")) {
+            ChiTietHoaDon cthd = listCTHD.get(tableCart.getSelectedRow());
+            listCTHD.remove(tableCart.getSelectedRow());
+            loadTableCTHD(listCTHD);
+
+            // Update số lượng tồn
+            Thuoc thuocCTHD = cthd.getThuoc();
+            Thuoc thuoc = listThuoc.get(listThuoc.indexOf(thuocCTHD));
+            int updatedSoLuongTon = thuoc.getSoLuongTon() + cthd.getSoLuong();
+            THUOC_CON.updateSoLuongTon(thuoc, updatedSoLuongTon);
+            loadTable(THUOC_CON.getAllList());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -898,7 +901,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -921,7 +923,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
@@ -949,7 +950,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JTextField txtSdtKH;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSoLuong;
-    private javax.swing.JTextField txtSoLuongTon;
     private javax.swing.JTextField txtTenThuoc;
     private javax.swing.JTextArea txtThanhPhan;
     private javax.swing.JTextField txtTienKhachDua;
