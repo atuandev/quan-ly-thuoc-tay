@@ -81,5 +81,9 @@ public class ChiTietHoaDon {
     public String toString() {
         return "ChiTietHoaDon{" + "hoaDon=" + hoaDon + ", thuoc=" + thuoc + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
     }
+    
+    public double getThanhTien() {
+        return this.getSoLuong() * this.getDonGia();
+    }
 
 }

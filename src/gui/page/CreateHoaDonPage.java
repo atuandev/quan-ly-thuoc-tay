@@ -170,8 +170,8 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
             return false;
         } else {
             try {
-                double sl = Double.parseDouble(txtTienKhachDua.getText());
-                if (sl < 0) {
+                double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
+                if (tienKhachDua < 0) {
                     MessageDialog.warring(this, "Tiền khách đưa phải >= 0");
                     txtTienKhachDua.setText("");
                     txtTienKhachDua.requestFocus();
@@ -940,10 +940,23 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteCartItemActionPerformed
 
-    private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
+    private boolean isValidPayment() {
         if (isValidHoaDonFields()) {
-            if (MessageDialog.confirm(this, "Xác nhận thanh toán và in hóa đơn?", "Lập hóa đơn")) {
+            double tongTien = Formatter.unformatVND(txtTong.getText());
+            double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
+            if (tienKhachDua < tongTien) {
+                MessageDialog.warring(this, "Không đủ tiền thanh toán!");
+                txtTienKhachDua.requestFocus();
+                return false;
+            }
+        }
 
+        return true;
+    }
+
+    private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
+        if (isValidPayment()) {
+            if (MessageDialog.confirm(this, "Xác nhận thanh toán và in hóa đơn?", "Lập hóa đơn")) {
                 HoaDon hd = getInputHoaDon();
                 HD_CON.create(hd);
                 CTHD_CON.create(listCTHD);
@@ -972,7 +985,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchKHActionPerformed
 
     private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
-        CreateKhachHangDialog dialog = new CreateKhachHangDialog(null, true, null);
+        CreateKhachHangDialog dialog = new CreateKhachHangDialog(null, true, new KhachHangPage());
         dialog.setVisible(true);
     }//GEN-LAST:event_btnAddCustomerActionPerformed
 

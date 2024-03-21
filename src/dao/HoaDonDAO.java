@@ -20,7 +20,8 @@ public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
             + "KhachHang.hoTen AS tenKH, KhachHang.sdt AS sdtKH, KhachHang.gioiTinh AS gioiTinhKH, KhachHang.ngayThamGia "
             + "FROM HoaDon "
             + "INNER JOIN NhanVien ON HoaDon.idNV = NhanVien.idNV "
-            + "INNER JOIN KhachHang ON HoaDon.idKH = KhachHang.idKH ";
+            + "INNER JOIN KhachHang ON HoaDon.idKH = KhachHang.idKH "
+            + "ORDER BY HoaDon.thoiGian ";
 
     private final String SELECT_BY_ID
             = "SELECT HoaDon.idHD, HoaDon.thoiGian, HoaDon.idNV, HoaDon.idKH, "
@@ -29,7 +30,8 @@ public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
             + "FROM HoaDon "
             + "INNER JOIN NhanVien ON HoaDon.idNV = NhanVien.idNV "
             + "INNER JOIN KhachHang ON HoaDon.idKH = KhachHang.idKH "
-            + "WHERE idHD = ?";
+            + "WHERE idHD = ? "
+            + "ORDER BY HoaDon.thoiGian ";
 
     @Override
     public void create(HoaDon e) {

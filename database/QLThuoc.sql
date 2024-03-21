@@ -191,8 +191,6 @@ VALUES
 	('ASZS32JZX', 'XRZXFO4BZ', 2, 80000);
 go
 
-select * from ChiTietHoaDon where idHD = 'ASZS32JZX'
-
 CREATE TABLE NhaCungCap (
     idNCC NVARCHAR(10) NOT NULL PRIMARY KEY,
     tenNCC NVARCHAR(255) NOT NULL,
@@ -229,3 +227,5 @@ CREATE TABLE ChiTietPhieuThu (
 	FOREIGN KEY(idThuoc) REFERENCES Thuoc(idThuoc),
 );
 go
+
+SELECT * FROM HoaDon ORDER BY thoiGian

@@ -226,6 +226,7 @@ public class CreateKhachHangDialog extends javax.swing.JDialog {
         if (isValidateFields()) {
             KhachHang nv = getInputFields();
             KH_CON.create(nv);
+            MessageDialog.info(null, "Thêm thành công!");
             KH_GUI.loadTable();
             this.dispose();
         }

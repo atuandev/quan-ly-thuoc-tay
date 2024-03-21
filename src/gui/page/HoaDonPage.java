@@ -4,14 +4,13 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.ChiTietHoaDonController;
 import controller.HoaDonController;
-import controller.KhachHangController;
 import controller.NhanVienController;
 import entities.ChiTietHoaDon;
 import entities.HoaDon;
-import entities.KhachHang;
 import entities.NhanVien;
 import entities.TaiKhoan;
 import gui.MainLayout;
+import gui.dialog.DetailHoaDonDialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -101,9 +100,10 @@ public class HoaDonPage extends javax.swing.JPanel {
 
         listHD = list;
         int stt = 1;
+
         for (HoaDon e : listHD) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), Formatter.FormatTime(e.getThoiGian()),
-                e.getNhanVien().getHoTen(), e.getKhachHang().getHoTen()});
+                e.getNhanVien().getHoTen(), e.getKhachHang().getHoTen(), Formatter.FormatVND(e.getTongTien())});
             stt++;
         }
     }
@@ -407,11 +407,11 @@ public class HoaDonPage extends javax.swing.JPanel {
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
         try {
             int row = table.getSelectedRow();
-            String id = table.getValueAt(row, 1).toString();
-            HoaDon thuoc = HD_CON.selectById(id);
+            HoaDon hoaDon = listHD.get(row);
+            List<ChiTietHoaDon> listCTHD = new ChiTietHoaDonController().selectAllById(hoaDon.getId());
 
-//            DetailThuocDialog dialog = new DetailThuocDialog(null, true, this, thuoc);
-//            dialog.setVisible(true);
+            DetailHoaDonDialog dialog = new DetailHoaDonDialog(null, true, listCTHD);
+            dialog.setVisible(true);
         } catch (Exception e) {
             MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
         }

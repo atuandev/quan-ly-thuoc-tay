@@ -1,6 +1,8 @@
 package entities;
 
+import controller.ChiTietHoaDonController;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -85,6 +87,15 @@ public class HoaDon {
     @Override
     public String toString() {
         return "HoaDon{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + '}';
+    }
+
+    public double getTongTien() {
+        List<ChiTietHoaDon> listCTHD = new ChiTietHoaDonController().selectAllById(this.getId());
+        double sum = 0;
+        for (ChiTietHoaDon cthd : listCTHD) {
+            sum += cthd.getThanhTien();
+        }
+        return sum;
     }
 
 }
