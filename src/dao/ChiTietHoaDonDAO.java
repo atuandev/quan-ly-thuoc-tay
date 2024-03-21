@@ -11,23 +11,23 @@ import java.util.List;
 public class ChiTietHoaDonDAO implements ChiTietInterfaceDAO<ChiTietHoaDon, String> {
 
     private final String INSERT_SQL = "INSERT INTO ChiTietHoaDon values (?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE ChiTietHoaDon SET idThuoc=?, soLuong=?, donGia=? where idHD=?";
+//    private final String UPDATE_SQL = "UPDATE ChiTietHoaDon SET idThuoc=?, soLuong=?, donGia=? where idHD=?";
     private final String DELETE_BY_ID = "DELETE from ChiTietHoaDon where idHD = ?";
 
-    private final String SELECT_ALL_SQL = "SELECT * FROM ChiTietHoaDon";
     private final String SELECT_BY_ID = "SELECT * FROM ChiTietHoaDon WHERE idHD = ?";
 
     @Override
-    public void insert(List<ChiTietHoaDon> e) {
-        for (int i = 0; i < e.size(); i++) {
-            JDBCConnection.update(INSERT_SQL, e.get(i).getHoaDon().getId(), e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
+    public void create(List<ChiTietHoaDon> list) {
+        System.out.println("list: " + list);
+        for (ChiTietHoaDon e : list) {
+            JDBCConnection.update(INSERT_SQL, e.getHoaDon().getId(), e.getThuoc().getId(), e.getSoLuong(), e.getDonGia());
         }
     }
 
     @Override
     public void update(String k, List<ChiTietHoaDon> e) {
         this.deleteById(k);
-        this.insert(e);
+        this.create(e);
     }
 
     @Override

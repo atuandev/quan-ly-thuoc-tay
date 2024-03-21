@@ -60,6 +60,10 @@ public class KhachHangController extends InterfaceController<KhachHang, String> 
     public KhachHang selectById(String id) {
         return KH_DAO.selectById(id);
     }
+    
+    public KhachHang selectBySdt(String sdt) {
+        return KH_DAO.selectBySdt(sdt);
+    }
 
     public List<KhachHang> getSearchTable(String text, String searchType) {
         text = text.toLowerCase();

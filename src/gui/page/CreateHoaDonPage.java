@@ -2,14 +2,20 @@ package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import controller.ChiTietHoaDonController;
 import controller.HoaDonController;
+import controller.KhachHangController;
 import controller.ThuocController;
 import entities.ChiTietHoaDon;
 import entities.HoaDon;
+import entities.KhachHang;
 import entities.NhanVien;
 import entities.TaiKhoan;
 import entities.Thuoc;
+import gui.MainLayout;
+import gui.dialog.CreateKhachHangDialog;
 import java.awt.Image;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -31,10 +37,17 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
     private final ThuocController THUOC_CON = new ThuocController(this);
     private final HoaDonController HD_CON = new HoaDonController();
+    private final KhachHangController KH_CON = new KhachHangController();
+    private final ChiTietHoaDonController CTHD_CON = new ChiTietHoaDonController();
+
+    private HoaDonPage HD_GUI = new HoaDonPage();
+
     private List<Thuoc> listThuoc = THUOC_CON.getAllList();
     private List<ChiTietHoaDon> listCTHD = new ArrayList<>();
 
+    private MainLayout main;
     private TaiKhoan tk;
+    private KhachHang kh;
 
     private DefaultTableModel modal;
     private DefaultTableModel modalCart;
@@ -47,7 +60,8 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         tableCartLayout();
     }
 
-    public CreateHoaDonPage(TaiKhoan tk) {
+    public CreateHoaDonPage(MainLayout main, TaiKhoan tk) {
+        this.main = main;
         this.tk = tk;
         initComponents();
         pruductLayout();
@@ -59,7 +73,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private void pruductLayout() {
         txtSoLuong.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Số lượng...");
         btnReload.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
-        
+
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
 
@@ -171,6 +185,17 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
             }
         }
 
+        if (listCTHD.isEmpty()) {
+            MessageDialog.warring(this, "Vui lòng chọn sản phẩm!");
+            return false;
+        }
+
+        if (Validation.isEmpty(txtSdtKH.getText())) {
+            MessageDialog.warring(this, "Vui lòng chọn khách hàng!");
+            txtSdtKH.requestFocus();
+            return false;
+        }
+
         return true;
     }
 
@@ -211,9 +236,18 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         return true;
     }
 
+    private HoaDon getInputHoaDon() {
+        String idHD = txtMaHoaDon.getText();
+        Timestamp thoiGian = new Timestamp(System.currentTimeMillis());
+        NhanVien nhanVien = tk.getNhanVien();
+        KhachHang khachHang = new KhachHangController().selectBySdt(txtSdtKH.getText());
+
+        return new HoaDon(idHD, thoiGian, nhanVien, khachHang);
+    }
+
     private ChiTietHoaDon getInputChiTietHoaDon() {
+        HoaDon hoaDon = getInputHoaDon();
         Thuoc thuoc = THUOC_CON.selectById(txtMaThuoc.getText());
-        HoaDon hoaDon = HD_CON.selectById(txtMaHoaDon.getText());
         int soLuong = Integer.parseInt(txtSoLuong.getText());
         double donGia = thuoc.getDonGia();
 
@@ -265,7 +299,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnDeleteCartItem = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -273,6 +307,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel25 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtSdtKH = new javax.swing.JTextField();
+        btnSearchKH = new javax.swing.JButton();
         btnAddCustomer = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -600,18 +635,18 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel20.setPreferredSize(new java.awt.Dimension(456, 42));
         jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 2));
 
-        jButton1.setBackground(new java.awt.Color(255, 204, 0));
-        jButton1.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
-        jButton1.setIcon(new FlatSVGIcon("./icon/trash-cart.svg"));
-        jButton1.setText("XÓA");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setPreferredSize(new java.awt.Dimension(100, 38));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteCartItem.setBackground(new java.awt.Color(255, 204, 0));
+        btnDeleteCartItem.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
+        btnDeleteCartItem.setIcon(new FlatSVGIcon("./icon/trash-cart.svg"));
+        btnDeleteCartItem.setText("XÓA");
+        btnDeleteCartItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteCartItem.setPreferredSize(new java.awt.Dimension(100, 38));
+        btnDeleteCartItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDeleteCartItemActionPerformed(evt);
             }
         });
-        jPanel20.add(jButton1);
+        jPanel20.add(btnDeleteCartItem);
 
         cardPanel.add(jPanel20, java.awt.BorderLayout.PAGE_END);
 
@@ -648,12 +683,30 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         txtSdtKH.setPreferredSize(new java.awt.Dimension(200, 40));
         jPanel25.add(txtSdtKH);
 
+        btnSearchKH.setIcon(new FlatSVGIcon("./icon/search.svg"));
+        btnSearchKH.setBorderPainted(false);
+        btnSearchKH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearchKH.setFocusPainted(false);
+        btnSearchKH.setFocusable(false);
+        btnSearchKH.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnSearchKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchKHActionPerformed(evt);
+            }
+        });
+        jPanel25.add(btnSearchKH);
+
         btnAddCustomer.setIcon(new FlatSVGIcon("./icon/add-customer.svg"));
         btnAddCustomer.setBorderPainted(false);
         btnAddCustomer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddCustomer.setFocusPainted(false);
         btnAddCustomer.setFocusable(false);
         btnAddCustomer.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnAddCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCustomerActionPerformed(evt);
+            }
+        });
         jPanel25.add(btnAddCustomer);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -758,6 +811,11 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         btnIn.setFocusPainted(false);
         btnIn.setFocusable(false);
         btnIn.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInActionPerformed(evt);
+            }
+        });
         jPanel8.add(btnIn);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -853,7 +911,6 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
     private void btnAddCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCartActionPerformed
         if (isValidInputChiTietHoaDon()) {
-
             ChiTietHoaDon cthd = getInputChiTietHoaDon();
             listCTHD.add(cthd);
             loadTableCTHD(listCTHD);
@@ -868,7 +925,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAddCartActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDeleteCartItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCartItemActionPerformed
         if (MessageDialog.confirm(this, "Bạn có chắc muốc xóa khỏi giỏ hàng?", "Xóa thuốc khỏi giỏ hàng")) {
             ChiTietHoaDon cthd = listCTHD.get(tableCart.getSelectedRow());
             listCTHD.remove(tableCart.getSelectedRow());
@@ -881,7 +938,43 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
             THUOC_CON.updateSoLuongTon(thuoc, updatedSoLuongTon);
             loadTable(THUOC_CON.getAllList());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnDeleteCartItemActionPerformed
+
+    private void btnInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInActionPerformed
+        if (isValidHoaDonFields()) {
+            if (MessageDialog.confirm(this, "Xác nhận thanh toán và in hóa đơn?", "Lập hóa đơn")) {
+
+                HoaDon hd = getInputHoaDon();
+                HD_CON.create(hd);
+                CTHD_CON.create(listCTHD);
+                MessageDialog.info(this, "Lập hóa đơn thành công!");
+                main.setPanel(new HoaDonPage(main));
+
+                // TODO: In hóa đơn
+            }
+        }
+    }//GEN-LAST:event_btnInActionPerformed
+
+    private void btnSearchKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchKHActionPerformed
+        kh = KH_CON.selectBySdt(txtSdtKH.getText());
+        if (kh == null) {
+            MessageDialog.error(this, "Không tìm thấy khách hàng!");
+            txtHoTenKH.setText("");
+            cboxGioiTinhKH.setSelectedIndex(0);
+            txtHoTenKH.setEnabled(true);
+            cboxGioiTinhKH.setEnabled(true);
+        } else {
+            txtHoTenKH.setText(kh.getHoTen());
+            cboxGioiTinhKH.setSelectedItem(kh.getGioiTinh());
+            txtHoTenKH.setEnabled(false);
+            cboxGioiTinhKH.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnSearchKHActionPerformed
+
+    private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
+        CreateKhachHangDialog dialog = new CreateKhachHangDialog(null, true, null);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnAddCustomerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -889,13 +982,14 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     private javax.swing.JPanel billPanel;
     private javax.swing.JButton btnAddCart;
     private javax.swing.JButton btnAddCustomer;
+    private javax.swing.JButton btnDeleteCartItem;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnIn;
     private javax.swing.JButton btnReload;
+    private javax.swing.JButton btnSearchKH;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JComboBox<String> cboxGioiTinhKH;
     private javax.swing.JComboBox<String> cboxSearch;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

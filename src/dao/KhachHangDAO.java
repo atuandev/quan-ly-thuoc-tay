@@ -14,6 +14,7 @@ public class KhachHangDAO extends InterfaceDAO<KhachHang, String> {
 
     private final String SELECT_ALL_SQL = "SELECT * FROM KhachHang";
     private final String SELECT_BY_ID = "SELECT * FROM KhachHang WHERE idKH = ?";
+    private final String SELECT_BY_SDT = "SELECT * FROM KhachHang WHERE sdt = ?";
 
     @Override
     public void create(KhachHang e) {
@@ -59,6 +60,14 @@ public class KhachHangDAO extends InterfaceDAO<KhachHang, String> {
     @Override
     public KhachHang selectById(String id) {
         List<KhachHang> list = selectBySql(SELECT_BY_ID, id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
+    public KhachHang selectBySdt(String sdt) {
+        List<KhachHang> list = selectBySql(SELECT_BY_SDT, sdt);
         if (list.isEmpty()) {
             return null;
         }

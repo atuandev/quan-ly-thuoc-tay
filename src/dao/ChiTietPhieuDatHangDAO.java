@@ -18,7 +18,7 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
     private final String SELECT_BY_ID = "SELECT * FROM ChiTietPhieuDatHang WHERE idPDH = ?";
 
     @Override
-    public void insert(List<ChiTietPhieuDatHang> e) {
+    public void create(List<ChiTietPhieuDatHang> e) {
         for (int i = 0; i < e.size(); i++) {
             JDBCConnection.update(INSERT_SQL, e.get(i).getPhieuDatHang().getId(), e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
         }
@@ -27,7 +27,7 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
     @Override
     public void update(String k, List<ChiTietPhieuDatHang> e) {
         this.deleteById(k);
-        this.insert(e);
+        this.create(e);
     }
 
     @Override

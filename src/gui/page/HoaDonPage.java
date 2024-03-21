@@ -2,9 +2,11 @@ package gui.page;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import controller.ChiTietHoaDonController;
 import controller.HoaDonController;
 import controller.KhachHangController;
 import controller.NhanVienController;
+import entities.ChiTietHoaDon;
 import entities.HoaDon;
 import entities.KhachHang;
 import entities.NhanVien;
@@ -54,7 +56,6 @@ public class HoaDonPage extends javax.swing.JPanel {
     private void headerLayout() {
         List<JButton> listButton = new ArrayList<>();
         listButton.add(btnAdd);
-        listButton.add(btnUpdate);
         listButton.add(btnDelete);
         listButton.add(btnInfo);
         listButton.add(btnExport);
@@ -137,7 +138,6 @@ public class HoaDonPage extends javax.swing.JPanel {
         btnReload = new javax.swing.JButton();
         actionPanel = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnInfo = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
@@ -223,23 +223,6 @@ public class HoaDonPage extends javax.swing.JPanel {
             }
         });
         actionPanel.add(btnAdd);
-
-        btnUpdate.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnUpdate.setIcon(new FlatSVGIcon("./icon/update.svg"));
-        btnUpdate.setText("SỬA");
-        btnUpdate.setBorder(null);
-        btnUpdate.setBorderPainted(false);
-        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUpdate.setFocusPainted(false);
-        btnUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUpdate.setPreferredSize(new java.awt.Dimension(90, 90));
-        btnUpdate.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-        actionPanel.add(btnUpdate);
 
         btnDelete.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         btnDelete.setIcon(new FlatSVGIcon("./icon/delete.svg"));
@@ -381,22 +364,9 @@ public class HoaDonPage extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         TaiKhoan tk = main.tk;
-        CreateHoaDonPage page = new CreateHoaDonPage(tk);
+        CreateHoaDonPage page = new CreateHoaDonPage(main, tk);
         main.setPanel(page);
     }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        try {
-            int row = table.getSelectedRow();
-            String id = table.getValueAt(row, 1).toString();
-            HoaDon hd = HD_CON.selectById(id);
-
-//            UpdateThuocDialog dialog = new UpdateThuocDialog(null, true, this, hd);
-//            dialog.setVisible(true);
-        } catch (IndexOutOfBoundsException e) {
-            MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
-        }
-    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
@@ -468,7 +438,6 @@ public class HoaDonPage extends javax.swing.JPanel {
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnReload;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxNhanVien;
     private javax.swing.JComboBox<String> cboxSearch;
     private javax.swing.JPanel headerPanel;
