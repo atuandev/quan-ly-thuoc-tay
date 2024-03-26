@@ -800,6 +800,11 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         btnHuy.setFocusPainted(false);
         btnHuy.setFocusable(false);
         btnHuy.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
         jPanel8.add(btnHuy);
 
         btnIn.setBackground(new java.awt.Color(0, 204, 51));
@@ -988,6 +993,19 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         CreateKhachHangDialog dialog = new CreateKhachHangDialog(null, true, new KhachHangPage());
         dialog.setVisible(true);
     }//GEN-LAST:event_btnAddCustomerActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        if (MessageDialog.confirm(this, "Xác nhận hủy hóa đơn?", "Hủy hóa đơn")) {
+            for (ChiTietHoaDon cthd : listCTHD) {
+                Thuoc thuocCTHD = cthd.getThuoc();
+                Thuoc thuoc = listThuoc.get(listThuoc.indexOf(thuocCTHD));
+                int updatedSoLuongTon = thuoc.getSoLuongTon() + cthd.getSoLuong();
+                THUOC_CON.updateSoLuongTon(thuoc, updatedSoLuongTon);
+            }
+
+            main.setPanel(new HoaDonPage(main));
+        }
+    }//GEN-LAST:event_btnHuyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

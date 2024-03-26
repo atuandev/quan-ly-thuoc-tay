@@ -89,13 +89,5 @@ public class HoaDon {
         return "HoaDon{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + '}';
     }
 
-    public double getTongTien() {
-        List<ChiTietHoaDon> listCTHD = new ChiTietHoaDonController().selectAllById(this.getId());
-        double sum = 0;
-        for (ChiTietHoaDon cthd : listCTHD) {
-            sum += cthd.getThanhTien();
-        }
-        return sum;
-    }
 
 }

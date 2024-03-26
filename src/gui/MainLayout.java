@@ -32,7 +32,7 @@ public class MainLayout extends javax.swing.JFrame {
     private ThuocPage thuoc;
     private HoaDonPage hoaDon;
     private ThuocTinhPage thuocTinh;
-    private NhaCungCapPage nhaSanXuat;
+    private NhaCungCapPage nhaCungCap;
     private KhachHangPage khachHang;
     private NhanVienPage nhanVien;
     private TaiKhoanPage taiKhoan;
@@ -116,6 +116,28 @@ public class MainLayout extends javax.swing.JFrame {
             item.setSelected(false);
             item.setBackground(Color.WHITE);
         }
+    }
+
+    private boolean checkRole(String role) {
+        if (role.equals("admin")) {
+            return true;
+        }
+        
+        if (role.equals("qlbh")) {
+            if (!mainContent.equals(hoaDon) || !mainContent.equals(khachHang)){
+                MessageDialog.warring(this, "Không có quyền truy cập màn hình này!");
+                return false;
+            }
+        }
+        
+        if (role.equals("qlsp")) {
+            if (!mainContent.equals(nhaCungCap)){
+                MessageDialog.warring(this, "Không có quyền truy cập màn hình này!");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -507,8 +529,8 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_khachHangItemActionPerformed
 
     private void nhaCungCapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nhaCungCapItemActionPerformed
-        nhaSanXuat = new NhaCungCapPage();
-        this.setPanel(nhaSanXuat);
+        nhaCungCap = new NhaCungCapPage();
+        this.setPanel(nhaCungCap);
         resetActive();
         nhaCungCapItem.setSelected(true);
     }//GEN-LAST:event_nhaCungCapItemActionPerformed

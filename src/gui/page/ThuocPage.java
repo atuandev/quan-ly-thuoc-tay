@@ -55,12 +55,12 @@ public class ThuocPage extends javax.swing.JPanel {
         listButton.add(btnInfo);
         listButton.add(btnImport);
         listButton.add(btnExport);
+        listButton.add(btnReload);
 
         // Border radius
         for (JButton item : listButton) {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
-        btnReload.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
 
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));

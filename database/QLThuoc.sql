@@ -227,5 +227,3 @@ CREATE TABLE ChiTietPhieuThu (
 	FOREIGN KEY(idThuoc) REFERENCES Thuoc(idThuoc),
 );
 go
-
-SELECT * FROM HoaDon ORDER BY thoiGian

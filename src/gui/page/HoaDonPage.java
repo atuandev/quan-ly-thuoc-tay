@@ -58,12 +58,12 @@ public class HoaDonPage extends javax.swing.JPanel {
         listButton.add(btnDelete);
         listButton.add(btnInfo);
         listButton.add(btnExport);
+        listButton.add(btnReload);
 
         // Border radius
         for (JButton item : listButton) {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
-        btnReload.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
 
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
@@ -75,7 +75,7 @@ public class HoaDonPage extends javax.swing.JPanel {
 
     private void tableLayout() {
         lblTable.setText("danh sách thông tin hóa đơn".toUpperCase());
-        String[] header = new String[]{"STT", "Mã hóa đơn", "Thời gian", "Tên nhân viên", "Tên khách hàng", "Tổng tiền"};
+        String[] header = new String[]{"STT", "Mã hóa đơn", "Thời gian", "Tên nhân viên", "Tên khách hàng"};
         modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
@@ -103,7 +103,7 @@ public class HoaDonPage extends javax.swing.JPanel {
 
         for (HoaDon e : listHD) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), Formatter.FormatTime(e.getThoiGian()),
-                e.getNhanVien().getHoTen(), e.getKhachHang().getHoTen(), Formatter.FormatVND(e.getTongTien())});
+                e.getNhanVien().getHoTen(), e.getKhachHang().getHoTen()});
             stt++;
         }
     }
