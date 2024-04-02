@@ -1,10 +1,9 @@
 package dao;
 
 import connectDB.JDBCConnection;
+import controller.ChiTietPhieuDatHangController;
 import controller.ThuocController;
 import entities.ChiTietPhieuDatHang;
-import entities.PhieuDatHang;
-import entities.Thuoc;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +11,13 @@ import java.util.List;
 public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuDatHang, String> {
 
     private final String INSERT_SQL = "INSERT INTO ChiTietPhieuDatHang values (?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE ChiTietPhieuDatHang SET idThuoc=?, soLuong=?, donGia=? where idPDH=?";
     private final String DELETE_BY_ID = "DELETE from ChiTietPhieuDatHang where idPDH = ?";
-
-    private final String SELECT_ALL_SQL = "SELECT * FROM ChiTietPhieuDatHang";
     private final String SELECT_BY_ID = "SELECT * FROM ChiTietPhieuDatHang WHERE idPDH = ?";
 
     @Override
-    public void create(List<ChiTietPhieuDatHang> e) {
-        for (int i = 0; i < e.size(); i++) {
-            JDBCConnection.update(INSERT_SQL, e.get(i).getPhieuDatHang().getId(), e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
+    public void create(List<ChiTietPhieuDatHang> list) {
+        for (ChiTietPhieuDatHang e : list) {
+            JDBCConnection.update(INSERT_SQL, e.getPhieuDatHang().getId(), e.getThuoc().getId(), e.getSoLuong(), e.getDonGia());
         }
     }
 
@@ -47,8 +43,10 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
             ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 ChiTietPhieuDatHang e = new ChiTietPhieuDatHang();
+                
                 String idPDH = rs.getString("idPDH");
-                e.setPhieuDatHang(null);
+//                e.setPhieuDatHang(new ChiTietPhieuDatHangController().selectAllById(idPDH));
+                
                 String idThuoc = rs.getString("idThuoc");
                 e.setThuoc(new ThuocController().selectById(idThuoc));
                 e.setSoLuong(rs.getInt("soLuong"));

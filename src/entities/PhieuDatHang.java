@@ -12,6 +12,7 @@ public class PhieuDatHang {
     private String id;
     private Timestamp thoiGian;
     private KhachHang khachHang;
+    private double tongTien;
     private String diaChi;
     private String hinhThucThanhToan;
     private String trangThai;
@@ -19,14 +20,11 @@ public class PhieuDatHang {
     public PhieuDatHang() {
     }
 
-    public PhieuDatHang(String id) {
-        this.id = id;
-    }
-
-    public PhieuDatHang(String id, Timestamp thoiGian, KhachHang khachHang, String diaChi, String hinhThucThanhToan, String trangThai) {
+    public PhieuDatHang(String id, Timestamp thoiGian, KhachHang khachHang, double tongTien, String diaChi, String hinhThucThanhToan, String trangThai) {
         this.id = id;
         this.thoiGian = thoiGian;
         this.khachHang = khachHang;
+        this.tongTien = tongTien;
         this.diaChi = diaChi;
         this.hinhThucThanhToan = hinhThucThanhToan;
         this.trangThai = trangThai;
@@ -54,6 +52,14 @@ public class PhieuDatHang {
 
     public void setKhachHang(KhachHang khachHang) {
         this.khachHang = khachHang;
+    }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
     }
 
     public String getDiaChi() {
@@ -104,7 +110,7 @@ public class PhieuDatHang {
 
     @Override
     public String toString() {
-        return "PhieuDatHang{" + "id=" + id + ", thoiGian=" + thoiGian + ", khachHang=" + khachHang + ", diaChi=" + diaChi + ", hinhThucThanhToan=" + hinhThucThanhToan + ", trangThai=" + trangThai + '}';
+        return "PhieuDatHang{" + "id=" + id + ", thoiGian=" + thoiGian + ", khachHang=" + khachHang + ", tongTien=" + tongTien + ", diaChi=" + diaChi + ", hinhThucThanhToan=" + hinhThucThanhToan + ", trangThai=" + trangThai + '}';
     }
 
 }

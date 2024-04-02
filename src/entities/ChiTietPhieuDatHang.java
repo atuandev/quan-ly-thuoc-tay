@@ -16,11 +16,6 @@ public class ChiTietPhieuDatHang {
     public ChiTietPhieuDatHang() {
     }
 
-    public ChiTietPhieuDatHang(PhieuDatHang phieuDatHang, Thuoc thuoc) {
-        this.phieuDatHang = phieuDatHang;
-        this.thuoc = thuoc;
-    }
-
     public ChiTietPhieuDatHang(PhieuDatHang phieuDatHang, Thuoc thuoc, int soLuong, double donGia) {
         this.phieuDatHang = phieuDatHang;
         this.thuoc = thuoc;

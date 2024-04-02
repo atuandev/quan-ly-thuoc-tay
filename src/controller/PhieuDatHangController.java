@@ -1,7 +1,7 @@
 package controller;
 
-import dao.HoaDonDAO;
-import entities.HoaDon;
+import dao.PhieuDatHangDAO;
+import entities.PhieuDatHang;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,45 +9,45 @@ import java.util.List;
  *
  * @author HP
  */
-public class HoaDonController extends InterfaceController<HoaDon, String> {
+public class PhieuDatHangController extends InterfaceController<PhieuDatHang, String> {
 
-    public HoaDonDAO HD_DAO = new HoaDonDAO();
+    public PhieuDatHangDAO PDH_DAO = new PhieuDatHangDAO();
 
-    public HoaDonController() {
+    public PhieuDatHangController() {
     }
 
     @Override
-    public void create(HoaDon e) {
-        HD_DAO.create(e);
+    public void create(PhieuDatHang e) {
+        PDH_DAO.create(e);
     }
 
     @Override
-    public void update(HoaDon e) {
-        HD_DAO.update(e);
+    public void update(PhieuDatHang e) {
+        PDH_DAO.update(e);
     }
 
     @Override
     public void deleteById(String id) {
-        HD_DAO.deleteById(id);
+        PDH_DAO.deleteById(id);
     }
 
     @Override
-    public List<HoaDon> getAllList() {
-        return HD_DAO.selectAll();
+    public List<PhieuDatHang> getAllList() {
+        return PDH_DAO.selectAll();
     }
 
     @Override
-    public HoaDon selectById(String id) {
-        return HD_DAO.selectById(id);
+    public PhieuDatHang selectById(String id) {
+        return PDH_DAO.selectById(id);
     }
 
-    public List<HoaDon> getSearchTable(String text, String searchType) {
+    public List<PhieuDatHang> getSearchTable(String text, String searchType) {
         text = text.toLowerCase();
-        List result = new ArrayList<HoaDon>();
+        List result = new ArrayList<PhieuDatHang>();
 
         switch (searchType) {
             case "Tất cả" -> {
-                for (HoaDon e : this.getAllList()) {
+                for (PhieuDatHang e : this.getAllList()) {
                     if (e.getId().toLowerCase().contains(text)
                             || e.getKhachHang().getHoTen().toLowerCase().contains(text)) {
                         result.add(e);
@@ -55,14 +55,14 @@ public class HoaDonController extends InterfaceController<HoaDon, String> {
                 }
             }
             case "Mã" -> {
-                for (HoaDon e : this.getAllList()) {
+                for (PhieuDatHang e : this.getAllList()) {
                     if (e.getId().toLowerCase().contains(text)) {
                         result.add(e);
                     }
                 }
             }
             case "Tên khách hàng" -> {
-                for (HoaDon e : this.getAllList()) {
+                for (PhieuDatHang e : this.getAllList()) {
                     if (e.getKhachHang().getHoTen().toLowerCase().contains(text)) {
                         result.add(e);
                     }
@@ -75,17 +75,19 @@ public class HoaDonController extends InterfaceController<HoaDon, String> {
         return result;
     }
 
-    public List<HoaDon> getFilterTable(String tenNV, double fromPrice, double toPrice) {
-        List<HoaDon> result = new ArrayList<>();
+    public List<PhieuDatHang> getFilterTable(String trangThai, String hinhThucThanhToan, double fromPrice, double toPrice) {
+        List<PhieuDatHang> result = new ArrayList<>();
 
-        for (HoaDon e : this.getAllList()) {
+        for (PhieuDatHang e : this.getAllList()) {
             boolean match = false;
 
-            if (e.getNhanVien().getHoTen().equals(tenNV)) {
+            if (e.getTrangThai().equals(trangThai)) {
+                match = true;
+            } else if (e.getHinhThucThanhToan().equals(hinhThucThanhToan)) {
                 match = true;
             } else if (e.getTongTien() >= fromPrice && e.getTongTien() <= toPrice) {
                 match = true;
-            } 
+            }
 
             if (match) {
                 result.add(e);

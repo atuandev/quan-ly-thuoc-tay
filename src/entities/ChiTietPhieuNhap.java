@@ -16,10 +16,6 @@ public class ChiTietPhieuNhap {
     public ChiTietPhieuNhap() {
     }
 
-    public ChiTietPhieuNhap(PhieuNhap phieuThu) {
-        this.phieuThu = phieuThu;
-    }
-
     public ChiTietPhieuNhap(PhieuNhap phieuThu, Thuoc thuoc, int soLuong, double donGia) {
         this.phieuThu = phieuThu;
         this.thuoc = thuoc;

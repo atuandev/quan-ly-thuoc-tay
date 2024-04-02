@@ -13,12 +13,17 @@ public class PhieuNhap {
     private Timestamp thoiGian;
     private NhanVien nhanVien;
     private NhaCungCap ncc;
+    private double tongTien;
 
     public PhieuNhap() {
     }
 
-    public PhieuNhap(String id) {
+    public PhieuNhap(String id, Timestamp thoiGian, NhanVien nhanVien, NhaCungCap ncc, double tongTien) {
         this.id = id;
+        this.thoiGian = thoiGian;
+        this.nhanVien = nhanVien;
+        this.ncc = ncc;
+        this.tongTien = tongTien;
     }
 
     public String getId() {
@@ -53,6 +58,14 @@ public class PhieuNhap {
         this.ncc = ncc;
     }
 
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -77,7 +90,7 @@ public class PhieuNhap {
 
     @Override
     public String toString() {
-        return "PhieuNhap{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", ncc=" + ncc + '}';
+        return "PhieuNhap{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", ncc=" + ncc + ", tongTien=" + tongTien + '}';
     }
 
 }

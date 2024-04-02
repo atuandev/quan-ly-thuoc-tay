@@ -1,7 +1,6 @@
 package controller;
 
 import dao.PhieuNhapDAO;
-import entities.ChiTietPhieuNhap;
 import entities.PhieuNhap;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,49 +11,35 @@ import java.util.List;
  */
 public class PhieuNhapController extends InterfaceController<PhieuNhap, String> {
 
-    public PhieuNhapDAO HD_DAO = new PhieuNhapDAO();
-//    public HoaDonPage HD_GUI;
+    public PhieuNhapDAO PN_DAO = new PhieuNhapDAO();
 
     public PhieuNhapController() {
     }
 
-//    public PhieuNhapController(HoaDonPage THUOC_GUI) {
-//        this.HD_GUI = THUOC_GUI;
-//    }
-
     @Override
     public void create(PhieuNhap e) {
-        HD_DAO.create(e);
+        PN_DAO.create(e);
     }
 
     @Override
     public void update(PhieuNhap e) {
-        HD_DAO.update(e);
+        PN_DAO.update(e);
     }
 
     @Override
     public void deleteById(String id) {
-        HD_DAO.deleteById(id);
+        PN_DAO.deleteById(id);
     }
 
     @Override
     public List<PhieuNhap> getAllList() {
-        return HD_DAO.selectAll();
+        return PN_DAO.selectAll();
     }
 
     @Override
     public PhieuNhap selectById(String id) {
-        return HD_DAO.selectById(id);
+        return PN_DAO.selectById(id);
     }
-    
-//    public double getTongTien(PhieuNhap hd) {
-//        List<ChiTietPhieuNhap> listCTHD = new ChiTietHoaDonController().selectAllById(hd.getId());
-//        double sum = 0;
-//        for (ChiTietPhieuNhap cthd : listCTHD) {
-//            sum += cthd.getThanhTien();
-//        }
-//        return sum;
-//    }
 
     public List<PhieuNhap> getSearchTable(String text, String searchType) {
         text = text.toLowerCase();
@@ -98,9 +83,9 @@ public class PhieuNhapController extends InterfaceController<PhieuNhap, String> 
 
             if (e.getNhanVien().getHoTen().equals(tenNV)) {
                 match = true;
+            } else if (e.getTongTien() >= fromPrice && e.getTongTien() <= toPrice) {
+                match = true;
             }
-            
-            // TODO: filter by price
             
             if (match) {
                 result.add(e);
