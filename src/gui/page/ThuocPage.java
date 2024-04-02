@@ -10,6 +10,7 @@ import entities.DanhMuc;
 import entities.DonViTinh;
 import entities.Thuoc;
 import entities.XuatXu;
+import gui.MainLayout;
 import gui.dialog.CreateThuocDialog;
 import gui.dialog.DetailThuocDialog;
 import gui.dialog.UpdateThuocDialog;
@@ -30,17 +31,27 @@ import utils.TableSorter;
  * @author atuandev
  */
 public class ThuocPage extends javax.swing.JPanel {
-    
+
     private final ThuocController THUOC_CON = new ThuocController(this);
     private List<Thuoc> listThuoc = THUOC_CON.getAllList();
-    
+
     private final List<DonViTinh> listDVT = new DonViTinhController().getAllList();
     private final List<XuatXu> listXX = new XuatXuController().getAllList();
     private final List<DanhMuc> listDM = new DanhMucController().getAllList();
 
-    DefaultTableModel modal;
+    private DefaultTableModel modal;
+
+    private MainLayout main;
 
     public ThuocPage() {
+        initComponents();
+        headerLayout();
+        tableLayout();
+        fillCombobox();
+    }
+
+    public ThuocPage(MainLayout main) {
+        this.main = main;
         initComponents();
         headerLayout();
         tableLayout();
@@ -159,6 +170,7 @@ public class ThuocPage extends javax.swing.JPanel {
         btnInfo = new javax.swing.JButton();
         btnImport = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
+        btnThuocTinh = new javax.swing.JButton();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -228,7 +240,7 @@ public class ThuocPage extends javax.swing.JPanel {
         headerPanel.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         actionPanel.setBackground(new java.awt.Color(255, 255, 255));
-        actionPanel.setPreferredSize(new java.awt.Dimension(600, 100));
+        actionPanel.setPreferredSize(new java.awt.Dimension(700, 100));
         actionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 5));
 
         btnAdd.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -332,6 +344,23 @@ public class ThuocPage extends javax.swing.JPanel {
             }
         });
         actionPanel.add(btnExport);
+
+        btnThuocTinh.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnThuocTinh.setIcon(new FlatSVGIcon("./icon/menu.svg"));
+        btnThuocTinh.setText("THUỘC TÍNH");
+        btnThuocTinh.setBorder(null);
+        btnThuocTinh.setBorderPainted(false);
+        btnThuocTinh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThuocTinh.setFocusPainted(false);
+        btnThuocTinh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnThuocTinh.setPreferredSize(new java.awt.Dimension(90, 90));
+        btnThuocTinh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnThuocTinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThuocTinhActionPerformed(evt);
+            }
+        });
+        actionPanel.add(btnThuocTinh);
 
         headerPanel.add(actionPanel, java.awt.BorderLayout.WEST);
 
@@ -572,6 +601,11 @@ public class ThuocPage extends javax.swing.JPanel {
         loadTable(listSearch);
     }//GEN-LAST:event_cboxDanhMucActionPerformed
 
+    private void btnThuocTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuocTinhActionPerformed
+        ThuocTinhPage page = new ThuocTinhPage();
+        main.setPanel(page);
+    }//GEN-LAST:event_btnThuocTinhActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
@@ -581,6 +615,7 @@ public class ThuocPage extends javax.swing.JPanel {
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnReload;
+    private javax.swing.JButton btnThuocTinh;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxDanhMuc;
     private javax.swing.JComboBox<String> cboxDonViTinh;

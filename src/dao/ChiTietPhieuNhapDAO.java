@@ -2,13 +2,13 @@ package dao;
 
 import connectDB.JDBCConnection;
 import entities.ChiTietPhieuThu;
-import entities.PhieuThu;
+import entities.PhieuNhap;
 import entities.Thuoc;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChiTietPhieuThuDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu, String> {
+public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu, String> {
 
     private final String INSERT_SQL = "INSERT INTO ChiTietPhieuThu values (?,?,?,?)";
     private final String UPDATE_SQL = "UPDATE ChiTietPhieuThu SET idThuoc=?, soLuong=?, donGia=? where idPT=?";
@@ -20,7 +20,8 @@ public class ChiTietPhieuThuDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu, 
     @Override
     public void create(List<ChiTietPhieuThu> e) {
         for (int i = 0; i < e.size(); i++) {
-            JDBCConnection.update(INSERT_SQL, e.get(i).getPhieuThu().getId(), e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
+            JDBCConnection.update(INSERT_SQL, e.get(i).getPhieuThu().getId(),
+                    e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
         }
     }
 
@@ -46,7 +47,7 @@ public class ChiTietPhieuThuDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu, 
             ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 ChiTietPhieuThu e = new ChiTietPhieuThu();
-                e.setPhieuThu(new PhieuThu(rs.getString("idPT")));
+                e.setPhieuThu(new PhieuNhap(rs.getString("idPT")));
                 e.setThuoc(new Thuoc(rs.getString("idThuoc")));
                 e.setSoLuong(rs.getInt("soLuong"));
                 e.setDonGia(rs.getDouble("donGia"));

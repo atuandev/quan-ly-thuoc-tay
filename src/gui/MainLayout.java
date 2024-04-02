@@ -81,13 +81,13 @@ public class MainLayout extends javax.swing.JFrame {
         listItem = new ArrayList<>();
         listItem.add(hoaDonItem);
         listItem.add(sanPhamItem);
-        listItem.add(thuocTinhItem);
+//        listItem.add(thuocTinhItem);
         listItem.add(phieuNhapItem);
         listItem.add(nhaCungCapItem);
         listItem.add(khachHangItem);
         listItem.add(nhanVienItem);
         listItem.add(taiKhoanItem);
-        listItem.add(thongKeItem);
+//        listItem.add(thongKeItem);
         listItem.add(phieuDatHang);
         listItem.add(vaiTroItem);
 
@@ -153,14 +153,12 @@ public class MainLayout extends javax.swing.JFrame {
         khachHangItem = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         sanPhamItem = new javax.swing.JButton();
-        thuocTinhItem = new javax.swing.JButton();
         phieuNhapItem = new javax.swing.JButton();
         nhaCungCapItem = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         nhanVienItem = new javax.swing.JButton();
         taiKhoanItem = new javax.swing.JButton();
         vaiTroItem = new javax.swing.JButton();
-        thongKeItem = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         btnLogout = new javax.swing.JButton();
@@ -262,23 +260,6 @@ public class MainLayout extends javax.swing.JFrame {
         });
         itemPanel.add(sanPhamItem);
 
-        thuocTinhItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        thuocTinhItem.setIcon(new FlatSVGIcon("./icon/menu.svg"));
-        thuocTinhItem.setText("Thuộc tính");
-        thuocTinhItem.setBorderPainted(false);
-        thuocTinhItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        thuocTinhItem.setFocusPainted(false);
-        thuocTinhItem.setFocusable(false);
-        thuocTinhItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        thuocTinhItem.setIconTextGap(16);
-        thuocTinhItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        thuocTinhItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                thuocTinhItemActionPerformed(evt);
-            }
-        });
-        itemPanel.add(thuocTinhItem);
-
         phieuNhapItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         phieuNhapItem.setIcon(new FlatSVGIcon("./icon/bill-import.svg"));
         phieuNhapItem.setText("Phiếu nhập");
@@ -366,23 +347,6 @@ public class MainLayout extends javax.swing.JFrame {
             }
         });
         itemPanel.add(vaiTroItem);
-
-        thongKeItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        thongKeItem.setIcon(new FlatSVGIcon("./icon/statistics.svg"));
-        thongKeItem.setText("Thống kê");
-        thongKeItem.setBorderPainted(false);
-        thongKeItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        thongKeItem.setFocusPainted(false);
-        thongKeItem.setFocusable(false);
-        thongKeItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        thongKeItem.setIconTextGap(16);
-        thongKeItem.setPreferredSize(new java.awt.Dimension(226, 46));
-        thongKeItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                thongKeItemActionPerformed(evt);
-            }
-        });
-        itemPanel.add(thongKeItem);
 
         jScrollPane1.setViewportView(itemPanel);
 
@@ -542,15 +506,8 @@ public class MainLayout extends javax.swing.JFrame {
         hoaDonItem.setSelected(true);
     }//GEN-LAST:event_hoaDonItemActionPerformed
 
-    private void thuocTinhItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thuocTinhItemActionPerformed
-        thuocTinh = new ThuocTinhPage();
-        this.setPanel(thuocTinh);
-        resetActive();
-        thuocTinhItem.setSelected(true);
-    }//GEN-LAST:event_thuocTinhItemActionPerformed
-
     private void sanPhamItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sanPhamItemActionPerformed
-        thuoc = new ThuocPage();
+        thuoc = new ThuocPage(this);
         this.setPanel(thuoc);
         resetActive();
         sanPhamItem.setSelected(true);
@@ -579,10 +536,6 @@ public class MainLayout extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_phieuNhapItemActionPerformed
 
-    private void thongKeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongKeItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_thongKeItemActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInfo;
@@ -607,8 +560,6 @@ public class MainLayout extends javax.swing.JFrame {
     private javax.swing.JButton sanPhamItem;
     private javax.swing.JPanel sidebarPanel;
     private javax.swing.JButton taiKhoanItem;
-    private javax.swing.JButton thongKeItem;
-    private javax.swing.JButton thuocTinhItem;
     private javax.swing.JLabel txtFullName;
     private javax.swing.JLabel txtRole;
     private javax.swing.JButton vaiTroItem;

@@ -91,7 +91,7 @@ public class HoaDonController extends InterfaceController<HoaDon, String> {
         return result;
     }
 
-    public List<HoaDon> getFilterTable(String tenNV) {
+    public List<HoaDon> getFilterTable(String tenNV, double fromPrice, double toPrice) {
         List<HoaDon> result = new ArrayList<>();
 
         for (HoaDon e : this.getAllList()) {
@@ -100,7 +100,7 @@ public class HoaDonController extends InterfaceController<HoaDon, String> {
             if (e.getNhanVien().getHoTen().equals(tenNV)) {
                 match = true;
             }
-
+            
             if (match) {
                 result.add(e);
             }

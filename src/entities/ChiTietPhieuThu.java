@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class ChiTietPhieuThu {
 
-    private PhieuThu phieuThu;
+    private PhieuNhap phieuThu;
     private Thuoc thuoc;
     private int soLuong;
     private double donGia;
@@ -16,22 +16,22 @@ public class ChiTietPhieuThu {
     public ChiTietPhieuThu() {
     }
 
-    public ChiTietPhieuThu(PhieuThu phieuThu) {
+    public ChiTietPhieuThu(PhieuNhap phieuThu) {
         this.phieuThu = phieuThu;
     }
 
-    public ChiTietPhieuThu(PhieuThu phieuThu, Thuoc thuoc, int soLuong, double donGia) {
+    public ChiTietPhieuThu(PhieuNhap phieuThu, Thuoc thuoc, int soLuong, double donGia) {
         this.phieuThu = phieuThu;
         this.thuoc = thuoc;
         this.soLuong = soLuong;
         this.donGia = donGia;
     }
 
-    public PhieuThu getPhieuThu() {
+    public PhieuNhap getPhieuThu() {
         return phieuThu;
     }
 
-    public void setPhieuThu(PhieuThu phieuThu) {
+    public void setPhieuThu(PhieuNhap phieuThu) {
         this.phieuThu = phieuThu;
     }
 

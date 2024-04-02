@@ -22,6 +22,7 @@ import utils.Formatter;
 import utils.JTableExporter;
 import utils.MessageDialog;
 import utils.TableSorter;
+import utils.Validation;
 
 /**
  *
@@ -115,15 +116,60 @@ public class HoaDonPage extends javax.swing.JPanel {
         }
     }
 
+    private boolean isValidFilterFields() {
+        if (!Validation.isEmpty(txtFromPrice.getText().trim())) {
+            try {
+                double fromPrice = Double.parseDouble(txtFromPrice.getText());
+                if (fromPrice < 0) {
+                    MessageDialog.warring(this, "Số tiền phải >= 0");
+                    txtFromPrice.setText("");
+                    txtFromPrice.requestFocus();
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                MessageDialog.warring(this, "Số tiền phải là số!");
+                txtFromPrice.setText("");
+                txtFromPrice.requestFocus();
+                return false;
+            }
+        }
+
+        if (!Validation.isEmpty(txtToPrice.getText().trim())) {
+            try {
+                double toPrice = Double.parseDouble(txtToPrice.getText());
+                if (toPrice < 0) {
+                    MessageDialog.warring(this, "Số tiền phải >= 0");
+                    txtToPrice.setText("");
+                    txtToPrice.requestFocus();
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                MessageDialog.warring(this, "Số tiền phải là số!");
+                txtToPrice.setText("");
+                txtToPrice.requestFocus();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private List<HoaDon> getListFilter() {
         String tenNV = "";
+        double fromPrice = 0;
+        double toPrice = 0;
 
         // Check if selected item is not null before converting to string
         if (cboxNhanVien.getSelectedItem() != null) {
             tenNV = cboxNhanVien.getSelectedItem().toString();
         }
+        
+        if (isValidFilterFields()) {
+            fromPrice = Double.parseDouble(txtFromPrice.getText());
+            toPrice = Double.parseDouble(txtToPrice.getText());
+        }
 
-        return HD_CON.getFilterTable(tenNV);
+        return HD_CON.getFilterTable(tenNV, fromPrice, toPrice);
     }
 
     @SuppressWarnings("unchecked")
@@ -150,6 +196,13 @@ public class HoaDonPage extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         cboxNhanVien = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        txtFromPrice = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        txtToPrice = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(230, 245, 245));
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(230, 245, 245), 6, true));
@@ -335,7 +388,7 @@ public class HoaDonPage extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 8, 16));
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 8, 8));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -356,6 +409,37 @@ public class HoaDonPage extends javax.swing.JPanel {
         jPanel8.add(cboxNhanVien);
 
         jPanel4.add(jPanel8);
+
+        jSeparator1.setPreferredSize(new java.awt.Dimension(140, 3));
+        jPanel4.add(jSeparator1);
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setPreferredSize(new java.awt.Dimension(200, 80));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 16, 8));
+
+        jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel4.setText("Từ khoảng giá:");
+        jLabel4.setPreferredSize(new java.awt.Dimension(140, 20));
+        jPanel9.add(jLabel4);
+
+        txtFromPrice.setPreferredSize(new java.awt.Dimension(170, 40));
+        jPanel9.add(txtFromPrice);
+
+        jPanel4.add(jPanel9);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setPreferredSize(new java.awt.Dimension(200, 80));
+        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 16, 8));
+
+        jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel5.setText("Đến khoảng giá:");
+        jLabel5.setPreferredSize(new java.awt.Dimension(140, 20));
+        jPanel10.add(jLabel5);
+
+        txtToPrice.setPreferredSize(new java.awt.Dimension(170, 40));
+        jPanel10.add(txtToPrice);
+
+        jPanel4.add(jPanel10);
 
         tablePanel.add(jPanel4, java.awt.BorderLayout.LINE_START);
 
@@ -442,15 +526,22 @@ public class HoaDonPage extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cboxSearch;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTable;
     private javax.swing.JTable table;
     private javax.swing.JPanel tablePanel;
+    private javax.swing.JTextField txtFromPrice;
     private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtToPrice;
     // End of variables declaration//GEN-END:variables
 }

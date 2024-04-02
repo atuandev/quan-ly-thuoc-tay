@@ -7,17 +7,17 @@ import java.sql.Timestamp;
  *
  * @author atuandev
  */
-public class PhieuThu {
+public class PhieuNhap {
 
     private String id;
     private Timestamp thoiGian;
     private NhanVien nhanVien;
-    private NhaCungCap nxs;
+    private NhaCungCap ncc;
 
-    public PhieuThu() {
+    public PhieuNhap() {
     }
 
-    public PhieuThu(String id) {
+    public PhieuNhap(String id) {
         this.id = id;
     }
 
@@ -45,12 +45,12 @@ public class PhieuThu {
         this.nhanVien = nhanVien;
     }
 
-    public NhaCungCap getNxs() {
-        return nxs;
+    public NhaCungCap getNcc() {
+        return ncc;
     }
 
-    public void setNxs(NhaCungCap nxs) {
-        this.nxs = nxs;
+    public void setNcc(NhaCungCap ncc) {
+        this.ncc = ncc;
     }
 
     @Override
@@ -71,13 +71,13 @@ public class PhieuThu {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final PhieuThu other = (PhieuThu) obj;
+        final PhieuNhap other = (PhieuNhap) obj;
         return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "PhieuThu{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", nxs=" + nxs + '}';
+        return "PhieuNhap{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", ncc=" + ncc + '}';
     }
 
 }
