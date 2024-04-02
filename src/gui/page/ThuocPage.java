@@ -25,6 +25,7 @@ import utils.Formatter;
 import utils.JTableExporter;
 import utils.MessageDialog;
 import utils.TableSorter;
+import utils.Validation;
 
 /**
  *
@@ -67,12 +68,15 @@ public class ThuocPage extends javax.swing.JPanel {
         listButton.add(btnImport);
         listButton.add(btnExport);
         listButton.add(btnReload);
+        listButton.add(btnThuocTinh);
+        listButton.add(btnSubmitHSD);
 
         // Border radius
         for (JButton item : listButton) {
             item.putClientProperty(FlatClientProperties.STYLE, "arc: 15");
         }
 
+        txtHSD.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Nhập số ngày...");
         txtSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Tìm kiếm...");
         txtSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("./icon/search.svg"));
 
@@ -83,7 +87,7 @@ public class ThuocPage extends javax.swing.JPanel {
 
     private void tableLayout() {
         lblTable.setText("danh sách thông tin thuốc".toUpperCase());
-        String[] header = new String[]{"STT", "Mã thuốc", "Tên thuốc", "Danh mục", "Xuất xứ", "Đơn vị tính", "Số lượng", "Giá nhập", "Đơn giá"};
+        String[] header = new String[]{"STT", "Mã thuốc", "Tên thuốc", "Danh mục", "Xuất xứ", "Đơn vị tính", "Số lượng", "Đơn giá", "Hạn sử dụng"};
         modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
@@ -112,7 +116,7 @@ public class ThuocPage extends javax.swing.JPanel {
         int stt = 1;
         for (Thuoc e : listThuoc) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTenThuoc(), e.getDanhMuc().getTen(), e.getXuatXu().getTen(), e.getDonViTinh().getTen(),
-                e.getSoLuongTon(), Formatter.FormatVND(e.getGiaNhap()), Formatter.FormatVND(e.getDonGia())});
+                e.getSoLuongTon(), Formatter.FormatVND(e.getDonGia()), Formatter.FormatDate(e.getHanSuDung())});
             stt++;
         }
     }
@@ -138,6 +142,7 @@ public class ThuocPage extends javax.swing.JPanel {
         String tenDM = "";
         String tenDVT = "";
         String tenXX = "";
+        long hanSuDung = 0;
 
         // Check if selected item is not null before converting to string
         if (cboxDanhMuc.getSelectedItem() != null) {
@@ -150,7 +155,11 @@ public class ThuocPage extends javax.swing.JPanel {
             tenXX = cboxXuatXu.getSelectedItem().toString();
         }
 
-        return THUOC_CON.getFilterTable(tenDM, tenDVT, tenXX);
+        if (!Validation.isEmpty(txtHSD.getText()) || Validation.isNumber(txtHSD.getText())) {
+            hanSuDung = Long.parseLong(txtHSD.getText());
+        }
+
+        return THUOC_CON.getFilterTable(tenDM, tenDVT, tenXX, hanSuDung);
     }
 
     @SuppressWarnings("unchecked")
@@ -186,6 +195,11 @@ public class ThuocPage extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cboxDonViTinh = new javax.swing.JComboBox<>();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtHSD = new javax.swing.JTextField();
+        btnSubmitHSD = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(230, 245, 245));
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(230, 245, 245), 6, true));
@@ -345,7 +359,7 @@ public class ThuocPage extends javax.swing.JPanel {
         });
         actionPanel.add(btnExport);
 
-        btnThuocTinh.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnThuocTinh.setFont(new java.awt.Font("Roboto", 1, 10)); // NOI18N
         btnThuocTinh.setIcon(new FlatSVGIcon("./icon/menu.svg"));
         btnThuocTinh.setText("THUỘC TÍNH");
         btnThuocTinh.setBorder(null);
@@ -353,7 +367,7 @@ public class ThuocPage extends javax.swing.JPanel {
         btnThuocTinh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThuocTinh.setFocusPainted(false);
         btnThuocTinh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnThuocTinh.setPreferredSize(new java.awt.Dimension(90, 90));
+        btnThuocTinh.setPreferredSize(new java.awt.Dimension(100, 90));
         btnThuocTinh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnThuocTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,7 +436,7 @@ public class ThuocPage extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 8, 16));
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 8, 8));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -484,6 +498,41 @@ public class ThuocPage extends javax.swing.JPanel {
 
         jPanel4.add(jPanel7);
 
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setPreferredSize(new java.awt.Dimension(200, 80));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 16, 8));
+
+        jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel4.setText("Hạn sử dụng còn");
+        jLabel4.setPreferredSize(new java.awt.Dimension(140, 20));
+        jPanel9.add(jLabel4);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setMinimumSize(new java.awt.Dimension(170, 40));
+        jPanel2.setPreferredSize(new java.awt.Dimension(170, 40));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+
+        txtHSD.setPreferredSize(new java.awt.Dimension(120, 40));
+        jPanel2.add(txtHSD);
+
+        btnSubmitHSD.setIcon(new FlatSVGIcon("./icon/submit.svg"));
+        btnSubmitHSD.setBorder(null);
+        btnSubmitHSD.setBorderPainted(false);
+        btnSubmitHSD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSubmitHSD.setFocusPainted(false);
+        btnSubmitHSD.setOpaque(false);
+        btnSubmitHSD.setPreferredSize(new java.awt.Dimension(40, 40));
+        btnSubmitHSD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitHSDActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnSubmitHSD);
+
+        jPanel9.add(jPanel2);
+
+        jPanel4.add(jPanel9);
+
         tablePanel.add(jPanel4, java.awt.BorderLayout.LINE_START);
 
         add(tablePanel, java.awt.BorderLayout.CENTER);
@@ -542,6 +591,7 @@ public class ThuocPage extends javax.swing.JPanel {
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
         txtSearch.setText("");
+        txtHSD.setText("");
         cboxSearch.setSelectedIndex(0);
         cboxDanhMuc.setSelectedIndex(0);
         cboxDonViTinh.setSelectedIndex(0);
@@ -606,6 +656,14 @@ public class ThuocPage extends javax.swing.JPanel {
         main.setPanel(page);
     }//GEN-LAST:event_btnThuocTinhActionPerformed
 
+    private void btnSubmitHSDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitHSDActionPerformed
+        modal.setRowCount(0);
+
+        List<Thuoc> listSearch = getListFilter();
+
+        loadTable(listSearch);
+    }//GEN-LAST:event_btnSubmitHSDActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
@@ -615,6 +673,7 @@ public class ThuocPage extends javax.swing.JPanel {
     private javax.swing.JButton btnImport;
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnReload;
+    private javax.swing.JButton btnSubmitHSD;
     private javax.swing.JButton btnThuocTinh;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxDanhMuc;
@@ -625,17 +684,21 @@ public class ThuocPage extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTable;
     private javax.swing.JTable table;
     private javax.swing.JPanel tablePanel;
+    private javax.swing.JTextField txtHSD;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

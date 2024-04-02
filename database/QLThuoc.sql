@@ -127,6 +127,8 @@ CREATE TABLE Thuoc (
 );
 go
 
+select * from thuoc
+
 INSERT INTO Thuoc(idThuoc, tenThuoc, hinhAnh, thanhPhan, idDVT, idDM, idXX, soLuongTon, giaNhap, donGia, hanSuDung)
 VALUES
 	('X12IFO4BZ', N'Hapacol 650 DHG', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\hapacol_650_extra_dhg.png', SINGLE_BLOB) as image), N'Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF123', 1021, 18000, 25000, '2026-02-15'),

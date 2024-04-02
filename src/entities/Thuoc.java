@@ -4,6 +4,7 @@
  */
 package entities;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -22,36 +23,23 @@ public class Thuoc {
     private int soLuongTon;
     private double giaNhap;
     private double donGia;
+    private Date hanSuDung;
 
     public Thuoc() {
     }
 
-    public Thuoc(String id) {
-        this.id = id;
-    }
-
-    public Thuoc(String id, String ten, DonViTinh donViTinh, DanhMuc danhMuc, XuatXu xuatXu, int soLuongTon, double giaNhap, double donGia) {
+    public Thuoc(String id, String ten, byte[] hinhAnh, String thanhPhan, DonViTinh donViTinh, DanhMuc danhMuc, XuatXu xuatXu, int soLuongTon, double giaNhap, double donGia, Date hanSuDung) {
         this.id = id;
         this.ten = ten;
+        this.hinhAnh = hinhAnh;
+        this.thanhPhan = thanhPhan;
         this.donViTinh = donViTinh;
         this.danhMuc = danhMuc;
         this.xuatXu = xuatXu;
         this.soLuongTon = soLuongTon;
         this.giaNhap = giaNhap;
         this.donGia = donGia;
-    }
-
-    public Thuoc(String id, String tenThuoc, byte[] hinhAnh, String thanhPhan, DonViTinh donViTinh, DanhMuc danhMuc, XuatXu xuatXu, int soLuong, double giaNhap, double donGia) {
-        this.id = id;
-        this.ten = tenThuoc;
-        this.hinhAnh = hinhAnh;
-        this.thanhPhan = thanhPhan;
-        this.donViTinh = donViTinh;
-        this.danhMuc = danhMuc;
-        this.xuatXu = xuatXu;
-        this.soLuongTon = soLuong;
-        this.giaNhap = giaNhap;
-        this.donGia = donGia;
+        this.hanSuDung = hanSuDung;
     }
 
     public String getId() {
@@ -134,6 +122,14 @@ public class Thuoc {
         this.donGia = donGia;
     }
 
+    public Date getHanSuDung() {
+        return hanSuDung;
+    }
+
+    public void setHanSuDung(Date hanSuDung) {
+        this.hanSuDung = hanSuDung;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -158,7 +154,7 @@ public class Thuoc {
 
     @Override
     public String toString() {
-        return ten;
+        return "Thuoc{" + "id=" + id + ", ten=" + ten + ", hinhAnh=" + hinhAnh + ", thanhPhan=" + thanhPhan + ", donViTinh=" + donViTinh + ", danhMuc=" + danhMuc + ", xuatXu=" + xuatXu + ", soLuongTon=" + soLuongTon + ", giaNhap=" + giaNhap + ", donGia=" + donGia + ", hanSuDung=" + hanSuDung + '}';
     }
 
 }

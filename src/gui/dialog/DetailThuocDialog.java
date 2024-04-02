@@ -1,6 +1,5 @@
 package gui.dialog;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.DanhMucController;
 import controller.DonViTinhController;
@@ -12,18 +11,8 @@ import entities.Thuoc;
 import entities.XuatXu;
 import gui.page.ThuocPage;
 import java.awt.Image;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import utils.MessageDialog;
-import utils.Validation;
 
 /**
  *
@@ -81,6 +70,7 @@ public class DetailThuocDialog extends javax.swing.JDialog {
         txtSoLuong.setText(String.valueOf(thuoc.getSoLuongTon()));
         txtGiaNhap.setText(String.valueOf(thuoc.getGiaNhap()));
         txtDonGia.setText(String.valueOf(thuoc.getDonGia()));
+        txtHanSuDung.setDate(thuoc.getHanSuDung());
     }
 
     @SuppressWarnings("unchecked")
@@ -110,15 +100,18 @@ public class DetailThuocDialog extends javax.swing.JDialog {
         jPanel24 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         cboxDonViTinh = new javax.swing.JComboBox<>();
-        jPanel20 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        txtSoLuong = new javax.swing.JTextField();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        txtHanSuDung = new com.toedter.calendar.JDateChooser();
         jPanel26 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         txtGiaNhap = new javax.swing.JTextField();
         jPanel25 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         txtDonGia = new javax.swing.JTextField();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        txtSoLuong = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         btnHuy = new javax.swing.JButton();
 
@@ -177,7 +170,7 @@ public class DetailThuocDialog extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(650, 470));
-        jPanel1.setLayout(new java.awt.GridLayout(4, 2, 16, 8));
+        jPanel1.setLayout(new java.awt.GridLayout(5, 2, 16, 8));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setPreferredSize(new java.awt.Dimension(150, 40));
@@ -271,22 +264,23 @@ public class DetailThuocDialog extends javax.swing.JDialog {
 
         jPanel1.add(jPanel24);
 
-        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel20.setPreferredSize(new java.awt.Dimension(500, 40));
-        jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
+        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel22.setPreferredSize(new java.awt.Dimension(500, 40));
+        jPanel22.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
 
-        jLabel13.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel13.setText("Số lượng");
-        jLabel13.setMaximumSize(new java.awt.Dimension(44, 40));
-        jLabel13.setPreferredSize(new java.awt.Dimension(150, 40));
-        jPanel20.add(jLabel13);
+        jLabel15.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel15.setText("Hạn sử dụng");
+        jLabel15.setMaximumSize(new java.awt.Dimension(44, 40));
+        jLabel15.setPreferredSize(new java.awt.Dimension(150, 40));
+        jPanel22.add(jLabel15);
 
-        txtSoLuong.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        txtSoLuong.setEnabled(false);
-        txtSoLuong.setPreferredSize(new java.awt.Dimension(300, 40));
-        jPanel20.add(txtSoLuong);
+        txtHanSuDung.setBackground(new java.awt.Color(255, 255, 255));
+        txtHanSuDung.setDateFormatString("dd/MM/yyyy");
+        txtHanSuDung.setEnabled(false);
+        txtHanSuDung.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel22.add(txtHanSuDung);
 
-        jPanel1.add(jPanel20);
+        jPanel1.add(jPanel22);
 
         jPanel26.setBackground(new java.awt.Color(255, 255, 255));
         jPanel26.setPreferredSize(new java.awt.Dimension(500, 40));
@@ -321,6 +315,23 @@ public class DetailThuocDialog extends javax.swing.JDialog {
         jPanel25.add(txtDonGia);
 
         jPanel1.add(jPanel25);
+
+        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel20.setPreferredSize(new java.awt.Dimension(500, 40));
+        jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
+
+        jLabel13.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel13.setText("Số lượng");
+        jLabel13.setMaximumSize(new java.awt.Dimension(44, 40));
+        jLabel13.setPreferredSize(new java.awt.Dimension(150, 40));
+        jPanel20.add(jLabel13);
+
+        txtSoLuong.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtSoLuong.setEnabled(false);
+        txtSoLuong.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel20.add(txtSoLuong);
+
+        jPanel1.add(jPanel20);
 
         jPanel2.add(jPanel1);
 
@@ -364,6 +375,7 @@ public class DetailThuocDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -376,6 +388,7 @@ public class DetailThuocDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
@@ -387,6 +400,7 @@ public class DetailThuocDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblHoTen;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtGiaNhap;
+    private com.toedter.calendar.JDateChooser txtHanSuDung;
     private javax.swing.JLabel txtHinhAnh;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenThuoc;

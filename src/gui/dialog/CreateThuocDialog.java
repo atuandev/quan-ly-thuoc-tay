@@ -16,9 +16,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import utils.MessageDialog;
@@ -63,6 +62,8 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         for (XuatXu vt : listXX) {
             cboxXuatXu.addItem(vt.getTen());
         }
+        
+        txtHanSuDung.setDate(new Date());
     }
 
     private boolean isValidateFields() {
@@ -145,6 +146,14 @@ public class CreateThuocDialog extends javax.swing.JDialog {
                 return false;
             }
         }
+        
+        if (txtHanSuDung.getDate() == null || !txtHanSuDung.getDateFormatString().equals("dd/MM/yyyy")) {
+            MessageDialog.warring(this, "Hạn sử dụng không được để trống và có kiểu dd/MM/yyyy");
+            return false;
+        } else if (txtHanSuDung.getDate().before(new Date())) {
+            MessageDialog.warring(this, "Hạn sử dụng phải sau ngày hiện tại");
+            return false;
+        }
 
         return true;
     }
@@ -160,11 +169,12 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         DanhMuc danhMuc = new DanhMucController().selectById(idDM);
         String idXX = listXX.get(cboxXuatXu.getSelectedIndex()).getId();
         XuatXu xuatXu = new XuatXuController().selectById(idXX);
-        int soLuong = Integer.parseInt(txtSoLuong.getText().trim());
+        int soLuong = Integer.parseInt(txtSoLuong.getText());
         double giaNhap = Double.parseDouble(txtGiaNhap.getText().trim());
         double donGia = Double.parseDouble(txtDonGia.getText().trim());
+        Date hanSuDung = txtHanSuDung.getDate();
 
-        return new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, donViTinh, danhMuc, xuatXu, soLuong, giaNhap, donGia);
+        return new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, donViTinh, danhMuc, xuatXu, soLuong, giaNhap, donGia, hanSuDung);
     }
 
     @SuppressWarnings("unchecked")
@@ -197,13 +207,16 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         cboxDonViTinh = new javax.swing.JComboBox<>();
         jPanel20 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        txtSoLuong = new javax.swing.JTextField();
+        txtHanSuDung = new com.toedter.calendar.JDateChooser();
         jPanel26 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         txtGiaNhap = new javax.swing.JTextField();
         jPanel25 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         txtDonGia = new javax.swing.JTextField();
+        jPanel27 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        txtSoLuong = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         btnHuy = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -274,11 +287,12 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         getContentPane().add(jPanel3, java.awt.BorderLayout.WEST);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setPreferredSize(new java.awt.Dimension(650, 550));
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 16));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(650, 470));
-        jPanel1.setLayout(new java.awt.GridLayout(4, 2, 16, 8));
+        jPanel1.setPreferredSize(new java.awt.Dimension(650, 500));
+        jPanel1.setLayout(new java.awt.GridLayout(5, 2, 16, 8));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setPreferredSize(new java.awt.Dimension(150, 40));
@@ -298,7 +312,7 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         jPanel1.add(jPanel18);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel19.setPreferredSize(new java.awt.Dimension(150, 40));
+        jPanel19.setPreferredSize(new java.awt.Dimension(150, 60));
         jPanel19.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
 
         jLabel12.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -308,7 +322,7 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         jPanel19.add(jLabel12);
 
         jScrollPane1.setMaximumSize(new java.awt.Dimension(300, 70));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(300, 70));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(300, 50));
 
         txtThanhPhan.setColumns(20);
         txtThanhPhan.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -370,14 +384,15 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
 
         jLabel13.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel13.setText("Số lượng");
+        jLabel13.setText("Hạn sử dụng");
         jLabel13.setMaximumSize(new java.awt.Dimension(44, 40));
         jLabel13.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel20.add(jLabel13);
 
-        txtSoLuong.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        txtSoLuong.setPreferredSize(new java.awt.Dimension(300, 40));
-        jPanel20.add(txtSoLuong);
+        txtHanSuDung.setBackground(new java.awt.Color(255, 255, 255));
+        txtHanSuDung.setDateFormatString("dd/MM/yyyy");
+        txtHanSuDung.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel20.add(txtHanSuDung);
 
         jPanel1.add(jPanel20);
 
@@ -412,6 +427,22 @@ public class CreateThuocDialog extends javax.swing.JDialog {
         jPanel25.add(txtDonGia);
 
         jPanel1.add(jPanel25);
+
+        jPanel27.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel27.setPreferredSize(new java.awt.Dimension(500, 40));
+        jPanel27.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 6, 0));
+
+        jLabel20.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel20.setText("Số lượng");
+        jLabel20.setMaximumSize(new java.awt.Dimension(44, 40));
+        jLabel20.setPreferredSize(new java.awt.Dimension(150, 40));
+        jPanel27.add(jLabel20);
+
+        txtSoLuong.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        txtSoLuong.setPreferredSize(new java.awt.Dimension(300, 40));
+        jPanel27.add(txtSoLuong);
+
+        jPanel1.add(jPanel27);
 
         jPanel2.add(jPanel1);
 
@@ -515,6 +546,7 @@ public class CreateThuocDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
@@ -527,6 +559,7 @@ public class CreateThuocDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
@@ -534,6 +567,7 @@ public class CreateThuocDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblHoTen;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtGiaNhap;
+    private com.toedter.calendar.JDateChooser txtHanSuDung;
     private javax.swing.JLabel txtHinhAnh;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenThuoc;

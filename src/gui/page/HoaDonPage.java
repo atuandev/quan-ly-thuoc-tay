@@ -102,7 +102,7 @@ public class HoaDonPage extends javax.swing.JPanel {
 
         for (HoaDon e : listHD) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), Formatter.FormatTime(e.getThoiGian()),
-                e.getNhanVien().getHoTen(), e.getKhachHang().getHoTen(), Formatter.FormatVND(HD_CON.getTongTien(e))});
+                e.getNhanVien().getHoTen(), e.getKhachHang().getHoTen(), Formatter.FormatVND(e.getTongTien())});
             stt++;
         }
     }

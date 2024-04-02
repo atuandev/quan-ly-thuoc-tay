@@ -237,8 +237,9 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         Timestamp thoiGian = new Timestamp(System.currentTimeMillis());
         NhanVien nhanVien = tk.getNhanVien();
         KhachHang khachHang = new KhachHangController().selectBySdt(txtSdtKH.getText());
+        double tongTien = Formatter.unformatVND(txtTong.getText());
 
-        return new HoaDon(idHD, thoiGian, nhanVien, khachHang);
+        return new HoaDon(idHD, thoiGian, nhanVien, khachHang, tongTien);
     }
 
     private ChiTietHoaDon getInputChiTietHoaDon() {

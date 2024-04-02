@@ -13,7 +13,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -106,17 +108,23 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
         return result;
     }
 
-    public List<Thuoc> getFilterTable(String tenDM, String tenDVT, String tenXX) {
+    public List<Thuoc> getFilterTable(String tenDM, String tenDVT, String tenXX, long hanSuDung) {
         List<Thuoc> result = new ArrayList<>();
 
         for (Thuoc e : this.getAllList()) {
             boolean match = false;
+            long timeHSD = e.getHanSuDung().getTime() - new Date().getTime();
+            long dateHSD =  TimeUnit.MILLISECONDS.toDays(timeHSD);
+
+            System.out.println("so ngay: " + dateHSD);
 
             if (e.getXuatXu().getTen().equals(tenXX)) {
                 match = true;
             } else if (e.getDanhMuc().getTen().equals(tenDM)) {
                 match = true;
             } else if (e.getDonViTinh().getTen().equals(tenDVT)) {
+                match = true;
+            } else if (dateHSD < hanSuDung) {
                 match = true;
             }
 
@@ -173,6 +181,8 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
                     double giaNhap = Double.parseDouble(gn);
                     String dg = excelRow.getCell(9).getStringCellValue();
                     double donGia = Double.parseDouble(dg);
+                    String hsd = excelRow.getCell(10).getStringCellValue();
+                    Date hanSuDung = new Date(hsd);
 
                     // Validate row cell
                     if (Validation.isEmpty(id) || Validation.isEmpty(tenThuoc) || Validation.isEmpty(image)
@@ -180,7 +190,7 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
                             || Validation.isEmpty(idXX) || Validation.isEmpty(sl) || Validation.isEmpty(gn) || Validation.isEmpty(dg)) {
                         check += 1;
                     } else {
-                        Thuoc e = new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, donViTinh, danhMuc, xuatXu, soLuong, giaNhap, donGia);
+                        Thuoc e = new Thuoc(id, tenThuoc, hinhAnh, thanhPhan, donViTinh, danhMuc, xuatXu, soLuong, giaNhap, donGia, hanSuDung);
                         THUOC_DAO.create(e);
                         THUOC_GUI.loadTable(this.getAllList());
                     }

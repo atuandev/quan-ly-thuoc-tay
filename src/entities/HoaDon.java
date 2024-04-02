@@ -13,6 +13,7 @@ public class HoaDon {
     private Timestamp thoiGian;
     private NhanVien nhanVien;
     private KhachHang khachHang;
+    private double tongTien;
 
     public HoaDon() {
     }
@@ -21,11 +22,12 @@ public class HoaDon {
         this.id = id;
     }
 
-    public HoaDon(String id, Timestamp thoiGian, NhanVien nhanVien, KhachHang khachHang) {
+    public HoaDon(String id, Timestamp thoiGian, NhanVien nhanVien, KhachHang khachHang, double tongTien) {
         this.id = id;
         this.thoiGian = thoiGian;
         this.nhanVien = nhanVien;
         this.khachHang = khachHang;
+        this.tongTien = tongTien;
     }
 
     public String getId() {
@@ -58,6 +60,14 @@ public class HoaDon {
 
     public void setKhachHang(KhachHang khachHang) {
         this.khachHang = khachHang;
+    }
+
+    public double getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
     }
 
     @Override

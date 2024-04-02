@@ -1,6 +1,7 @@
 package dao;
 
 import connectDB.JDBCConnection;
+import controller.ThuocController;
 import entities.ChiTietPhieuDatHang;
 import entities.PhieuDatHang;
 import entities.Thuoc;
@@ -46,8 +47,10 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
             ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 ChiTietPhieuDatHang e = new ChiTietPhieuDatHang();
-                e.setPhieuDatHang(new PhieuDatHang(rs.getString("idPDH")));
-                e.setThuoc(new Thuoc(rs.getString("idThuoc")));
+                String idPDH = rs.getString("idPDH");
+                e.setPhieuDatHang(null);
+                String idThuoc = rs.getString("idThuoc");
+                e.setThuoc(new ThuocController().selectById(idThuoc));
                 e.setSoLuong(rs.getInt("soLuong"));
                 e.setDonGia(rs.getDouble("donGia"));
                 listE.add(e);

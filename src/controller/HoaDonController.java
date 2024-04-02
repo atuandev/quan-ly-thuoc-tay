@@ -41,15 +41,6 @@ public class HoaDonController extends InterfaceController<HoaDon, String> {
     public HoaDon selectById(String id) {
         return HD_DAO.selectById(id);
     }
-    
-    public double getTongTien(HoaDon hd) {
-        List<ChiTietHoaDon> listCTHD = new ChiTietHoaDonController().selectAllById(hd.getId());
-        double sum = 0;
-        for (ChiTietHoaDon cthd : listCTHD) {
-            sum += cthd.getThanhTien();
-        }
-        return sum;
-    }
 
     public List<HoaDon> getSearchTable(String text, String searchType) {
         text = text.toLowerCase();

@@ -11,8 +11,12 @@ import java.util.List;
 
 public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
 
-    private final String INSERT_SQL = "INSERT INTO Thuoc values (?,?,?,?,?,?,?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE Thuoc SET tenThuoc=?, hinhAnh=?, thanhPhan=?, idDVT=?, idDM=?, idXX=?, soLuongTon=?, giaNhap=?, donGia=? where idThuoc=?";
+    private final String INSERT_SQL = "INSERT INTO Thuoc values (?,?,?,?,?,?,?,?,?,?,?)";
+
+    private final String UPDATE_SQL
+            = "UPDATE Thuoc SET tenThuoc = ?, hinhAnh = ?, thanhPhan = ?, idDVT = ?, idDM = ?, idXX = ?,soLuongTon = ?, giaNhap = ?, donGia = ?, hanSuDung = ? "
+            + "WHERE idThuoc = ?";
+
     private final String DELETE_BY_ID = "DELETE from Thuoc where idThuoc = ?";
 
     private final String SELECT_ALL_SQL = "SELECT Thuoc.*, "
@@ -39,13 +43,13 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
     @Override
     public void create(Thuoc e) {
         JDBCConnection.update(INSERT_SQL, e.getId(), e.getTenThuoc(), e.getHinhAnh(), e.getThanhPhan(), e.getDonViTinh().getId(),
-                e.getDanhMuc().getId(), e.getXuatXu().getId(), e.getSoLuongTon(), e.getGiaNhap(), e.getDonGia());
+                e.getDanhMuc().getId(), e.getXuatXu().getId(), e.getSoLuongTon(), e.getGiaNhap(), e.getDonGia(), e.getHanSuDung());
     }
 
     @Override
     public void update(Thuoc e) {
         JDBCConnection.update(UPDATE_SQL, e.getTenThuoc(), e.getHinhAnh(), e.getThanhPhan(), e.getDonViTinh().getId(),
-                e.getDanhMuc().getId(), e.getXuatXu().getId(), e.getSoLuongTon(), e.getGiaNhap(), e.getDonGia(), e.getId());
+                e.getDanhMuc().getId(), e.getXuatXu().getId(), e.getSoLuongTon(), e.getGiaNhap(), e.getDonGia(), e.getHanSuDung(), e.getId());
     }
 
     public void updateSoLuongTon(Thuoc e, int soLuong) {
@@ -90,6 +94,8 @@ public class ThuocDAO extends InterfaceDAO<Thuoc, String> {
                 thuoc.setSoLuongTon(rs.getInt("soLuongTon"));
                 thuoc.setGiaNhap(rs.getDouble("giaNhap"));
                 thuoc.setDonGia(rs.getDouble("donGia"));
+                thuoc.setHanSuDung(rs.getDate("hanSuDung"));
+
                 listE.add(thuoc);
             }
             rs.getStatement().getConnection().close();

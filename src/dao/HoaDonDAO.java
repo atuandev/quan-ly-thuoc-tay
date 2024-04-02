@@ -10,12 +10,12 @@ import java.util.List;
 
 public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
 
-    private final String INSERT_SQL = "INSERT INTO HoaDon values (?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE HoaDon SET thoiGian=?, idNV=?, idKH=? WHERE idHD=?";
+    private final String INSERT_SQL = "INSERT INTO HoaDon values (?,?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE HoaDon SET thoiGian=?, idNV=?, idKH=?, tongTien=? WHERE idHD=?";
     private final String DELETE_BY_ID = "DELETE from HoaDon WHERE idHD = ?";
 
     private final String SELECT_ALL_SQL
-            = "SELECT HoaDon.idHD, HoaDon.thoiGian, HoaDon.idNV, HoaDon.idKH, "
+            = "SELECT HoaDon.idHD, HoaDon.thoiGian, HoaDon.idNV, HoaDon.idKH, HoaDon.tongTien, "
             + "NhanVien.hoTen AS tenNV, NhanVien.sdt AS sdtNV, NhanVien.gioiTinh AS gioiTinhNV, NhanVien.namSinh, NhanVien.ngayVaoLam, "
             + "KhachHang.hoTen AS tenKH, KhachHang.sdt AS sdtKH, KhachHang.gioiTinh AS gioiTinhKH, KhachHang.ngayThamGia "
             + "FROM HoaDon "
@@ -24,7 +24,7 @@ public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
             + "ORDER BY HoaDon.thoiGian ";
 
     private final String SELECT_BY_ID
-            = "SELECT HoaDon.idHD, HoaDon.thoiGian, HoaDon.idNV, HoaDon.idKH, "
+            = "SELECT HoaDon.idHD, HoaDon.thoiGian, HoaDon.idNV, HoaDon.idKH, HoaDon.tongTien, "
             + "NhanVien.hoTen AS tenNV, NhanVien.sdt AS sdtNV, NhanVien.gioiTinh AS gioiTinhNV, NhanVien.namSinh, NhanVien.ngayVaoLam, "
             + "KhachHang.hoTen AS tenKH, KhachHang.sdt AS sdtKH, KhachHang.gioiTinh AS gioiTinhKH, KhachHang.ngayThamGia "
             + "FROM HoaDon "
@@ -35,12 +35,12 @@ public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
 
     @Override
     public void create(HoaDon e) {
-        JDBCConnection.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getNhanVien().getId(), e.getKhachHang().getId());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getNhanVien().getId(), e.getKhachHang().getId(), e.getTongTien());
     }
 
     @Override
     public void update(HoaDon e) {
-        JDBCConnection.update(UPDATE_SQL, e.getThoiGian(), e.getNhanVien().getId(), e.getKhachHang().getId(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getThoiGian(), e.getNhanVien().getId(), e.getKhachHang().getId(), e.getTongTien(), e.getId());
     }
 
     @Override
@@ -76,7 +76,9 @@ public class HoaDonDAO extends InterfaceDAO<HoaDon, String> {
                 khachHang.setNgayThamGia(rs.getDate("ngayThamGia"));
 
                 hoaDon.setKhachHang(khachHang);
-                
+
+                hoaDon.setTongTien(rs.getDouble("tongTien"));
+
                 listE.add(hoaDon);
             }
             rs.getStatement().getConnection().close();
