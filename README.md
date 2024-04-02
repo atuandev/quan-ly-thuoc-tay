@@ -20,6 +20,8 @@ git clone git@github.com:atuandev/quan-ly-thuoc-tay.git
 >username: `sa`
 >password: `sapassword`
 
+Nếu muốn insert Thuoc trong file sql -> Phải đổi đường dẫn `D/IUH/QuanLyThuocTay` thành nơi chứa project `QuanLyThuocTay` trên máy bạn
+
 3. Sử dụng **NetBeans** để Import project
 
 4. Run project ở file **Login.java**
