@@ -16,7 +16,7 @@ public class HoaDonController extends InterfaceController<HoaDon, String> {
 
     public HoaDonController() {
     }
-    
+
     @Override
     public void create(HoaDon e) {
         HD_DAO.create(e);
@@ -84,10 +84,10 @@ public class HoaDonController extends InterfaceController<HoaDon, String> {
 
             if (e.getNhanVien().getHoTen().equals(tenNV)) {
                 match = true;
-            }
-            
-            // TODO: filter by price
-            
+            } else if (e.getTongTien() >= fromPrice && e.getTongTien() <= toPrice) {
+                match = true;
+            } 
+
             if (match) {
                 result.add(e);
             }

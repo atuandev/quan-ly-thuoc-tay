@@ -520,7 +520,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Roboto" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="T&#x1eeb; kho&#x1ea3;ng gi&#xe1;:"/>
+                    <Property name="text" type="java.lang.String" value="T&#x1eeb; s&#x1ed1; ti&#x1ec1;n"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[140, 20]"/>
                     </Property>
@@ -532,6 +532,9 @@
                       <Dimension value="[170, 40]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFromPriceKeyReleased"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -556,7 +559,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Roboto" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="&#x110;&#x1ebf;n kho&#x1ea3;ng gi&#xe1;:"/>
+                    <Property name="text" type="java.lang.String" value="&#x110;&#x1ebf;n s&#x1ed1; ti&#x1ec1;n:"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[140, 20]"/>
                     </Property>
@@ -568,6 +571,9 @@
                       <Dimension value="[170, 40]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtToPriceKeyReleased"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

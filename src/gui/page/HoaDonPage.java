@@ -116,7 +116,9 @@ public class HoaDonPage extends javax.swing.JPanel {
     }
 
     private boolean isValidFilterFields() {
-        if (!Validation.isEmpty(txtFromPrice.getText().trim())) {
+        if (Validation.isEmpty(txtFromPrice.getText().trim())) {
+            return false;
+        } else {
             try {
                 double fromPrice = Double.parseDouble(txtFromPrice.getText());
                 if (fromPrice < 0) {
@@ -133,7 +135,9 @@ public class HoaDonPage extends javax.swing.JPanel {
             }
         }
 
-        if (!Validation.isEmpty(txtToPrice.getText().trim())) {
+        if (Validation.isEmpty(txtToPrice.getText().trim())) {
+            return false;
+        } else {
             try {
                 double toPrice = Double.parseDouble(txtToPrice.getText());
                 if (toPrice < 0) {
@@ -155,18 +159,15 @@ public class HoaDonPage extends javax.swing.JPanel {
 
     private List<HoaDon> getListFilter() {
         String tenNV = "";
-        double fromPrice = 0.0;
-        double toPrice = 0.0;
 
         // Check if selected item is not null before converting to string
         if (cboxNhanVien.getSelectedItem() != null) {
             tenNV = cboxNhanVien.getSelectedItem().toString();
         }
 
-//        if (isValidFilterFields()) {
-//            fromPrice = Double.parseDouble(txtFromPrice.getText());
-//            toPrice = Double.parseDouble(txtToPrice.getText());
-//        }
+        double fromPrice = isValidFilterFields() ? Double.parseDouble(txtFromPrice.getText()) : 0;
+        double toPrice = isValidFilterFields() ? Double.parseDouble(txtToPrice.getText()) : Long.MAX_VALUE;
+        
         return HD_CON.getFilterTable(tenNV, fromPrice, toPrice);
     }
 
@@ -416,11 +417,16 @@ public class HoaDonPage extends javax.swing.JPanel {
         jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 16, 8));
 
         jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel4.setText("Từ khoảng giá:");
+        jLabel4.setText("Từ số tiền");
         jLabel4.setPreferredSize(new java.awt.Dimension(140, 20));
         jPanel9.add(jLabel4);
 
         txtFromPrice.setPreferredSize(new java.awt.Dimension(170, 40));
+        txtFromPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFromPriceKeyReleased(evt);
+            }
+        });
         jPanel9.add(txtFromPrice);
 
         jPanel4.add(jPanel9);
@@ -430,11 +436,16 @@ public class HoaDonPage extends javax.swing.JPanel {
         jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 16, 8));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel5.setText("Đến khoảng giá:");
+        jLabel5.setText("Đến số tiền:");
         jLabel5.setPreferredSize(new java.awt.Dimension(140, 20));
         jPanel10.add(jLabel5);
 
         txtToPrice.setPreferredSize(new java.awt.Dimension(170, 40));
+        txtToPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtToPriceKeyReleased(evt);
+            }
+        });
         jPanel10.add(txtToPrice);
 
         jPanel4.add(jPanel10);
@@ -511,6 +522,18 @@ public class HoaDonPage extends javax.swing.JPanel {
 
         loadTable(listSearch);
     }//GEN-LAST:event_cboxNhanVienActionPerformed
+
+    private void txtToPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtToPriceKeyReleased
+        modal.setRowCount(0);
+        List<HoaDon> listSearch = getListFilter();
+        loadTable(listSearch);
+    }//GEN-LAST:event_txtToPriceKeyReleased
+
+    private void txtFromPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFromPriceKeyReleased
+        modal.setRowCount(0);
+        List<HoaDon> listSearch = getListFilter();
+        loadTable(listSearch);
+    }//GEN-LAST:event_txtFromPriceKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

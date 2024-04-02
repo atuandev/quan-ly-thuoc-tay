@@ -116,8 +116,6 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
             long timeHSD = e.getHanSuDung().getTime() - new Date().getTime();
             long dateHSD =  TimeUnit.MILLISECONDS.toDays(timeHSD);
 
-            System.out.println("so ngay: " + dateHSD);
-
             if (e.getXuatXu().getTen().equals(tenXX)) {
                 match = true;
             } else if (e.getDanhMuc().getTen().equals(tenDM)) {
