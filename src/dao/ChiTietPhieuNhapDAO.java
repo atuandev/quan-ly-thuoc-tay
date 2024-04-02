@@ -1,14 +1,16 @@
 package dao;
 
 import connectDB.JDBCConnection;
-import entities.ChiTietPhieuThu;
+import controller.PhieuNhapController;
+import controller.ThuocController;
+import entities.ChiTietPhieuNhap;
 import entities.PhieuNhap;
 import entities.Thuoc;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu, String> {
+public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuNhap, String> {
 
     private final String INSERT_SQL = "INSERT INTO ChiTietPhieuThu values (?,?,?,?)";
     private final String UPDATE_SQL = "UPDATE ChiTietPhieuThu SET idThuoc=?, soLuong=?, donGia=? where idPT=?";
@@ -18,7 +20,7 @@ public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu,
     private final String SELECT_BY_ID = "SELECT * FROM ChiTietPhieuThu WHERE idPT = ?";
 
     @Override
-    public void create(List<ChiTietPhieuThu> e) {
+    public void create(List<ChiTietPhieuNhap> e) {
         for (int i = 0; i < e.size(); i++) {
             JDBCConnection.update(INSERT_SQL, e.get(i).getPhieuThu().getId(),
                     e.get(i).getThuoc().getId(), e.get(i).getSoLuong(), e.get(i).getDonGia());
@@ -26,7 +28,7 @@ public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu,
     }
 
     @Override
-    public void update(String k, List<ChiTietPhieuThu> e) {
+    public void update(String k, List<ChiTietPhieuNhap> e) {
         this.deleteById(k);
         this.create(e);
     }
@@ -37,18 +39,23 @@ public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuThu,
     }
 
     @Override
-    public List<ChiTietPhieuThu> selectAllById(String k) {
+    public List<ChiTietPhieuNhap> selectAllById(String k) {
         return this.selectBySql(SELECT_BY_ID);
     }
 
-    protected List<ChiTietPhieuThu> selectBySql(String sql, Object... args) {
-        List<ChiTietPhieuThu> listE = new ArrayList<>();
+    protected List<ChiTietPhieuNhap> selectBySql(String sql, Object... args) {
+        List<ChiTietPhieuNhap> listE = new ArrayList<>();
         try {
             ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
-                ChiTietPhieuThu e = new ChiTietPhieuThu();
-                e.setPhieuThu(new PhieuNhap(rs.getString("idPT")));
-                e.setThuoc(new Thuoc(rs.getString("idThuoc")));
+                ChiTietPhieuNhap e = new ChiTietPhieuNhap();
+
+                String idPN = rs.getString("idPT");
+                e.setPhieuThu(new PhieuNhapController().selectById(idPN));
+
+                String idThuoc = rs.getString("idThuoc");
+                e.setThuoc(new ThuocController().selectById(idThuoc));
+                
                 e.setSoLuong(rs.getInt("soLuong"));
                 e.setDonGia(rs.getDouble("donGia"));
                 listE.add(e);

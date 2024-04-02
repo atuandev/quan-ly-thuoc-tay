@@ -3,7 +3,6 @@ package controller;
 import dao.HoaDonDAO;
 import entities.ChiTietHoaDon;
 import entities.HoaDon;
-import gui.page.HoaDonPage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +13,10 @@ import java.util.List;
 public class HoaDonController extends InterfaceController<HoaDon, String> {
 
     public HoaDonDAO HD_DAO = new HoaDonDAO();
-    public HoaDonPage HD_GUI;
 
     public HoaDonController() {
     }
-
-    public HoaDonController(HoaDonPage THUOC_GUI) {
-        this.HD_GUI = THUOC_GUI;
-    }
-
+    
     @Override
     public void create(HoaDon e) {
         HD_DAO.create(e);
@@ -100,6 +94,8 @@ public class HoaDonController extends InterfaceController<HoaDon, String> {
             if (e.getNhanVien().getHoTen().equals(tenNV)) {
                 match = true;
             }
+            
+            // TODO: filter by price
             
             if (match) {
                 result.add(e);

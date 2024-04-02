@@ -69,8 +69,8 @@ public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
                 nhanVien.setNgayVaoLam(rs.getDate("ngayVaoLam"));
                 e.setNhanVien(nhanVien);
                 
-                NhaCungCap ncc = new NhaCungCapController().selectById(rs.getString("idNCC"));
-                e.setNcc(ncc);
+                String idNCC = rs.getString("idNCC");
+                e.setNcc(new NhaCungCapController().selectById(idNCC));
                 listE.add(e);
             }
             rs.getStatement().getConnection().close();

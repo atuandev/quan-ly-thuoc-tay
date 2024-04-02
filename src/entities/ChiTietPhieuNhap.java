@@ -6,21 +6,21 @@ import java.util.Objects;
  *
  * @author HP
  */
-public class ChiTietPhieuThu {
+public class ChiTietPhieuNhap {
 
     private PhieuNhap phieuThu;
     private Thuoc thuoc;
     private int soLuong;
     private double donGia;
 
-    public ChiTietPhieuThu() {
+    public ChiTietPhieuNhap() {
     }
 
-    public ChiTietPhieuThu(PhieuNhap phieuThu) {
+    public ChiTietPhieuNhap(PhieuNhap phieuThu) {
         this.phieuThu = phieuThu;
     }
 
-    public ChiTietPhieuThu(PhieuNhap phieuThu, Thuoc thuoc, int soLuong, double donGia) {
+    public ChiTietPhieuNhap(PhieuNhap phieuThu, Thuoc thuoc, int soLuong, double donGia) {
         this.phieuThu = phieuThu;
         this.thuoc = thuoc;
         this.soLuong = soLuong;
@@ -77,7 +77,7 @@ public class ChiTietPhieuThu {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ChiTietPhieuThu other = (ChiTietPhieuThu) obj;
+        final ChiTietPhieuNhap other = (ChiTietPhieuNhap) obj;
         return true;
     }
 

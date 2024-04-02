@@ -1,8 +1,6 @@
 package entities;
 
-import controller.ChiTietHoaDonController;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -88,6 +86,5 @@ public class HoaDon {
     public String toString() {
         return "HoaDon{" + "id=" + id + ", thoiGian=" + thoiGian + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + '}';
     }
-
 
 }

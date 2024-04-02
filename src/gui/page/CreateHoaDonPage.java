@@ -37,17 +37,13 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
     private final ThuocController THUOC_CON = new ThuocController(this);
     private final HoaDonController HD_CON = new HoaDonController();
-    private final KhachHangController KH_CON = new KhachHangController();
     private final ChiTietHoaDonController CTHD_CON = new ChiTietHoaDonController();
-
-    private HoaDonPage HD_GUI = new HoaDonPage();
 
     private List<Thuoc> listThuoc = THUOC_CON.getAllList();
     private List<ChiTietHoaDon> listCTHD = new ArrayList<>();
 
     private MainLayout main;
     private TaiKhoan tk;
-    private KhachHang kh;
 
     private DefaultTableModel modal;
     private DefaultTableModel modalCart;
@@ -142,7 +138,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         int stt = 1;
         double sum = 0;
         for (ChiTietHoaDon e : listCTHD) {
-            sum += e.getDonGia() * e.getSoLuong();
+            sum += e.getThanhTien();
             modalCart.addRow(new Object[]{String.valueOf(stt), e.getThuoc().getTenThuoc(), e.getSoLuong(), Formatter.FormatVND(e.getDonGia())});
             stt++;
         }
@@ -635,12 +631,12 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         jPanel20.setPreferredSize(new java.awt.Dimension(456, 42));
         jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 6, 2));
 
-        btnDeleteCartItem.setBackground(new java.awt.Color(255, 204, 0));
+        btnDeleteCartItem.setBackground(new java.awt.Color(255, 102, 102));
         btnDeleteCartItem.setFont(new java.awt.Font("Roboto Mono", 1, 14)); // NOI18N
+        btnDeleteCartItem.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteCartItem.setIcon(new FlatSVGIcon("./icon/trash-cart.svg"));
-        btnDeleteCartItem.setText("XÓA");
         btnDeleteCartItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDeleteCartItem.setPreferredSize(new java.awt.Dimension(100, 38));
+        btnDeleteCartItem.setPreferredSize(new java.awt.Dimension(50, 38));
         btnDeleteCartItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteCartItemActionPerformed(evt);
@@ -974,7 +970,7 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInActionPerformed
 
     private void btnSearchKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchKHActionPerformed
-        kh = KH_CON.selectBySdt(txtSdtKH.getText());
+        KhachHang kh = new KhachHangController().selectBySdt(txtSdtKH.getText());
         if (kh == null) {
             MessageDialog.error(this, "Không tìm thấy khách hàng!");
             txtHoTenKH.setText("");

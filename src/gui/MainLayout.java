@@ -81,7 +81,6 @@ public class MainLayout extends javax.swing.JFrame {
         listItem = new ArrayList<>();
         listItem.add(hoaDonItem);
         listItem.add(sanPhamItem);
-//        listItem.add(thuocTinhItem);
         listItem.add(phieuNhapItem);
         listItem.add(nhaCungCapItem);
         listItem.add(khachHangItem);

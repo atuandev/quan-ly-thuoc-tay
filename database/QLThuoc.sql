@@ -123,26 +123,28 @@ CREATE TABLE Thuoc (
 	soLuongTon INT NOT NULL,
 	giaNhap FLOAT NOT NULL,
 	donGia FLOAT NOT NULL,
+	hanSuDung DATE NOT NULL,
 );
 go
 
-INSERT INTO Thuoc(idThuoc, tenThuoc, hinhAnh, thanhPhan, idDVT, idDM, idXX, soLuongTon, giaNhap, donGia)
+INSERT INTO Thuoc(idThuoc, tenThuoc, hinhAnh, thanhPhan, idDVT, idDM, idXX, soLuongTon, giaNhap, donGia, hanSuDung)
 VALUES
-	('X12IFO4BZ', N'Hapacol 650 DHG', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\hapacol_650_extra_dhg.png', SINGLE_BLOB) as image), N'Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF123', 10, 18000, 25000),
-	('XRZXFO4BZ', N'Bột pha hỗn dịch uống Smecta vị cam', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bot-pha-hon-dich-uong-smecta.jpg', SINGLE_BLOB) as image), N'Diosmectite', 'CVB141ERT', 'ZXC321QWE', 'XCVSDF125', 10, 3000, 4000),
-	('XRBIFO4BZ', N'Siro C.C Life 100mg/5ml Foripharm', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\C.c-Life-100MgChai.jpg', SINGLE_BLOB) as image), N'Vitamin C', 'CV123GERT', 'ZXC321QWE', 'XCVSDF123', 10, 23000, 30000),
-	('VFZCHLHIE', N'Panadol Extra đỏ', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\Panadol-Extra.png', SINGLE_BLOB) as image), N'Caffeine, Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF122', 10, 150000, 250000),
-	('MJ9AB7J1I', N'Viên sủi Vitatrum C BRV', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\vitatrum-c-brv.png', SINGLE_BLOB) as image), N'Sỏi thận, Rối loạn chuyển hoá fructose, Bệnh Thalassemia, Tăng oxalat niệu, Rối loạn chuyển hoá oxalat', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF122', 10, 15000, 24000),
-	('ESMJMM7T1', N'Bổ Gan Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bo-gan-tuong-phu.jpg', SINGLE_BLOB) as image), N'Diệp hạ châu, Đảng Sâm, Bạch truật, Cam thảo, Phục Linh, Nhân trần, Trần bì', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 10, 70000, 95000),
-	('BV07519DS', N'Bài Thạch Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bai-trang-truong-phuc.jpg', SINGLE_BLOB) as image), N'Xa tiền tử, Bạch mao căn, Sinh Địa, Ý Dĩ, Kim tiền thảo', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 10, 70000, 95000),
-	('798E63U16', N'Đại Tràng Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\dai-trang-truong-phuc.jpg', SINGLE_BLOB) as image), N'Hoàng liên, Mộc hương, Bạch truật, Bạch thược, Ngũ bội tử, Hậu phác, Cam thảo, Xa tiền tử, Hoạt thạch', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 10, 80000, 105000),
-	('745KCI1KX', N'Ninh Tâm Vương Hồng Bàng', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\ninh-tam-vuong-hong-bang.png', SINGLE_BLOB) as image), N'L-Carnitine, Taurine, Đan sâm, Khổ sâm bắc, Nattokinase, Hoàng đằng, Magie, Tá dược vừa đủ', 'CVB123ERT', 'ZXC311QWE', 'XCVSDF124', 10, 120000, 180000);
+	('X12IFO4BZ', N'Hapacol 650 DHG', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\hapacol_650_extra_dhg.png', SINGLE_BLOB) as image), N'Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF123', 1021, 18000, 25000, '2026-02-15'),
+	('XRZXFO4BZ', N'Bột pha hỗn dịch uống Smecta vị cam', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bot-pha-hon-dich-uong-smecta.jpg', SINGLE_BLOB) as image), N'Diosmectite', 'CVB141ERT', 'ZXC321QWE', 'XCVSDF125', 1021, 3000, 4000, '2026-05-21'),
+	('XRBIFO4BZ', N'Siro C.C Life 100mg/5ml Foripharm', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\C.c-Life-100MgChai.jpg', SINGLE_BLOB) as image), N'Vitamin C', 'CV123GERT', 'ZXC321QWE', 'XCVSDF123', 1032, 23000, 30000, '2026-03-01'),
+	('VFZCHLHIE', N'Panadol Extra đỏ', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\Panadol-Extra.png', SINGLE_BLOB) as image), N'Caffeine, Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF122', 1034, 150000, 250000, '2026-08-07'),
+	('MJ9AB7J1I', N'Viên sủi Vitatrum C BRV', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\vitatrum-c-brv.png', SINGLE_BLOB) as image), N'Sỏi thận, Rối loạn chuyển hoá fructose, Bệnh Thalassemia, Tăng oxalat niệu, Rối loạn chuyển hoá oxalat', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF122', 1076, 15000, 24000, '2027-12-31'),
+	('ESMJMM7T1', N'Bổ Gan Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bo-gan-tuong-phu.jpg', SINGLE_BLOB) as image), N'Diệp hạ châu, Đảng Sâm, Bạch truật, Cam thảo, Phục Linh, Nhân trần, Trần bì', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1034, 70000, 95000, '2026-02-15'),
+	('BV07519DS', N'Bài Thạch Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bai-trang-truong-phuc.jpg', SINGLE_BLOB) as image), N'Xa tiền tử, Bạch mao căn, Sinh Địa, Ý Dĩ, Kim tiền thảo', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1076, 70000, 95000, '2026-02-10'),
+	('798E63U16', N'Đại Tràng Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\dai-trang-truong-phuc.jpg', SINGLE_BLOB) as image), N'Hoàng liên, Mộc hương, Bạch truật, Bạch thược, Ngũ bội tử, Hậu phác, Cam thảo, Xa tiền tử, Hoạt thạch', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1021, 80000, 105000, '2026-09-03'),
+	('745KCI1KX', N'Ninh Tâm Vương Hồng Bàng', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\ninh-tam-vuong-hong-bang.png', SINGLE_BLOB) as image), N'L-Carnitine, Taurine, Đan sâm, Khổ sâm bắc, Nattokinase, Hoàng đằng, Magie, Tá dược vừa đủ', 'CVB123ERT', 'ZXC311QWE', 'XCVSDF124', 1054, 120000, 180000, '2026-08-15');
 go
 
 CREATE TABLE PhieuDatHang (
     idPDH NVARCHAR(10) NOT NULL PRIMARY KEY,
     thoiGian DATETIME NOT NULL,
     idKH NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES KhachHang(idKH),
+	tongTien FLOAT NOT NULL,
     diaChi NVARCHAR(255) NOT NULL,
 	phuongThucThanhToan NVARCHAR(50) NOT NULL,
 	trangThai NVARCHAR(50) NOT NULL,
@@ -165,14 +167,15 @@ CREATE TABLE HoaDon (
     thoiGian DATETIME NOT NULL,
     idNV NVARCHAR(10) NOT NULL,
     idKH NVARCHAR(10) NOT NULL,
+	tongTien FLOAT NOT NULL,
     FOREIGN KEY (idNV) REFERENCES NhanVien(idNV),
     FOREIGN KEY (idKH) REFERENCES KhachHang(idKH)
 );
 go
-INSERT INTO HoaDon (idHD, thoiGian, idNV, idKH)
+INSERT INTO HoaDon (idHD, thoiGian, idNV, idKH, tongTien)
 VALUES
-	('ASZS32JZX', '20240303 6:24:09 PM', 'DKJFJO1K2', N'12ZAS1SX1'),
-	('MNXS72JXA', '20240301 10:24:09 AM', 'IU42JDKJ2', N'ASDASN131');
+	('ASZS32JZX', '20240303 6:24:09 PM', 'DKJFJO1K2', N'12ZAS1SX1', 520000),
+	('MNXS72JXA', '20240301 10:24:09 AM', 'IU42JDKJ2', N'ASDASN131', 465000);
 go
 
 CREATE TABLE ChiTietHoaDon (
@@ -188,7 +191,10 @@ go
 INSERT INTO ChiTietHoaDon(idHD, idThuoc, soLuong, donGia)
 VALUES
 	('ASZS32JZX', 'X12IFO4BZ', 3,120000),
-	('ASZS32JZX', 'XRZXFO4BZ', 2, 80000);
+	('ASZS32JZX', 'XRZXFO4BZ', 2, 80000),
+	('MNXS72JXA', 'ESMJMM7T1', 2, 95000),
+	('MNXS72JXA', 'VFZCHLHIE', 1, 250000),
+	('MNXS72JXA', 'X12IFO4BZ', 1, 25000);
 go
 
 CREATE TABLE NhaCungCap (
@@ -209,21 +215,22 @@ VALUES
   ('2B32N31B2', N'Công ty Dược phẩm VCP', '0285413833', N'780 Đường Nguyễn Văn Linh, Phường Tân Phong, Quận 7, TP. Hồ Chí Minh');
 go
 
-CREATE TABLE PhieuThu (
-    idPT NVARCHAR(10) NOT NULL PRIMARY KEY,
+CREATE TABLE PhieuNhap (
+    idPN NVARCHAR(10) NOT NULL PRIMARY KEY,
     thoiGian DATETIME NOT NULL,
     idNV NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES NhanVien(idNV),
     idNCC NVARCHAR(10) NOT NULL FOREIGN KEY REFERENCES NhaCungCap(idNCC),
+	tongTien FLOAT NOT NULL,
 );
 go
 
-CREATE TABLE ChiTietPhieuThu (
-	idPT NVARCHAR(10) NOT NULL,
+CREATE TABLE ChiTietPhieuNhap (
+	idPN NVARCHAR(10) NOT NULL,
     idThuoc NVARCHAR(10) NOT NULL,
     soLuong INT NOT NULL,
 	donGia FLOAT NOT NULL,
-	CONSTRAINT idCTPT PRIMARY KEY (idPT,idThuoc),
-	FOREIGN KEY(idPT) REFERENCES PhieuThu(idPT),
+	CONSTRAINT idCTPN PRIMARY KEY (idPN,idThuoc),
+	FOREIGN KEY(idPN) REFERENCES PhieuNhap(idPN),
 	FOREIGN KEY(idThuoc) REFERENCES Thuoc(idThuoc),
 );
 go

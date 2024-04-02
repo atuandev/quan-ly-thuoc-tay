@@ -30,10 +30,8 @@ import utils.Validation;
  */
 public class HoaDonPage extends javax.swing.JPanel {
 
-    private final HoaDonController HD_CON = new HoaDonController(this);
+    private final HoaDonController HD_CON = new HoaDonController();
     private List<HoaDon> listHD = HD_CON.getAllList();
-
-    private final List<NhanVien> listNV = new NhanVienController().getAllList();
 
     private DefaultTableModel modal;
     private MainLayout main;
@@ -76,7 +74,7 @@ public class HoaDonPage extends javax.swing.JPanel {
 
     private void tableLayout() {
         lblTable.setText("danh sách thông tin hóa đơn".toUpperCase());
-        String[] header = new String[]{"STT", "Mã hóa đơn", "Thời gian", "Tên nhân viên", "Tên khách hàng"};
+        String[] header = new String[]{"STT", "Mã hóa đơn", "Thời gian", "Tên nhân viên", "Tên khách hàng", "Tổng hóa đơn"};
         modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
@@ -104,12 +102,13 @@ public class HoaDonPage extends javax.swing.JPanel {
 
         for (HoaDon e : listHD) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), Formatter.FormatTime(e.getThoiGian()),
-                e.getNhanVien().getHoTen(), e.getKhachHang().getHoTen()});
+                e.getNhanVien().getHoTen(), e.getKhachHang().getHoTen(), Formatter.FormatVND(HD_CON.getTongTien(e))});
             stt++;
         }
     }
 
     private void fillCombobox() {
+        List<NhanVien> listNV = new NhanVienController().getAllList();
         cboxNhanVien.addItem("Tất cả");
         for (NhanVien e : listNV) {
             cboxNhanVien.addItem(e.getHoTen());
@@ -156,19 +155,18 @@ public class HoaDonPage extends javax.swing.JPanel {
 
     private List<HoaDon> getListFilter() {
         String tenNV = "";
-        double fromPrice = 0;
-        double toPrice = 0;
+        double fromPrice = 0.0;
+        double toPrice = 0.0;
 
         // Check if selected item is not null before converting to string
         if (cboxNhanVien.getSelectedItem() != null) {
             tenNV = cboxNhanVien.getSelectedItem().toString();
         }
-        
-        if (isValidFilterFields()) {
-            fromPrice = Double.parseDouble(txtFromPrice.getText());
-            toPrice = Double.parseDouble(txtToPrice.getText());
-        }
 
+//        if (isValidFilterFields()) {
+//            fromPrice = Double.parseDouble(txtFromPrice.getText());
+//            toPrice = Double.parseDouble(txtToPrice.getText());
+//        }
         return HD_CON.getFilterTable(tenNV, fromPrice, toPrice);
     }
 
