@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class ChiTietPhieuNhap {
 
-    private PhieuNhap phieuThu;
+    private PhieuNhap phieuNhap;
     private Thuoc thuoc;
     private int soLuong;
     private double donGia;
@@ -16,19 +16,19 @@ public class ChiTietPhieuNhap {
     public ChiTietPhieuNhap() {
     }
 
-    public ChiTietPhieuNhap(PhieuNhap phieuThu, Thuoc thuoc, int soLuong, double donGia) {
-        this.phieuThu = phieuThu;
+    public ChiTietPhieuNhap(PhieuNhap phieuNhap, Thuoc thuoc, int soLuong, double donGia) {
+        this.phieuNhap = phieuNhap;
         this.thuoc = thuoc;
         this.soLuong = soLuong;
         this.donGia = donGia;
     }
 
-    public PhieuNhap getPhieuThu() {
-        return phieuThu;
+    public PhieuNhap getPhieuNhap() {
+        return phieuNhap;
     }
 
-    public void setPhieuThu(PhieuNhap phieuThu) {
-        this.phieuThu = phieuThu;
+    public void setPhieuNhap(PhieuNhap phieuNhap) {
+        this.phieuNhap = phieuNhap;
     }
 
     public Thuoc getThuoc() {
@@ -58,7 +58,7 @@ public class ChiTietPhieuNhap {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.phieuThu);
+        hash = 53 * hash + Objects.hashCode(this.phieuNhap);
         return hash;
     }
 
@@ -79,7 +79,11 @@ public class ChiTietPhieuNhap {
 
     @Override
     public String toString() {
-        return "ChiTietPhieuThu{" + "phieuThu=" + phieuThu + ", thuoc=" + thuoc + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
+        return "ChiTietPhieuNhap{" + "phieuNhap=" + phieuNhap + ", thuoc=" + thuoc + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
+    }
+
+    public double getThanhTien() {
+        return this.getSoLuong() * this.getDonGia();
     }
 
 }

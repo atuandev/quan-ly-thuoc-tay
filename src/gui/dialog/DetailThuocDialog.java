@@ -3,7 +3,6 @@ package gui.dialog;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import controller.DanhMucController;
 import controller.DonViTinhController;
-import controller.ThuocController;
 import controller.XuatXuController;
 import entities.DanhMuc;
 import entities.DonViTinh;
@@ -20,38 +19,34 @@ import javax.swing.ImageIcon;
  */
 public class DetailThuocDialog extends javax.swing.JDialog {
 
-    private final ThuocController THUOC_CON = new ThuocController();
-    private ThuocPage THUOC_GUI;
     private byte[] thuocImage;
     private Thuoc thuoc;
-
-    private final List<DanhMuc> listDM = new DanhMucController().getAllList();
-    private final List<DonViTinh> listDVT = new DonViTinhController().getAllList();
-    private final List<XuatXu> listXX = new XuatXuController().getAllList();
 
     public DetailThuocDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public DetailThuocDialog(java.awt.Frame parent, boolean modal, ThuocPage THUOC_GUI, Thuoc thuoc) {
+    public DetailThuocDialog(java.awt.Frame parent, boolean modal, Thuoc thuoc) {
         super(parent, modal);
         initComponents();
-        this.THUOC_GUI = THUOC_GUI;
         this.thuoc = thuoc;
         fillInput();
         fillCombobox();
     }
 
     private void fillCombobox() {
+        List<DanhMuc> listDM = new DanhMucController().getAllList();
         for (DanhMuc vt : listDM) {
             cboxDanhMuc.addItem(vt.getTen());
         }
 
+        List<DonViTinh> listDVT = new DonViTinhController().getAllList();
         for (DonViTinh vt : listDVT) {
             cboxDonViTinh.addItem(vt.getTen());
         }
 
+        List<XuatXu> listXX = new XuatXuController().getAllList();
         for (XuatXu vt : listXX) {
             cboxXuatXu.addItem(vt.getTen());
         }

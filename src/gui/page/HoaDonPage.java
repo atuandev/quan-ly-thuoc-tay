@@ -166,7 +166,7 @@ public class HoaDonPage extends javax.swing.JPanel {
         }
 
         double fromPrice = isValidFilterFields() ? Double.parseDouble(txtFromPrice.getText()) : 0;
-        double toPrice = isValidFilterFields() ? Double.parseDouble(txtToPrice.getText()) : Long.MAX_VALUE;
+        double toPrice = isValidFilterFields() ? Double.parseDouble(txtToPrice.getText()) : 0;
         
         return HD_CON.getFilterTable(tenNV, fromPrice, toPrice);
     }
@@ -492,6 +492,8 @@ public class HoaDonPage extends javax.swing.JPanel {
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
         txtSearch.setText("");
+        txtFromPrice.setText("");
+        txtToPrice.setText("");
         cboxSearch.setSelectedIndex(0);
         cboxNhanVien.setSelectedIndex(0);
         loadTable(listHD);

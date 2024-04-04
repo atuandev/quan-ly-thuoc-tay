@@ -82,4 +82,7 @@ public class ChiTietPhieuDatHang {
         return "ChiTietPhieuDatHang{" + "phieuDatHang=" + phieuDatHang + ", thuoc=" + thuoc + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
     }
 
+    public double getThanhTien() {
+        return this.getSoLuong() * this.getDonGia();
+    }
 }

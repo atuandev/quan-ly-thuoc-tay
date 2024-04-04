@@ -10,14 +10,14 @@ import java.util.List;
 
 public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuNhap, String> {
 
-    private final String INSERT_SQL = "INSERT INTO ChiTietPhieuNhap values (?,?,?,?,?)";
+    private final String INSERT_SQL = "INSERT INTO ChiTietPhieuNhap values (?,?,?,?)";
     private final String DELETE_BY_ID = "DELETE from ChiTietPhieuNhap where idPN = ?";
     private final String SELECT_BY_ID = "SELECT * FROM ChiTietPhieuNhap WHERE idPN = ?";
 
     @Override
     public void create(List<ChiTietPhieuNhap> list) {
         for (ChiTietPhieuNhap e : list) {
-            JDBCConnection.update(INSERT_SQL, e.getPhieuThu().getId(), e.getThuoc().getId(), e.getSoLuong(), e.getDonGia());
+            JDBCConnection.update(INSERT_SQL, e.getPhieuNhap().getId(), e.getThuoc().getId(), e.getSoLuong(), e.getDonGia());
         }
     }
 
@@ -34,7 +34,7 @@ public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuNhap
 
     @Override
     public List<ChiTietPhieuNhap> selectAllById(String k) {
-        return this.selectBySql(SELECT_BY_ID);
+        return this.selectBySql(SELECT_BY_ID, k);
     }
 
     protected List<ChiTietPhieuNhap> selectBySql(String sql, Object... args) {
@@ -45,7 +45,7 @@ public class ChiTietPhieuNhapDAO implements ChiTietInterfaceDAO<ChiTietPhieuNhap
                 ChiTietPhieuNhap e = new ChiTietPhieuNhap();
 
                 String idPN = rs.getString("idPN");
-                e.setPhieuThu(new PhieuNhapController().selectById(idPN));
+                e.setPhieuNhap(new PhieuNhapController().selectById(idPN));
 
                 String idThuoc = rs.getString("idThuoc");
                 e.setThuoc(new ThuocController().selectById(idThuoc));

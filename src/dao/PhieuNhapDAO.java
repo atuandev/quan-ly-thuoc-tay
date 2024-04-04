@@ -2,9 +2,7 @@ package dao;
 
 import connectDB.JDBCConnection;
 import controller.NhaCungCapController;
-import controller.NhanVienController;
 import entities.PhieuNhap;
-import entities.NhaCungCap;
 import entities.NhanVien;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -12,28 +10,28 @@ import java.util.List;
 
 public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
 
-    private final String INSERT_SQL = "INSERT INTO PhieuThu values (?,?,?,?)";
-    private final String UPDATE_SQL = "UPDATE PhieuThu SET thoiGian=?, idNV=?, idNCC=? where idPT=?";
-    private final String DELETE_BY_ID = "DELETE from PhieuThu where idPT = ?";
+    private final String INSERT_SQL = "INSERT INTO PhieuNhap values (?,?,?,?,?)";
+    private final String UPDATE_SQL = "UPDATE PhieuNhap SET thoiGian=?, idNV=?, idNCC=?, tongTien=? where idPN=?";
+    private final String DELETE_BY_ID = "DELETE from PhieuNhap where idPT = ?";
 
     private final String SELECT_ALL_SQL = """
-        SELECT PT.idPT, PT.thoiGian, 
+        SELECT PN.*, 
                NV.hoTen AS tenNV, NV.sdt AS sdtNV, NV.gioiTinh, NV.namSinh, NV.ngayVaoLam, 
                NCC.tenNCC, NCC.sdt AS sdtNCC, NCC.diaChi 
-        FROM PhieuThu PT 
-        JOIN NhanVien NV ON PT.idNV = NV.idNV 
-        JOIN NhaCungCap NCC ON PT.idNCC = NCC.idNCC 
-        ORDER BY PhieuThu.thoiGian ; """;
+        FROM PhieuNhap PN 
+        JOIN NhanVien NV ON PN.idNV = NV.idNV 
+        JOIN NhaCungCap NCC ON PN.idNCC = NCC.idNCC 
+        ORDER BY PN.thoiGian ; """;
     
     private final String SELECT_BY_ID = """
-        SELECT PT.idPT, PT.thoiGian, 
-                NV.idNV, NV.hoTen AS tenNV, NV.sdt AS sdtNV, NV.gioiTinh, NV.namSinh, NV.ngayVaoLam, 
-                NCC.idNCC, NCC.tenNCC, NCC.sdt AS sdtNCC, NCC.diaChi 
-        FROM PhieuThu PT 
-        JOIN NhanVien NV ON PT.idNV = NV.idNV 
-        JOIN NhaCungCap NCC ON PT.idNCC = NCC.idNCC 
-        WHERE idPT = ? 
-        ORDER BY PhieuThu.thoiGian;""";
+        SELECT PN.*, 
+                NV.hoTen AS tenNV, NV.sdt AS sdtNV, NV.gioiTinh, NV.namSinh, NV.ngayVaoLam, 
+                NCC.tenNCC, NCC.sdt AS sdtNCC, NCC.diaChi 
+        FROM PhieuNhap PN 
+        JOIN NhanVien NV ON PN.idNV = NV.idNV 
+        JOIN NhaCungCap NCC ON PN.idNCC = NCC.idNCC 
+        WHERE idPN = ? 
+        ORDER BY PN.thoiGian;""";
 
     @Override
     public void create(PhieuNhap e) {
@@ -57,7 +55,7 @@ public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
             ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 PhieuNhap e = new PhieuNhap();
-                e.setId(rs.getString("idPT"));
+                e.setId(rs.getString("idPN"));
                 e.setThoiGian(rs.getTimestamp("thoiGian"));
                 
                 NhanVien nhanVien = new NhanVien();
@@ -71,6 +69,8 @@ public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
                 
                 String idNCC = rs.getString("idNCC");
                 e.setNcc(new NhaCungCapController().selectById(idNCC));
+                
+                e.setTongTien(rs.getDouble("tongTien"));
                 listE.add(e);
             }
             rs.getStatement().getConnection().close();

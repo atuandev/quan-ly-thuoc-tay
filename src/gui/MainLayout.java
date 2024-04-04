@@ -10,6 +10,7 @@ import gui.page.HoaDonPage;
 import gui.page.KhachHangPage;
 import gui.page.NhaCungCapPage;
 import gui.page.NhanVienPage;
+import gui.page.PhieuNhapPage;
 import gui.page.ThuocPage;
 import gui.page.TaiKhoanPage;
 import gui.page.ThuocTinhPage;
@@ -43,6 +44,7 @@ public class MainLayout extends javax.swing.JFrame {
     private List<JButton> listItem;
 
     Color ACTIVE_BACKGROUND_COLOR = new Color(195, 240, 235);
+    private PhieuNhapPage phieuNhap;
 
     public MainLayout() {
         initComponents();
@@ -121,16 +123,16 @@ public class MainLayout extends javax.swing.JFrame {
         if (role.equals("admin")) {
             return true;
         }
-        
+
         if (role.equals("qlbh")) {
-            if (!mainContent.equals(hoaDon) || !mainContent.equals(khachHang)){
+            if (!mainContent.equals(hoaDon) || !mainContent.equals(khachHang)) {
                 MessageDialog.warring(this, "Không có quyền truy cập màn hình này!");
                 return false;
             }
         }
-        
+
         if (role.equals("qlsp")) {
-            if (!mainContent.equals(nhaCungCap)){
+            if (!mainContent.equals(nhaCungCap)) {
                 MessageDialog.warring(this, "Không có quyền truy cập màn hình này!");
                 return false;
             }
@@ -147,6 +149,7 @@ public class MainLayout extends javax.swing.JFrame {
         sidebarPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         itemPanel = new javax.swing.JPanel();
+        thongKeItem = new javax.swing.JButton();
         hoaDonItem = new javax.swing.JButton();
         phieuDatHang = new javax.swing.JButton();
         khachHangItem = new javax.swing.JButton();
@@ -187,6 +190,23 @@ public class MainLayout extends javax.swing.JFrame {
         itemPanel.setBackground(new java.awt.Color(255, 255, 255));
         itemPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 8, true));
         itemPanel.setPreferredSize(new java.awt.Dimension(250, 550));
+
+        thongKeItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        thongKeItem.setIcon(new FlatSVGIcon("./icon/statistics.svg"));
+        thongKeItem.setText("Thống kê");
+        thongKeItem.setBorderPainted(false);
+        thongKeItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        thongKeItem.setFocusPainted(false);
+        thongKeItem.setFocusable(false);
+        thongKeItem.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        thongKeItem.setIconTextGap(16);
+        thongKeItem.setPreferredSize(new java.awt.Dimension(226, 46));
+        thongKeItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                thongKeItemActionPerformed(evt);
+            }
+        });
+        itemPanel.add(thongKeItem);
 
         hoaDonItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         hoaDonItem.setIcon(new FlatSVGIcon("./icon/bill.svg"));
@@ -532,8 +552,15 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInfoActionPerformed
 
     private void phieuNhapItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phieuNhapItemActionPerformed
-        // TODO add your handling code here:
+        phieuNhap = new PhieuNhapPage(this);
+        this.setPanel(phieuNhap);
+        resetActive();
+        phieuNhapItem.setSelected(true);
     }//GEN-LAST:event_phieuNhapItemActionPerformed
+
+    private void thongKeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongKeItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_thongKeItemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -559,6 +586,7 @@ public class MainLayout extends javax.swing.JFrame {
     private javax.swing.JButton sanPhamItem;
     private javax.swing.JPanel sidebarPanel;
     private javax.swing.JButton taiKhoanItem;
+    private javax.swing.JButton thongKeItem;
     private javax.swing.JLabel txtFullName;
     private javax.swing.JLabel txtRole;
     private javax.swing.JButton vaiTroItem;

@@ -1,7 +1,7 @@
 package dao;
 
 import connectDB.JDBCConnection;
-import controller.ChiTietPhieuDatHangController;
+import controller.PhieuDatHangController;
 import controller.ThuocController;
 import entities.ChiTietPhieuDatHang;
 import java.sql.ResultSet;
@@ -34,7 +34,7 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
 
     @Override
     public List<ChiTietPhieuDatHang> selectAllById(String k) {
-        return this.selectBySql(SELECT_BY_ID);
+        return this.selectBySql(SELECT_BY_ID, k);
     }
 
     protected List<ChiTietPhieuDatHang> selectBySql(String sql, Object... args) {
@@ -45,10 +45,11 @@ public class ChiTietPhieuDatHangDAO implements ChiTietInterfaceDAO<ChiTietPhieuD
                 ChiTietPhieuDatHang e = new ChiTietPhieuDatHang();
                 
                 String idPDH = rs.getString("idPDH");
-//                e.setPhieuDatHang(new ChiTietPhieuDatHangController().selectAllById(idPDH));
+                e.setPhieuDatHang(new PhieuDatHangController().selectById(idPDH));
                 
                 String idThuoc = rs.getString("idThuoc");
                 e.setThuoc(new ThuocController().selectById(idThuoc));
+                
                 e.setSoLuong(rs.getInt("soLuong"));
                 e.setDonGia(rs.getDouble("donGia"));
                 listE.add(e);
