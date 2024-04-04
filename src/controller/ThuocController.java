@@ -32,7 +32,6 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
 
     public ThuocDAO THUOC_DAO = new ThuocDAO();
     public ThuocPage THUOC_GUI;
-    public CreateHoaDonPage CHD_GUI;
 
     public ThuocController() {
     }
@@ -40,11 +39,7 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
     public ThuocController(ThuocPage THUOC_GUI) {
         this.THUOC_GUI = THUOC_GUI;
     }
-
-    public ThuocController(CreateHoaDonPage CHD_GUI) {
-        this.CHD_GUI = CHD_GUI;
-    }
-
+    
     @Override
     public void create(Thuoc e) {
         THUOC_DAO.create(e);

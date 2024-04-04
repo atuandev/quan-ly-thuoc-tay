@@ -10,7 +10,6 @@ import entities.NhanVien;
 import entities.PhieuNhap;
 import entities.TaiKhoan;
 import gui.MainLayout;
-import gui.dialog.DetailHoaDonDialog;
 import gui.dialog.DetailPhieuNhapDialog;
 import java.util.ArrayList;
 import java.util.List;
@@ -458,7 +457,7 @@ public class PhieuNhapPage extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         TaiKhoan tk = main.tk;
-        CreateHoaDonPage page = new CreateHoaDonPage(main, tk);
+        CreatePhieuNhapPage page = new CreatePhieuNhapPage(main, tk);
         main.setPanel(page);
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -501,16 +500,16 @@ public class PhieuNhapPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnReloadActionPerformed
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
-//        try {
+        try {
             int row = table.getSelectedRow();
             PhieuNhap hoaDon = listHD.get(row);
             List<ChiTietPhieuNhap> listCTPN = new ChiTietPhieuNhapController().selectAllById(hoaDon.getId());
 
             DetailPhieuNhapDialog dialog = new DetailPhieuNhapDialog(null, true, listCTPN);
             dialog.setVisible(true);
-//        } catch (Exception e) {
-//            MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
-//        }
+        } catch (Exception e) {
+            MessageDialog.error(this, "Vui lòng chọn dòng cần thực hiện!");
+        }
     }//GEN-LAST:event_btnInfoActionPerformed
 
     private void cboxNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxNhanVienActionPerformed

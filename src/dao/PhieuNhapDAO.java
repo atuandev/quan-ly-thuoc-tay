@@ -12,7 +12,7 @@ public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
 
     private final String INSERT_SQL = "INSERT INTO PhieuNhap values (?,?,?,?,?)";
     private final String UPDATE_SQL = "UPDATE PhieuNhap SET thoiGian=?, idNV=?, idNCC=?, tongTien=? where idPN=?";
-    private final String DELETE_BY_ID = "DELETE from PhieuNhap where idPT = ?";
+    private final String DELETE_BY_ID = "DELETE from PhieuNhap where idPN = ?";
 
     private final String SELECT_ALL_SQL = """
         SELECT PN.*, 
@@ -22,7 +22,7 @@ public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
         JOIN NhanVien NV ON PN.idNV = NV.idNV 
         JOIN NhaCungCap NCC ON PN.idNCC = NCC.idNCC 
         ORDER BY PN.thoiGian ; """;
-    
+
     private final String SELECT_BY_ID = """
         SELECT PN.*, 
                 NV.hoTen AS tenNV, NV.sdt AS sdtNV, NV.gioiTinh, NV.namSinh, NV.ngayVaoLam, 
@@ -35,12 +35,12 @@ public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
 
     @Override
     public void create(PhieuNhap e) {
-        JDBCConnection.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getNhanVien().getId(), e.getNcc().getId());
+        JDBCConnection.update(INSERT_SQL, e.getId(), e.getThoiGian(), e.getNhanVien().getId(), e.getNcc().getId(), e.getTongTien());
     }
 
     @Override
     public void update(PhieuNhap e) {
-        JDBCConnection.update(UPDATE_SQL, e.getThoiGian(), e.getNhanVien().getId(), e.getNcc().getId(), e.getId());
+        JDBCConnection.update(UPDATE_SQL, e.getThoiGian(), e.getNhanVien().getId(), e.getNcc().getId(), e.getTongTien(), e.getId());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
                 PhieuNhap e = new PhieuNhap();
                 e.setId(rs.getString("idPN"));
                 e.setThoiGian(rs.getTimestamp("thoiGian"));
-                
+
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setId(rs.getString("idNV"));
                 nhanVien.setHoTen(rs.getString("tenNV"));
@@ -66,10 +66,10 @@ public class PhieuNhapDAO extends InterfaceDAO<PhieuNhap, String> {
                 nhanVien.setNamSinh(rs.getInt("namSinh"));
                 nhanVien.setNgayVaoLam(rs.getDate("ngayVaoLam"));
                 e.setNhanVien(nhanVien);
-                
+
                 String idNCC = rs.getString("idNCC");
                 e.setNcc(new NhaCungCapController().selectById(idNCC));
-                
+
                 e.setTongTien(rs.getDouble("tongTien"));
                 listE.add(e);
             }
