@@ -47,8 +47,9 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
         lblChart.setText("thống kê doanh thu 7 ngày gần nhất".toUpperCase());
         
         curveChart.addLegend("Doanh thu", new Color(54, 4, 143), new Color(104, 49, 200));
-        curveChart.addLegend("Chi phí", new Color(12, 84, 175), new Color(0, 108, 247));
-        curveChart.addLegend("Lợi nhuận", new Color(211, 84, 0), new Color(230, 126, 34));
+        curveChart.addLegend("Chi phí", new Color(211, 84, 0), new Color(230, 126, 34));
+//        curveChart.addLegend("Lợi nhuận", new Color(12, 84, 175), new Color(0, 108, 247));
+        curveChart.addLegend("Lợi nhuận", new Color(22, 163, 74), new Color(34, 197, 94));
 
         loadDataChart();
 
@@ -78,7 +79,7 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
 
     public void loadDataChart() {
         for (ThongKe e : listTK) {
-            curveChart.addData(new ModelChart2(e.getThoiGian() + "", new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
+            curveChart.addData(new ModelChart2(Formatter.FormatDate(e.getThoiGian()), new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
         }
     }
 
