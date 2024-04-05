@@ -294,3 +294,44 @@ VALUES
 	('C45PX5VYN', 'VFZCHLHIE', 300, 250000),
 	('A4B3VKX8V', 'ESMJMM7T1', 100, 95000);
 go
+
+
+DECLARE @start_year INT = 2023;
+DECLARE @end_year INT = 2025;
+
+WITH years(year) AS (
+    SELECT @start_year
+    UNION ALL
+    SELECT year + 1
+    FROM years
+    WHERE year < @end_year
+)
+SELECT 
+    years.year AS nam,
+    COALESCE(SUM(HoaDon.tongTien), 0) AS doanhthu,
+    COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
+FROM years
+LEFT JOIN HoaDon ON YEAR(HoaDon.thoiGian) = years.year
+LEFT JOIN ChiTietHoaDon ON HoaDon.idHD = ChiTietHoaDon.idHD
+LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
+GROUP BY years.year
+ORDER BY years.year;
+
+
+WITH dates AS (
+    SELECT DATEADD(DAY, -6, GETDATE()) AS date
+    UNION ALL
+    SELECT DATEADD(DAY, 1, date)
+    FROM dates
+    WHERE date < CAST(GETDATE() AS DATE)
+)
+SELECT 
+    dates.date AS ngay,
+    COALESCE(SUM(HoaDon.tongTien), 0) AS doanhthu,
+    COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
+FROM dates
+LEFT JOIN HoaDon ON CONVERT(DATE, HoaDon.thoiGian) = CONVERT(DATE, dates.date)
+LEFT JOIN ChiTietHoaDon ON HoaDon.idHD = ChiTietHoaDon.idHD
+LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
+GROUP BY dates.date
+ORDER BY dates.date;
