@@ -39,7 +39,7 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
     public ThuocController(ThuocPage THUOC_GUI) {
         this.THUOC_GUI = THUOC_GUI;
     }
-    
+
     @Override
     public void create(Thuoc e) {
         THUOC_DAO.create(e);
@@ -58,6 +58,10 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
     @Override
     public List<Thuoc> getAllList() {
         return THUOC_DAO.selectAll();
+    }
+
+    public int getSoLuongThuoc() {
+        return this.getAllList().size();
     }
 
     @Override
@@ -109,7 +113,7 @@ public class ThuocController extends InterfaceController<Thuoc, String> {
         for (Thuoc e : this.getAllList()) {
             boolean match = false;
             long timeHSD = e.getHanSuDung().getTime() - new Date().getTime();
-            long dateHSD =  TimeUnit.MILLISECONDS.toDays(timeHSD);
+            long dateHSD = TimeUnit.MILLISECONDS.toDays(timeHSD);
 
             if (e.getXuatXu().getTen().equals(tenXX)) {
                 match = true;

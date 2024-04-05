@@ -56,6 +56,10 @@ public class NhanVienController extends InterfaceController<NhanVien, String> {
         return NV_DAO.selectAll();
     }
 
+    public int getSoLuongNV() {
+        return this.getAllList().size();
+    }
+
     @Override
     public NhanVien selectById(String id) {
         return NV_DAO.selectById(id);

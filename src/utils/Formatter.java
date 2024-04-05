@@ -24,15 +24,17 @@ public class Formatter {
 
     public static String FormatVND(double number) {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
-        return formatter.format(number);
+        return formatter.format(number) + "đ";
     }
 
     public static double unformatVND(String formattedString) {
-        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        DecimalFormat formatter = new DecimalFormat("###,###,###.##");
         try {
-            return formatter.parse(formattedString).doubleValue();
+            Number number = formatter.parse(formattedString.replaceAll("[^\\d.]", ""));
+            return number.doubleValue();
         } catch (ParseException e) {
-            return 0.0;
+            e.printStackTrace();
+            return 0.0; // Return default value in case of parsing failure
         }
     }
 

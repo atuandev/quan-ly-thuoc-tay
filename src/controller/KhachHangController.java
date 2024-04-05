@@ -55,6 +55,10 @@ public class KhachHangController extends InterfaceController<KhachHang, String> 
     public List<KhachHang> getAllList() {
         return KH_DAO.selectAll();
     }
+    
+    public int getSoLuongKH() {
+        return this.getAllList().size();
+    }
 
     @Override
     public KhachHang selectById(String id) {

@@ -1,8 +1,19 @@
 package gui.page.thongke;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import gui.barchart.ModelChart;
+import controller.KhachHangController;
+import controller.NhanVienController;
+import controller.ThongKeController;
+import controller.ThuocController;
+import entities.ThongKe;
+import gui.curvechart.ModelChart2;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import utils.Formatter;
+import utils.TableSorter;
 
 /**
  *
@@ -10,31 +21,78 @@ import java.awt.Color;
  */
 public class ThongKeTongQuanPage extends javax.swing.JPanel {
 
+    private final List<ThongKe> listTK = new ThongKeController().getStatistic7DaysAgo();
+
+    private DefaultTableModel modal;
+
     public ThongKeTongQuanPage() {
         initComponents();
         initChart();
+        initHeader();
+        tableLayout();
+    }
+
+    private void initHeader() {
+        int tongThuoc = new ThuocController().getSoLuongThuoc();
+        txtTongThuoc.setText(String.valueOf(tongThuoc));
+
+        int tongKH = new KhachHangController().getSoLuongKH();
+        txtTongKhachHang.setText(String.valueOf(tongKH));
+
+        int tongNV = new NhanVienController().getSoLuongNV();
+        txtTongNhanVien.setText(String.valueOf(tongNV));
     }
 
     private void initChart() {
-        chart.addLegend("Doanh thu", new Color(245, 189, 135));
-        chart.addLegend("Chi phí", new Color(135, 189, 245));
-        chart.addLegend("Lợi nhuận", new Color(189, 135, 245));
-        chart.addData(new ModelChart("Tháng 1", new double[]{1200, 200, 80}));
-        chart.addData(new ModelChart("Tháng 2", new double[]{600, 750, 90}));
-        chart.addData(new ModelChart("Tháng 3", new double[]{200, 350, 460}));
-        chart.addData(new ModelChart("Tháng 4", new double[]{480, 150, 750}));
-        chart.addData(new ModelChart("Tháng 5", new double[]{350, 540, 300}));
-        chart.addData(new ModelChart("Tháng 6", new double[]{190, 280, 81}));
-        chart.addData(new ModelChart("Tháng 7", new double[]{350, 540, 300}));
-        chart.addData(new ModelChart("Tháng 8", new double[]{190, 280, 81}));
-        chart.addData(new ModelChart("Tháng 9", new double[]{350, 540, 300}));
-        chart.addData(new ModelChart("Tháng 10", new double[]{190, 280, 81}));
-        chart.addData(new ModelChart("Tháng 11", new double[]{350, 540, 300}));
-        chart.addData(new ModelChart("Tháng 12", new double[]{190, 280, 81}));
+        lblChart.setText("thống kê doanh thu 7 ngày gần nhất".toUpperCase());
         
-        chart.start();
+        curveChart.addLegend("Doanh thu", new Color(54, 4, 143), new Color(104, 49, 200));
+        curveChart.addLegend("Chi phí", new Color(12, 84, 175), new Color(0, 108, 247));
+        curveChart.addLegend("Lợi nhuận", new Color(211, 84, 0), new Color(230, 126, 34));
+
+        loadDataChart();
+
+        curveChart.start();
     }
-    
+
+    private void tableLayout() {
+        String[] header = new String[]{"STT", "Thời gian", "Doanh thu", "Chi phí", "Lợi nhuận"};
+        modal = new DefaultTableModel();
+        modal.setColumnIdentifiers(header);
+        table.setModel(modal);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        table.setDefaultRenderer(Object.class, centerRenderer);
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(0).setPreferredWidth(30);
+
+        loadTable(listTK);
+        sortTable();
+    }
+
+    private void sortTable() {
+        table.setAutoCreateRowSorter(true);
+        TableSorter.configureTableColumnSorter(table, 0, TableSorter.STRING_COMPARATOR);
+    }
+
+    public void loadDataChart() {
+        for (ThongKe e : listTK) {
+            curveChart.addData(new ModelChart2(e.getThoiGian() + "", new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
+        }
+    }
+
+    public void loadTable(List<ThongKe> list) {
+        modal.setRowCount(0);
+        int stt = 1;
+        for (ThongKe e : list) {
+            modal.addRow(new Object[]{
+                stt, Formatter.FormatDate(e.getThoiGian()), Formatter.FormatVND(e.getDoanhThu()), Formatter.FormatVND(e.getChiPhi()), Formatter.FormatVND(e.getLoiNhuan())
+            });
+            stt++;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -59,7 +117,9 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
         txtTongNhanVien = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        chart = new gui.barchart.Chart();
+        curveChart = new gui.curvechart.CurveChart();
+        jPanel5 = new javax.swing.JPanel();
+        lblChart = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -239,9 +299,19 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(curveChart, java.awt.BorderLayout.CENTER);
 
-        chart.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        jPanel1.add(chart, java.awt.BorderLayout.CENTER);
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setPreferredSize(new java.awt.Dimension(1188, 30));
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        lblChart.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        lblChart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblChart.setText("Thống kê");
+        lblChart.setPreferredSize(new java.awt.Dimension(37, 30));
+        jPanel5.add(lblChart, java.awt.BorderLayout.PAGE_START);
+
+        jPanel1.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -288,7 +358,7 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private gui.barchart.Chart chart;
+    private gui.curvechart.CurveChart curveChart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -303,11 +373,13 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblChart;
     private javax.swing.JTable table;
     private javax.swing.JLabel txtTongKhachHang;
     private javax.swing.JLabel txtTongNhanVien;
