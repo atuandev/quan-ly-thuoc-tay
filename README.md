@@ -31,6 +31,9 @@ Nếu muốn insert Thuoc trong file **QLThuoc.sql** -> Phải đổi đường 
 <h3 align="center">Đăng nhập</h3>
 <img src="./image/login.png" />
 
+<h3 align="center">Thống kê</h3>
+<img src="./image/thong-ke.png" />
+
 <h3 align="center">Hóa đơn</h3>
 <img src="./image/hoa-don.png" />
 
