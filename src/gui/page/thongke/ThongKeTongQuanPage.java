@@ -45,7 +45,7 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
 
     private void initChart() {
         lblChart.setText("thống kê doanh thu 7 ngày gần nhất".toUpperCase());
-        
+
         curveChart.addLegend("Doanh thu", new Color(54, 4, 143), new Color(104, 49, 200));
         curveChart.addLegend("Chi phí", new Color(211, 84, 0), new Color(230, 126, 34));
         curveChart.addLegend("Lợi nhuận", new Color(22, 163, 74), new Color(34, 197, 94));
@@ -55,6 +55,12 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
         curveChart.start();
     }
 
+    public void loadDataChart() {
+        for (ThongKe e : listTK) {
+            curveChart.addData(new ModelChart2(Formatter.FormatDate(e.getThoiGian()), new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
+        }
+    }
+    
     private void tableLayout() {
         String[] header = new String[]{"STT", "Thời gian", "Doanh thu", "Chi phí", "Lợi nhuận"};
         modal = new DefaultTableModel();
@@ -76,11 +82,6 @@ public class ThongKeTongQuanPage extends javax.swing.JPanel {
         TableSorter.configureTableColumnSorter(table, 0, TableSorter.STRING_COMPARATOR);
     }
 
-    public void loadDataChart() {
-        for (ThongKe e : listTK) {
-            curveChart.addData(new ModelChart2(Formatter.FormatDate(e.getThoiGian()), new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
-        }
-    }
 
     public void loadTable(List<ThongKe> list) {
         modal.setRowCount(0);

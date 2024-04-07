@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.Formatter;
+import utils.JTableExporter;
 import utils.TableSorter;
 
 /**
@@ -88,6 +89,7 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
         lblChart1 = new javax.swing.JLabel();
         txtToYear = new javax.swing.JTextField();
         btnStatistic = new javax.swing.JButton();
+        btnReload = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(230, 245, 245));
@@ -156,10 +158,32 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
         jPanel5.add(lblChart1);
         jPanel5.add(txtToYear);
 
+        btnStatistic.setBackground(new java.awt.Color(51, 153, 255));
+        btnStatistic.setForeground(new java.awt.Color(204, 255, 255));
         btnStatistic.setText("Thống kê");
+        btnStatistic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatisticActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnStatistic);
 
+        btnReload.setText("Làm mới");
+        btnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnReload);
+
+        btnExport.setBackground(new java.awt.Color(0, 153, 102));
+        btnExport.setForeground(new java.awt.Color(204, 255, 204));
         btnExport.setText("Xuất excel");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnExport);
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.PAGE_START);
@@ -167,9 +191,22 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnStatisticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnStatisticActionPerformed
+
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        JTableExporter.exportJTableToExcel(table);
+    }//GEN-LAST:event_btnExportActionPerformed
+
+    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReloadActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExport;
+    private javax.swing.JButton btnReload;
     private javax.swing.JButton btnStatistic;
     private gui.barchart.Chart chart;
     private javax.swing.JPanel jPanel1;

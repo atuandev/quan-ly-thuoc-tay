@@ -24,11 +24,11 @@ public class ThongKeDAO {
                                         )
                                         SELECT 
                                             dates.date AS ngay,
-                                            COALESCE(SUM(HoaDon.tongTien), 0) AS doanhthu,
+                                            COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.donGia), 0) AS doanhthu,
                                             COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
                                         FROM dates
                                         LEFT JOIN HoaDon ON CONVERT(DATE, HoaDon.thoiGian) = CONVERT(DATE, dates.date)
-                                        LEFT JOIN ChiTietHoaDon ON HoaDon.idHD = ChiTietHoaDon.idHD
+                                        LEFT JOIN ChiTietHoaDon ON ChiTietHoaDon.idHD = HoaDon.idHD
                                         LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
                                         GROUP BY dates.date
                                         ORDER BY dates.date;
@@ -37,7 +37,7 @@ public class ThongKeDAO {
     private final String SELECT_FROM_YEAR_TO_YEAR = """
                                                     DECLARE @start_year INT = ?;
                                                     DECLARE @end_year INT = ?;
-                                                    
+                                                                                                        
                                                     WITH years(year) AS (
                                                         SELECT @start_year
                                                         UNION ALL
@@ -47,7 +47,7 @@ public class ThongKeDAO {
                                                     )
                                                     SELECT 
                                                         years.year AS nam,
-                                                        COALESCE(SUM(HoaDon.tongTien), 0) AS doanhthu,
+                                                        COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.donGia), 0) AS doanhthu,
                                                         COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
                                                     FROM years
                                                     LEFT JOIN HoaDon ON YEAR(HoaDon.thoiGian) = years.year

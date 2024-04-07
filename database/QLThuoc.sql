@@ -129,15 +129,15 @@ go
 
 INSERT INTO Thuoc(idThuoc, tenThuoc, hinhAnh, thanhPhan, idDVT, idDM, idXX, soLuongTon, giaNhap, donGia, hanSuDung)
 VALUES
-	('X12IFO4BZ', N'Hapacol 650 DHG', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\hapacol_650_extra_dhg.png', SINGLE_BLOB) as image), N'Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF123', 1021, 18000, 25000, '2026-02-15'),
+	('X12IFO4BZ', N'Hapacol 650 DHG', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\hapacol_650_extra_dhg.png', SINGLE_BLOB) as image), N'Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF123', 1021, 20000, 25000, '2026-02-15'),
 	('XRZXFO4BZ', N'Bột pha hỗn dịch uống Smecta vị cam', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bot-pha-hon-dich-uong-smecta.jpg', SINGLE_BLOB) as image), N'Diosmectite', 'CVB141ERT', 'ZXC321QWE', 'XCVSDF125', 1021, 3000, 4000, '2026-05-21'),
-	('XRBIFO4BZ', N'Siro C.C Life 100mg/5ml Foripharm', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\C.c-Life-100MgChai.jpg', SINGLE_BLOB) as image), N'Vitamin C', 'CV123GERT', 'ZXC321QWE', 'XCVSDF123', 1032, 23000, 30000, '2026-03-01'),
-	('VFZCHLHIE', N'Panadol Extra đỏ', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\Panadol-Extra.png', SINGLE_BLOB) as image), N'Caffeine, Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF122', 1034, 150000, 250000, '2026-08-07'),
-	('MJ9AB7J1I', N'Viên sủi Vitatrum C BRV', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\vitatrum-c-brv.png', SINGLE_BLOB) as image), N'Sỏi thận, Rối loạn chuyển hoá fructose, Bệnh Thalassemia, Tăng oxalat niệu, Rối loạn chuyển hoá oxalat', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF122', 1076, 15000, 24000, '2027-12-31'),
-	('ESMJMM7T1', N'Bổ Gan Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bo-gan-tuong-phu.jpg', SINGLE_BLOB) as image), N'Diệp hạ châu, Đảng Sâm, Bạch truật, Cam thảo, Phục Linh, Nhân trần, Trần bì', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1034, 70000, 95000, '2026-02-15'),
-	('BV07519DS', N'Bài Thạch Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bai-trang-truong-phuc.jpg', SINGLE_BLOB) as image), N'Xa tiền tử, Bạch mao căn, Sinh Địa, Ý Dĩ, Kim tiền thảo', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1076, 70000, 95000, '2026-02-10'),
-	('798E63U16', N'Đại Tràng Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\dai-trang-truong-phuc.jpg', SINGLE_BLOB) as image), N'Hoàng liên, Mộc hương, Bạch truật, Bạch thược, Ngũ bội tử, Hậu phác, Cam thảo, Xa tiền tử, Hoạt thạch', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1021, 80000, 105000, '2026-09-03'),
-	('745KCI1KX', N'Ninh Tâm Vương Hồng Bàng', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\ninh-tam-vuong-hong-bang.png', SINGLE_BLOB) as image), N'L-Carnitine, Taurine, Đan sâm, Khổ sâm bắc, Nattokinase, Hoàng đằng, Magie, Tá dược vừa đủ', 'CVB123ERT', 'ZXC311QWE', 'XCVSDF124', 1054, 120000, 180000, '2026-08-15');
+	('XRBIFO4BZ', N'Siro C.C Life 100mg/5ml Foripharm', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\C.c-Life-100MgChai.jpg', SINGLE_BLOB) as image), N'Vitamin C', 'CV123GERT', 'ZXC321QWE', 'XCVSDF123', 1032, 25000, 30000, '2026-03-01'),
+	('VFZCHLHIE', N'Panadol Extra đỏ', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\Panadol-Extra.png', SINGLE_BLOB) as image), N'Caffeine, Paracetamol', 'CVB123ERT', 'ZAQ321QWE', 'XCVSDF122', 1034, 235000, 250000, '2026-08-07'),
+	('MJ9AB7J1I', N'Viên sủi Vitatrum C BRV', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\vitatrum-c-brv.png', SINGLE_BLOB) as image), N'Sỏi thận, Rối loạn chuyển hoá fructose, Bệnh Thalassemia, Tăng oxalat niệu, Rối loạn chuyển hoá oxalat', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF122', 1076, 20000, 24000, '2027-12-31'),
+	('ESMJMM7T1', N'Bổ Gan Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bo-gan-tuong-phu.jpg', SINGLE_BLOB) as image), N'Diệp hạ châu, Đảng Sâm, Bạch truật, Cam thảo, Phục Linh, Nhân trần, Trần bì', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1034, 85000, 95000, '2026-02-15'),
+	('BV07519DS', N'Bài Thạch Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\bai-trang-truong-phuc.jpg', SINGLE_BLOB) as image), N'Xa tiền tử, Bạch mao căn, Sinh Địa, Ý Dĩ, Kim tiền thảo', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1076, 85000, 95000, '2026-02-10'),
+	('798E63U16', N'Đại Tràng Trường Phúc', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\dai-trang-truong-phuc.jpg', SINGLE_BLOB) as image), N'Hoàng liên, Mộc hương, Bạch truật, Bạch thược, Ngũ bội tử, Hậu phác, Cam thảo, Xa tiền tử, Hoạt thạch', 'CVB123ERT', 'ZXC321QWE', 'XCVSDF123', 1021, 90, 105000, '2026-09-03'),
+	('745KCI1KX', N'Ninh Tâm Vương Hồng Bàng', (SELECT BulkColumn FROM Openrowset(BULK 'D:\IUH\QuanLyThuocTay\src\product-image\ninh-tam-vuong-hong-bang.png', SINGLE_BLOB) as image), N'L-Carnitine, Taurine, Đan sâm, Khổ sâm bắc, Nattokinase, Hoàng đằng, Magie, Tá dược vừa đủ', 'CVB123ERT', 'ZXC311QWE', 'XCVSDF124', 1054, 165000, 180000, '2026-08-15');
 go
 
 CREATE TABLE PhieuDatHang (
@@ -174,11 +174,11 @@ CREATE TABLE HoaDon (
 go
 INSERT INTO HoaDon (idHD, thoiGian, idNV, idKH, tongTien)
 VALUES
-    ('V1DFWISZ0', '2024-04-04 14:21:13', 'DKJFJO1K2', 'ABCD12345', 105000),
-    ('MNS6VLQ9F', '2024-04-05 16:12:51', 'ADMIN', 'XYZ98765Z', 180000),
-    ('3P06S5KGG', '2024-04-06 08:31:31', 'LKD2SFSL1', 'KLM45678X', 90000),
-    ('R4DDC67Q0', '2024-03-07 10:12:41', 'IU42JDKJ2', 'PQR23456V', 270000),
-    ('SKUQJUB5Z', '2024-03-08 12:31:36', 'DKJFJO1K2', '789ABCDEF', 30000),
+    ('V1DFWISZ0', '2024-04-01 14:21:13', 'DKJFJO1K2', 'ABCD12345', 105000),
+    ('MNS6VLQ9F', '2024-04-02 16:12:51', 'ADMIN', 'XYZ98765Z', 180000),
+    ('3P06S5KGG', '2024-04-03 08:31:31', 'LKD2SFSL1', 'KLM45678X', 90000),
+    ('R4DDC67Q0', '2024-04-04 10:12:41', 'IU42JDKJ2', 'PQR23456V', 270000),
+    ('SKUQJUB5Z', '2024-04-05 12:31:36', 'DKJFJO1K2', '789ABCDEF', 30000),
     ('F8BARB18Z', '2024-03-09 14:12:11', 'ADMIN', '456ZYXWVQ', 105000),
     ('8XBLQZV9B', '2024-03-10 16:03:43', 'LKD2SFSL1', 'QWE78901S', 345000),
     ('914KKABW3', '2024-03-11 08:07:32', 'IU42JDKJ2', 'ASDASN131', 95000),
@@ -191,8 +191,8 @@ VALUES
     ('1B78SGIZV', '2024-02-18 12:28:06', 'LKD2SFSL1', '789ABCDEF', 105000),
     ('VBA5E001G', '2024-02-19 14:38:28', 'IU42JDKJ2', '456ZYXWVQ', 200000),
     ('HAT7YG1MK', '2024-02-20 16:16:29', 'DKJFJO1K2', 'QWE78901S', 240000),
-	('ASZS32JZX', '20240303 6:24:09 PM', 'DKJFJO1K2', N'12ZAS1SX1', 135000),
-	('MNXS72JXA', '20240301 10:24:09 AM', 'IU42JDKJ2', N'ASDASN131', 465000);
+	('ASZS32JZX', '2024-02-21 16:16:29', 'DKJFJO1K2', N'12ZAS1SX1', 135000),
+	('MNXS72JXA', '2024-02-22 16:16:29', 'IU42JDKJ2', N'ASDASN131', 465000);
 go
 
 CREATE TABLE ChiTietHoaDon (
@@ -294,44 +294,3 @@ VALUES
 	('C45PX5VYN', 'VFZCHLHIE', 300, 250000),
 	('A4B3VKX8V', 'ESMJMM7T1', 100, 95000);
 go
-
-
-DECLARE @start_year INT = 2023;
-DECLARE @end_year INT = 2025;
-
-WITH years(year) AS (
-    SELECT @start_year
-    UNION ALL
-    SELECT year + 1
-    FROM years
-    WHERE year < @end_year
-)
-SELECT 
-    years.year AS nam,
-    COALESCE(SUM(HoaDon.tongTien), 0) AS doanhthu,
-    COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
-FROM years
-LEFT JOIN HoaDon ON YEAR(HoaDon.thoiGian) = years.year
-LEFT JOIN ChiTietHoaDon ON HoaDon.idHD = ChiTietHoaDon.idHD
-LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
-GROUP BY years.year
-ORDER BY years.year;
-
-
-WITH dates AS (
-    SELECT DATEADD(DAY, -6, GETDATE()) AS date
-    UNION ALL
-    SELECT DATEADD(DAY, 1, date)
-    FROM dates
-    WHERE date < CAST(GETDATE() AS DATE)
-)
-SELECT 
-    dates.date AS ngay,
-    COALESCE(SUM(HoaDon.tongTien), 0) AS doanhthu,
-    COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
-FROM dates
-LEFT JOIN HoaDon ON CONVERT(DATE, HoaDon.thoiGian) = CONVERT(DATE, dates.date)
-LEFT JOIN ChiTietHoaDon ON HoaDon.idHD = ChiTietHoaDon.idHD
-LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
-GROUP BY dates.date
-ORDER BY dates.date;
