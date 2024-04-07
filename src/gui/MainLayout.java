@@ -78,7 +78,7 @@ public class MainLayout extends javax.swing.JFrame {
     }
 
     private void sideBarLayout() {
-        
+
         // Add list item Sidebar
         listItem = new ArrayList<>();
         listItem.add(thongKeItem);
@@ -93,8 +93,7 @@ public class MainLayout extends javax.swing.JFrame {
         listItem.add(vaiTroItem);
 
         // Default content
-        thongke = new ThongKePage();
-        mainContent.add(thongke).setVisible(true);
+        mainContent.add(new ThongKePage(tk)).setVisible(true);
 
         // Default selected
         listItem.get(0).setSelected(true);
@@ -136,7 +135,7 @@ public class MainLayout extends javax.swing.JFrame {
             vaiTroItem.setEnabled(false);
             taiKhoanItem.setEnabled(false);
         }
-        
+
         if (role.equals("nvql")) {
             hoaDonItem.setEnabled(false);
             khachHangItem.setEnabled(false);

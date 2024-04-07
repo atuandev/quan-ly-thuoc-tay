@@ -17,6 +17,10 @@ public class ThongKeController {
         return TK_DAO.select7DaysAgo();
     }
     
+    public List<ThongKe> getStatisticDaysByMonthYear(int month, int year) {
+        return TK_DAO.selectDaysByMonthYear(month, year);
+    }
+    
     public List<ThongKeTheoNam> getStatisticFromYearToYear(int fromYear, int toYear) {
         return TK_DAO.selectFromYearToYear(fromYear, toYear);
     }

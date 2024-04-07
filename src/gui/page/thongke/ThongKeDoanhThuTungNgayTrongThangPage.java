@@ -1,7 +1,7 @@
 package gui.page.thongke;
 
 import controller.ThongKeController;
-import entities.ThongKeTheoThang;
+import entities.ThongKe;
 import gui.barchart.ModelChart;
 import java.awt.Color;
 import java.time.LocalDate;
@@ -11,21 +11,21 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.Formatter;
 import utils.JTableExporter;
-import utils.MessageDialog;
 import utils.TableSorter;
 
 /**
  *
  * @author atuandev
  */
-public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
+public class ThongKeDoanhThuTungNgayTrongThangPage extends javax.swing.JPanel {
 
+    private final int currentMonth = LocalDate.now().getMonthValue();
     private final int currentYear = LocalDate.now().getYear();
-    private List<ThongKeTheoThang> listTK = new ThongKeController().getStatisticMonthByYear(currentYear);
+    private List<ThongKe> listTK = new ThongKeController().getStatisticDaysByMonthYear(currentMonth, currentYear);
 
     private DefaultTableModel modal;
 
-    public ThongKeDoanhThuTheoThangPage() {
+    public ThongKeDoanhThuTungNgayTrongThangPage() {
         initComponents();
         chartLayout();
         tableLayout();
@@ -33,6 +33,7 @@ public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
     }
 
     private void chartLayout() {
+        txtMonth.setMonth(currentMonth - 1);
         txtYear.setValue(currentYear);
         
         chart.addLegend("Doanh thu", new Color(135, 189, 245));
@@ -43,13 +44,25 @@ public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
     }
 
     private void loadChart() {
-        for (ThongKeTheoThang e : listTK) {
-            chart.addData(new ModelChart("Tháng " + e.getThang(), new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
+        double sum_doanhthu = 0;
+        double sum_chiphi = 0;
+        double sum_loinhuan = 0;
+        
+        for (int day = 1; day < listTK.size(); day++) {
+            sum_doanhthu += listTK.get(day).getDoanhThu();
+            sum_chiphi += listTK.get(day).getChiPhi();
+            sum_loinhuan += listTK.get(day).getLoiNhuan();
+            if (day % 3 == 0) {
+                chart.addData(new ModelChart("Ngày " + (day - 2) + "-" + (day), new double[]{sum_doanhthu, sum_chiphi , sum_loinhuan}));
+                sum_doanhthu = 0;
+                sum_chiphi = 0;
+                sum_loinhuan = 0;
+            }
         }
     }
 
     private void tableLayout() {
-        String[] header = new String[]{"Tháng", "Doanh thu", "Chi phí", "Lợi nhuận"};
+        String[] header = new String[]{"Thời gian", "Doanh thu", "Chi phí", "Lợi nhuận"};
         modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
@@ -70,9 +83,9 @@ public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
 
     private void loadTable() {
         modal.setRowCount(0);
-        for (ThongKeTheoThang e : listTK) {
+        for (ThongKe e : listTK) {
             modal.addRow(new Object[]{
-                e.getThang()+ "", Formatter.FormatVND(e.getDoanhThu()), Formatter.FormatVND(e.getChiPhi()), Formatter.FormatVND(e.getLoiNhuan())
+                Formatter.FormatDate(e.getThoiGian()), Formatter.FormatVND(e.getDoanhThu()), Formatter.FormatVND(e.getChiPhi()), Formatter.FormatVND(e.getLoiNhuan())
             });
         }
     }
@@ -93,6 +106,8 @@ public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
+        lblChart = new javax.swing.JLabel();
+        txtMonth = new com.toedter.calendar.JMonthChooser();
         lblChart1 = new javax.swing.JLabel();
         txtYear = new com.toedter.components.JSpinField();
         btnStatistic = new javax.swing.JButton();
@@ -149,6 +164,16 @@ public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
         jPanel5.setPreferredSize(new java.awt.Dimension(1188, 30));
         jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 8, 0));
 
+        lblChart.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblChart.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblChart.setText("Tháng");
+        lblChart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblChart.setPreferredSize(new java.awt.Dimension(60, 30));
+        jPanel5.add(lblChart);
+
+        txtMonth.setPreferredSize(new java.awt.Dimension(130, 26));
+        jPanel5.add(txtMonth);
+
         lblChart1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblChart1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblChart1.setText("Năm");
@@ -193,26 +218,15 @@ public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean isValidFilterFields() {
-        int year = txtYear.getValue();
-
-        try {
-            if (year <= 1900 || year > currentYear) {
-                MessageDialog.warring(this, "Số năm phải từ 1900 đến " + currentYear);
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            MessageDialog.warring(this, "Số không hợp lệ!");
-            return false;
-        }
-
         return true;
     }
 
     private void btnStatisticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticActionPerformed
         if (isValidFilterFields()) {
+            int mounth = txtMonth.getMonth() + 1;
             int year = txtYear.getValue();
 
-            listTK = new ThongKeController().getStatisticMonthByYear(year);
+            listTK = new ThongKeController().getStatisticDaysByMonthYear(mounth, year);
             loadDataset();
         }
     }//GEN-LAST:event_btnStatisticActionPerformed
@@ -222,9 +236,10 @@ public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnExportActionPerformed
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+        txtMonth.setMonth(currentMonth - 1);
         txtYear.setValue(currentYear);
-
-        listTK = new ThongKeController().getStatisticMonthByYear(currentYear);
+        
+        listTK = new ThongKeController().getStatisticDaysByMonthYear(currentMonth, currentYear);
         loadDataset();
     }//GEN-LAST:event_btnReloadActionPerformed
 
@@ -237,8 +252,10 @@ public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblChart;
     private javax.swing.JLabel lblChart1;
     private javax.swing.JTable table;
+    private com.toedter.calendar.JMonthChooser txtMonth;
     private com.toedter.components.JSpinField txtYear;
     // End of variables declaration//GEN-END:variables
 }

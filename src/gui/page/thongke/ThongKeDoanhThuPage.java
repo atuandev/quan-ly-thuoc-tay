@@ -13,9 +13,10 @@ public class ThongKeDoanhThuPage extends javax.swing.JPanel {
 
     private void initLayout() {
 
-        tabPane.addTab("Thống kê theo năm", new ThongKeDoanhThuTheoNamPage());
+        tabPane.addTab("Thống kê từng ngày", new ThongKeDoanhThuTungNgayTrongThangPage());
         tabPane.addTab("Thống kê theo tháng", new ThongKeDoanhThuTheoThangPage());
-        
+        tabPane.addTab("Thống kê theo năm", new ThongKeDoanhThuTheoNamPage());
+
         this.add(tabPane);
     }
 
@@ -30,7 +31,6 @@ public class ThongKeDoanhThuPage extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1130, 800));
         setLayout(new java.awt.BorderLayout(0, 6));
 
-        tabPane.setBackground(new java.awt.Color(255, 255, 255));
         tabPane.setPreferredSize(new java.awt.Dimension(100, 30));
         add(tabPane, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents

@@ -74,8 +74,37 @@ public class ThongKeDAO {
                                           ORDER BY months.month;
                                           """;
     
+    private final String SELECT_DAYS_BY_MONTH_YEAR = """
+                                                     DECLARE @thang INT = ?;
+                                                     DECLARE @nam INT = ?;
+                                                     
+                                                     DECLARE @ngayString NVARCHAR(10) = CONVERT(NVARCHAR(10), @nam) + '-' + RIGHT('0' + CONVERT(NVARCHAR(2), @thang), 2) + '-01';
+                                                     
+                                                     WITH numbers AS (
+                                                         SELECT ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) - 1 AS number
+                                                         FROM master..spt_values
+                                                     )
+                                                     SELECT dates.date AS ngay,
+                                                     	COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.donGia), 0) AS doanhthu,
+                                                     	COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
+                                                     FROM (
+                                                         SELECT DATEADD(DAY, c.number, @ngayString) AS date
+                                                         FROM numbers c
+                                                         WHERE DATEADD(DAY, c.number, @ngayString) <= DATEADD(DAY, -1, DATEADD(MONTH, DATEDIFF(MONTH, 0, @ngayString) + 1, 0))
+                                                     ) AS dates
+                                                         LEFT JOIN HoaDon ON CONVERT(DATE, HoaDon.thoiGian) = CONVERT(DATE, dates.date)
+                                                         LEFT JOIN ChiTietHoaDon ON ChiTietHoaDon.idHD = HoaDon.idHD
+                                                         LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
+                                                     GROUP BY dates.date
+                                                     ORDER BY dates.date;
+                                                     """;
+    
     public List<ThongKe> select7DaysAgo() {
         return this.selectBySql(SELECT_7_DAYS_AGO);
+    }
+    
+    public List<ThongKe> selectDaysByMonthYear(int month, int year) {
+        return this.selectBySql(SELECT_DAYS_BY_MONTH_YEAR, month, year);
     }
 
     public List<ThongKeTheoNam> selectFromYearToYear(int fromYear, int toYear) {

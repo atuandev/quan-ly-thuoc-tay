@@ -25,7 +25,9 @@ public class ThongKePage extends javax.swing.JPanel {
     private void checkRole() {
         String role = tk.getVaiTro().getId();
         
-        if (!role.equals("nvql") || !role.equals("admin")) {
+        if (role.equals("nvql") || role.equals("admin")) {
+            tabPane.setEnabledAt(1, true);
+        } else {
             tabPane.setEnabledAt(1, false);
         }
     }
@@ -49,7 +51,6 @@ public class ThongKePage extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1130, 800));
         setLayout(new java.awt.BorderLayout(0, 6));
 
-        tabPane.setBackground(new java.awt.Color(255, 255, 255));
         tabPane.setPreferredSize(new java.awt.Dimension(100, 30));
         add(tabPane, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
