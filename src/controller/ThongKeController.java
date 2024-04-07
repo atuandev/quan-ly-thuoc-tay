@@ -3,6 +3,7 @@ package controller;
 import dao.ThongKeDAO;
 import entities.ThongKe;
 import entities.ThongKeTheoNam;
+import entities.ThongKeTheoThang;
 import java.util.List;
 
 /**
@@ -16,7 +17,11 @@ public class ThongKeController {
         return TK_DAO.select7DaysAgo();
     }
     
-    public List<ThongKeTheoNam> getStatisticByYear(int fromYear, int toYear) {
-        return TK_DAO.selectByYear(fromYear, toYear);
+    public List<ThongKeTheoNam> getStatisticFromYearToYear(int fromYear, int toYear) {
+        return TK_DAO.selectFromYearToYear(fromYear, toYear);
+    }
+    
+    public List<ThongKeTheoThang> getStatisticMonthByYear(int year) {
+        return TK_DAO.selectMounthsByYear(year);
     }
 }

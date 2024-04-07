@@ -294,3 +294,37 @@ VALUES
 	('C45PX5VYN', 'VFZCHLHIE', 300, 250000),
 	('A4B3VKX8V', 'ESMJMM7T1', 100, 95000);
 go
+
+DECLARE @year INT = 2020;
+
+SELECT 
+	months.month AS thang,
+	COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.donGia), 0) AS doanhthu,
+	COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
+FROM (
+       VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12)
+     ) AS months(month)
+LEFT JOIN HoaDon ON MONTH(HoaDon.thoiGian) = months.month AND YEAR(HoaDon.thoiGian) = @year
+LEFT JOIN ChiTietHoaDon ON ChiTietHoaDon.idHD = HoaDon.idHD
+LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
+GROUP BY months.month
+ORDER BY months.month;
+
+
+ WITH dates AS (
+SELECT DATEADD(DAY, -6, GETDATE()) AS date
+UNION ALL
+SELECT DATEADD(DAY, 1, date)
+FROM dates
+WHERE date < CAST(GETDATE() AS DATE)
+)
+SELECT 
+dates.date AS ngay,
+COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.donGia), 0) AS doanhthu,
+COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
+FROM dates
+LEFT JOIN HoaDon ON CONVERT(DATE, HoaDon.thoiGian) = CONVERT(DATE, dates.date)
+LEFT JOIN ChiTietHoaDon ON ChiTietHoaDon.idHD = HoaDon.idHD
+LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
+GROUP BY dates.date
+ORDER BY dates.date;

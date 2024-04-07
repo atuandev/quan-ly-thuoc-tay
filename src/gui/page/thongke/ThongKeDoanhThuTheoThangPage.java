@@ -1,7 +1,7 @@
 package gui.page.thongke;
 
 import controller.ThongKeController;
-import entities.ThongKeTheoNam;
+import entities.ThongKeTheoThang;
 import gui.barchart.ModelChart;
 import java.awt.Color;
 import java.time.LocalDate;
@@ -19,14 +19,14 @@ import utils.Validation;
  *
  * @author atuandev
  */
-public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
+public class ThongKeDoanhThuTheoThangPage extends javax.swing.JPanel {
 
     private final int currentYear = LocalDate.now().getYear();
-    private List<ThongKeTheoNam> listTK = new ThongKeController().getStatisticFromYearToYear(currentYear - 5, currentYear);
+    private List<ThongKeTheoThang> listTK = new ThongKeController().getStatisticMonthByYear(currentYear);
 
     private DefaultTableModel modal;
 
-    public ThongKeDoanhThuTheoNamPage() {
+    public ThongKeDoanhThuTheoThangPage() {
         initComponents();
         chartLayout();
         tableLayout();
@@ -34,6 +34,8 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
     }
 
     private void chartLayout() {
+        txtYear.setValue(currentYear);
+        
         chart.addLegend("Doanh thu", new Color(135, 189, 245));
         chart.addLegend("Chi phí", new Color(245, 189, 135));
         chart.addLegend("Lợi nhuận", new Color(139, 225, 196));
@@ -42,13 +44,13 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
     }
 
     private void loadChart() {
-        for (ThongKeTheoNam e : listTK) {
-            chart.addData(new ModelChart("Năm " + e.getNam(), new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
+        for (ThongKeTheoThang e : listTK) {
+            chart.addData(new ModelChart("Tháng " + e.getThang(), new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
         }
     }
 
     private void tableLayout() {
-        String[] header = new String[]{"Năm", "Doanh thu", "Chi phí", "Lợi nhuận"};
+        String[] header = new String[]{"Tháng", "Doanh thu", "Chi phí", "Lợi nhuận"};
         modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
         table.setModel(modal);
@@ -69,9 +71,9 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
 
     private void loadTable() {
         modal.setRowCount(0);
-        for (ThongKeTheoNam e : listTK) {
+        for (ThongKeTheoThang e : listTK) {
             modal.addRow(new Object[]{
-                e.getNam() + "", Formatter.FormatVND(e.getDoanhThu()), Formatter.FormatVND(e.getChiPhi()), Formatter.FormatVND(e.getLoiNhuan())
+                e.getThang()+ "", Formatter.FormatVND(e.getDoanhThu()), Formatter.FormatVND(e.getChiPhi()), Formatter.FormatVND(e.getLoiNhuan())
             });
         }
     }
@@ -92,10 +94,8 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        lblChart = new javax.swing.JLabel();
-        txtFromYear = new javax.swing.JTextField();
         lblChart1 = new javax.swing.JLabel();
-        txtToYear = new javax.swing.JTextField();
+        txtYear = new com.toedter.components.JSpinField();
         btnStatistic = new javax.swing.JButton();
         btnReload = new javax.swing.JButton();
         btnExport = new javax.swing.JButton();
@@ -150,21 +150,15 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
         jPanel5.setPreferredSize(new java.awt.Dimension(1188, 30));
         jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 8, 0));
 
-        lblChart.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        lblChart.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblChart.setText("Từ năm");
-        lblChart.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblChart.setPreferredSize(new java.awt.Dimension(60, 30));
-        jPanel5.add(lblChart);
-        jPanel5.add(txtFromYear);
-
         lblChart1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         lblChart1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblChart1.setText("Đến năm");
+        lblChart1.setText("Năm");
         lblChart1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblChart1.setPreferredSize(new java.awt.Dimension(60, 30));
+        lblChart1.setPreferredSize(new java.awt.Dimension(40, 30));
         jPanel5.add(lblChart1);
-        jPanel5.add(txtToYear);
+
+        txtYear.setPreferredSize(new java.awt.Dimension(80, 26));
+        jPanel5.add(txtYear);
 
         btnStatistic.setBackground(new java.awt.Color(51, 153, 255));
         btnStatistic.setForeground(new java.awt.Color(204, 255, 255));
@@ -200,39 +194,15 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean isValidFilterFields() {
-        if (Validation.isEmpty(txtFromYear.getText().trim())) {
-            MessageDialog.warring(this, "Không được để trống!");
-            Validation.resetTextfield(txtFromYear);
-            return false;
-        }
-        if (Validation.isEmpty(txtToYear.getText().trim())) {
-            MessageDialog.warring(this, "Không được để trống!");
-            Validation.resetTextfield(txtToYear);
-            return false;
-        }
-
-        int fromYear = Integer.parseInt(txtFromYear.getText());
-        int toYear = Integer.parseInt(txtToYear.getText());
+        int year = txtYear.getValue();
 
         try {
-            if (fromYear <= 1900 || fromYear > currentYear
-                    && toYear <= 1900 || toYear > currentYear) {
+            if (year <= 1900 || year > currentYear) {
                 MessageDialog.warring(this, "Số năm phải từ 1900 đến " + currentYear);
-                return false;
-            }
-            if (toYear < fromYear) {
-                MessageDialog.warring(this, "Số năm kết thúc phải >= năm bắt đầu!");
-                Validation.selectAllTextfield(txtToYear);
-                return false;
-            }
-            if (toYear - fromYear >= 10) {
-                MessageDialog.warring(this, "Hai năm không cách nhau quá 10 năm");
-                Validation.selectAllTextfield(txtFromYear);
                 return false;
             }
         } catch (NumberFormatException e) {
             MessageDialog.warring(this, "Số không hợp lệ!");
-            Validation.resetTextfield(txtFromYear);
             return false;
         }
 
@@ -241,10 +211,9 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
 
     private void btnStatisticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticActionPerformed
         if (isValidFilterFields()) {
-            int fromYear = Integer.parseInt(txtFromYear.getText());
-            int toYear = Integer.parseInt(txtToYear.getText());
+            int year = txtYear.getValue();
 
-            listTK = new ThongKeController().getStatisticFromYearToYear(fromYear, toYear);
+            listTK = new ThongKeController().getStatisticMonthByYear(year);
             loadDataset();
         }
     }//GEN-LAST:event_btnStatisticActionPerformed
@@ -254,10 +223,9 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnExportActionPerformed
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
-        txtFromYear.setText("");
-        txtToYear.setText("");
+        txtYear.setValue(currentYear);
 
-        listTK = new ThongKeController().getStatisticFromYearToYear(currentYear - 5, currentYear);
+        listTK = new ThongKeController().getStatisticMonthByYear(currentYear);
         loadDataset();
     }//GEN-LAST:event_btnReloadActionPerformed
 
@@ -270,10 +238,8 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblChart;
     private javax.swing.JLabel lblChart1;
     private javax.swing.JTable table;
-    private javax.swing.JTextField txtFromYear;
-    private javax.swing.JTextField txtToYear;
+    private com.toedter.components.JSpinField txtYear;
     // End of variables declaration//GEN-END:variables
 }

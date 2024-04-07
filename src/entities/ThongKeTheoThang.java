@@ -18,11 +18,11 @@ public class ThongKeTheoThang {
         this.chiPhi = chiPhi;
     }
 
-    public int getThoiGian() {
+    public int getThang() {
         return thang;
     }
 
-    public void setThoiGian(int thang) {
+    public void setThang(int thang) {
         this.thang = thang;
     }
 

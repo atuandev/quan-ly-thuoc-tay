@@ -14,7 +14,7 @@ public class ThongKeDoanhThuPage extends javax.swing.JPanel {
     private void initLayout() {
 
         tabPane.addTab("Thống kê theo năm", new ThongKeDoanhThuTheoNamPage());
-        tabPane.addTab("Thống kê theo tháng", new ThongKeDoanhThuTheoNamPage());
+        tabPane.addTab("Thống kê theo tháng", new ThongKeDoanhThuTheoThangPage());
         
         this.add(tabPane);
     }

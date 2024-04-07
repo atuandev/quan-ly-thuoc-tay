@@ -57,12 +57,33 @@ public class ThongKeDAO {
                                                     ORDER BY years.year;
                                                     """;
 
+    private final String SELECT_MOUNTH_BY_YEAR = """
+                                          DECLARE @year INT = ?;
+                                          
+                                          SELECT 
+                                          	months.month AS thang,
+                                          	COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.donGia), 0) AS doanhthu,
+                                          	COALESCE(SUM(ChiTietHoaDon.soLuong * Thuoc.giaNhap), 0) AS chiphi
+                                          FROM (
+                                                 VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12)
+                                               ) AS months(month)
+                                          LEFT JOIN HoaDon ON MONTH(HoaDon.thoiGian) = months.month AND YEAR(HoaDon.thoiGian) = @year
+                                          LEFT JOIN ChiTietHoaDon ON ChiTietHoaDon.idHD = HoaDon.idHD
+                                          LEFT JOIN Thuoc ON Thuoc.idThuoc = ChiTietHoaDon.idThuoc
+                                          GROUP BY months.month
+                                          ORDER BY months.month;
+                                          """;
+    
     public List<ThongKe> select7DaysAgo() {
         return this.selectBySql(SELECT_7_DAYS_AGO);
     }
 
-    public List<ThongKeTheoNam> selectByYear(int fromYear, int toYear) {
+    public List<ThongKeTheoNam> selectFromYearToYear(int fromYear, int toYear) {
         return this.selectBySqlTheoNam(SELECT_FROM_YEAR_TO_YEAR, fromYear, toYear);
+    }
+    
+    public List<ThongKeTheoThang> selectMounthsByYear(int year) {
+        return this.selectBySqlTheoThang(SELECT_MOUNTH_BY_YEAR, year);
     }
 
     protected List<ThongKe> selectBySql(String sql, Object... args) {
@@ -107,7 +128,7 @@ public class ThongKeDAO {
             ResultSet rs = JDBCConnection.query(sql, args);
             while (rs.next()) {
                 ThongKeTheoThang e = new ThongKeTheoThang();
-                e.setThoiGian(rs.getInt("thang"));
+                e.setThang(rs.getInt("thang"));
                 e.setDoanhThu(rs.getDouble("doanhthu"));
                 e.setChiPhi(rs.getDouble("chiphi"));
                 listE.add(e);
