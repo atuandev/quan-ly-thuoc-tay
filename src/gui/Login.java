@@ -60,16 +60,17 @@ public class Login extends javax.swing.JFrame {
 
         if (isValidateFields()) {
             TaiKhoan tk = new TaiKhoanController().selectByUsername(username);
+
             if (tk == null) {
                 MessageDialog.error(this, "Tài khoản không tồn tại!");
+                return;
+            }
 
+            if (username.equals(tk.getUsername()) && BCrypt.compare(password, tk.getPassword())) {
+                new MainLayout(tk).setVisible(true);
+                this.dispose();
             } else {
-                if (username.equals(tk.getUsername()) && BCrypt.compare(password, tk.getPassword())) {
-                    new MainLayout(tk).setVisible(true);
-                    this.dispose();
-                } else {
-                    MessageDialog.error(this, "Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại!");
-                }
+                MessageDialog.error(this, "Tài khoản hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại!");
             }
         }
     }

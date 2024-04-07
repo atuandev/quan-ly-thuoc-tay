@@ -1,7 +1,6 @@
 package gui.dialog;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import controller.ChiTietPhieuNhapController;
 import entities.ChiTietPhieuNhap;
 import entities.PhieuNhap;
 import java.awt.Image;
@@ -11,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.Formatter;
+import utils.WritePDF;
 
 /**
  *
@@ -103,6 +103,7 @@ public class DetailPhieuNhapDialog extends javax.swing.JDialog {
         lblThuoc = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         btnHuy = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -321,6 +322,22 @@ public class DetailPhieuNhapDialog extends javax.swing.JDialog {
         });
         jPanel8.add(btnHuy);
 
+        btnPrint.setBackground(new java.awt.Color(0, 153, 153));
+        btnPrint.setFont(new java.awt.Font("Roboto Mono Medium", 0, 16)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrint.setText("In hóa đơn");
+        btnPrint.setBorderPainted(false);
+        btnPrint.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrint.setFocusPainted(false);
+        btnPrint.setFocusable(false);
+        btnPrint.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btnPrint);
+
         getContentPane().add(jPanel8, java.awt.BorderLayout.PAGE_END);
 
         pack();
@@ -339,9 +356,16 @@ public class DetailPhieuNhapDialog extends javax.swing.JDialog {
         txtHinhAnh.setIcon(imageIcon);
     }//GEN-LAST:event_tableMouseClicked
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        PhieuNhap phieuNhap = listCTPN.get(0).getPhieuNhap();
+        WritePDF pdf = new WritePDF();
+        pdf.printPhieuNhap(phieuNhap, listCTPN);
+    }//GEN-LAST:event_btnPrintActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuy;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JPanel hoaDonPanel;
     private javax.swing.JPanel imagePanel;
     private javax.swing.JLabel jLabel4;
