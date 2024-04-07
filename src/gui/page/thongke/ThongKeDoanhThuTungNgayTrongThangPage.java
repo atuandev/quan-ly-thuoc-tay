@@ -35,7 +35,7 @@ public class ThongKeDoanhThuTungNgayTrongThangPage extends javax.swing.JPanel {
     private void chartLayout() {
         txtMonth.setMonth(currentMonth - 1);
         txtYear.setValue(currentYear);
-        
+
         chart.addLegend("Doanh thu", new Color(135, 189, 245));
         chart.addLegend("Chi phí", new Color(245, 189, 135));
         chart.addLegend("Lợi nhuận", new Color(139, 225, 196));
@@ -47,13 +47,18 @@ public class ThongKeDoanhThuTungNgayTrongThangPage extends javax.swing.JPanel {
         double sum_doanhthu = 0;
         double sum_chiphi = 0;
         double sum_loinhuan = 0;
-        
-        for (int day = 1; day < listTK.size(); day++) {
+
+        for (int day = 0; day < listTK.size(); day++) {
             sum_doanhthu += listTK.get(day).getDoanhThu();
             sum_chiphi += listTK.get(day).getChiPhi();
             sum_loinhuan += listTK.get(day).getLoiNhuan();
-            if (day % 3 == 0) {
-                chart.addData(new ModelChart("Ngày " + (day - 2) + "-" + (day), new double[]{sum_doanhthu, sum_chiphi , sum_loinhuan}));
+            if ((day + 1) % 3 == 0 || day == listTK.size() - 1) {
+                int startDay = day - 2;
+                if (startDay < 0) {
+                    startDay = 0;
+                }
+                int endDay = day;
+                chart.addData(new ModelChart("Ngày " + (startDay + 1) + " - " + (endDay + 1), new double[]{sum_doanhthu, sum_chiphi, sum_loinhuan}));
                 sum_doanhthu = 0;
                 sum_chiphi = 0;
                 sum_loinhuan = 0;
@@ -238,7 +243,7 @@ public class ThongKeDoanhThuTungNgayTrongThangPage extends javax.swing.JPanel {
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
         txtMonth.setMonth(currentMonth - 1);
         txtYear.setValue(currentYear);
-        
+
         listTK = new ThongKeController().getStatisticDaysByMonthYear(currentMonth, currentYear);
         loadDataset();
     }//GEN-LAST:event_btnReloadActionPerformed
