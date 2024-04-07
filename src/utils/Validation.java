@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.regex.Pattern;
+import javax.swing.JTextField;
 
 /**
  *
@@ -49,5 +50,15 @@ public class Validation {
         } else {
             return str.matches("\\(\\d{3}\\)\\d{3}-\\d{4}");
         }
+    }
+
+    public static void resetTextfield(JTextField textField) {
+        textField.setText("");
+        textField.requestFocus();
+    }
+
+    public static void selectAllTextfield(JTextField textField) {
+        textField.requestFocus();
+        textField.selectAll();
     }
 }

@@ -11,7 +11,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utils.Formatter;
 import utils.JTableExporter;
+import utils.MessageDialog;
 import utils.TableSorter;
+import utils.Validation;
 
 /**
  *
@@ -20,26 +22,26 @@ import utils.TableSorter;
 public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
 
     private final int currentYear = LocalDate.now().getYear();
-    private final List<ThongKeTheoNam> listTK = new ThongKeController().getStatisticByYear(currentYear - 5, currentYear);
+    private List<ThongKeTheoNam> listTK = new ThongKeController().getStatisticByYear(currentYear - 5, currentYear);
 
     private DefaultTableModel modal;
 
     public ThongKeDoanhThuTheoNamPage() {
         initComponents();
-        initChart();
+        chartLayout();
         tableLayout();
+        loadDataset();
     }
 
-    private void initChart() {
+    private void chartLayout() {
         chart.addLegend("Doanh thu", new Color(135, 189, 245));
         chart.addLegend("Chi phí", new Color(245, 189, 135));
         chart.addLegend("Lợi nhuận", new Color(139, 225, 196));
 
-        loadDataChart();
         chart.start();
     }
 
-    private void loadDataChart() {
+    private void loadChart() {
         for (ThongKeTheoNam e : listTK) {
             chart.addData(new ModelChart("Năm " + e.getNam(), new double[]{e.getDoanhThu(), e.getChiPhi(), e.getLoiNhuan()}));
         }
@@ -57,7 +59,6 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(0).setPreferredWidth(30);
 
-        loadTable(listTK);
         sortTable();
     }
 
@@ -66,13 +67,20 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
         TableSorter.configureTableColumnSorter(table, 0, TableSorter.STRING_COMPARATOR);
     }
 
-    public void loadTable(List<ThongKeTheoNam> list) {
+    private void loadTable() {
         modal.setRowCount(0);
-        for (ThongKeTheoNam e : list) {
+        for (ThongKeTheoNam e : listTK) {
             modal.addRow(new Object[]{
                 e.getNam() + "", Formatter.FormatVND(e.getDoanhThu()), Formatter.FormatVND(e.getChiPhi()), Formatter.FormatVND(e.getLoiNhuan())
             });
         }
+    }
+
+    private void loadDataset() {
+        chart.clear();
+        loadChart();
+        loadTable();
+        chart.start();
     }
 
     @SuppressWarnings("unchecked")
@@ -191,8 +199,54 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean isValidFilterFields() {
+        if (Validation.isEmpty(txtFromYear.getText().trim())) {
+            MessageDialog.warring(this, "Không được để trống!");
+            Validation.resetTextfield(txtFromYear);
+            return false;
+        }
+        if (Validation.isEmpty(txtToYear.getText().trim())) {
+            MessageDialog.warring(this, "Không được để trống!");
+            Validation.resetTextfield(txtToYear);
+            return false;
+        }
+
+        int fromYear = Integer.parseInt(txtFromYear.getText());
+        int toYear = Integer.parseInt(txtToYear.getText());
+
+        try {
+            if (fromYear <= 1900 || fromYear > currentYear
+                    && toYear <= 1900 || toYear > currentYear) {
+                MessageDialog.warring(this, "Số năm phải từ 1900 đến " + currentYear);
+                return false;
+            }
+            if (toYear < fromYear) {
+                MessageDialog.warring(this, "Số năm kết thúc phải >= năm bắt đầu!");
+                Validation.selectAllTextfield(txtToYear);
+                return false;
+            }
+            if (toYear - fromYear >= 10) {
+                MessageDialog.warring(this, "Hai năm không cách nhau quá 10 năm");
+                Validation.selectAllTextfield(txtFromYear);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            MessageDialog.warring(this, "Số không hợp lệ!");
+            Validation.resetTextfield(txtFromYear);
+            return false;
+        }
+
+        return true;
+    }
+
     private void btnStatisticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticActionPerformed
-        // TODO add your handling code here:
+        if (isValidFilterFields()) {
+            int fromYear = Integer.parseInt(txtFromYear.getText());
+            int toYear = Integer.parseInt(txtToYear.getText());
+
+            listTK = new ThongKeController().getStatisticByYear(fromYear, toYear);
+            loadDataset();
+        }
     }//GEN-LAST:event_btnStatisticActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
@@ -200,7 +254,11 @@ public class ThongKeDoanhThuTheoNamPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnExportActionPerformed
 
     private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
-        // TODO add your handling code here:
+        txtFromYear.setText("");
+        txtToYear.setText("");
+
+        listTK = new ThongKeController().getStatisticByYear(currentYear - 5, currentYear);
+        loadDataset();
     }//GEN-LAST:event_btnReloadActionPerformed
 
 

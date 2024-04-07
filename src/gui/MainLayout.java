@@ -539,7 +539,7 @@ public class MainLayout extends javax.swing.JFrame {
     }//GEN-LAST:event_phieuNhapItemActionPerformed
 
     private void thongKeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongKeItemActionPerformed
-        thongke = new ThongKePage();
+        thongke = new ThongKePage(tk);
         this.setPanel(thongke);
         resetActive();
         thongKeItem.setSelected(true);

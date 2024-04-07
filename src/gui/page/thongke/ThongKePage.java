@@ -1,14 +1,33 @@
 package gui.page.thongke;
 
+import entities.TaiKhoan;
+
 /**
  *
  * @author atuandev
  */
 public class ThongKePage extends javax.swing.JPanel {
 
+    private TaiKhoan tk;
+    
     public ThongKePage() {
         initComponents();
         initLayout();
+    }
+    
+    public ThongKePage(TaiKhoan tk) {
+        this.tk = tk;
+        initComponents();
+        initLayout();
+        checkRole();
+    }
+    
+    private void checkRole() {
+        String role = tk.getVaiTro().getId();
+        
+        if (!role.equals("nvql") || !role.equals("admin")) {
+            tabPane.setEnabledAt(1, false);
+        }
     }
 
     private void initLayout() {
