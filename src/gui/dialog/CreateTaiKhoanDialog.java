@@ -22,7 +22,7 @@ import utils.TableSorter;
  */
 public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
-    private TaiKhoanController TK_CON = new TaiKhoanController();
+    private final TaiKhoanController TK_CON = new TaiKhoanController();
     private TaiKhoanPage TK_GUI;
 
     private final List<VaiTro> listVT = new VaiTroController().getAllList();
@@ -89,15 +89,15 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
 
     private boolean isValidateFields() {
         if (txtUsername.getText().trim().equals("")) {
-            MessageDialog.warring(this, "Username không được rỗng!");
+            MessageDialog.warring(this, "Username không được để trống!");
             txtUsername.requestFocus();
             return false;
-        } else {
-            for (TaiKhoan tk : TK_CON.getAllList()) {
-                if (tk.getUsername().equals(txtUsername.getText().trim())) {
-                    MessageDialog.warring(TK_GUI, "Tên đăng nhập đã tồn tại!");
-                    return false;
-                }
+        }
+
+        for (TaiKhoan tk : TK_CON.getAllList()) {
+            if (tk.getUsername().equals(txtUsername.getText().trim())) {
+                MessageDialog.warring(this, "Tên đăng nhập đã tồn tại!");
+                return false;
             }
         }
 
@@ -308,9 +308,9 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
         if (isValidateFields()) {
             TaiKhoan e = getInputFields();
             TK_CON.create(e);
+            this.dispose();
             MessageDialog.info(this, "Thêm thành công!");
             TK_GUI.loadTable(TK_CON.getAllList());
-            this.dispose();
         }
     }//GEN-LAST:event_btnAddActionPerformed
 

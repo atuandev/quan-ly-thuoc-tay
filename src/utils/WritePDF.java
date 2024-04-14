@@ -35,16 +35,16 @@ import java.util.List;
 
 public class WritePDF {
 
-    DecimalFormat formatter = new DecimalFormat("###,###,###");
-    SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
-    Document document = new Document();
-    FileOutputStream file;
-    JFrame jf = new JFrame();
-    FileDialog fd = new FileDialog(jf, "Xuất pdf", FileDialog.SAVE);
-    Font fontNormal10;
-    Font fontBold15;
-    Font fontBold25;
-    Font fontBoldItalic15;
+    private DecimalFormat formatter = new DecimalFormat("###,###,###");
+    private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+    private Document document = new Document();
+    private FileOutputStream file;
+    private JFrame jf = new JFrame();
+    private FileDialog fd = new FileDialog(jf, "Xuất pdf", FileDialog.SAVE);
+    private Font fontNormal10;
+    private Font fontBold15;
+    private Font fontBold25;
+    private Font fontBoldItalic15;
 
     public WritePDF() {
         try {
@@ -84,7 +84,7 @@ public class WritePDF {
         }
     }
 
-    private String getFile(String name) {
+    public String getFile(String name) {
         fd.pack();
         fd.setSize(800, 600);
         fd.validate();
@@ -105,7 +105,7 @@ public class WritePDF {
         return url;
     }
 
-    private void openFile(String file) {
+    public void openFile(String file) {
         try {
             File path = new File(file);
             Desktop.getDesktop().open(path);
@@ -226,9 +226,8 @@ public class WritePDF {
         } catch (DocumentException | FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Lỗi khi ghi file " + url);
         }
-
     }
-    
+
     public void printHoaDon(HoaDon hoaDon, List<ChiTietHoaDon> listCTHD) {
         String url = "";
         try {

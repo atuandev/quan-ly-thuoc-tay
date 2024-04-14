@@ -358,8 +358,7 @@ public class DetailPhieuNhapDialog extends javax.swing.JDialog {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         PhieuNhap phieuNhap = listCTPN.get(0).getPhieuNhap();
-        WritePDF pdf = new WritePDF();
-        pdf.printPhieuNhap(phieuNhap, listCTPN);
+        new WritePDF().printPhieuNhap(phieuNhap, listCTPN);
     }//GEN-LAST:event_btnPrintActionPerformed
 
 

@@ -15,7 +15,7 @@ import utils.Validation;
  */
 public class CreateNhanVienDialog extends javax.swing.JDialog {
 
-    private NhanVienController NV_CON = new NhanVienController();
+    private final NhanVienController NV_CON = new NhanVienController();
     private NhanVienPage NV_GUI;
 
     public CreateNhanVienDialog(java.awt.Frame parent, boolean modal) {
@@ -36,13 +36,13 @@ public class CreateNhanVienDialog extends javax.swing.JDialog {
 
     private boolean isValidateFields() {
         if (txtHoTen.getText().trim().equals("")) {
-            MessageDialog.warring(this, "Tên nhân viên không được rỗng!");
+            MessageDialog.warring(this, "Tên nhân viên không được để trống!");
             txtHoTen.requestFocus();
             return false;
         }
 
         if (txtSdt.getText().trim().equals("") || !Validation.isNumber(txtSdt.getText()) || txtSdt.getText().length() != 10) {
-            MessageDialog.warring(this, "Số điện thoại không được rỗng và có 10 ký tự sô!");
+            MessageDialog.warring(this, "Số điện thoại không được để trống và có 10 ký tự sô!");
             txtSdt.requestFocus();
             return false;
         }

@@ -361,8 +361,7 @@ public class DetailHoaDonDialog extends javax.swing.JDialog {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         HoaDon hoaDon = listCTHD.get(0).getHoaDon();
-        WritePDF pdf = new WritePDF();
-        pdf.printHoaDon(hoaDon, listCTHD);
+        new WritePDF().printHoaDon(hoaDon, listCTHD);
     }//GEN-LAST:event_btnPrintActionPerformed
 
 

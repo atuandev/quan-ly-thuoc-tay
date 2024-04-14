@@ -196,7 +196,7 @@ public class MainLayout extends javax.swing.JFrame {
 
         thongKeItem.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         thongKeItem.setIcon(new FlatSVGIcon("./icon/statistics.svg"));
-        thongKeItem.setText("Thống kê");
+        thongKeItem.setText("Biểu đồ");
         thongKeItem.setBorderPainted(false);
         thongKeItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         thongKeItem.setFocusPainted(false);
