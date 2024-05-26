@@ -28,6 +28,7 @@ import utils.MessageDialog;
 import utils.RandomGenerator;
 import utils.TableSorter;
 import utils.Validation;
+import utils.WritePDF;
 
 /**
  *
@@ -878,7 +879,10 @@ public class CreatePhieuNhapPage extends javax.swing.JPanel {
                 MessageDialog.info(this, "Lập hóa đơn thành công!");
                 main.setPanel(new PhieuNhapPage(main));
 
-                // TODO: In hóa đơn 
+                // In hóa đơn 
+                if (MessageDialog.confirm(this, "Bạn có muốn in hóa đơn không?", "In hóa đơn")) {
+                    new WritePDF().printPhieuNhap(pn, listCTPN);
+                }
             }
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
