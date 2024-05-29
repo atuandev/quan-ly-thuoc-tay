@@ -202,6 +202,12 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
         } else {
             try {
                 Thuoc selectedThuoc = THUOC_CON.selectById(txtMaThuoc.getText());
+
+                if (selectedThuoc == null) {
+                    MessageDialog.warring(this, "Vui lòng chọn sản phẩm");
+                    return false;
+                }
+
                 int soLuongTon = selectedThuoc.getSoLuongTon();
                 int sl = Integer.parseInt(txtSoLuong.getText());
                 if (sl < 0) {
@@ -904,6 +910,11 @@ public class CreateHoaDonPage extends javax.swing.JPanel {
 
     private void btnDeleteCartItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCartItemActionPerformed
         if (MessageDialog.confirm(this, "Bạn có chắc muốc xóa khỏi giỏ hàng?", "Xóa thuốc khỏi giỏ hàng")) {
+            if (listCTHD.isEmpty()) {
+                MessageDialog.error(this, "Không có sản phẩm trong giỏ hàng!");
+                return;
+            }
+
             ChiTietHoaDon cthd = listCTHD.get(tableCart.getSelectedRow());
             listCTHD.remove(tableCart.getSelectedRow());
             loadTableCTHD(listCTHD);

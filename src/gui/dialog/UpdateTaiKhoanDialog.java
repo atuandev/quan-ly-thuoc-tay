@@ -56,8 +56,8 @@ public class UpdateTaiKhoanDialog extends javax.swing.JDialog {
     }
 
     private boolean isValidateFields() {
-        if (txtUsername.getText().trim().equals("")) {
-            MessageDialog.warring(this, "Username không được rỗng!");
+        if (txtUsername.getText().trim().equals("") || txtUsername.getText().length() < 3) {
+            MessageDialog.warring(this, "Username không được để trống và có ít nhất 3 ký tự!");
             txtUsername.requestFocus();
             return false;
         }

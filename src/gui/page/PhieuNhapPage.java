@@ -467,6 +467,7 @@ public class PhieuNhapPage extends javax.swing.JPanel {
             String id = table.getValueAt(row, 1).toString();
 
             if (MessageDialog.confirm(this, "Bạn có chắc chắn xóa dòng này?", "Xóa")) {
+                new ChiTietPhieuNhapController().deleteById(id);
                 PN_CON.deleteById(id);
                 MessageDialog.info(this, "Xóa thành công!");
                 modal.removeRow(row);

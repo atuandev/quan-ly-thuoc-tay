@@ -1,4 +1,4 @@
-package gui.dialog.thuoctinh;
+package gui.dialog;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -17,11 +17,11 @@ import utils.TableSorter;
  *
  * @author atuandev
  */
-public class DonViTinhDialog extends javax.swing.JDialog {
+public class ThuocTinhDonViTinhDialog extends javax.swing.JDialog {
 
     private DonViTinhController DVT_CON = new DonViTinhController(this);
 
-    public DonViTinhDialog(java.awt.Frame parent, boolean modal) {
+    public ThuocTinhDonViTinhDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         searchLayout();
@@ -113,7 +113,6 @@ public class DonViTinhDialog extends javax.swing.JDialog {
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 600));
 
         jPanel15.setBackground(new java.awt.Color(0, 153, 153));
         jPanel15.setMinimumSize(new java.awt.Dimension(100, 60));

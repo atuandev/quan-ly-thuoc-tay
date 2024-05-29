@@ -2,7 +2,7 @@ package controller;
 
 import dao.DonViTinhDAO;
 import entities.DonViTinh;
-import gui.dialog.thuoctinh.DonViTinhDialog;
+import gui.dialog.ThuocTinhDonViTinhDialog;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,12 +25,12 @@ import utils.Validation;
 public class DonViTinhController extends InterfaceController<DonViTinh, String> {
 
     DonViTinhDAO DVT_DAO = new DonViTinhDAO();
-    DonViTinhDialog DVT_GUI;
+    ThuocTinhDonViTinhDialog DVT_GUI;
 
     public DonViTinhController() {
     }
 
-    public DonViTinhController(DonViTinhDialog DVT_GUI) {
+    public DonViTinhController(ThuocTinhDonViTinhDialog DVT_GUI) {
         this.DVT_GUI = DVT_GUI;
     }
 

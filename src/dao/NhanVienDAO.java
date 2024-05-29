@@ -12,7 +12,7 @@ public class NhanVienDAO extends InterfaceDAO<NhanVien, String> {
     private final String UPDATE_SQL = "UPDATE NhanVien SET hoTen=?, sdt=?, gioiTinh=?, namSinh=?, ngayVaoLam=? where idNV=?";
     private final String DELETE_BY_ID = "DELETE from NhanVien where idNV = ?";
 
-    private final String SELECT_ALL_SQL = "SELECT * FROM NhanVien";
+    private final String SELECT_ALL_SQL = "SELECT * FROM NhanVien ORDER BY ngayVaoLam";
     private final String SELECT_BY_ID = "SELECT * FROM NhanVien WHERE idNV = ?";
 
     @Override

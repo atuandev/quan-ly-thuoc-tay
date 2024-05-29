@@ -1,9 +1,9 @@
-package gui.dialog.thuoctinh;
+package gui.dialog;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import controller.XuatXuController;
-import entities.XuatXu;
+import controller.DanhMucController;
+import entities.DanhMuc;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
@@ -17,11 +17,11 @@ import utils.TableSorter;
  *
  * @author atuandev
  */
-public class XuatXuDialog extends javax.swing.JDialog {
+public class ThuocTinhDanhMucDialog extends javax.swing.JDialog {
 
-    private XuatXuController XX_CON = new XuatXuController(this);
+    private DanhMucController DM_CON = new DanhMucController(this);
 
-    public XuatXuDialog(java.awt.Frame parent, boolean modal) {
+    public ThuocTinhDanhMucDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         searchLayout();
@@ -38,7 +38,7 @@ public class XuatXuDialog extends javax.swing.JDialog {
     }
 
     private void tableLayout() {
-        String[] header = new String[]{"STT", "Mã xuất xứ", "Tên xuất xứ"};
+        String[] header = new String[]{"STT", "Mã danh mục thuốc", "Tên danh mục thuốc"};
 
         DefaultTableModel modal = new DefaultTableModel();
         modal.setColumnIdentifiers(header);
@@ -64,9 +64,9 @@ public class XuatXuDialog extends javax.swing.JDialog {
         DefaultTableModel modal = (DefaultTableModel) table.getModel();
         modal.setRowCount(0);
 
-        List<XuatXu> list = XX_CON.getAllList();
+        List<DanhMuc> list = DM_CON.getAllList();
         int stt = 1;
-        for (XuatXu e : list) {
+        for (DanhMuc e : list) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTen()});
             stt++;
         }
@@ -74,7 +74,7 @@ public class XuatXuDialog extends javax.swing.JDialog {
 
     private boolean isValidateFields() {
         if (txtTenDVT.getText().trim().equals("")) {
-            MessageDialog.warring(this, "Tên đơn vị tính không được rỗng!");
+            MessageDialog.warring(this, "Tên danh mục không được rỗng!");
             txtTenDVT.requestFocus();
             return false;
         }
@@ -82,11 +82,11 @@ public class XuatXuDialog extends javax.swing.JDialog {
         return true;
     }
 
-    private XuatXu getInputFields() {
+    private DanhMuc getInputFields() {
         String id = RandomGenerator.getRandomId();
         String ten = txtTenDVT.getText().trim();
 
-        return new XuatXu(id, ten);
+        return new DanhMuc(id, ten);
     }
 
     @SuppressWarnings("unchecked")
@@ -94,7 +94,7 @@ public class XuatXuDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel15 = new javax.swing.JPanel();
-        lblDialog = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         lblTenDVT = new javax.swing.JLabel();
@@ -119,11 +119,11 @@ public class XuatXuDialog extends javax.swing.JDialog {
         jPanel15.setPreferredSize(new java.awt.Dimension(500, 50));
         jPanel15.setLayout(new java.awt.BorderLayout());
 
-        lblDialog.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        lblDialog.setForeground(new java.awt.Color(255, 255, 255));
-        lblDialog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDialog.setText("XUẤT XỨ");
-        jPanel15.add(lblDialog, java.awt.BorderLayout.CENTER);
+        jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("DANH MỤC THUỐC");
+        jPanel15.add(jLabel8, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel15, java.awt.BorderLayout.NORTH);
 
@@ -137,7 +137,7 @@ public class XuatXuDialog extends javax.swing.JDialog {
         jPanel18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 8, 0));
 
         lblTenDVT.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        lblTenDVT.setText("Tên xuất xứ");
+        lblTenDVT.setText("Tên danh mục thuốc");
         lblTenDVT.setMaximumSize(new java.awt.Dimension(44, 40));
         lblTenDVT.setPreferredSize(new java.awt.Dimension(150, 40));
         jPanel18.add(lblTenDVT);
@@ -192,8 +192,6 @@ public class XuatXuDialog extends javax.swing.JDialog {
         jPanel3.add(btnReload);
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
-
-        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -303,7 +301,7 @@ public class XuatXuDialog extends javax.swing.JDialog {
             String id = table.getValueAt(row, 1).toString();
 
             if (MessageDialog.confirm(this, "Bạn có chắc chắn xóa dòng này?", "Xóa")) {
-                XX_CON.deleteById(id);
+                DM_CON.deleteById(id);
                 MessageDialog.info(this, "Xóa thành công!");
                 modal.removeRow(row);
             }
@@ -314,8 +312,8 @@ public class XuatXuDialog extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (isValidateFields()) {
-            XuatXu tk = getInputFields();
-            XX_CON.create(tk);
+            DanhMuc tk = getInputFields();
+            DM_CON.create(tk);
             MessageDialog.info(this, "Thêm thành công!");
             this.loadTable();
         }
@@ -327,10 +325,10 @@ public class XuatXuDialog extends javax.swing.JDialog {
 
         String search = txtSearch.getText().toLowerCase().trim();
         String searchType = cboxSearch.getSelectedItem().toString();
-        List<XuatXu> listsearch = XX_CON.getSearchTable(search, searchType);
+        List<DanhMuc> listsearch = DM_CON.getSearchTable(search, searchType);
 
         int stt = 1;
-        for (XuatXu e : listsearch) {
+        for (DanhMuc e : listsearch) {
             modal.addRow(new Object[]{String.valueOf(stt), e.getId(), e.getTen()});
             stt++;
         }
@@ -342,9 +340,9 @@ public class XuatXuDialog extends javax.swing.JDialog {
                 int row = table.getSelectedRow();
                 String id = table.getValueAt(row, 1).toString();
                 String ten = txtTenDVT.getText();
-                XuatXu e = new XuatXu(id, ten);
+                DanhMuc e = new DanhMuc(id, ten);
 
-                XX_CON.update(e);
+                DM_CON.update(e);
                 MessageDialog.info(this, "Sửa thành công!");
                 this.loadTable();
             } catch (Exception e) {
@@ -372,6 +370,7 @@ public class XuatXuDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxSearch;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel18;
@@ -380,7 +379,6 @@ public class XuatXuDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblDialog;
     private javax.swing.JLabel lblTenDVT;
     private javax.swing.JTable table;
     private javax.swing.JTextField txtSearch;

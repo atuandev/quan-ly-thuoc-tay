@@ -12,7 +12,7 @@ public class KhachHangDAO extends InterfaceDAO<KhachHang, String> {
     private final String UPDATE_SQL = "UPDATE KhachHang SET hoTen=?, sdt=?, gioiTinh=?, ngayThamGia=? where idKH=?";
     private final String DELETE_BY_ID = "DELETE from KhachHang where idKH = ?";
 
-    private final String SELECT_ALL_SQL = "SELECT * FROM KhachHang";
+    private final String SELECT_ALL_SQL = "SELECT * FROM KhachHang ORDER BY ngayThamGia";
     private final String SELECT_BY_ID = "SELECT * FROM KhachHang WHERE idKH = ?";
     private final String SELECT_BY_SDT = "SELECT * FROM KhachHang WHERE sdt = ?";
 

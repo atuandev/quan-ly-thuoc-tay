@@ -2,7 +2,7 @@ package controller;
 
 import dao.XuatXuDAO;
 import entities.XuatXu;
-import gui.dialog.thuoctinh.XuatXuDialog;
+import gui.dialog.ThuocTinhXuatXuDialog;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,12 +25,12 @@ import utils.Validation;
 public class XuatXuController extends InterfaceController<XuatXu, String> {
 
     XuatXuDAO XX_DAO = new XuatXuDAO();
-    XuatXuDialog XX_GUI;
+    ThuocTinhXuatXuDialog XX_GUI;
 
     public XuatXuController() {
     }
 
-    public XuatXuController(XuatXuDialog XX_GUI) {
+    public XuatXuController(ThuocTinhXuatXuDialog XX_GUI) {
         this.XX_GUI = XX_GUI;
     }
 

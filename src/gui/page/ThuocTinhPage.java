@@ -4,9 +4,9 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import gui.dialog.thuoctinh.DanhMucDialog;
-import gui.dialog.thuoctinh.DonViTinhDialog;
-import gui.dialog.thuoctinh.XuatXuDialog;
+import gui.dialog.ThuocTinhDanhMucDialog;
+import gui.dialog.ThuocTinhDonViTinhDialog;
+import gui.dialog.ThuocTinhXuatXuDialog;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -105,17 +105,17 @@ public class ThuocTinhPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void danhMucItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_danhMucItemActionPerformed
-        DanhMucDialog dialog = new DanhMucDialog(null, true);
+        ThuocTinhDanhMucDialog dialog = new ThuocTinhDanhMucDialog(null, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_danhMucItemActionPerformed
 
     private void donViTinhItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donViTinhItemActionPerformed
-        DonViTinhDialog dialog = new DonViTinhDialog(null, true);
+        ThuocTinhDonViTinhDialog dialog = new ThuocTinhDonViTinhDialog(null, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_donViTinhItemActionPerformed
 
     private void xuatXuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xuatXuItemActionPerformed
-        XuatXuDialog dialog = new XuatXuDialog(null, true);
+        ThuocTinhXuatXuDialog dialog = new ThuocTinhXuatXuDialog(null, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_xuatXuItemActionPerformed
 

@@ -15,6 +15,7 @@ import utils.BCrypt;
 import utils.MessageDialog;
 import utils.RandomGenerator;
 import utils.TableSorter;
+import utils.Validation;
 
 /**
  *
@@ -88,21 +89,21 @@ public class CreateTaiKhoanDialog extends javax.swing.JDialog {
     }
 
     private boolean isValidateFields() {
-        if (txtUsername.getText().trim().equals("")) {
-            MessageDialog.warring(this, "Username không được để trống!");
-            txtUsername.requestFocus();
-            return false;
-        }
-
         for (TaiKhoan tk : TK_CON.getAllList()) {
             if (tk.getUsername().equals(txtUsername.getText().trim())) {
                 MessageDialog.warring(this, "Tên đăng nhập đã tồn tại!");
                 return false;
             }
         }
+        
+        if (Validation.isEmpty(txtUsername.getText()) || txtUsername.getText().length() < 3) {
+            MessageDialog.warring(this, "Username không được để trống và có ít nhất 3 ký tự!");
+            txtUsername.requestFocus();
+            return false;
+        }
 
         if (txtPassword.getText().trim().equals("") || txtPassword.getText().length() < 6) {
-            MessageDialog.warring(this, "Password không được rỗng và có ít nhất 6 ký tự!");
+            MessageDialog.warring(this, "Password không được để trống và có ít nhất 6 ký tự!");
             txtPassword.requestFocus();
             return false;
         }
